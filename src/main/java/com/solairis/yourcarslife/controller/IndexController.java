@@ -4,6 +4,8 @@
  */
 package com.solairis.yourcarslife.controller;
 
+import com.solairis.yourcarslife.data.dao.VehicleLogDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class IndexController {
+
+	@Autowired
+	private VehicleLogDao VehicleLogDao;
 
 	@RequestMapping("/")
 	public ModelAndView index() {
