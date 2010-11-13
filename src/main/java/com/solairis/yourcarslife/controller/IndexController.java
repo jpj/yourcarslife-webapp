@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-	@Autowired
+	//@Autowired
 	private VehicleLogDao VehicleLogDao;
 
 	@RequestMapping("/")

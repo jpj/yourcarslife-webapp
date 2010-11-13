@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <web-app xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-	<display-name>Archetype Created Web Application</display-name>
+
+	<display-name>Your Car's Life Web Application</display-name>
+
 	<servlet>
 		<servlet-name>yourcarslife</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>yourcarslife</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/yourcarslife-security.xml
+		</param-value>
+		<!--			/WEB-INF/yourcarslife-jdbc.xml-->
+	</context-param>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 </web-app>
