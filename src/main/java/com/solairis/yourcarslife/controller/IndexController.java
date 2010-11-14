@@ -29,4 +29,9 @@ public class IndexController {
 		logger.debug("TEST DEBUG");
 		return mav;
 	}
+
+	@RequestMapping("/admin")
+	public String admin() {
+		return "admin";
+	}
 }
