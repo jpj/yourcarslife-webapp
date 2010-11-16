@@ -24,9 +24,17 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/yourcarslife-security.xml
+			/WEB-INF/yourcarslife-servlet.xml
 		</param-value>
 		<!--			/WEB-INF/yourcarslife-jdbc.xml-->
 	</context-param>
+
+  <resource-ref>
+      <description>Autologger DB Connection</description>
+      <res-ref-name>jdbc/autologger</res-ref-name>
+      <res-type>javax.sql.DataSource</res-type>
+      <res-auth>Container</res-auth>
+  </resource-ref>
 
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>

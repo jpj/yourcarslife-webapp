@@ -5,8 +5,11 @@
 package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.data.dao.VehicleLogDao;
+import com.solairis.yourcarslife.data.exception.VehicleLogDaoException;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,16 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-	//@Autowired
-	private VehicleLogDao VehicleLogDao;
+	@Autowired
+	private VehicleLogDao vehicleLogDao;
 
 	private final Logger logger = Logger.getLogger(this.getClass());
 
 	@RequestMapping("/")
-	public ModelAndView index() {
+	@Transactional
+	public ModelAndView index() throws VehicleLogDaoException {
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("test", "the value");
-		logger.debug("TEST DEBUG");
+		mav.addObject("vehicleLog", this.vehicleLogDao.getVehicleLog(486));
 		return mav;
 	}
 

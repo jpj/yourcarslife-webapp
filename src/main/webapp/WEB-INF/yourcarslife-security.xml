@@ -7,6 +7,10 @@
               http://www.springframework.org/schema/security
               http://www.springframework.org/schema/security/spring-security-3.0.3.xsd">
 
+<!--	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/autologger"/>
+	</bean>-->
+
 	<security:global-method-security pre-post-annotations="enabled"/>
 
 	<security:http use-expressions="true" auto-config="true">
@@ -17,13 +21,16 @@
 	</security:http>
 
 	<security:user-service id="namePassUserService">
-		<security:user name="josh" password="hoohoo" authorities="ROLE_USER"/>
+		<security:user name="josh" password="e454ed730ef4cd45c0508937c662d55f" authorities="ROLE_USER"/>
 		<security:user name="admin" password="hoohoo" authorities="ROLE_USER, ROLE_ADMIN"/>
 	</security:user-service>
+	<security:jdbc-user-service id="jdbcUserService" data-source-ref="dataSource"
+		users-by-username-query="SELECT LOGIN,PASSWORD,ENABLED FROM USER WHERE LOGIN=?"
+		authorities-by-username-query="SELECT LOGIN,AUTHORITY FROM USER WHERE LOGIN=?"/>
 
 	<security:authentication-manager>
-		<security:authentication-provider user-service-ref="namePassUserService">
-			<security:password-encoder hash="plaintext"/>
+		<security:authentication-provider user-service-ref="jdbcUserService">
+			<security:password-encoder hash="md5"/>
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
