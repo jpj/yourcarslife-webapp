@@ -6,6 +6,7 @@
 <pre>
 Vehicle Id: ${vehicleLog.vehicleLogId}
 Created:    ${vehicleLog.created}
+Odometer:   ${vehicleLog.odometer}
 </pre>
 </body>
 </html>

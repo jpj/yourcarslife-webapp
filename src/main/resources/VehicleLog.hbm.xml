@@ -8,6 +8,7 @@
 		<id name="vehicleLogId" column="LOG_ID">
 			<generator class="native"/>
 		</id>
+		<property name="odometer" column="ODOMETER"/>
 		<property name="created" type="timestamp" column="RECORD_CREATED"/>
 		<property name="modified" type="timestamp" column="RECORD_MODIFIED"/>
 	</class>

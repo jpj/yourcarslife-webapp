@@ -5,6 +5,7 @@
 package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.data.dao.VehicleLogDao;
+import com.solairis.yourcarslife.data.domain.VehicleLog;
 import com.solairis.yourcarslife.data.exception.VehicleLogDaoException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,15 @@ public class IndexController {
 	@Transactional
 	public ModelAndView index() throws VehicleLogDaoException {
 		ModelAndView mav = new ModelAndView("index");
+
+		VehicleLog vehicleLog = this.vehicleLogDao.getVehicleLog(486);
+
 		mav.addObject("test", "the value");
-		mav.addObject("vehicleLog", this.vehicleLogDao.getVehicleLog(486));
+		mav.addObject("vehicleLog", vehicleLog);
+
+//		vehicleLog.setOdometer(3.0);
+//		this.vehicleLogDao.updateVehicleLog(vehicleLog);
+
 		return mav;
 	}
 
