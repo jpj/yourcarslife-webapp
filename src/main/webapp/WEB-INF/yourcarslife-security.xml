@@ -24,7 +24,7 @@
 		<security:user name="admin" password="hoohoo" authorities="ROLE_USER, ROLE_ADMIN"/>
 	</security:user-service>
 	<security:jdbc-user-service id="jdbcUserService" data-source-ref="dataSource"
-		users-by-username-query="SELECT USER_ID,PASSWORD,ENABLED FROM USER WHERE LOGIN=?"
+		users-by-username-query="SELECT userId,password,enabled FROM user WHERE login=?"
 		authorities-by-username-query="SELECT userId,roleKey FROM userRole WHERE userId=?"/>
 
 	<security:authentication-manager>

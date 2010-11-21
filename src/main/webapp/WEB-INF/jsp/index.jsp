@@ -4,9 +4,12 @@
 <h2>Hello World!</h2>
 <h3>Vehicle Log</h3>
 <pre>
-Vehicle Id: ${vehicleLog.vehicleLogId}
-Created:    ${vehicleLog.created}
-Odometer:   ${vehicleLog.odometer}
+Vehicle Id: ${vehicleFuelLog.vehicleFuelLogId}
+Created:    ${vehicleFuelLog.created}
+Odometer:   ${vehicleFuelLog.odometer}
+Fuel:       ${vehicleFuelLog.fuel}
+
+User Login: ${user.login}
 </pre>
 </body>
 </html>

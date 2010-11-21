@@ -34,7 +34,8 @@
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mappingResources">
 			<list>
-				<value>VehicleLog.hbm.xml</value>
+				<value>com/solairis/yourcarslife/hibernate/VehicleFuelLog.hbm.xml</value>
+				<value>com/solairis/yourcarslife/hibernate/User.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties" value="hibernate.dialect=org.hibernate.dialect.HSQLDialect"/>
@@ -46,7 +47,11 @@
 
 	<tx:annotation-driven/>
 
-	<bean id="vehicleLogDao" class="com.solairis.yourcarslife.data.dao.impl.VehicleLogDaoHibernate">
+	<bean id="vehicleFuelLogDao" class="com.solairis.yourcarslife.data.dao.impl.VehicleFuelLogDaoHibernate">
+		<property name="sessionFactory" ref="mySessionFactory"/>
+	</bean>
+
+	<bean id="userDao" class="com.solairis.yourcarslife.data.dao.impl.UserDaoHibernate">
 		<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
 
