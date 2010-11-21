@@ -32,6 +32,9 @@
 		<security:authentication-provider user-service-ref="jdbcUserService">
 			<security:password-encoder hash="md5"/>
 		</security:authentication-provider>
+		<security:authentication-provider user-service-ref="namePassUserService">
+			<security:password-encoder hash="plaintext"/>
+		</security:authentication-provider>
 	</security:authentication-manager>
 	
 </beans>
