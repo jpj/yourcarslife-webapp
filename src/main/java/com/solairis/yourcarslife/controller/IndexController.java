@@ -6,6 +6,7 @@ package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.data.dao.UserDao;
 import com.solairis.yourcarslife.data.dao.VehicleFuelLogDao;
+import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.data.domain.VehicleFuelLog;
 import com.solairis.yourcarslife.data.exception.UserDaoException;
 import com.solairis.yourcarslife.data.exception.VehicleLogDaoException;
@@ -43,7 +44,8 @@ public class IndexController {
 		mav.addObject("test", "the value");
 		mav.addObject("vehicleFuelLog", vehicleFuelLog);
 
-		mav.addObject("user", this.userDao.getUser(1));
+		User user = this.userDao.getUser(1);
+		mav.addObject("user", user);
 
 //		vehicleLog.setOdometer(3.0);
 //		this.vehicleLogDao.updateVehicleLog(vehicleLog);
