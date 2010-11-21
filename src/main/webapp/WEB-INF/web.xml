@@ -2,6 +2,7 @@
 <web-app xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
 
 	<display-name>Your Car's Life Web Application</display-name>
+	<!-- another comment -->
 
 	<servlet>
 		<servlet-name>yourcarslife</servlet-name>
