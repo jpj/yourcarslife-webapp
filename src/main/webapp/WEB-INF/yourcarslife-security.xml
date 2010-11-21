@@ -21,7 +21,6 @@
 	</security:http>
 
 	<security:user-service id="namePassUserService">
-		<security:user name="josh" password="e454ed730ef4cd45c0508937c662d55f" authorities="ROLE_USER"/>
 		<security:user name="admin" password="hoohoo" authorities="ROLE_USER, ROLE_ADMIN"/>
 	</security:user-service>
 	<security:jdbc-user-service id="jdbcUserService" data-source-ref="dataSource"
