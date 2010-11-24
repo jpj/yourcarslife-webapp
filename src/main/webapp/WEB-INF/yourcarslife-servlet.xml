@@ -55,5 +55,13 @@
 	<bean id="userDao" class="com.solairis.yourcarslife.data.dao.impl.UserDaoHibernate">
 		<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
+	
+	<bean id="vehicleDao" class="com.solairis.yourcarslife.data.dao.impl.VehicleDaoHibernate">
+		<property name="sessionFactory" ref="mySessionFactory"/>
+	</bean>
+
+	<bean id="vehicleService" class="com.solairis.yourcarslife.service.impl.VehicleServiceImpl">
+		<property name="vehicleDao" ref="vehicleDao"/>
+	</bean>
 
 </beans>

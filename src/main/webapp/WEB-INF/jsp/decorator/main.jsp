@@ -9,11 +9,34 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><decorator:title default="Welcome!"/> | Your Car's Life</title>
+		<link rel="stylesheet" type="text/css" href="/yourcarslife_war/static/css/layout.css"/>
 		<decorator:head/>
     </head>
     <body>
-        <h1>Hello World!</h1>
+		<div id="header">
+			<div class="banner">
+				<div class="holder">
+					<div class="site-title">Your Car's Life</div>
+					<h1><decorator:title default="Welcome"/></h1>
+				</div>
+			</div>
+		</div>
 
-		<decorator:body/>
+		<div id="page">
+			<div class="container">
+				<div id="navigation">
+					test<br />
+					test<br/>
+					test<br/>
+				</div>
+				<div class="holder">
+					<div class="content">
+						Hello there, world<br/><br/>
+						<decorator:body/>
+					</div>
+				</div>
+			</div>
+		</div>
+
     </body>
 </html>

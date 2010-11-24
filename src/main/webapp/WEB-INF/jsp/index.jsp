@@ -1,5 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+	<head>
+		<title>Index Page</title>
+	</head>
 	<body>
 		<h2>Hello World!</h2>
 		<h3>Vehicle Log</h3>

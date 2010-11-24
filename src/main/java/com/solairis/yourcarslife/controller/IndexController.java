@@ -10,12 +10,16 @@ import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.data.domain.VehicleFuelLog;
 import com.solairis.yourcarslife.data.exception.UserDaoException;
 import com.solairis.yourcarslife.data.exception.VehicleLogDaoException;
+import com.solairis.yourcarslife.service.VehicleService;
+import com.solairis.yourcarslife.service.exception.VehicleServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,6 +35,9 @@ public class IndexController {
 
 	@Autowired
 	private UserDao userDao;
+
+	@Autowired
+	private VehicleService vehicleService;
 
 	private final Logger logger = Logger.getLogger(this.getClass());
 
@@ -51,6 +58,12 @@ public class IndexController {
 //		this.vehicleLogDao.updateVehicleLog(vehicleLog);
 
 		return mav;
+	}
+
+	@RequestMapping("/log/vehicle/{vehicleName}")
+	public String log(@PathVariable String vehicleName, Model model) throws VehicleServiceException {
+		model.addAttribute("vehicle", this.vehicleService.getVehicleByNameAndUser(vehicleName, 1));
+		return "log";
 	}
 
 	@RequestMapping("/admin")

@@ -1,0 +1,64 @@
+/* 
+    Document   : layout
+    Created on : Nov 23, 2010, 8:42:19 PM
+    Author     : josh
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+/*
+Header
+*/
+#header .banner {
+	-moz-border-radius: 5px;
+	border: 1px solid black;
+	margin: 15px 0 15px 25px;
+	width: 958px;
+}
+
+#header .banner .holder {
+	padding: 5px 0 5px 25px;
+}
+
+#header .banner .holder .site-title {
+	font-size: 60pt;
+	text-shadow: silver 1px 1px 2px;
+}
+
+#header .banner .holder h1 {
+	margin: -18px 0 0 56px;
+	padding: 0;
+	text-shadow: silver 1px 1px 1px;
+}
+
+/*
+Page
+*/
+#page .container {
+	margin-left: 25px;
+	position: relative;
+	width: 960px;
+}
+
+#page .container .holder {
+	padding-left: 160px;
+}
+
+#navigation {
+	-moz-border-radius: 5px;
+	border: 1px solid black;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 172px;
+}
