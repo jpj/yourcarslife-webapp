@@ -30,6 +30,7 @@
 							test<br />
 							test<br/>
 							test<br/>
+							<a href="/yourcarslife_war/j_spring_security_logout">Logout</a>
 						</div>
 					</div>
 				</div>

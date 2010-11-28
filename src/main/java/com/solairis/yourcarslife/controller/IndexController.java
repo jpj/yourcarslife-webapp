@@ -14,6 +14,7 @@ import com.solairis.yourcarslife.service.VehicleService;
 import com.solairis.yourcarslife.service.exception.VehicleServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -60,9 +61,12 @@ public class IndexController {
 		return mav;
 	}
 
-	@RequestMapping("/log/vehicle/{vehicleName}")
-	public String log(@PathVariable String vehicleName, Model model) throws VehicleServiceException {
-		model.addAttribute("vehicle", this.vehicleService.getVehicleByNameAndUser(vehicleName, 1));
+	@RequestMapping("/log/{vehicleName}")
+	public String log(@PathVariable String vehicleName, Model model) throws VehicleServiceException, UserDaoException {
+		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = this.userDao.getUser(Long.parseLong(securityUser.getUsername()));
+		model.addAttribute("auth", SecurityContextHolder.getContext().getAuthentication());
+		model.addAttribute("vehicle", this.vehicleService.getVehicleByNameAndUser(vehicleName, user.getUserId()));
 		return "log";
 	}
 

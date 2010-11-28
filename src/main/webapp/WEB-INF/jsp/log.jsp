@@ -14,5 +14,6 @@
     <body>
         <p>Vehicle Notes: ${vehicle.notes}</p>
 		<p>Owned by: ${vehicle.user.firstName}</p>
+		<p>Auth: ${auth.principal.username}</p>
     </body>
 </html>
