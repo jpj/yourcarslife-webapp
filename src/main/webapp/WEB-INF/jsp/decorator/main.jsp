@@ -25,14 +25,20 @@
 		<div id="page">
 			<div class="container">
 				<div id="navigation">
-					test<br />
-					test<br/>
-					test<br/>
+					<div class="holder">
+						<div class="content">
+							test<br />
+							test<br/>
+							test<br/>
+						</div>
+					</div>
 				</div>
-				<div class="holder">
-					<div class="content">
+				<div id="page-content">
+					<div class="holder">
+						<div class="content">
 						Hello there, world<br/><br/>
-						<decorator:body/>
+							<decorator:body/>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -170,6 +170,11 @@
 	  <version>2.1</version>
 	  <scope>provided</scope>
 	 </dependency>
+	 <dependency>
+	  <groupId>${project.groupId}</groupId>
+	  <artifactId>yourcarslifeweb_jar</artifactId>
+	  <version>${project.version}</version>
+	 </dependency>
 	</dependencies>
 	<build>
 		<finalName>yourcarslife_war</finalName>

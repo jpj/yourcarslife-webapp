@@ -50,8 +50,8 @@ Page
 	width: 960px;
 }
 
-#page .container .holder {
-	padding-left: 160px;
+#page-content .holder {
+	padding: 2px 15px 15px 193px;
 }
 
 #navigation {
@@ -61,4 +61,8 @@ Page
 	position: absolute;
 	top: 0;
 	width: 172px;
+}
+
+#navigation .holder {
+	padding: 20px;
 }
