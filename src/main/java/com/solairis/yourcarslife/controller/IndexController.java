@@ -52,7 +52,7 @@ public class IndexController {
 		return mav;
 	}
 
-	@RequestMapping(value={"/", "/index"})
+	@RequestMapping(value="/dashboard")
 	@Transactional
 	public ModelAndView index() throws VehicleLogDaoException, UserDaoException {
 		ModelAndView mav = new ModelAndView("index");
@@ -64,9 +64,6 @@ public class IndexController {
 
 		User user = this.userDao.getUser(1);
 		mav.addObject("user", user);
-
-//		vehicleLog.setOdometer(3.0);
-//		this.vehicleLogDao.updateVehicleLog(vehicleLog);
 
 		return mav;
 	}
