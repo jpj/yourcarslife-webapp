@@ -52,9 +52,14 @@ public class IndexController {
 		return mav;
 	}
 
+	@RequestMapping(value="/")
+	public String home() {
+		return "home";
+	}
+
 	@RequestMapping(value="/dashboard")
 	@Transactional
-	public ModelAndView index() throws VehicleLogDaoException, UserDaoException {
+	public ModelAndView dashboard() throws VehicleLogDaoException, UserDaoException {
 		ModelAndView mav = new ModelAndView("index");
 
 		VehicleFuelLog vehicleFuelLog = this.vehicleFuelLogDao.getVehicleFuelLog(486);

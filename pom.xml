@@ -4,10 +4,10 @@
   <!-- Extraneous Comment -->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.solairis.yourcarslife</groupId>
-	<artifactId>yourcarslife_war</artifactId>
+	<artifactId>yourcarslife-webapp</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>yourcarslife_war Maven Webapp</name>
+	<name>Your Car's Life Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<repositories>
 <!--        <repository>
@@ -182,7 +182,7 @@
 	 </dependency>
 	</dependencies>
 	<build>
-		<finalName>yourcarslife_war</finalName>
+		<finalName>yourcarslife</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
