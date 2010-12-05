@@ -11,7 +11,9 @@ import com.solairis.yourcarslife.data.domain.VehicleFuelLog;
 import com.solairis.yourcarslife.data.exception.UserDaoException;
 import com.solairis.yourcarslife.data.exception.VehicleLogDaoException;
 import com.solairis.yourcarslife.service.VehicleService;
+import com.solairis.yourcarslife.service.exception.ServiceException;
 import com.solairis.yourcarslife.service.exception.VehicleServiceException;
+import com.solairis.yourcarslife.util.UrlUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +45,14 @@ public class IndexController {
 
 	private final Logger logger = Logger.getLogger(this.getClass());
 
-	@RequestMapping("/")
+	@ExceptionHandler(value=ServiceException.class)
+	public ModelAndView handleServiceException(Exception e) {
+		ModelAndView mav = new ModelAndView("error");
+		mav.addObject("errorMessage", e.getMessage());
+		return mav;
+	}
+
+	@RequestMapping(value={"/", "/index"})
 	@Transactional
 	public ModelAndView index() throws VehicleLogDaoException, UserDaoException {
 		ModelAndView mav = new ModelAndView("index");
@@ -62,11 +72,13 @@ public class IndexController {
 	}
 
 	@RequestMapping("/log/{vehicleName}")
-	public String log(@PathVariable String vehicleName, Model model) throws VehicleServiceException, UserDaoException {
+	@Transactional
+	public String log(@PathVariable String vehicleName, Model model) {
+		ModelAndView mav = new ModelAndView("log");
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userDao.getUser(Long.parseLong(securityUser.getUsername()));
 		model.addAttribute("auth", SecurityContextHolder.getContext().getAuthentication());
-		model.addAttribute("vehicle", this.vehicleService.getVehicleByNameAndUser(vehicleName, user.getUserId()));
+		model.addAttribute("vehicle", this.vehicleService.getVehicleByNameAndUser(UrlUtil.convertFromUrl(vehicleName), user.getUserId()));
 		return "log";
 	}
 

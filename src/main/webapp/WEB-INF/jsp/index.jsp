@@ -19,7 +19,7 @@ User Login: ${user.login}
 			Vehicles Owned by User:
 		</p>
 		<ul>
-			<c:forEach var="vehicle" items="${user.vehicles}">
+			<%--<c:forEach var="vehicle" items="${user.vehicles}">
 				<li>
 					${vehicle.name}
 					<c:if test="${not empty vehicle.vehicleFuelLogs}">
@@ -30,7 +30,7 @@ User Login: ${user.login}
 						</ul>
 					</c:if>
 				</li>
-			</c:forEach>
+			</c:forEach>--%>
 		</ul>
 	</body>
 </html>

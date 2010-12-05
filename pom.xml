@@ -175,6 +175,11 @@
 	  <artifactId>yourcarslifeweb_jar</artifactId>
 	  <version>${project.version}</version>
 	 </dependency>
+	 <dependency>
+	  <groupId>org.codehaus.jackson</groupId>
+	  <artifactId>jackson-mapper-lgpl</artifactId>
+	  <version>1.6.2</version>
+	 </dependency>
 	</dependencies>
 	<build>
 		<finalName>yourcarslife_war</finalName>
