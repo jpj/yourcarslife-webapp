@@ -38,9 +38,15 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 
-<!--	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="jdbc/autologger"/>
-	</bean>-->
+	<!-- Theme -->
+	<bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+		<property name="basenamePrefix" value="com.solairis.yourcarslife.theme."/>
+	</bean>
+
+	<bean id="themeResolver" class="org.springframework.web.servlet.theme.FixedThemeResolver">
+		<property name="defaultThemeName" value="default"/>
+	</bean>
+
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/jdbc/autologger"/>
 	</bean>
@@ -75,8 +81,12 @@
 		<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
 
+	<!-- Services -->
 	<bean id="vehicleService" class="com.solairis.yourcarslife.service.impl.VehicleServiceImpl">
 		<property name="vehicleDao" ref="vehicleDao"/>
+	</bean>
+	<bean id="vehicleFuelLogService" class="com.solairis.yourcarslife.service.impl.VehicleFuelLogServiceImpl">
+		<property name="vehicleFuelLogDao" ref="vehicleFuelLogDao"/>
 	</bean>
 
 </beans>

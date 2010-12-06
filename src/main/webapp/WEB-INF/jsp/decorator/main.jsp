@@ -4,12 +4,14 @@
     Author     : josh
 --%>
 <%@taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%--<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
 <!doctype html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><decorator:title default="Welcome!"/> | Your Car's Life</title>
-		<link rel="stylesheet" type="text/css" href="/yourcarslife_war/static/css/layout.css"/>
+		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/layout.css"/>
 		<decorator:head/>
     </head>
     <body>
@@ -26,18 +28,16 @@
 			<div class="container">
 				<div id="navigation">
 					<div class="holder">
-						<div class="content">
-							test<br />
-							test<br/>
-							test<br/>
-							<a href="/yourcarslife_war/j_spring_security_logout">Logout</a>
-						</div>
+						<ul>
+							<%--<li><sec:authentication property="principal.username"/></li>--%>
+							<li><a href="<spring:theme code="baseUrl"/>/dashboard">Dashboard</a></li>
+							<li><a href="<spring:theme code="baseUrl"/>/j_spring_security_logout">Logout</a></li>
+						</ul>
 					</div>
 				</div>
 				<div id="page-content">
 					<div class="holder">
 						<div class="content">
-						Hello there, world<br/><br/>
 							<decorator:body/>
 						</div>
 					</div>

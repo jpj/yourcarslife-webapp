@@ -63,6 +63,12 @@ Page
 	width: 172px;
 }
 
-#navigation .holder {
+#navigation > .holder {
 	padding: 20px;
+}
+
+#navigation ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }

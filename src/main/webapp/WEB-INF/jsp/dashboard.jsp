@@ -1,11 +1,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 	<head>
-		<title>Index Page</title>
+		<title>Dashboard</title>
 	</head>
 	<body>
-		<h2>Hello World!</h2>
-		<h3>Vehicle Log</h3>
 		<pre>
 Vehicle Id: ${vehicleFuelLog.vehicleFuelLogId}
 Created:    ${vehicleFuelLog.created}
@@ -16,21 +16,14 @@ User Login: ${user.login}
 		</pre>
 
 		<p>
-			Vehicles Owned by User:
+			Vehicles owned by you:
 		</p>
 		<ul>
-			<%--<c:forEach var="vehicle" items="${user.vehicles}">
+			<c:forEach var="vehicle" items="${vehicles}">
 				<li>
-					${vehicle.name}
-					<c:if test="${not empty vehicle.vehicleFuelLogs}">
-						<ul>
-							<c:forEach var="vehicleFuelLog" items="${vehicle.vehicleFuelLogs}">
-								<li>${vehicleFuelLog.odometer}</li>
-							</c:forEach>
-						</ul>
-					</c:if>
+					<a href="<spring:theme code="baseUrl"/>/log/${fn:replace(vehicle.name, " ", "_")}">${vehicle.name}</a>
 				</li>
-			</c:forEach>--%>
+			</c:forEach>
 		</ul>
 	</body>
 </html>

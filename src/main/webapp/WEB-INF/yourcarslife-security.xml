@@ -14,8 +14,8 @@
 	<security:global-method-security pre-post-annotations="enabled"/>
 
 	<security:http use-expressions="true" auto-config="true">
-		<security:intercept-url pattern="/" access="hasAnyRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/log/**" access="hasAnyRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/" filters="none"/>
+		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/static/**" filters="none"/>
 		<security:intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN')"/>
 <!--		<security:intercept-url pattern="/data/xml/**"/>-->
