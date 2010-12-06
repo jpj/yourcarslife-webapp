@@ -16,7 +16,7 @@
 
 		<ul>
 			<c:forEach var="vehicleFuelLog" items="${vehicleFuelLogs}">
-				<li>${vehicleFuelLog}</li>
+				<li>${vehicleFuelLog.logDate}</li>
 			</c:forEach>
 		</ul>
     </body>

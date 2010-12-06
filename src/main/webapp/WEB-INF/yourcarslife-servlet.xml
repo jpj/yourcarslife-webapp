@@ -60,7 +60,7 @@
 				<value>com/solairis/yourcarslife/hibernate/User.hbm.xml</value>
 			</list>
 		</property>
-		<property name="hibernateProperties" value="hibernate.dialect=org.hibernate.dialect.HSQLDialect"/>
+		<property name="hibernateProperties" value="hibernate.dialect=org.hibernate.dialect.MySQL5Dialect"/>
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
@@ -87,6 +87,7 @@
 	</bean>
 	<bean id="vehicleFuelLogService" class="com.solairis.yourcarslife.service.impl.VehicleFuelLogServiceImpl">
 		<property name="vehicleFuelLogDao" ref="vehicleFuelLogDao"/>
+		<property name="maxResults" value="10"/>
 	</bean>
 
 </beans>
