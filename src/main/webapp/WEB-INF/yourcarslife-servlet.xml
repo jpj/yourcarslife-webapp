@@ -90,4 +90,7 @@
 		<property name="maxResults" value="10"/>
 	</bean>
 
+	<!-- Validators -->
+	<bean id="vehicleFuelLogFormDataValidator" class="com.solairis.yourcarslife.validator.VehicleFuelLogFormDataValidator"/>
+
 </beans>
