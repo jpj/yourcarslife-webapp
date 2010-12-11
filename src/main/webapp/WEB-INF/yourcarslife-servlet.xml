@@ -82,12 +82,16 @@
 	</bean>
 
 	<!-- Services -->
+	<bean id="userService" class="com.solairis.yourcarslife.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"/>
+	</bean>
 	<bean id="vehicleService" class="com.solairis.yourcarslife.service.impl.VehicleServiceImpl">
 		<property name="vehicleDao" ref="vehicleDao"/>
 	</bean>
 	<bean id="vehicleFuelLogService" class="com.solairis.yourcarslife.service.impl.VehicleFuelLogServiceImpl">
 		<property name="vehicleFuelLogDao" ref="vehicleFuelLogDao"/>
-		<property name="maxResults" value="10"/>
+		<property name="defaultMaxResults" value="10"/>
+		<property name="maxResultsUpperLimit" value="200"/>
 	</bean>
 
 	<!-- Validators -->
