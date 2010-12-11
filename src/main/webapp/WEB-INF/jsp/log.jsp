@@ -4,10 +4,12 @@
     Author     : josh
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 <html>
     <head>
         <title>Vehicle Log</title>
+		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/vehicle-fuel-log.js"></script>
     </head>
     <body>
         <p>Vehicle (${vehicle.vehicleId}) Notes: ${vehicle.notes}</p>
