@@ -1,0 +1,8 @@
+#vehicleFuelLogs li {
+	border-bottom: 1px solid black;
+}
+
+#vehicleFuelLogs .available {
+	display: none;
+}
+
