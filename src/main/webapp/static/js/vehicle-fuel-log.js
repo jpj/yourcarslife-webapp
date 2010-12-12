@@ -1,5 +1,4 @@
 $(document).ready(function() {
 	var ycl = new YCL();
-	var vehicleFuelLogService = new ycl.vehicleFuelLogService();
-	vehicleFuelLogService.test();
+	ycl.vehicleFuelLogSearch({pageNumber: 1, maxResults: 100, vehicleId: 1}, function() { alert('callback');});
 });
