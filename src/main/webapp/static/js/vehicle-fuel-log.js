@@ -1,3 +1,5 @@
 $(document).ready(function() {
-	alert("set");
+	var ycl = new YCL();
+	var vehicleFuelLogService = new ycl.vehicleFuelLogService();
+	vehicleFuelLogService.test();
 });

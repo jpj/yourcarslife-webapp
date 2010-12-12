@@ -9,6 +9,7 @@
 <html>
     <head>
         <title>Vehicle Log</title>
+		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/YCL.js"></script>
 		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/vehicle-fuel-log.js"></script>
     </head>
     <body>
