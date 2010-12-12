@@ -17,10 +17,10 @@
 		<p>Owned by: ${vehicle.user.firstName}</p>
 		<p>Auth: ${auth.principal.username}</p>
 
-		<ul>
-			<c:forEach var="vehicleFuelLog" items="${vehicleFuelLogs}">
+		<ul id="vehicleFuelLogs">
+			<%--<c:forEach var="vehicleFuelLog" items="${vehicleFuelLogs}">
 				<li>${vehicleFuelLog.logDate}</li>
-			</c:forEach>
+			</c:forEach>--%>
 		</ul>
     </body>
 </html>
