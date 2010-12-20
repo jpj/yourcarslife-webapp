@@ -51,25 +51,17 @@ public class IndexController {
 
 	private final Logger logger = Logger.getLogger(this.getClass());
 
-//	@ExceptionHandler(value=ServiceException.class)
-//	public ModelAndView handleServiceException(Exception e) {
-//		ModelAndView mav = new ModelAndView("error");
-//		mav.addObject("errorMessage", e.getMessage());
-//		return mav;
-//	}
+	@ExceptionHandler(value=ServiceException.class)
+	public ModelAndView handleServiceException(Exception e) {
+		ModelAndView mav = new ModelAndView("error");
+		mav.addObject("errorMessage", e.getMessage());
+		return mav;
+	}
 
 	@RequestMapping(value="/")
 	public String home(Model model) {
 		return "home";
 	}
-
-	@RequestMapping(value="/home")
-	public String testHome() {
-		return "test";
-	}
-
-	@RequestMapping(value="/test")
-	public void test() {}
 
 	@RequestMapping(value="/dashboard")
 	@Transactional
