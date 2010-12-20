@@ -14,14 +14,11 @@
 		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/vehicle-fuel-log.js"></script>
     </head>
     <body>
-        <p>Vehicle (${vehicle.vehicleId}) Notes: ${vehicle.notes}</p>
-		<p>Owned by: ${vehicle.user.firstName}</p>
-		<p>Auth: ${auth.principal.username}</p>
+        <p>${vehicle.name}: ${vehicle.notes}</p>
+
+		<div class="paging"></div>
 
 		<ul id="vehicleFuelLogs">
-			<%--<c:forEach var="vehicleFuelLog" items="${vehicleFuelLogs}">
-				<li>${vehicleFuelLog.logDate}</li>
-			</c:forEach>--%>
 		</ul>
     </body>
 </html>

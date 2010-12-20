@@ -37,6 +37,7 @@ var YCL = function() {
 				status = YCL.VehicleFuelLogStatus.OK;
 				$.each(data.vehicleFuelLogs, function(index, value) {
 					response.vehicleFuelLogs.push({
+						fuel: value.fuel,
 						odometer: value.odometer,
 						vehicleFuelLogId: value.vehicleFuelLogId
 					});
@@ -54,6 +55,7 @@ var YCL = function() {
 /**
  * @name YCL.VehicleFuelLog
  * @class
+ * @property {Number} fuel
  * @property {Number} odometer
  * @property {Integer} vehicleFuelLogId
  */

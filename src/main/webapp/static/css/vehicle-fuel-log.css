@@ -1,8 +1,19 @@
 #vehicleFuelLogs li {
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #ececec;
+	height: 25px;
+	position: relative;
 }
 
 #vehicleFuelLogs .available {
 	display: none;
 }
 
+#vehicleFuelLogs li .odometer {
+	left: 0;
+	position: absolute;
+}
+
+#vehicleFuelLogs li .fuel {
+	left: 100px;
+	position: absolute;
+}
