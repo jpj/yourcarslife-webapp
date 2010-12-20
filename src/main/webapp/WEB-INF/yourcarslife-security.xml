@@ -7,20 +7,18 @@
               http://www.springframework.org/schema/security
               http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-<!--	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/jdbc/autologger"/>
-	</bean>-->
-
 	<security:global-method-security pre-post-annotations="enabled"/>
 
 	<security:http use-expressions="true" auto-config="true">
 		<security:intercept-url pattern="/" filters="none"/>
+		<security:intercept-url pattern="/login" filters="none"/>
 		<security:intercept-url pattern="/home" filters="none"/>
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/static/**" filters="none"/>
 		<security:intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN')"/>
 <!--		<security:intercept-url pattern="/data/xml/**"/>-->
-		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/" />
+		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
+		<security:form-login login-page="/login" default-target-url="/dashboard"/>
 	</security:http>
 
 	<security:user-service id="namePassUserService">

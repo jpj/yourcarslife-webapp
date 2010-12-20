@@ -63,6 +63,9 @@ public class IndexController {
 		return "home";
 	}
 
+	@RequestMapping(value="/login")
+	public void login() {}
+
 	@RequestMapping(value="/dashboard")
 	@Transactional
 	public void dashboard(Model model) {
