@@ -36,6 +36,10 @@ public class VehicleFuelLogController {
 	private UserService userService;
 	@Autowired
 	private Validator vehicleFuelLogFormDataValidator;
+	@Autowired
+	private Integer vehicleFuelLogMaxResultsUpperLimit;
+	@Autowired
+	private Integer vehicleFuelLogDefaultMaxResults;
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -50,10 +54,16 @@ public class VehicleFuelLogController {
 			Vehicle vehicle = this.vehicleService.getVehicleByUserAndVehicleId(user, vehicleFuelLogFormData.getVehicleId());
 
 			if (vehicle != null) {
-				model.addAttribute("vehicleFuelLogs", this.vehicleFuelLogService.getVehicleFuelLogsByVehicle(vehicle, vehicleFuelLogFormData.getPageNumber(), vehicleFuelLogFormData.getMaxResults()));
+				int maxResults = vehicleFuelLogFormData.getMaxResults();
+				maxResults = maxResults < 1 ? this.vehicleFuelLogDefaultMaxResults.intValue() : maxResults;
+				maxResults = maxResults > this.vehicleFuelLogMaxResultsUpperLimit.intValue() ? this.vehicleFuelLogMaxResultsUpperLimit.intValue() : maxResults;
+				model.addAttribute("vehicleFuelLogs", this.vehicleFuelLogService.getVehicleFuelLogsByVehicle(vehicle, vehicleFuelLogFormData.getPageNumber(), maxResults));
+				model.addAttribute("maxResults", this.vehicleFuelLogService.getVehicleFuelLogCountByVehicle(vehicle.getVehicleId()));
+				model.addAttribute("pageSize", maxResults);
 			}
 		}
 
 		model.addAttribute("errors", errors.getFieldErrors());
 	}
+	
 }

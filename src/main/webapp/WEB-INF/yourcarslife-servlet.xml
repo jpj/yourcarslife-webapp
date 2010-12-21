@@ -90,8 +90,14 @@
 	</bean>
 	<bean id="vehicleFuelLogService" class="com.solairis.yourcarslife.service.impl.VehicleFuelLogServiceImpl">
 		<property name="vehicleFuelLogDao" ref="vehicleFuelLogDao"/>
-		<property name="defaultMaxResults" value="10"/>
-		<property name="maxResultsUpperLimit" value="200"/>
+	</bean>
+
+	<bean id="vehicleFuelLogMaxResultsUpperLimit" class="java.lang.Integer">
+		<constructor-arg value="200"/>
+	</bean>
+
+	<bean id="vehicleFuelLogDefaultMaxResults" class="java.lang.Integer">
+		<constructor-arg value="10"/>
 	</bean>
 
 	<!-- Validators -->
