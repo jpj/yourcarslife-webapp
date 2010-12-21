@@ -18,7 +18,7 @@ $(document).ready(function() {
 						$row.removeClass("available")
 						$row.data("vehicleFuelLogId", vehicleFuelLog.vehicleFuelLogId);
 						$row.find(".odometer").text(vehicleFuelLog.odometer);
-						$row.find(".fuel").text(vehicleFuelLog.fuel);
+						$row.find(".fuel").text(vehicleFuelLog.fuel + " " + new Date(vehicleFuelLog.logDate));
 					});
 				} else {
 					alert("error: " + status);
