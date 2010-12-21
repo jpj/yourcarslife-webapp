@@ -19,6 +19,8 @@
 <!--		<security:intercept-url pattern="/data/xml/**"/>-->
 		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
 		<security:form-login login-page="/login" default-target-url="/dashboard"/>
+		<security:anonymous/>
+		<security:http-basic/>
 	</security:http>
 
 	<security:user-service id="namePassUserService">

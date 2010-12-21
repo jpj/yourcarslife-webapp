@@ -5,6 +5,7 @@
 --%>
 <%@taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html>
     <head>
@@ -30,8 +31,14 @@
 				<div id="navigation">
 					<div class="holder">
 						<ul>
+							<security:authorize ifNotGranted="ROLE_ANONYMOUS">
 							<li><a href="<spring:theme code="baseUrl"/>/dashboard">Dashboard</a></li>
 							<li><a href="<spring:theme code="baseUrl"/>/logout">Logout</a></li>
+							</security:authorize>
+							<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
+							<li><a href="<spring:theme code="baseUrl"/>/login">Login</a></li>
+							</security:authorize>
+							<li><a href="<spring:theme code="baseUrl"/>/login">Login</a></li>
 						</ul>
 					</div>
 				</div>
