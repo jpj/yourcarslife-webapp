@@ -35,6 +35,11 @@ var YCL = function() {
 				alert("error: " + XMLHttpRequest.statusText);
 			}, success: function(data) {
 				status = YCL.VehicleFuelLogStatus.OK;
+
+				response.pageNumber = data.pageNumber;
+				response.pageSize = data.pageSize;
+				response.totalResults = data.totalResults;
+
 				$.each(data.vehicleFuelLogs, function(index, value) {
 					response.vehicleFuelLogs.push({
 						created: value.created,
@@ -79,7 +84,10 @@ var YCL = function() {
 /**
  * @name YCL.VehicleFuelLogResponse
  * @class
- * @property {Array} vehicleFuelLogs Array.<{@link YCL.VehicleFuelLog}>
+ * @property {Integer} pageNumber
+ * @property {Integer} pageSize
+ * @property {Integer} totalResults
+ * @property {Array} vehicleFuelLogs Array.<{@link YCL.VehicleFuelLog}> List of fuel logs
  */
 
 /**

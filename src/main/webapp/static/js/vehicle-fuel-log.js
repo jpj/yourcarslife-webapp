@@ -15,11 +15,22 @@ $(document).ready(function() {
 						}
 
 						var $row = $("#vehicleFuelLogs li.available:first");
-						$row.removeClass("available")
+						$row.removeClass("available").removeClass("unused");
 						$row.data("vehicleFuelLogId", vehicleFuelLog.vehicleFuelLogId);
 						$row.find(".odometer").text(vehicleFuelLog.odometer);
 						$row.find(".fuel").text(vehicleFuelLog.fuel + " " + new Date(vehicleFuelLog.logDate));
 					});
+
+					$("#vehicleFuelLogs li.available").addClass("unused");
+
+					var from = response.pageNumber * response.pageSize - response.pageSize + 1;
+					var to = response.pageNumber * response.pageSize;
+					var total = response.totalResults;
+
+					$("#paging").data("pageNumber", response.pageNumber);
+					$("#paging .from").text(from);
+					$("#paging .to").text(to > total ? total : to);
+					$("#paging .total").text(total);
 				} else {
 					alert("error: " + status);
 				}
@@ -31,4 +42,19 @@ $(document).ready(function() {
 	performSearch({
 		pageNumber: 1
 	});
+
+	$("#paging a[href=#prev]").click(function(e) {
+		e.preventDefault();
+		performSearch({
+			pageNumber: $("#paging").data("pageNumber") - 1
+		});
+	});
+
+	$("#paging a[href=#next]").click(function(e) {
+		e.preventDefault();
+		performSearch({
+			pageNumber: $("#paging").data("pageNumber") + 1
+		});
+	});
+
 });

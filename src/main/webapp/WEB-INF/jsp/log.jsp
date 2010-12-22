@@ -14,11 +14,20 @@
 		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/vehicle-fuel-log.js"></script>
     </head>
     <body>
-        <p>${vehicle.name}: ${vehicle.notes}</p>
+        <p>${vehicle.name}: ${vehicle.notes} (${allVehicleFuelLogsSize})</p>
 
 		<div class="paging"></div>
 
 		<ul id="vehicleFuelLogs">
 		</ul>
+		<div id="paging">
+			<a href="#prev">prev</a>
+			<a href="#next">next</a>
+			<span class="from"></span>
+			-
+			<span class="to"></span>
+			of
+			<span class="total"></span>
+		</div>
     </body>
 </html>

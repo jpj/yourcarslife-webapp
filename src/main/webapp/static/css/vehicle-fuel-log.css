@@ -4,7 +4,7 @@
 	position: relative;
 }
 
-#vehicleFuelLogs .available {
+#vehicleFuelLogs .available.unused {
 	display: none;
 }
 

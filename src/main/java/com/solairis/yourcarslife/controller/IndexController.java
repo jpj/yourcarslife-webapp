@@ -11,6 +11,7 @@ import com.solairis.yourcarslife.data.domain.Vehicle;
 import com.solairis.yourcarslife.data.domain.VehicleFuelLog;
 import com.solairis.yourcarslife.data.exception.UserDaoException;
 import com.solairis.yourcarslife.data.exception.VehicleLogDaoException;
+import com.solairis.yourcarslife.data.input.VehicleFuelLogInputData;
 import com.solairis.yourcarslife.service.VehicleFuelLogService;
 import com.solairis.yourcarslife.service.VehicleService;
 import com.solairis.yourcarslife.service.exception.ServiceException;
@@ -39,41 +40,38 @@ public class IndexController {
 
 	@Autowired
 	private VehicleFuelLogDao vehicleFuelLogDao;
-
 	@Autowired
 	private UserDao userDao;
-
 	@Autowired
 	private VehicleService vehicleService;
-
 	@Autowired
 	private VehicleFuelLogService vehicleFuelLogService;
-
 	private final Logger logger = Logger.getLogger(this.getClass());
 
-	@ExceptionHandler(value=ServiceException.class)
+	@ExceptionHandler(value = ServiceException.class)
 	public ModelAndView handleServiceException(Exception e) {
 		ModelAndView mav = new ModelAndView("error");
 		mav.addObject("errorMessage", e.getMessage());
 		return mav;
 	}
 
-	@RequestMapping(value="/")
+	@RequestMapping(value = "/")
 	public String home(Model model) {
 		return "home";
 	}
 
-	@RequestMapping(value="/login")
-	public void login() {}
+	@RequestMapping(value = "/login")
+	public void login() {
+	}
 
-	@RequestMapping(value="/dashboard")
+	@RequestMapping(value = "/dashboard")
 	@Transactional
 	public void dashboard(Model model) {
 
 		VehicleFuelLog vehicleFuelLog = this.vehicleFuelLogDao.getVehicleFuelLog(486);
 
-		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User user = this.userDao.getUser( Long.parseLong( securityUser.getUsername() ));
+		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = this.userDao.getUser(Long.parseLong(securityUser.getUsername()));
 
 		model.addAttribute("vehicles", this.vehicleService.getVehiclesByUser(user));
 
@@ -86,7 +84,7 @@ public class IndexController {
 	@Transactional
 	public String log(@PathVariable String vehicleName, Model model) {
 		ModelAndView mav = new ModelAndView("log");
-		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userDao.getUser(Long.parseLong(securityUser.getUsername()));
 		Vehicle vehicle = this.vehicleService.getVehicleByNameAndUser(UrlUtil.convertFromUrl(vehicleName), user.getUserId());
 		List<VehicleFuelLog> vehicleFuelLogs = this.vehicleFuelLogService.getVehicleFuelLogsByVehicle(vehicle, 1, 0);
@@ -94,6 +92,11 @@ public class IndexController {
 		model.addAttribute("auth", SecurityContextHolder.getContext().getAuthentication());
 		model.addAttribute("vehicle", vehicle);
 		model.addAttribute("vehicleFuelLogs", vehicleFuelLogs);
+
+		VehicleFuelLogInputData inputData = new VehicleFuelLogInputData();
+		inputData.setVehicleId(vehicle.getVehicleId());
+		List<VehicleFuelLog> allVehicleFuelLogs = this.vehicleFuelLogDao.getVehicleFuelLogs(inputData);
+		model.addAttribute("allVehicleFuelLogsSize", allVehicleFuelLogs.size());
 		return "log";
 	}
 

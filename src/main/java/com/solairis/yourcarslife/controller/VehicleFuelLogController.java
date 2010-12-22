@@ -5,15 +5,20 @@
 package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.VehicleFuelLogFormData;
+import com.solairis.yourcarslife.data.dao.VehicleFuelLogDao;
 import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.data.domain.Vehicle;
+import com.solairis.yourcarslife.data.domain.VehicleFuelLog;
+import com.solairis.yourcarslife.data.input.VehicleFuelLogInputData;
 import com.solairis.yourcarslife.service.UserService;
 import com.solairis.yourcarslife.service.VehicleFuelLogService;
 import com.solairis.yourcarslife.service.VehicleService;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -40,6 +45,8 @@ public class VehicleFuelLogController {
 	private Integer vehicleFuelLogMaxResultsUpperLimit;
 	@Autowired
 	private Integer vehicleFuelLogDefaultMaxResults;
+	@Autowired
+	private VehicleFuelLogDao vehicleFuelLogDao;
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -47,6 +54,7 @@ public class VehicleFuelLogController {
 	}
 
 	@RequestMapping(value = "/data/vehicle-fuel-log")
+	@Transactional
 	public void vehicleFuelLog(@Valid VehicleFuelLogFormData vehicleFuelLogFormData, BindingResult errors, Model model) {
 		if (!errors.hasFieldErrors()) {
 			org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -59,7 +67,7 @@ public class VehicleFuelLogController {
 				maxResults = maxResults < 1 ? this.vehicleFuelLogDefaultMaxResults.intValue() : maxResults;
 				maxResults = maxResults > this.vehicleFuelLogMaxResultsUpperLimit.intValue() ? this.vehicleFuelLogMaxResultsUpperLimit.intValue() : maxResults;
 				model.addAttribute("vehicleFuelLogs", this.vehicleFuelLogService.getVehicleFuelLogsByVehicle(vehicle, pageNumber, maxResults));
-				model.addAttribute("maxResults", this.vehicleFuelLogService.getVehicleFuelLogCountByVehicle(vehicle.getVehicleId()));
+				model.addAttribute("totalResults", this.vehicleFuelLogService.getVehicleFuelLogCountByVehicle(vehicle.getVehicleId()));
 				model.addAttribute("pageSize", maxResults);
 				model.addAttribute("pageNumber", pageNumber);
 			}
