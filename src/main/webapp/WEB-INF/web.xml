@@ -34,7 +34,6 @@
 			/WEB-INF/yourcarslife-security.xml
 			/WEB-INF/yourcarslife-servlet.xml
 		</param-value>
-		<!--			/WEB-INF/yourcarslife-jdbc.xml-->
 	</context-param>
 
 	<resource-ref>
