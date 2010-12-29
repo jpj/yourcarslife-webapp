@@ -63,7 +63,7 @@ public class VehicleFuelLogController {
 				int pageNumber = vehicleFuelLogFormData.getPageNumber() != 0 ? vehicleFuelLogFormData.getPageNumber() : 1;
 				maxResults = maxResults < 1 ? this.vehicleFuelLogDefaultMaxResults.intValue() : maxResults;
 				maxResults = maxResults > this.vehicleFuelLogMaxResultsUpperLimit.intValue() ? this.vehicleFuelLogMaxResultsUpperLimit.intValue() : maxResults;
-				model.addAttribute("vehicleFuelLogs", this.vehicleFuelLogService.getVehicleFuelLogsByVehicle(vehicle, pageNumber, maxResults));
+				model.addAttribute("vehicleFuelLogs", this.vehicleFuelLogService.getVehicleFuelLogsByVehicle(vehicleFuelLogFormData.getVehicleId(), vehicleFuelLogFormData.getVehicleFuelLogId(), pageNumber, maxResults));
 				model.addAttribute("totalResults", this.vehicleFuelLogService.getVehicleFuelLogCountByVehicle(vehicle.getVehicleId()));
 				model.addAttribute("pageSize", maxResults);
 				model.addAttribute("pageNumber", pageNumber);

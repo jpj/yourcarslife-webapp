@@ -28,11 +28,17 @@ $(document).ready(function() {
 						var rowDate = new Date(vehicleFuelLog.logDate);
 
 						$row.removeClass("available").removeClass("unused");
-						$row.data("vehicleFuelLogId", vehicleFuelLog.vehicleFuelLogId);
-						$row.data("modified", vehicleFuelLog.modified)
-						$row.find(".odometer > .number").text( vehicleFuelLog.odometer );
-						$row.find(".fuel > .number").text( vehicleFuelLog.fuel );
-						$row.find(".date").text( rowDate.getFullYear()+" "+rowDate.getMonthShortName()+" "+rowDate.getDate() ).attr("title", rowDate.toString());
+
+						if ( $row.data("modified") !== vehicleFuelLog.modified ) {
+							$row.data("vehicleFuelLogId", vehicleFuelLog.vehicleFuelLogId);
+							$row.data("modified", vehicleFuelLog.modified)
+							$row.find(".odometer > .view.number").text( vehicleFuelLog.odometer );
+							$row.find(".fuel > .view.number").text( vehicleFuelLog.fuel );
+							$row.find(".date").text( rowDate.getFullYear()+" "+rowDate.getMonthShortName()+" "+rowDate.getDate() ).attr("title", rowDate.toString());
+							$row.find(".economy > .number").text(".");
+						}
+
+						// TODO: If this record and the previous were not modified, don't calculate economy.
 
 						if ( $prevRow.length !== 0 && prevFuel !== 0 && prevOdometer !== 0 /* && $prevRow.data("missedFillUp") !== true */ ) {
 							var rawMpg = (prevOdometer - vehicleFuelLog.odometer) / prevFuel;
@@ -42,10 +48,11 @@ $(document).ready(function() {
 						prevFuel = vehicleFuelLog.fuel;
 						prevOdometer = vehicleFuelLog.odometer;
 						$row.find(".economy > .number").text('-');
+						
 					});
 
 					$("#vehicleFuelLogs > li.available").addClass("unused");
-					$("#vehicleFuelLogs > li").removeClass("odd");
+					$("#vehicleFuelLogs > li:even").removeClass("odd");
 					$("#vehicleFuelLogs > li:odd").addClass("odd");
 
 					var from = response.pageNumber * response.pageSize - response.pageSize + 1;
@@ -64,21 +71,51 @@ $(document).ready(function() {
 	};
 
 	// Add click events
-	$("#vehicleFuelLogs > li > .economy > span.number").click(function(e) {
-		var econ = $(this).text();
-		var $parent = $(this).parent();
-		var width = $(this).width();
-		$parent.find(".number").remove();
-		$parent.prepend('<input type="text" value="'+econ+'" class="number" style="width: '+width+'px;"/>');
-		$parent.find(".number").focus();
+	$("#vehicleFuelLogs > li > form > .display > .edit-button > a").click(function(e) {
+		e.preventDefault();
+		var $row = $(this).parent().parent().parent().parent();
+		if ( !$row.hasClass("disabled") && !$row.hasClass("editing") ) {
+			var odometerWidth = $row.find(".odometer > .view.number").width();
+			var fuelWidth = $row.find(".fuel > .view.number").width();
+
+			$row.find(".odometer > .edit.number").width(odometerWidth);
+			$row.find(".fuel > .edit.number").width(fuelWidth);
+
+			ycl.getVehicleFuelLog(1, $row.data("vehicleFuelLogId"), function(vehicleFuelLog, status) {
+				if (status === YCL.VehicleFuelLogStatus.OK) {
+					$row.find(".odometer > .edit.number").val( vehicleFuelLog.odometer );
+					$row.find(".fuel > .edit.number").val( vehicleFuelLog.fuel );
+				} else {
+					alert("Error retrieving this record: " + status);
+				}
+			});
+
+			$("#vehicleFuelLogs > li").addClass("disabled");
+			$row.removeClass("disabled").addClass("editing");
+			$row.find(".edit-section").slideDown(500);
+		}
 	});
 
-	$("#vehicleFuelLogs > li").click(function(e) {
-		if ( !$(this).hasClass("disabled") && !$(this).hasClass("editing") ) {
-			$("#vehicleFuelLogs > li").addClass("disabled");
-			$(this).removeClass("disabled").addClass("editing");
-			$(this).find(".edit").slideDown(500);
-		}
+	// Save
+	$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=save]").click(function(e) {
+		e.preventDefault();
+		var vehicleFuelLogId = $(this).parent().parent().parent().parent().parent().data("vehicleFuelLogId");
+		alert("Save isn't hooked up yet. Record " + vehicleFuelLogId);
+	});
+
+	// Cancel
+	$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=cancel]").click(function(e) {
+		e.preventDefault();
+		var $row = $(this).parent().parent().parent().parent().parent();
+		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
+		$row.find(".edit-section").slideUp(500, function() {
+			performSearch({
+				pageNumber: $("#paging").data("pageNumber")
+			});
+			$row.removeClass("editing");
+			$("#vehicleFuelLogs > li").removeClass("disabled");
+		});
+
 	});
 
 	// Default Search

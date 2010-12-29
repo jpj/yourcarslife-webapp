@@ -3,6 +3,16 @@
 	list-style: none;
 }
 
+#vehicleFuelLogs input {
+	font-size: 17pt;
+}
+
+#vehicleFuelLogs input[type=text] {
+	background-color: #DAF1FF;
+	border: none;
+	padding: 0;
+}
+
 #vehicleFuelLogs > li {
 	border-bottom: 1px solid #ececec;
 }
@@ -69,10 +79,8 @@
 	color: #6EAB75;
 }
 
-#vehicleFuelLogs > li > form > .display > .economy > input.number {
-	background-color: transparent;
-	border: 0;
-	padding: 0;
+#vehicleFuelLogs > li.editing > form > .display > .economy > .number {
+	color: #CFCDCD;
 }
 
 #vehicleFuelLogs > li > form > .display > .economy > .units {
@@ -80,8 +88,52 @@
 	font-size: 36pt;
 }
 
+#vehicleFuelLogs > li > form > .display > .edit-button {
+	bottom: 2px;
+	display: none;
+	font-size: 12pt;
+	position: absolute;
+	right: 16px;
+}
+
+#vehicleFuelLogs > li:hover > form > .display > .edit-button {
+	display: block;
+}
+
+#vehicleFuelLogs > li.editing > form > .display > .edit-button {
+	display: none;
+}
+
+/* Viewing */
+#vehicleFuelLogs > li .edit {
+	display: none;
+}
+
+/* Editing */
+#vehicleFuelLogs > li.editing .edit {
+	display: inline;
+}
+#vehicleFuelLogs > li.editing .view {
+	display: none;
+}
+
 /* Edit Section */
-#vehicleFuelLogs > li > form > .edit {
+#vehicleFuelLogs > li > form > .edit-section {
 	background-color: #FFFFB8;
 	display: none;
+}
+
+#vehicleFuelLogs > li > form > .edit-section > .holder {
+	padding: 5px;
+	position: relative;
+}
+
+#vehicleFuelLogs > li > form > .edit-section > .holder > .octane > label > input {
+	width: 35px;
+}
+
+#vehicleFuelLogs > li > form > .edit-section > .holder > .submit {
+	bottom: 5px;
+	position: absolute;
+	right: 5px;
 }

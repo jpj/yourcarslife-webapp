@@ -19,7 +19,8 @@ var YCL = function() {
 		var requestData = {
 			pageNumber: request.pageNumber,
 			maxResults: request.maxResults,
-			vehicleId: request.vehicleId
+			vehicleId: request.vehicleId,
+			vehicleFuelLogId: request.vehicleFuelLogId
 		};
 
 		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
@@ -41,6 +42,7 @@ var YCL = function() {
 				response.totalResults = data.totalResults;
 
 				$.each(data.vehicleFuelLogs, function(index, value) {
+
 					response.vehicleFuelLogs.push({
 						created: value.created,
 						fuel: value.fuel,
@@ -50,11 +52,27 @@ var YCL = function() {
 						odometer: value.odometer,
 						vehicleFuelLogId: value.vehicleFuelLogId
 					});
+
 				});
 			}, complete: function() {
 				if (callback instanceof Function) {
 					callback(response, status);
 				}
+			}
+		});
+	};
+
+	this.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
+		this.vehicleFuelLogSearch({vehicleId: vehicleId, vehicleFuelLogId: vehicleFuelLogId}, function(response, status) {
+			var vehicleFuelLog = null;
+
+			if (status === YCL.VehicleFuelLogStatus.OK && response.vehicleFuelLogs.length === 1) {
+				vehicleFuelLog = response.vehicleFuelLogs[0];
+			} else {
+				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
+			}
+			if (callback instanceof Function) {
+				callback(vehicleFuelLog, status);
 			}
 		});
 	};

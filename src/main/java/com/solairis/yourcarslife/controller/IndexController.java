@@ -87,11 +87,9 @@ public class IndexController {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userDao.getUser(Long.parseLong(securityUser.getUsername()));
 		Vehicle vehicle = this.vehicleService.getVehicleByNameAndUser(UrlUtil.convertFromUrl(vehicleName), user.getUserId());
-		List<VehicleFuelLog> vehicleFuelLogs = this.vehicleFuelLogService.getVehicleFuelLogsByVehicle(vehicle, 1, 0);
 
 		model.addAttribute("auth", SecurityContextHolder.getContext().getAuthentication());
 		model.addAttribute("vehicle", vehicle);
-		model.addAttribute("vehicleFuelLogs", vehicleFuelLogs);
 
 		VehicleFuelLogInputData inputData = new VehicleFuelLogInputData();
 		inputData.setVehicleId(vehicle.getVehicleId());
