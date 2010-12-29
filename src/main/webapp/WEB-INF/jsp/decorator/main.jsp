@@ -32,7 +32,7 @@
 				<div id="navigation">
 					<div class="holder">
 						<ul>
-							<security:authorize ifNotGranted="ROLE_ANONYMOUS">
+							<security:authorize ifAnyGranted="ROLE_USER">
 							<li><a href="<spring:theme code="baseUrl"/>/dashboard">Dashboard</a></li>
 							<li><a href="<spring:theme code="baseUrl"/>/logout">Logout</a></li>
 							</security:authorize>
