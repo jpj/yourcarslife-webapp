@@ -12,8 +12,17 @@ package com.solairis.yourcarslife.command;
 public class VehicleFuelLogFormData {
 
 	private int pageNumber;
-	private long vehicleId;
 	private int maxResults;
+	private long vehicleId;
+	private long vehicleFuelLogId;
+
+	public int getMaxResults() {
+		return maxResults;
+	}
+
+	public void setMaxResults(int maxResults) {
+		this.maxResults = maxResults;
+	}
 
 	public int getPageNumber() {
 		return pageNumber;
@@ -23,20 +32,20 @@ public class VehicleFuelLogFormData {
 		this.pageNumber = pageNumber;
 	}
 
+	public long getVehicleFuelLogId() {
+		return vehicleFuelLogId;
+	}
+
+	public void setVehicleFuelLogId(long vehicleFuelLogId) {
+		this.vehicleFuelLogId = vehicleFuelLogId;
+	}
+
 	public long getVehicleId() {
 		return vehicleId;
 	}
 
 	public void setVehicleId(long vehicleId) {
 		this.vehicleId = vehicleId;
-	}
-
-	public int getMaxResults() {
-		return maxResults;
-	}
-
-	public void setMaxResults(int maxResults) {
-		this.maxResults = maxResults;
 	}
 
 }
