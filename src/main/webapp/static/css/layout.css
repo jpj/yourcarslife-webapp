@@ -59,7 +59,7 @@ Page
 	width: 960px;
 }
 
-#page-content .holder {
+#page-content > .holder {
 	padding: 2px 15px 15px 193px;
 }
 
