@@ -1,19 +1,67 @@
-#vehicleFuelLogs li {
+#vehicleFuelLogs {
+	font-size: 17pt;
+}
+
+#vehicleFuelLogs > li {
 	border-bottom: 1px solid #ececec;
-	height: 25px;
+	height: 86px;
 	position: relative;
 }
 
-#vehicleFuelLogs .available.unused {
+#vehicleFuelLogs > li:hover, #vehicleFuelLogs > li.odd:hover {
+	background-color: #ececec;
+}
+
+#vehicleFuelLogs > li.odd {
+	background-color: #f8f8f8;
+}
+
+#vehicleFuelLogs > li.available.unused {
 	display: none;
 }
 
-#vehicleFuelLogs li .odometer {
-	left: 0;
+#vehicleFuelLogs > li > .odometer {
+	left: 9px;
 	position: absolute;
+	top: 33px;
 }
 
-#vehicleFuelLogs li .fuel {
-	left: 100px;
+#vehicleFuelLogs > li > .odometer > .units {
+	color: #d1d1d1;
+	font-size: 12pt;
+}
+
+#vehicleFuelLogs > li > .fuel {
+	left: 138px;
 	position: absolute;
+	top: 33px;
+}
+
+#vehicleFuelLogs > li > .fuel > .units {
+	color: #d1d1d1;
+	font-size: 12pt;
+}
+
+#vehicleFuelLogs > li > .date {
+	color: #c7c7c7;
+	font-size: 12pt;
+	left: 10px;
+	position: absolute;
+	top: 2px;
+}
+
+#vehicleFuelLogs > li > .economy {
+	font-size: 46pt;
+	left: 330px;
+	position: absolute;
+	top: 1px;
+}
+
+#vehicleFuelLogs > li > .economy > .number {
+	color: #6EAB75;
+}
+
+#vehicleFuelLogs > li > .economy > .units {
+	color: #ababab;
+	font-size: 36pt;
 }

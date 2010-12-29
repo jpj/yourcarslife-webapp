@@ -11,7 +11,8 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
-html, body {
+body {
+	font-family: helvetica, arial;
 	margin: 0;
 	padding: 0;
 }
@@ -22,7 +23,7 @@ Header
 #header .banner {
 	-moz-border-radius: 5px;
 	border: 1px solid black;
-	margin: 15px 0 15px 25px;
+	margin: 15px 0 15px 100px;
 	width: 958px;
 }
 
@@ -45,7 +46,7 @@ Header
 Page
 */
 #page .container {
-	margin-left: 25px;
+	margin-left: 100px;
 	position: relative;
 	width: 960px;
 }

@@ -14,6 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/layout.css"/>
 
 		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/extend.js"></script>
 		<decorator:head/>
     </head>
     <body>
