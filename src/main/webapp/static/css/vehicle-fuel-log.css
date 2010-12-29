@@ -8,7 +8,8 @@
 }
 
 #vehicleFuelLogs input[type=text] {
-	background-color: #DAF1FF;
+/*	background-color: #DAF1FF;*/
+	background-color: #FFFFB8;
 	border: none;
 	padding: 0;
 }
@@ -119,8 +120,13 @@
 
 /* Edit Section */
 #vehicleFuelLogs > li > form > .edit-section {
-	background-color: #FFFFB8;
+/*	background-color: #FFFFB8;*/
 	display: none;
+}
+#vehicleFuelLogs > li > form > .edit-section > .separator {
+	background-color: #d1d1d1;
+	height: 1px;
+	margin: 0 23px;
 }
 
 #vehicleFuelLogs > li > form > .edit-section > .holder {

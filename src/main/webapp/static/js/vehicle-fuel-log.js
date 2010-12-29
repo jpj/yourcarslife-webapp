@@ -85,6 +85,7 @@ $(document).ready(function() {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
 					$row.find(".odometer > .edit.number").val( vehicleFuelLog.odometer );
 					$row.find(".fuel > .edit.number").val( vehicleFuelLog.fuel );
+					$row.find(".octane input[name=octane]").val( vehicleFuelLog.octane );
 				} else {
 					alert("Error retrieving this record: " + status);
 				}
