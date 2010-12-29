@@ -1,11 +1,10 @@
 #vehicleFuelLogs {
 	font-size: 17pt;
+	list-style: none;
 }
 
 #vehicleFuelLogs > li {
 	border-bottom: 1px solid #ececec;
-	height: 86px;
-	position: relative;
 }
 
 #vehicleFuelLogs > li:hover, #vehicleFuelLogs > li.odd:hover {
@@ -20,29 +19,38 @@
 	display: none;
 }
 
-#vehicleFuelLogs > li > .odometer {
+#vehicleFuelLogs > li.editing {
+	border: 3px dotted black;
+}
+
+#vehicleFuelLogs > li > form > .display {
+	height: 86px;
+	position: relative;
+}
+
+#vehicleFuelLogs > li > form > .display > .odometer {
 	left: 9px;
 	position: absolute;
 	top: 33px;
 }
 
-#vehicleFuelLogs > li > .odometer > .units {
+#vehicleFuelLogs > li > form > .display > .odometer > .units {
 	color: #d1d1d1;
 	font-size: 12pt;
 }
 
-#vehicleFuelLogs > li > .fuel {
+#vehicleFuelLogs > li > form > .display > .fuel {
 	left: 138px;
 	position: absolute;
 	top: 33px;
 }
 
-#vehicleFuelLogs > li > .fuel > .units {
+#vehicleFuelLogs > li > form > .display > .fuel > .units {
 	color: #d1d1d1;
 	font-size: 12pt;
 }
 
-#vehicleFuelLogs > li > .date {
+#vehicleFuelLogs > li > form > .display > .date {
 	color: #c7c7c7;
 	font-size: 12pt;
 	left: 10px;
@@ -50,18 +58,30 @@
 	top: 2px;
 }
 
-#vehicleFuelLogs > li > .economy {
-	font-size: 46pt;
+#vehicleFuelLogs > li > form > .display > .economy {
 	left: 330px;
 	position: absolute;
 	top: 1px;
 }
 
-#vehicleFuelLogs > li > .economy > .number {
+#vehicleFuelLogs > li > form > .display > .economy > .number {
+	font-size: 46pt;
 	color: #6EAB75;
 }
 
-#vehicleFuelLogs > li > .economy > .units {
+#vehicleFuelLogs > li > form > .display > .economy > input.number {
+	background-color: transparent;
+	border: 0;
+	padding: 0;
+}
+
+#vehicleFuelLogs > li > form > .display > .economy > .units {
 	color: #ababab;
 	font-size: 36pt;
+}
+
+/* Edit Section */
+#vehicleFuelLogs > li > form > .edit {
+	background-color: #FFFFB8;
+	display: none;
 }

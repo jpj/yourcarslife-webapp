@@ -19,6 +19,29 @@
 		<div class="paging"></div>
 
 		<ul id="vehicleFuelLogs">
+			<c:forEach begin="1" end="100">
+				<li class="available">
+					<form action="get">
+						<div class="display">
+							<div class="odometer">
+								<span class="number"></span>
+								<input type="text" class="number"/>
+								<span class="units">mi</span>
+							</div>
+							<div class="fuel">
+								<span class="number"></span>
+								<input type="text" class="number"/>
+								<span class="units">gal</span>
+							</div>
+							<div class="date"></div>
+							<div class="economy"><span class="number"></span> <span class="units">mpg</span></div>
+						</div>
+						<div class="edit">
+							Hello, I'm the edit pane.
+						</div>
+					</form>
+				</li>
+			</c:forEach>
 		</ul>
 		<div id="paging">
 			<a href="#prev">prev</a>

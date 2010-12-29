@@ -22,9 +22,6 @@ $(document).ready(function() {
 					 * @param {YCL.VehicleFuelLog} vehicleFuelLog is good
 					 */
 					$.each(response.vehicleFuelLogs, function(index, vehicleFuelLog) {
-						if ($("#vehicleFuelLogs li.available").length === 0) {
-							$("#vehicleFuelLogs").append('<li class="available"><div class="odometer"><span class="number"></span> <span class="units">mi</span></div><div class="fuel"><span class="number"></span> <span class="units">gal</span></div><div class="date"></div><div class="economy"><span class="number"></span> <span class="units">mpg</span></div></li>');
-						}
 
 						var $row = $("#vehicleFuelLogs li.available:first");
 						var $prevRow = $row.prev();
@@ -65,6 +62,24 @@ $(document).ready(function() {
 			}
 		);
 	};
+
+	// Add click events
+	$("#vehicleFuelLogs > li > .economy > span.number").click(function(e) {
+		var econ = $(this).text();
+		var $parent = $(this).parent();
+		var width = $(this).width();
+		$parent.find(".number").remove();
+		$parent.prepend('<input type="text" value="'+econ+'" class="number" style="width: '+width+'px;"/>');
+		$parent.find(".number").focus();
+	});
+
+	$("#vehicleFuelLogs > li").click(function(e) {
+		if ( !$(this).hasClass("disabled") && !$(this).hasClass("editing") ) {
+			$("#vehicleFuelLogs > li").addClass("disabled");
+			$(this).removeClass("disabled").addClass("editing");
+			$(this).find(".edit").slideDown(500);
+		}
+	});
 
 	// Default Search
 	performSearch({
