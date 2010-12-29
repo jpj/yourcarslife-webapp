@@ -20,6 +20,11 @@ body, input, textarea {
 	font-family: helvetica, arial;
 }
 
+form {
+	margin: 0;
+	padding: 0;
+}
+
 /*
 Header
 */
