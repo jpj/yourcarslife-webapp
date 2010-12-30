@@ -1,12 +1,13 @@
 $(document).ready(function() {
 	var ycl = new YCL();
+	var vehicleId = $("meta[name=vehicleId]").attr("content");
 
 	var performSearch = function(request) {
 
 		$("#vehicleFuelLogs li").addClass("available");
 
 		ycl.vehicleFuelLogSearch(
-			{pageNumber: request.pageNumber, maxResults: 21, vehicleId: 1},
+			{pageNumber: request.pageNumber, maxResults: 21, vehicleId: vehicleId},
 			/**
 			 * @function for you
 			 * @param {YCL.VehicleFuelLogResponse} response is the response
