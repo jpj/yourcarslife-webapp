@@ -16,6 +16,8 @@ $(document).ready(function() {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
 					var prevFuel = 0;
 					var prevOdometer = 0;
+					var month = null;
+					var altMonth = false;
 					/**
 					 * Documentation is good
 					 * @param {Number} index
@@ -29,18 +31,27 @@ $(document).ready(function() {
 
 						$row.removeClass("available").removeClass("unused");
 
-						if ( $row.data("vehicleFuelLogId") !== vehicleFuelLog.vehicleFuelLogId && $row.data("modified") !== vehicleFuelLog.modified ) {
+						//if ( $row.data("vehicleFuelLogId") !== vehicleFuelLog.vehicleFuelLogId && $row.data("modified") !== vehicleFuelLog.modified ) {
+						if (true) {
 							$row.data("vehicleFuelLogId", vehicleFuelLog.vehicleFuelLogId);
-							$row.data("modified", vehicleFuelLog.modified)
+							$row.data("modified", vehicleFuelLog.modified);
+							$row.data("missedFillup", vehicleFuelLog.missedFillup);
 							$row.find(".odometer > .view.number").text( vehicleFuelLog.odometer.toFixed(1) ); // TODO - Adjustable fixed
 							$row.find(".fuel > .view.number").text( vehicleFuelLog.fuel );
 							$row.find(".date").text( rowDate.getFullYear()+" "+rowDate.getMonthShortName()+" "+rowDate.getDate() ).attr("title", rowDate.toString());
 							$row.find(".economy > .number").text(".");
 						}
 
+						if (month != null && month != rowDate.getMonth()) {
+							altMonth = !altMonth;
+						}
+						month = rowDate.getMonth();
+						//alert(altMonth);
+						$row.addClass(altMonth ? "altMonth1" : "altMonth2").removeClass(!altMonth ? "altMonth1" : "altMonth2");
+
 						// TODO: If this record and the previous were not modified, don't calculate economy.
 
-						if ( $prevRow.length !== 0 && prevFuel !== 0 && prevOdometer !== 0 /* && $prevRow.data("missedFillUp") !== true */ ) {
+						if ( $prevRow.length !== 0 && prevFuel !== 0 && prevOdometer !== 0 /* && $prevRow.data("missedFillup") !== true */ ) {
 							var rawMpg = (prevOdometer - vehicleFuelLog.odometer) / prevFuel;
 							$prevRow.find(".economy > .number").text( rawMpg.toFixed(2) );
 						}
@@ -86,6 +97,12 @@ $(document).ready(function() {
 					$row.find(".odometer > .edit.number").val( vehicleFuelLog.odometer );
 					$row.find(".fuel > .edit.number").val( vehicleFuelLog.fuel );
 					$row.find(".octane input[name=octane]").val( vehicleFuelLog.octane );
+
+					if (vehicleFuelLog.missedFillup) {
+						$row.find(".missedFillup input[name=missedFillup]").attr("checked", "checked");
+					} else {
+						$row.find(".missedFillup input[name=missedFillup]").removeAttr("checked");
+					}
 				} else {
 					alert("Error retrieving this record: " + status);
 				}

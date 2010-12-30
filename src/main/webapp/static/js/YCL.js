@@ -47,6 +47,7 @@ var YCL = function() {
 						created: value.created,
 						fuel: value.fuel,
 						logDate: value.logDate,
+						missedFillup: value.missedFillup,
 						modified: value.modified,
 						octane: value.octane,
 						odometer: value.odometer,
@@ -85,6 +86,7 @@ var YCL = function() {
  * @property {Number} created
  * @property {Number} fuel
  * @property {Number} logDate
+ * @property {Boolean} missedFillup
  * @property {Number} modified
  * @property {Integer} octane
  * @property {Number} odometer

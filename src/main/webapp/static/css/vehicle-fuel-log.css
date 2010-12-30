@@ -26,6 +26,14 @@
 	background-color: #f8f8f8;
 }
 
+#vehicleFuelLogs > li.altMonth1 {
+	border-left: 3px solid #3230FF;
+}
+
+#vehicleFuelLogs > li.altMonth2 {
+	border-left: 3px solid #B7BBFF;
+}
+
 #vehicleFuelLogs > li.available.unused {
 	display: none;
 }
