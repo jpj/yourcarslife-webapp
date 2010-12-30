@@ -29,10 +29,10 @@ $(document).ready(function() {
 
 						$row.removeClass("available").removeClass("unused");
 
-						if ( $row.data("modified") !== vehicleFuelLog.modified ) {
+						if ( $row.data("vehicleFuelLogId") !== vehicleFuelLog.vehicleFuelLogId && $row.data("modified") !== vehicleFuelLog.modified ) {
 							$row.data("vehicleFuelLogId", vehicleFuelLog.vehicleFuelLogId);
 							$row.data("modified", vehicleFuelLog.modified)
-							$row.find(".odometer > .view.number").text( vehicleFuelLog.odometer );
+							$row.find(".odometer > .view.number").text( vehicleFuelLog.odometer.toFixed(1) ); // TODO - Adjustable fixed
 							$row.find(".fuel > .view.number").text( vehicleFuelLog.fuel );
 							$row.find(".date").text( rowDate.getFullYear()+" "+rowDate.getMonthShortName()+" "+rowDate.getDate() ).attr("title", rowDate.toString());
 							$row.find(".economy > .number").text(".");
