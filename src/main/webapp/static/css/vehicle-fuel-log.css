@@ -39,7 +39,9 @@
 }
 
 #vehicleFuelLogs > li.editing {
-	border: 3px dotted black;
+	border-bottom: 3px dotted black;
+	border-right: 3px dotted black;
+	border-top: 3px dotted black;
 }
 
 #vehicleFuelLogs > li > form > .display {
