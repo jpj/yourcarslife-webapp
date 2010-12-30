@@ -83,6 +83,8 @@ $(document).ready(function() {
 	};
 
 	// Add click events
+
+	/* Edit */
 	$("#vehicleFuelLogs > li > form > .display > .edit-button > a").click(function(e) {
 		e.preventDefault();
 		var $row = $(this).parent().parent().parent().parent();
@@ -93,7 +95,7 @@ $(document).ready(function() {
 			$row.find(".odometer > .edit.number").width(odometerWidth);
 			$row.find(".fuel > .edit.number").width(fuelWidth);
 
-			ycl.getVehicleFuelLog(1, $row.data("vehicleFuelLogId"), function(vehicleFuelLog, status) {
+			ycl.getVehicleFuelLog(vehicleId, $row.data("vehicleFuelLogId"), function(vehicleFuelLog, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
 					$row.find(".odometer > .edit.number").val( vehicleFuelLog.odometer );
 					$row.find(".fuel > .edit.number").val( vehicleFuelLog.fuel );
