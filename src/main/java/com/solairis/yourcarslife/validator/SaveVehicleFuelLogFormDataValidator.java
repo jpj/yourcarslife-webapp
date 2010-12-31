@@ -38,7 +38,7 @@ public class SaveVehicleFuelLogFormDataValidator implements Validator {
 			}
 		} else {
 			logger.debug("Validating for editing a vehicle fuel log");
-			VehicleFuelLog vehicleFuelLog = this.vehicleFuelLogDao.getVehicleFuelLog(saveVehicleFuelLogFormData.getVehicleId());
+			VehicleFuelLog vehicleFuelLog = this.vehicleFuelLogDao.getVehicleFuelLog(saveVehicleFuelLogFormData.getVehicleFuelLogId());
 			if (vehicleFuelLog == null) {
 				errors.rejectValue("vehicleFuelLogId", "invalid");
 			} else {

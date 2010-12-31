@@ -40,6 +40,7 @@ $(document).ready(function() {
 							$row.find(".odometer > .view.number").text( vehicleFuelLog.odometer.toFixed(1) ); // TODO - Adjustable fixed
 							$row.find(".fuel > .view.number").text( vehicleFuelLog.fuel );
 							$row.find(".date > .view").text( rowDate.getFullYear()+" "+rowDate.getMonthShortName()+" "+rowDate.getDate() ).attr("title", rowDate.toString());
+							//$row.find(".date").text( rowDate.getFullYear()+" "+rowDate.getMonthShortName()+" "+rowDate.getDate() ).attr("title", rowDate.toString());
 							$row.find(".economy > .number").text(".");
 						}
 
@@ -82,6 +83,9 @@ $(document).ready(function() {
 		);
 	};
 
+	/* Attach calendar */
+	//$("#vehicleFuelLogs .date > .view").datepick(new Date()).click(function() { alert("you got it");});
+
 	// Add click events
 
 	/* Edit */
@@ -101,7 +105,20 @@ $(document).ready(function() {
 					$row.find(".odometer > .edit.number").val( vehicleFuelLog.odometer );
 					$row.find(".fuel > .edit.number").val( vehicleFuelLog.fuel );
 					$row.find(".octane input[name=octane]").val( vehicleFuelLog.octane );
-					$row.find(".date > .edit").val( logDate.getFullYear()+'/'+parseInt(logDate.getMonth()+1)+'/'+logDate.getDate() );
+					$row.data("logDate", logDate);
+					//$row.find(".date > .edit").val( logDate.getFullYear()+'/'+parseInt(logDate.getMonth()+1)+'/'+logDate.getDate() );
+					$row.find(".date > .edit").val( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() ).datepick({dateFormat: 'yyyy M dd', defaultDate: logDate, onSelect: function(dates) {
+							if (dates.length === 1) {
+								//alert("Dates: " + dates[0]);
+								var selectedDate = dates[0];
+//								alert(selectedDate.getTime());
+//								$row.find(".date > .edit").val( selectedDate.getTime() );
+								$row.data("logDate", selectedDate);
+							} else {
+								alert("Error getting date");
+							}
+					}});
+					//$("#vehicleFuelLogs .date > .view").datepick(new Date());
 
 					if (vehicleFuelLog.missedFillup) {
 						$row.find(".missedFillup input[name=missedFillup]").attr("checked", "checked");
@@ -119,11 +136,30 @@ $(document).ready(function() {
 		}
 	});
 
-	// Save
+	/* Save */
 	$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=save]").click(function(e) {
 		e.preventDefault();
+		var $form = $(this).parent().parent().parent().parent();
+		var $row = $(this).parent().parent().parent().parent().parent();
 		var vehicleFuelLogId = $(this).parent().parent().parent().parent().parent().data("vehicleFuelLogId");
-		alert("Save isn't hooked up yet. Record " + vehicleFuelLogId);
+		//alert("Save isn't hooked up yet. Record " + vehicleFuelLogId);
+		//alert($form.find("input[name=logDate]").val());
+		ycl.saveVehicleFuelLog(
+			{
+				fuel: $form.find("input[name=fuel]").val(),
+				logDate: $row.data("logDate"),
+				missedFillup: $form.find("input[name=missedFillup]").is(":checked"),
+				octane: $form.find("input[name=octane]").val(),
+				odometer: $form.find("input[name=odometer]").val(),
+				vehicleFuelLogId: $row.data("vehicleFuelLogId"),
+				vehicleId: vehicleId
+			},
+			function(response, status) {
+				$.each(response.errors, function(index, error) {
+					alert(error.fieldName+': '+error.code);
+				});
+			}
+		);
 	});
 
 	// Cancel

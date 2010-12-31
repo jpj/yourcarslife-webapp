@@ -7,6 +7,7 @@
 var YCL = function() {
 
 	var vehicleFuelLogServiceUrl = '/yourcarslife-webapp/data/vehicle-fuel-log.json';
+	var saveVehicleFuelLogServiceUrl = '/yourcarslife-webapp/data/save-vehicle-fuel-log.json';
 
 	/**
 	 * @class {YCL.vehicleFuelLogSearch} Service for searching vehicle fuel logs.
@@ -34,7 +35,8 @@ var YCL = function() {
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
 				alert("error: " + XMLHttpRequest.statusText);
-			}, success: function(data) {
+			},
+			success: function(data) {
 				status = YCL.VehicleFuelLogStatus.OK;
 
 				response.pageNumber = data.pageNumber;
@@ -55,7 +57,8 @@ var YCL = function() {
 					});
 
 				});
-			}, complete: function() {
+			},
+			complete: function() {
 				if (callback instanceof Function) {
 					callback(response, status);
 				}
@@ -63,6 +66,13 @@ var YCL = function() {
 		});
 	};
 
+	/**
+	 * @class {YCL.getVehicleFuelLog} Service for retrieving one Vehicle Fuel Log
+	 * @param {Number} vehicleId
+	 * @param {Number} vehicleFuelLogId
+	 * @param {function} callback
+	 *	function({@link YCL.VehicleFuelLog} vehicleFuelLog, {@link YCL.VehicleFuelLogStatus} status)
+	 */
 	this.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
 		this.vehicleFuelLogSearch({vehicleId: vehicleId, vehicleFuelLogId: vehicleFuelLogId}, function(response, status) {
 			var vehicleFuelLog = null;
@@ -78,6 +88,103 @@ var YCL = function() {
 		});
 	};
 
+	/**
+	 * @class {YCL.saveVehicleFuelLog} Service to save Vehicle Fuel Log
+	 * @param {YCL.SaveVehicleFuelLogRequest} request
+	 * @param {Function} callback
+	 *	function({@link YCL.SaveVehicleFuelLogResponse} response, {@link YCL.VehicleFuelLogStatus} status)
+	 */
+	this.saveVehicleFuelLog = function(request, callback) {
+
+		alert(request.vehicleId);
+
+		var requestData = {
+			vehicleFuelLogId: request.vehicleFuelLogId,
+			vehicleId: request.vehicleId,
+			logDate: request.logDate.getFullYear()+'/'+parseInt(request.logDate.getMonth()+1)+'/'+request.logDate.getDate(),
+			odometer: request.odometer,
+			fuel: request.fuel,
+			octane: request.octane,
+			missedFillup: request.missedFillup
+		};
+		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
+		var response = {
+			errors: [],
+			success: false
+		};
+
+		$.ajax({
+			url: saveVehicleFuelLogServiceUrl,
+			data: requestData,
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
+				alert("error: " + XMLHttpRequest.statusText);
+			},
+			success: function(data) {
+				status = YCL.VehicleFuelLogStatus.OK;
+				if (data.errors.length > 0) {
+					response.success = false;
+					$.each(data.errors, function(index, error) {
+						response.errors.push({
+							code: error.code,
+							fieldName: error.field
+						});
+					});
+				} else {
+					response.success = true;
+				}
+			},
+			complete: function() {
+				if (callback instanceof Function) {
+					callback(response, status);
+				}
+			}
+		})
+
+	};
+
+
+
+};
+
+/**
+ * @class {YCL.Error}
+ * @property {String} code Error code
+ * @property {String} fieldName Field name
+ */
+YCL.Error = {
+	code: null,
+	fieldName: null
+};
+
+/**
+ * @class {YCL.SaveVehicleFuelLogRequest}
+ * @property {Number} fuel
+ * @property {Date} logDate
+ * @property {Boolean} missedFillup
+ * @property {Number} octane Octane rating of gasoline
+ * @property {Number} odometer Odometer reading
+ * @property {Number} vehicleFuelLogId
+ * @property {Number} vehicleId
+ */
+YCL.SaveVehicleFuelLogRequest = {
+	fuel: null,
+	logDate: null,
+	missedFillup: null,
+	octane: null,
+	odometer: null,
+	vehicleFuelLogId: null,
+	vehicleId: null
+};
+
+/**
+ * @class {YCL.SaveVehicleFuelLogResponse}
+ * @property {Array} errors Array.<{@link YCL.Error}> List of errors
+ * @property {Boolean} success
+ */
+YCL.SaveVehicleFuelLogResponse = {
+	errors: null,
+	success: null
 };
 
 /**

@@ -26,17 +26,17 @@
 						<div class="display">
 							<div class="odometer">
 								<span class="view number"></span>
-								<input type="text" class="edit number"/>
+								<input type="text" class="edit number" name="odometer"/>
 								<span class="units">mi</span>
 							</div>
 							<div class="fuel">
 								<span class="view number"></span>
-								<input type="text" class="edit number"/>
+								<input type="text" class="edit number" name="fuel"/>
 								<span class="units">gal</span>
 							</div>
 							<div class="date">
 								<span class="view"></span>
-								<input type="text" class="edit"/>
+								<input type="text" class="edit" name="logDate"/>
 							</div>
 							<div class="economy"><span class="number"></span> <span class="units">mpg</span></div>
 							<div class="edit-button"><a href="#edit0">edit</a></div>
