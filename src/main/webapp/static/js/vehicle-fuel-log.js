@@ -39,7 +39,7 @@ $(document).ready(function() {
 							$row.data("missedFillup", vehicleFuelLog.missedFillup);
 							$row.find(".odometer > .view.number").text( vehicleFuelLog.odometer.toFixed(1) ); // TODO - Adjustable fixed
 							$row.find(".fuel > .view.number").text( vehicleFuelLog.fuel );
-							$row.find(".date").text( rowDate.getFullYear()+" "+rowDate.getMonthShortName()+" "+rowDate.getDate() ).attr("title", rowDate.toString());
+							$row.find(".date > .view").text( rowDate.getFullYear()+" "+rowDate.getMonthShortName()+" "+rowDate.getDate() ).attr("title", rowDate.toString());
 							$row.find(".economy > .number").text(".");
 						}
 
@@ -97,9 +97,11 @@ $(document).ready(function() {
 
 			ycl.getVehicleFuelLog(vehicleId, $row.data("vehicleFuelLogId"), function(vehicleFuelLog, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
+					var logDate = new Date(vehicleFuelLog.logDate);
 					$row.find(".odometer > .edit.number").val( vehicleFuelLog.odometer );
 					$row.find(".fuel > .edit.number").val( vehicleFuelLog.fuel );
 					$row.find(".octane input[name=octane]").val( vehicleFuelLog.octane );
+					$row.find(".date > .edit").val( logDate.getFullYear()+'/'+parseInt(logDate.getMonth()+1)+'/'+logDate.getDate() );
 
 					if (vehicleFuelLog.missedFillup) {
 						$row.find(".missedFillup input[name=missedFillup]").attr("checked", "checked");

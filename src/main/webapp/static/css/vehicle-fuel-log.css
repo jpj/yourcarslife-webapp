@@ -79,6 +79,12 @@
 	top: 2px;
 }
 
+#vehicleFuelLogs > li > form > .display > .date > input.edit {
+	color: #c7c7c7;
+	font-size: 12pt;
+	width: 95px;
+}
+
 #vehicleFuelLogs > li > form > .display > .economy {
 	left: 330px;
 	position: absolute;

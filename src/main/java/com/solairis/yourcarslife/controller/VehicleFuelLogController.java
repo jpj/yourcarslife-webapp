@@ -4,6 +4,7 @@
  */
 package com.solairis.yourcarslife.controller;
 
+import com.solairis.yourcarslife.command.SaveVehicleFuelLogFormData;
 import com.solairis.yourcarslife.command.VehicleFuelLogFormData;
 import com.solairis.yourcarslife.data.dao.VehicleFuelLogDao;
 import com.solairis.yourcarslife.data.domain.User;
@@ -52,7 +53,7 @@ public class VehicleFuelLogController {
 
 	@RequestMapping(value = "/data/vehicle-fuel-log")
 	@Transactional
-	public void vehicleFuelLog(@Valid VehicleFuelLogFormData vehicleFuelLogFormData, BindingResult errors, Model model) {
+	public void searchVehicleFuelLog(@Valid VehicleFuelLogFormData vehicleFuelLogFormData, BindingResult errors, Model model) {
 		if (!errors.hasFieldErrors()) {
 			org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));

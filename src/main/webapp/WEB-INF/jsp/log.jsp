@@ -10,6 +10,7 @@
     <head>
         <title>Vehicle Log</title>
 		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/vehicle-fuel-log.css"/>
+		<meta name="vehicleId" content="${vehicle.vehicleId}"/>
 		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/YCL.js"></script>
 		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/vehicle-fuel-log.js"></script>
     </head>
@@ -33,7 +34,10 @@
 								<input type="text" class="edit number"/>
 								<span class="units">gal</span>
 							</div>
-							<div class="date"></div>
+							<div class="date">
+								<span class="view"></span>
+								<input type="text" class="edit"/>
+							</div>
 							<div class="economy"><span class="number"></span> <span class="units">mpg</span></div>
 							<div class="edit-button"><a href="#edit0">edit</a></div>
 						</div>
