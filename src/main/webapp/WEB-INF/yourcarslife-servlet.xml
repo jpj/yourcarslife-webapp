@@ -19,6 +19,7 @@
 
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="ignoreAcceptHeader" value="true"/>
+<!--		<property name="messageSourceAccessor" ref="messageSourceAccessor"/>-->
 		<property name="mediaTypes">
 			<map>
 				<entry key="json" value="application/json" />
@@ -36,6 +37,14 @@
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 		<property name="prefix" value="/WEB-INF/jsp/"/>
 		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<!-- Messages -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages"/>
+	</bean>
+	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+		<constructor-arg ref="messageSource"/>
 	</bean>
 
 	<!-- Theme -->
@@ -102,5 +111,18 @@
 
 	<!-- Validators -->
 	<bean id="vehicleFuelLogFormDataValidator" class="com.solairis.yourcarslife.validator.VehicleFuelLogFormDataValidator"/>
+	<bean id="saveVehicleFuelLogFormDataValidator" class="com.solairis.yourcarslife.validator.SaveVehicleFuelLogFormDataValidator">
+		<property name="vehicleFuelLogDao" ref="vehicleFuelLogDao"/>
+	</bean>
+
+	<!-- Property Editors -->
+	<bean id="customDateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor">
+		<constructor-arg>
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg value="yyyy/MM/dd"/>
+			</bean>
+		</constructor-arg>
+		<constructor-arg value="false"/>
+	</bean>
 
 </beans>
