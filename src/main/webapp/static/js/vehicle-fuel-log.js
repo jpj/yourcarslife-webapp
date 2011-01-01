@@ -2,7 +2,7 @@ $(document).ready(function() {
 	var ycl = new YCL();
 	var vehicleId = $("meta[name=vehicleId]").attr("content");
 
-	var performSearch = function(request) {
+	var performSearch = function(request, callback) {
 
 		$("#vehicleFuelLogs li").addClass("available");
 
@@ -76,6 +76,10 @@ $(document).ready(function() {
 					$("#paging .from").text(from);
 					$("#paging .to").text(to > total ? total : to);
 					$("#paging .total").text(total);
+
+					if (callback instanceof Function) {
+						callback();
+					}
 				} else {
 					alert("error: " + status);
 				}
@@ -92,7 +96,9 @@ $(document).ready(function() {
 	$("#vehicleFuelLogs > li > form > .display > .edit-button > a").click(function(e) {
 		e.preventDefault();
 		var $row = $(this).parent().parent().parent().parent();
+		
 		if ( !$row.hasClass("disabled") && !$row.hasClass("editing") ) {
+			clearTimeout( $row.removeClass("fresh").data("freshTimeoutId") );
 			var odometerWidth = $row.find(".odometer > .view.number").width();
 			var fuelWidth = $row.find(".fuel > .view.number").width();
 
@@ -106,19 +112,14 @@ $(document).ready(function() {
 					$row.find(".fuel > .edit.number").val( vehicleFuelLog.fuel );
 					$row.find(".octane input[name=octane]").val( vehicleFuelLog.octane );
 					$row.data("logDate", logDate);
-					//$row.find(".date > .edit").val( logDate.getFullYear()+'/'+parseInt(logDate.getMonth()+1)+'/'+logDate.getDate() );
 					$row.find(".date > .edit").val( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() ).datepick({dateFormat: 'yyyy M dd', defaultDate: logDate, onSelect: function(dates) {
 							if (dates.length === 1) {
-								//alert("Dates: " + dates[0]);
 								var selectedDate = dates[0];
-//								alert(selectedDate.getTime());
-//								$row.find(".date > .edit").val( selectedDate.getTime() );
 								$row.data("logDate", selectedDate);
 							} else {
 								alert("Error getting date");
 							}
 					}});
-					//$("#vehicleFuelLogs .date > .view").datepick(new Date());
 
 					if (vehicleFuelLog.missedFillup) {
 						$row.find(".missedFillup input[name=missedFillup]").attr("checked", "checked");
@@ -141,9 +142,10 @@ $(document).ready(function() {
 		e.preventDefault();
 		var $form = $(this).parent().parent().parent().parent();
 		var $row = $(this).parent().parent().parent().parent().parent();
-		var vehicleFuelLogId = $(this).parent().parent().parent().parent().parent().data("vehicleFuelLogId");
-		//alert("Save isn't hooked up yet. Record " + vehicleFuelLogId);
-		//alert($form.find("input[name=logDate]").val());
+		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
+
+		$row.find("input.error").removeClass("error");
+
 		ycl.saveVehicleFuelLog(
 			{
 				fuel: $form.find("input[name=fuel]").val(),
@@ -155,9 +157,34 @@ $(document).ready(function() {
 				vehicleId: vehicleId
 			},
 			function(response, status) {
-				$.each(response.errors, function(index, error) {
-					alert(error.fieldName+': '+error.code);
-				});
+				if (status == YCL.VehicleFuelLogStatus.OK) {
+					if (response.success) {
+						$row.find(".edit-section").slideUp(500, function() {
+							performSearch(
+								{
+									pageNumber: $("#paging").data("pageNumber")
+								},
+								function() {
+									$("#vehicleFuelLogs > li").each(function() {
+										if (vehicleFuelLogId === $(this).data("vehicleFuelLogId")) {
+											$(this).addClass("fresh");
+											$(this).data("freshTimeoutId", setTimeout(function($row) {$row.removeClass("fresh");}, 8000, $(this)) );
+											return false;
+										}
+									});
+								}
+							);
+							$row.removeClass("editing");
+							$("#vehicleFuelLogs > li").removeClass("disabled");
+						});
+					} else {
+						$.each(response.errors, function(index, error) {
+							$form.find("input[name="+error.fieldName+"]").addClass("error");
+						});
+					}
+				} else {
+					alert("Error saving record: " + status);
+				}
 			}
 		);
 	});
@@ -166,6 +193,7 @@ $(document).ready(function() {
 	$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=cancel]").click(function(e) {
 		e.preventDefault();
 		var $row = $(this).parent().parent().parent().parent().parent();
+		$row.find("input.error").removeClass("error");
 		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
 		$row.find(".edit-section").slideUp(500, function() {
 			performSearch({

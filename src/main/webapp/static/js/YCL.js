@@ -96,8 +96,6 @@ var YCL = function() {
 	 */
 	this.saveVehicleFuelLog = function(request, callback) {
 
-		alert(request.vehicleId);
-
 		var requestData = {
 			vehicleFuelLogId: request.vehicleFuelLogId,
 			vehicleId: request.vehicleId,
@@ -110,7 +108,8 @@ var YCL = function() {
 		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
 		var response = {
 			errors: [],
-			success: false
+			success: false,
+			vehicleFuelLogId: 0
 		};
 
 		$.ajax({
@@ -132,6 +131,7 @@ var YCL = function() {
 					});
 				} else {
 					response.success = true;
+					response.vehicleFuelLogId = data.vehicleFuelLogId;
 				}
 			},
 			complete: function() {
@@ -181,10 +181,12 @@ YCL.SaveVehicleFuelLogRequest = {
  * @class {YCL.SaveVehicleFuelLogResponse}
  * @property {Array} errors Array.<{@link YCL.Error}> List of errors
  * @property {Boolean} success
+ * @property {Number} vehicleFuelLogId
  */
 YCL.SaveVehicleFuelLogResponse = {
 	errors: null,
-	success: null
+	success: null,
+	vehicleFuelLogId: null
 };
 
 /**

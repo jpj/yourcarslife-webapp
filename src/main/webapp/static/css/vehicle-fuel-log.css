@@ -14,6 +14,11 @@
 	padding: 0;
 }
 
+#vehicleFuelLogs input[type=text].error {
+/*	background-color: #FFD6D6;*/
+	background-color: #FFBBB8;
+}
+
 #vehicleFuelLogs > li {
 	border-bottom: 1px solid #ececec;
 }
@@ -42,6 +47,10 @@
 	border-bottom: 3px dotted black;
 	border-right: 3px dotted black;
 	border-top: 3px dotted black;
+}
+
+#vehicleFuelLogs > li.fresh {
+	background-color: #FFFFB8;
 }
 
 #vehicleFuelLogs > li > form > .display {

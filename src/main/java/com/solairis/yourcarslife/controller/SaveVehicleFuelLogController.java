@@ -69,6 +69,7 @@ public class SaveVehicleFuelLogController {
 			vehicleFuelLog.setVehicleId(saveVehicleFuelLogFormData.getVehicleId());
 
 			this.vehicleFuelLogService.saveVehicleFuelLog(vehicleFuelLog);
+			model.addAttribute("vehicleFuelLogId", vehicleFuelLog.getVehicleFuelLogId());
 		}
 		model.addAttribute("errors", errors.getFieldErrors());
 	}
