@@ -5,9 +5,14 @@
 package com.solairis.yourcarslife.validator;
 
 import com.solairis.yourcarslife.command.SaveVehicleFuelLogFormData;
+import com.solairis.yourcarslife.data.dao.UserDao;
+import com.solairis.yourcarslife.data.dao.VehicleDao;
 import com.solairis.yourcarslife.data.dao.VehicleFuelLogDao;
+import com.solairis.yourcarslife.data.domain.User;
+import com.solairis.yourcarslife.data.domain.Vehicle;
 import com.solairis.yourcarslife.data.domain.VehicleFuelLog;
 import org.apache.log4j.Logger;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -18,6 +23,8 @@ import org.springframework.validation.Validator;
  */
 public class SaveVehicleFuelLogFormDataValidator implements Validator {
 
+	private UserDao userDao;
+	private VehicleDao vehicleDao;
 	private VehicleFuelLogDao vehicleFuelLogDao;
 	private final Logger logger = Logger.getLogger(this.getClass());
 
@@ -30,6 +37,13 @@ public class SaveVehicleFuelLogFormDataValidator implements Validator {
 	@Transactional
 	public void validate(Object target, Errors errors) {
 		SaveVehicleFuelLogFormData saveVehicleFuelLogFormData = (SaveVehicleFuelLogFormData) target;
+		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = this.userDao.getUser(Long.parseLong(securityUser.getUsername()));
+		Vehicle vehicle = this.vehicleDao.getVehicle(saveVehicleFuelLogFormData.getVehicleId());
+
+		if (vehicle == null || vehicle.getUser().getUserId() != user.getUserId()) {
+			errors.rejectValue("vehicleId", "invalid");
+		}
 
 		if (saveVehicleFuelLogFormData.getVehicleFuelLogId() == 0) {
 			logger.debug("Validating for adding a vehicle fuel log");
@@ -47,7 +61,10 @@ public class SaveVehicleFuelLogFormDataValidator implements Validator {
 				}
 			}
 		}
-		// TODO - Validate logDate
+		
+		if (saveVehicleFuelLogFormData.getLogDate() == null) {
+			errors.rejectValue("logDate", "required");
+		}
 
 		if (saveVehicleFuelLogFormData.getOdometer() == 0) {
 			errors.rejectValue("odometer", "required");
@@ -60,8 +77,12 @@ public class SaveVehicleFuelLogFormDataValidator implements Validator {
 
 	}
 
-	public VehicleFuelLogDao getVehicleFuelLogDao() {
-		return vehicleFuelLogDao;
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	public void setVehicleDao(VehicleDao vehicleDao) {
+		this.vehicleDao = vehicleDao;
 	}
 
 	public void setVehicleFuelLogDao(VehicleFuelLogDao vehicleFuelLogDao) {

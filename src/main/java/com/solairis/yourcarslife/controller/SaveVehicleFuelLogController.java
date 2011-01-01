@@ -6,7 +6,10 @@ package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.SaveVehicleFuelLogFormData;
 import com.solairis.yourcarslife.data.domain.User;
+import com.solairis.yourcarslife.data.domain.Vehicle;
+import com.solairis.yourcarslife.data.domain.VehicleFuelLog;
 import com.solairis.yourcarslife.service.UserService;
+import com.solairis.yourcarslife.service.VehicleFuelLogService;
 import java.beans.PropertyEditor;
 import java.util.Date;
 import javax.validation.Valid;
@@ -29,6 +32,8 @@ public class SaveVehicleFuelLogController {
 	@Autowired
 	private UserService userService;
 	@Autowired
+	private VehicleFuelLogService vehicleFuelLogService;
+	@Autowired
 	private org.springframework.validation.Validator saveVehicleFuelLogFormDataValidator;
 	@Autowired
 	private PropertyEditor customDateEditor;
@@ -41,9 +46,29 @@ public class SaveVehicleFuelLogController {
 
 	@RequestMapping(value = "/data/save-vehicle-fuel-log")
 	public void saveVehicleFuelLog(@Valid SaveVehicleFuelLogFormData saveVehicleFuelLogFormData, BindingResult errors, Model model) {
+
+		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
+
+
 		if (!errors.hasFieldErrors()) {
-			org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
+			VehicleFuelLog vehicleFuelLog = null;
+
+			if (saveVehicleFuelLogFormData.getVehicleFuelLogId() == 0) {
+				vehicleFuelLog = new VehicleFuelLog();
+				vehicleFuelLog.setActive(true);
+			} else {
+				vehicleFuelLog = this.vehicleFuelLogService.getVehicleFuelLog(saveVehicleFuelLogFormData.getVehicleFuelLogId());
+			}
+
+			vehicleFuelLog.setFuel(saveVehicleFuelLogFormData.getFuel());
+			vehicleFuelLog.setLogDate(saveVehicleFuelLogFormData.getLogDate());
+			vehicleFuelLog.setMissedFillup(saveVehicleFuelLogFormData.isMissedFillup());
+			vehicleFuelLog.setOctane(saveVehicleFuelLogFormData.getOctane());
+			vehicleFuelLog.setOdometer(saveVehicleFuelLogFormData.getOdometer());
+			vehicleFuelLog.setVehicleId(saveVehicleFuelLogFormData.getVehicleId());
+
+			this.vehicleFuelLogService.saveVehicleFuelLog(vehicleFuelLog);
 		}
 		model.addAttribute("errors", errors.getFieldErrors());
 	}

@@ -112,6 +112,8 @@
 	<!-- Validators -->
 	<bean id="vehicleFuelLogFormDataValidator" class="com.solairis.yourcarslife.validator.VehicleFuelLogFormDataValidator"/>
 	<bean id="saveVehicleFuelLogFormDataValidator" class="com.solairis.yourcarslife.validator.SaveVehicleFuelLogFormDataValidator">
+		<property name="userDao" ref="userDao"/>
+		<property name="vehicleDao" ref="vehicleDao"/>
 		<property name="vehicleFuelLogDao" ref="vehicleFuelLogDao"/>
 	</bean>
 
