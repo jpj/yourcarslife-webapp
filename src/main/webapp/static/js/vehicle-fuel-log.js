@@ -36,6 +36,7 @@ $(document).ready(function() {
 						if (true) {
 							$row.data("vehicleFuelLogId", vehicleFuelLog.vehicleFuelLogId);
 							$row.data("modified", vehicleFuelLog.modified);
+							$row.data("octane", vehicleFuelLog.octane);
 							$row.data("missedFillup", vehicleFuelLog.missedFillup);
 							$row.find(".odometer > .view.number").text( vehicleFuelLog.odometer.toFixed(1) ); // TODO - Adjustable fixed
 							$row.find(".fuel > .view.number").text( vehicleFuelLog.fuel );
@@ -120,13 +121,35 @@ $(document).ready(function() {
 						$row.find(".odometer > .edit.number").width(100);
 						$row.find(".fuel > .edit.number").width(80);
 						var now = new Date();
+						var prevOdometer = 0;
+						var prevOdometerReading = isNaN( $row.next().find(".odometer > .view.number").text() ) ? 0 : parseInt( $row.next().find(".odometer > .view.number").text() );
+						var odometerDifference = 0;
+						var odometerCount = 0;
+						var octaneMean = new YCL.mean();
+						var fuelAvg = new YCL.average();
+						$("#vehicleFuelLogs > li:not(:first):not(.unused):lt(11)").each(function() {
+							var odometer = parseInt( $(this).find(".odometer > .view.number").text() );
+							if (prevOdometer !== 0) {
+								//alert("made it " + odometer);
+								odometerDifference = odometerDifference + prevOdometer - odometer;
+								odometerCount++;
+
+								fuelAvg.add( $(this).find(".fuel > .view.number").text() );
+							}
+							prevOdometer = odometer;
+
+							octaneMean.add( $(this).data("octane") );
+						});
+
+						//alert("average od. diff. between fillups: " + parseInt(  ));
+
 						vehicleFuelLog = {
 							logDate: now.getTime(),
-							odometer: 0,
-							fuel: 0,
-							octane: 87,
+							odometer: prevOdometerReading + odometerDifference/odometerCount,
+							fuel: fuelAvg.get(),
+							octane: octaneMean.get(),
 							missedFillup: false
-						}
+						};
 					}
 
 					var logDate = new Date(vehicleFuelLog.logDate);
