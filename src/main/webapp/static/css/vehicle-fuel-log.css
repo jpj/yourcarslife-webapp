@@ -1,6 +1,38 @@
+.options {
+	height: 42px;
+	left: 38px;
+	position: relative;
+}
+
+.options > .add {
+	background-color: #E9FFE6;
+	border-left: 13px solid #1FD700;
+	cursor: pointer;
+	font-size: 30pt;
+	left: 0;
+	padding: 1px 10px 1px 34px;
+	position: absolute;
+	top: 0;
+}
+
+.options > .add.disabled {
+	background-color: #eeeeee;
+	border-color: #bfbfbf;
+	cursor: default;
+}
+
+.options > .add > .indicator {
+	left: 5px;
+	position: absolute;
+	text-align: right;
+	top: -2px;
+	width: 25px;
+}
+
 #vehicleFuelLogs {
 	font-size: 17pt;
 	list-style: none;
+	padding-left: 38px;
 }
 
 #vehicleFuelLogs input {
@@ -27,6 +59,10 @@
 	background-color: #ececec;
 }
 
+#vehicleFuelLogs > li.editing:hover {
+	background-color: #E9FFE6;
+}
+
 #vehicleFuelLogs > li.odd {
 	background-color: #f8f8f8;
 }
@@ -38,12 +74,19 @@
 #vehicleFuelLogs > li.altMonth2 {
 	border-left: 3px solid #B7BBFF;
 }
+#vehicleFuelLogs > li.new {
+	background-color: #E9FFE6;
+	border-left: 13px solid #1FD700;
+	display: none;
+}
+
 
 #vehicleFuelLogs > li.available.unused {
 	display: none;
 }
 
 #vehicleFuelLogs > li.editing {
+	background-color: #E9FFE6;
 	border-bottom: 3px dotted black;
 	border-right: 3px dotted black;
 	border-top: 3px dotted black;
@@ -58,6 +101,7 @@
 	position: relative;
 }
 
+/* Odometer */
 #vehicleFuelLogs > li > form > .display > .odometer {
 	left: 9px;
 	position: absolute;
@@ -69,6 +113,7 @@
 	font-size: 12pt;
 }
 
+/* Fuel */
 #vehicleFuelLogs > li > form > .display > .fuel {
 	left: 138px;
 	position: absolute;
@@ -126,7 +171,7 @@
 	display: block;
 }
 
-#vehicleFuelLogs > li.editing > form > .display > .edit-button {
+#vehicleFuelLogs > li.editing > form > .display > .edit-button, #vehicleFuelLogs > li.disabled > form > .display > .edit-button {
 	display: none;
 }
 
@@ -148,6 +193,10 @@
 /*	background-color: #FFFFB8;*/
 	display: none;
 }
+#vehicleFuelLogs > li.new > form > .edit-section {
+	display: block;
+}
+
 #vehicleFuelLogs > li > form > .edit-section > .separator {
 	background-color: #d1d1d1;
 	height: 1px;

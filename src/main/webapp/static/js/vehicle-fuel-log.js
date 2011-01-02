@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 	var performSearch = function(request, callback) {
 
-		$("#vehicleFuelLogs li").addClass("available");
+		$("#vehicleFuelLogs li:not(:first)").addClass("available");
 
 		ycl.vehicleFuelLogSearch(
 			{pageNumber: request.pageNumber, maxResults: 21, vehicleId: vehicleId},
@@ -87,17 +87,24 @@ $(document).ready(function() {
 		);
 	};
 
-	/* Attach calendar */
-	//$("#vehicleFuelLogs .date > .view").datepick(new Date()).click(function() { alert("you got it");});
+	var openNewRow = function() {
+		var $row = $("#vehicleFuelLogs > li.new");
+		$row.slideDown(500 ,function() {
+			$(".options > .add > .indicator").text("-");
+		});
+		editRecord( $row );
+	};
 
-	// Add click events
+	var closeNewRow = function() {
+		$("#vehicleFuelLogs > li.new").slideUp(500 ,function() {
+			$(".options > .add > .indicator").text("+");
+		});
+	};
 
-	/* Edit */
-	$("#vehicleFuelLogs > li > form > .display > .edit-button > a").click(function(e) {
-		e.preventDefault();
-		var $row = $(this).parent().parent().parent().parent();
-		
+	var editRecord = function($row) {
 		if ( !$row.hasClass("disabled") && !$row.hasClass("editing") ) {
+
+			// Remove Fresh
 			clearTimeout( $row.removeClass("fresh").data("freshTimeoutId") );
 			var odometerWidth = $row.find(".odometer > .view.number").width();
 			var fuelWidth = $row.find(".fuel > .view.number").width();
@@ -107,6 +114,21 @@ $(document).ready(function() {
 
 			ycl.getVehicleFuelLog(vehicleId, $row.data("vehicleFuelLogId"), function(vehicleFuelLog, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
+
+					// Create defaults for new log
+					if (vehicleFuelLog == null && $row.hasClass("new")) {
+						$row.find(".odometer > .edit.number").width(100);
+						$row.find(".fuel > .edit.number").width(80);
+						var now = new Date();
+						vehicleFuelLog = {
+							logDate: now.getTime(),
+							odometer: 0,
+							fuel: 0,
+							octane: 87,
+							missedFillup: false
+						}
+					}
+
 					var logDate = new Date(vehicleFuelLog.logDate);
 					$row.find(".odometer > .edit.number").val( vehicleFuelLog.odometer );
 					$row.find(".fuel > .edit.number").val( vehicleFuelLog.fuel );
@@ -131,10 +153,18 @@ $(document).ready(function() {
 				}
 			});
 
-			$("#vehicleFuelLogs > li").addClass("disabled");
+			$("#vehicleFuelLogs > li, .options > .add").addClass("disabled");
 			$row.removeClass("disabled").addClass("editing");
 			$row.find(".edit-section").slideDown(500);
 		}
+	};
+
+	// Add click events
+
+	/* Edit */
+	$("#vehicleFuelLogs > li > form > .display > .edit-button > a").click(function(e) {
+		e.preventDefault();
+		editRecord( $(this).parent().parent().parent().parent() );
 	});
 
 	/* Save */
@@ -159,14 +189,19 @@ $(document).ready(function() {
 			function(response, status) {
 				if (status == YCL.VehicleFuelLogStatus.OK) {
 					if (response.success) {
+
+						// Close edit section, refresh searth, highlight entry in list.
 						$row.find(".edit-section").slideUp(500, function() {
+							if ($row.hasClass("new")) {
+								closeNewRow();
+							}
 							performSearch(
 								{
 									pageNumber: $("#paging").data("pageNumber")
 								},
 								function() {
 									$("#vehicleFuelLogs > li").each(function() {
-										if (vehicleFuelLogId === $(this).data("vehicleFuelLogId")) {
+										if (response.vehicleFuelLogId === $(this).data("vehicleFuelLogId") && !$(this).hasClass("new")) {
 											$(this).addClass("fresh");
 											$(this).data("freshTimeoutId", setTimeout(function($row) {$row.removeClass("fresh");}, 8000, $(this)) );
 											return false;
@@ -175,7 +210,7 @@ $(document).ready(function() {
 								}
 							);
 							$row.removeClass("editing");
-							$("#vehicleFuelLogs > li").removeClass("disabled");
+							$("#vehicleFuelLogs > li, .options > .add").removeClass("disabled");
 						});
 					} else {
 						$.each(response.errors, function(index, error) {
@@ -189,27 +224,34 @@ $(document).ready(function() {
 		);
 	});
 
-	// Cancel
+	/* Cancel */
 	$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=cancel]").click(function(e) {
 		e.preventDefault();
 		var $row = $(this).parent().parent().parent().parent().parent();
 		$row.find("input.error").removeClass("error");
 		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
+
+		// Close Edit Section and redraw search results
 		$row.find(".edit-section").slideUp(500, function() {
+			if ($row.hasClass("new")) {
+				closeNewRow();
+			}
 			performSearch({
 				pageNumber: $("#paging").data("pageNumber")
 			});
 			$row.removeClass("editing");
-			$("#vehicleFuelLogs > li").removeClass("disabled");
+			$("#vehicleFuelLogs > li, .options > .add").removeClass("disabled");
 		});
 
 	});
 
 	// Default Search
+	$("#vehicleFuelLogs > li:first").removeClass("available").addClass("new");
 	performSearch({
 		pageNumber: 1
 	});
 
+	// Paging
 	$("#paging a[href=#prev]").click(function(e) {
 		e.preventDefault();
 		performSearch({
@@ -222,6 +264,18 @@ $(document).ready(function() {
 		performSearch({
 			pageNumber: $("#paging").data("pageNumber") + 1
 		});
+	});
+
+	// Misc
+	//alert($("#vehicleFuelLogs > li").length);
+	$(".options > .add").click(function() {
+		if (!$(this).hasClass("disabled")) {
+			if ( $("#vehicleFuelLogs > li.new").is(":visible") ) {
+				closeNewRow();
+			} else {
+				openNewRow();
+			}
+		}
 	});
 
 });

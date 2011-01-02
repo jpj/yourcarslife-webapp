@@ -79,8 +79,6 @@ var YCL = function() {
 
 			if (status === YCL.VehicleFuelLogStatus.OK && response.vehicleFuelLogs.length === 1) {
 				vehicleFuelLog = response.vehicleFuelLogs[0];
-			} else {
-				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
 			}
 			if (callback instanceof Function) {
 				callback(vehicleFuelLog, status);

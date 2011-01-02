@@ -7,23 +7,31 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 <html>
-    <head>
-        <title>Vehicle Log</title>
+	<head>
+		<title>Vehicle Log</title>
 		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/vehicle-fuel-log.css"/>
 		<meta name="vehicleId" content="${vehicle.vehicleId}"/>
 		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/YCL.js"></script>
 		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/vehicle-fuel-log.js"></script>
-    </head>
-    <body>
-        <p>${vehicle.name}: ${vehicle.notes}</p>
+	</head>
+	<body>
+		<p>${vehicle.name}: ${vehicle.notes}</p>
+
+		<div class="options">
+			<div class="add"><div class="indicator">+</div> <span class="text">Add</span></div>
+		</div>
 
 		<div class="paging"></div>
 
 		<ul id="vehicleFuelLogs">
-			<c:forEach begin="1" end="100">
+			<c:forEach begin="1" end="101">
 				<li class="available">
 					<form action="get">
 						<div class="display">
+							<div class="date">
+								<span class="view"></span>
+								<input type="text" class="edit" name="logDate"/>
+							</div>
 							<div class="odometer">
 								<span class="view number"></span>
 								<input type="text" class="edit number" name="odometer"/>
@@ -33,10 +41,6 @@
 								<span class="view number"></span>
 								<input type="text" class="edit number" name="fuel"/>
 								<span class="units">gal</span>
-							</div>
-							<div class="date">
-								<span class="view"></span>
-								<input type="text" class="edit" name="logDate"/>
 							</div>
 							<div class="economy"><span class="number"></span> <span class="units">mpg</span></div>
 							<div class="edit-button"><a href="#edit0">edit</a></div>
@@ -75,5 +79,5 @@
 			of
 			<span class="total"></span>
 		</div>
-    </body>
+	</body>
 </html>
