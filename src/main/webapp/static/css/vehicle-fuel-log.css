@@ -1,5 +1,5 @@
 .options {
-	height: 42px;
+	height: 31px;
 	left: 38px;
 	position: relative;
 }
@@ -8,7 +8,7 @@
 	background-color: #E9FFE6;
 	border-left: 13px solid #1FD700;
 	cursor: pointer;
-	font-size: 30pt;
+	font-size: 23pt;
 	left: 0;
 	padding: 1px 10px 1px 34px;
 	position: absolute;
@@ -97,7 +97,7 @@
 }
 
 #vehicleFuelLogs > li > form > .display {
-	height: 86px;
+	height: 80px;
 	position: relative;
 }
 
@@ -140,13 +140,13 @@
 }
 
 #vehicleFuelLogs > li > form > .display > .economy {
-	left: 330px;
+	left: 390px;
 	position: absolute;
 	top: 1px;
 }
 
 #vehicleFuelLogs > li > form > .display > .economy > .number {
-	font-size: 46pt;
+	font-size: 40pt;
 	color: #6EAB75;
 }
 
@@ -156,7 +156,7 @@
 
 #vehicleFuelLogs > li > form > .display > .economy > .units {
 	color: #ababab;
-	font-size: 36pt;
+	font-size: 30pt;
 }
 
 #vehicleFuelLogs > li > form > .display > .edit-button {
