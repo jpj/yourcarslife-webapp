@@ -109,6 +109,7 @@ $(document).ready(function() {
 			clearTimeout( $row.removeClass("fresh").data("freshTimeoutId") );
 			var odometerWidth = $row.find(".odometer > .view.number").width();
 			var fuelWidth = $row.find(".fuel > .view.number").width();
+			var vehicleFuelLogId = $row.data("vehicleFuelLogId");
 
 			$row.find(".odometer > .edit.number").width(odometerWidth);
 			$row.find(".fuel > .edit.number").width(fuelWidth);
@@ -121,6 +122,8 @@ $(document).ready(function() {
 						$row.find(".odometer > .edit.number").width(100);
 						$row.find(".fuel > .edit.number").width(80);
 						var now = new Date();
+
+						// Calculatae avgs for od, fuel and oct.
 						var prevOdometer = 0;
 						var prevOdometerReading = isNaN( $row.next().find(".odometer > .view.number").text() ) ? 0 : parseInt( $row.next().find(".odometer > .view.number").text() );
 						var odometerDifference = 0;
@@ -141,8 +144,7 @@ $(document).ready(function() {
 							octaneMean.add( $(this).data("octane") );
 						});
 
-						//alert("average od. diff. between fillups: " + parseInt(  ));
-
+						// Create New Log
 						vehicleFuelLog = {
 							logDate: now.getTime(),
 							odometer: prevOdometerReading + odometerDifference/odometerCount,
@@ -176,9 +178,19 @@ $(document).ready(function() {
 				}
 			});
 
+			// Cleanup
 			$("#vehicleFuelLogs > li, .options > .add").addClass("disabled");
 			$row.removeClass("disabled").addClass("editing");
 			$row.find(".edit-section").slideDown(500);
+
+			$("#vehicleFuelLogs > li:not(:first)").each(function(e) {
+				if ( $(this).data("vehicleFuelLogId") !== vehicleFuelLogId ) {
+					$(this).addClass("lead");
+					return true;
+				} else {
+					return false;
+				}
+			});
 		}
 	};
 
@@ -233,7 +245,9 @@ $(document).ready(function() {
 								}
 							);
 							$row.removeClass("editing");
-							$("#vehicleFuelLogs > li, .options > .add").removeClass("disabled");
+							$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
+							$(".options > .add").removeClass("disabled");
+
 						});
 					} else {
 						$.each(response.errors, function(index, error) {
@@ -263,7 +277,8 @@ $(document).ready(function() {
 				pageNumber: $("#paging").data("pageNumber")
 			});
 			$row.removeClass("editing");
-			$("#vehicleFuelLogs > li, .options > .add").removeClass("disabled");
+			$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
+			$(".options > .add").removeClass("disabled");
 		});
 
 	});

@@ -88,12 +88,17 @@
 #vehicleFuelLogs > li.editing {
 	background-color: #E9FFE6;
 	border-bottom: 3px dotted black;
+	border-left: 6px solid #1FD700;
 	border-right: 3px dotted black;
 	border-top: 3px dotted black;
 }
 
 #vehicleFuelLogs > li.fresh {
 	background-color: #FFFFB8;
+}
+
+#vehicleFuelLogs > li.disabled.lead {
+	border-left: 3px solid #1FD700;
 }
 
 #vehicleFuelLogs > li > form > .display {
