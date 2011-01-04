@@ -183,14 +183,16 @@ $(document).ready(function() {
 			$row.removeClass("disabled").addClass("editing");
 			$row.find(".edit-section").slideDown(500);
 
-			$("#vehicleFuelLogs > li:not(:first)").each(function(e) {
-				if ( $(this).data("vehicleFuelLogId") !== vehicleFuelLogId ) {
-					$(this).addClass("lead");
-					return true;
-				} else {
-					return false;
-				}
-			});
+			if ( !$row.hasClass("new") ) {
+				$("#vehicleFuelLogs > li:not(:first)").each(function(e) {
+					if ( $(this).data("vehicleFuelLogId") !== vehicleFuelLogId ) {
+						$(this).addClass("lead");
+						return true;
+					} else {
+						return false;
+					}
+				});
+			}
 		}
 	};
 
