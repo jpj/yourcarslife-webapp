@@ -181,7 +181,7 @@ $(document).ready(function() {
 			// Cleanup
 			$("#vehicleFuelLogs > li, .options > .add").addClass("disabled");
 			$row.removeClass("disabled").addClass("editing");
-			$row.find(".edit-section").slideDown(500);
+			$row.find(".edit-section").show();
 
 			if ( !$row.hasClass("new") ) {
 				$("#vehicleFuelLogs > li:not(:first)").each(function(e) {
@@ -228,29 +228,29 @@ $(document).ready(function() {
 					if (response.success) {
 
 						// Close edit section, refresh searth, highlight entry in list.
-						$row.find(".edit-section").slideUp(500, function() {
-							if ($row.hasClass("new")) {
-								closeNewRow();
-							}
-							performSearch(
-								{
-									pageNumber: $("#paging").data("pageNumber")
-								},
-								function() {
-									$("#vehicleFuelLogs > li").each(function() {
-										if (response.vehicleFuelLogId === $(this).data("vehicleFuelLogId") && !$(this).hasClass("new")) {
-											$(this).addClass("fresh");
-											$(this).data("freshTimeoutId", setTimeout(function($row) {$row.removeClass("fresh");}, 8000, $(this)) );
-											return false;
-										}
-									});
-								}
-							);
-							$row.removeClass("editing");
-							$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
-							$(".options > .add").removeClass("disabled");
+						$row.find(".edit-section").hide();
 
-						});
+						if ($row.hasClass("new")) {
+							closeNewRow();
+						}
+						performSearch(
+							{
+								pageNumber: $("#paging").data("pageNumber")
+							},
+							function() {
+								$("#vehicleFuelLogs > li").each(function() {
+									if (response.vehicleFuelLogId === $(this).data("vehicleFuelLogId") && !$(this).hasClass("new")) {
+										$(this).addClass("fresh");
+										$(this).data("freshTimeoutId", setTimeout(function($row) {$row.removeClass("fresh");}, 8000, $(this)) );
+										return false;
+									}
+								});
+							}
+						);
+						$row.removeClass("editing");
+						$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
+						$(".options > .add").removeClass("disabled");
+
 					} else {
 						$.each(response.errors, function(index, error) {
 							$form.find("input[name="+error.fieldName+"]").addClass("error");
@@ -271,17 +271,16 @@ $(document).ready(function() {
 		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
 
 		// Close Edit Section and redraw search results
-		$row.find(".edit-section").slideUp(500, function() {
-			if ($row.hasClass("new")) {
-				closeNewRow();
-			}
-			performSearch({
-				pageNumber: $("#paging").data("pageNumber")
-			});
-			$row.removeClass("editing");
-			$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
-			$(".options > .add").removeClass("disabled");
+		$row.find(".edit-section").hide();
+		if ($row.hasClass("new")) {
+			closeNewRow();
+		}
+		performSearch({
+			pageNumber: $("#paging").data("pageNumber")
 		});
+		$row.removeClass("editing");
+		$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
+		$(".options > .add").removeClass("disabled");
 
 	});
 
