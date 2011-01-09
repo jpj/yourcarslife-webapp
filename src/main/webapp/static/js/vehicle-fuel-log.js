@@ -54,7 +54,7 @@ $(document).ready(function() {
 
 						// TODO: If this record and the previous were not modified, don't calculate economy.
 
-						if ( $prevRow.length !== 0 && prevFuel !== 0 && prevOdometer !== 0 /* && $prevRow.data("missedFillup") !== true */ ) {
+						if ( $prevRow.length !== 0 && prevFuel !== 0 && prevOdometer !== 0 && !$prevRow.data("missedFillup") ) {
 							var rawMpg = (prevOdometer - vehicleFuelLog.odometer) / prevFuel;
 							$prevRow.find(".economy > .number").text( rawMpg.toFixed(2) );
 						}
