@@ -1,6 +1,5 @@
 .options {
 	height: 31px;
-	left: 38px;
 	position: relative;
 }
 
@@ -32,7 +31,7 @@
 #vehicleFuelLogs {
 	font-size: 17pt;
 	list-style: none;
-	padding-left: 38px;
+	padding: 0;
 }
 
 #vehicleFuelLogs input {
@@ -76,7 +75,7 @@
 }
 #vehicleFuelLogs > li.new {
 	background-color: #E9FFE6;
-	border-left: 13px solid #1FD700;
+	border-left: 6px solid #1FD700;
 	display: none;
 }
 

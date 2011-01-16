@@ -1,0 +1,13 @@
+/* 
+    Document   : dashboard
+    Created on : Jan 16, 2011, 8:54:07 AM
+    Author     : josh
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#vehicles {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}

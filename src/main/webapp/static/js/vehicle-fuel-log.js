@@ -271,7 +271,9 @@ $(document).ready(function() {
 		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
 
 		// Close Edit Section and redraw search results
-		$row.find(".edit-section").hide();
+		if ( !$row.hasClass("new") ) {
+			$row.find(".edit-section").hide();
+		}
 		if ($row.hasClass("new")) {
 			closeNewRow();
 		}

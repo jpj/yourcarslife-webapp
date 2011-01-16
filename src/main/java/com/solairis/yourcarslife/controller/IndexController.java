@@ -68,14 +68,11 @@ public class IndexController {
 	@Transactional
 	public void dashboard(Model model) {
 
-		VehicleFuelLog vehicleFuelLog = this.vehicleFuelLogDao.getVehicleFuelLog(486);
-
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userDao.getUser(Long.parseLong(securityUser.getUsername()));
 
 		model.addAttribute("vehicles", this.vehicleService.getVehiclesByUser(user));
 
-		model.addAttribute("vehicleFuelLog", vehicleFuelLog);
 		model.addAttribute("user", user);
 
 	}

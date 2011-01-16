@@ -4,24 +4,21 @@
 <html>
 	<head>
 		<title>Dashboard</title>
+		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/dashboard.css"/>
 	</head>
 	<body>
-		<pre>
-Vehicle Id: ${vehicleFuelLog.vehicleFuelLogId}
-Created:    ${vehicleFuelLog.created}
-Odometer:   ${vehicleFuelLog.odometer}
-Fuel:       ${vehicleFuelLog.fuel}
 
-User Login: ${user.login}
-		</pre>
+		<h2>Your Vehicles</h2>
 
-		<p>
-			Vehicles owned by you:
-		</p>
-		<ul>
+		<ul id="vehicles">
 			<c:forEach var="vehicle" items="${vehicles}">
-				<li>
-					<a href="<spring:theme code="baseUrl"/>/log/${fn:replace(vehicle.name, " ", "_")}">${vehicle.name}</a>
+				<li class="vehicle">
+					<h3><a class="name" href="<spring:theme code="baseUrl"/>/log/${fn:replace(vehicle.name, " ", "_")}">${vehicle.name}</a></h3>
+					<div class="details">
+						<div class="holder">
+							
+						</div>
+					</div>
 				</li>
 			</c:forEach>
 		</ul>
