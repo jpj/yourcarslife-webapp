@@ -16,7 +16,8 @@
 					<h3><a class="name" href="<spring:theme code="baseUrl"/>/log/${fn:replace(vehicle.name, " ", "_")}">${vehicle.name}</a></h3>
 					<div class="details">
 						<div class="holder">
-							
+							<p>Notes: ${vehicle.notes}</p>
+							<p>Description: ${vehicle.description}</p>
 						</div>
 					</div>
 				</li>
