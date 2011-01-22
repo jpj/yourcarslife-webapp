@@ -4,15 +4,14 @@
     Author     : josh
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 <html>
 	<head>
 		<title>Vehicle Log</title>
-		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/vehicle-fuel-log.css"/>
+		<link rel="stylesheet" type="text/css" href="${theme.baseUrl}/static/css/vehicle-fuel-log.css"/>
 		<meta name="vehicleId" content="${vehicle.vehicleId}"/>
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/YCL.js"></script>
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/vehicle-fuel-log.js"></script>
+		<script type="text/javascript" src="${theme.baseUrl}/static/js/YCL.js"></script>
+		<script type="text/javascript" src="${theme.baseUrl}/static/js/vehicle-fuel-log.js"></script>
 	</head>
 	<body>
 		<p>${vehicle.name}: ${vehicle.notes}</p>

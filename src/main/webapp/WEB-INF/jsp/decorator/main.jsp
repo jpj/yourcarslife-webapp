@@ -5,7 +5,6 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <security:authorize ifAnyGranted="ROLE_USER">
@@ -17,12 +16,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><decorator:title default="Welcome!"/> | Your Car's Life</title>
-		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/layout.css"/>
-		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/js/jquery/jq.datepicker/jquery.datepick.css"/>
+		<link rel="stylesheet" type="text/css" href="${theme.baseUrl}/static/css/layout.css"/>
+		<link rel="stylesheet" type="text/css" href="${theme.baseUrl}/static/js/jquery/jq.datepicker/jquery.datepick.css"/>
 
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jquery-1.4.4.min.js"></script>
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jq.datepicker/jquery.datepick.js"></script>
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/extend.js"></script>
+		<script type="text/javascript" src="${theme.baseUrl}/static/js/jquery/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript" src="${theme.baseUrl}/static/js/jquery/jq.datepicker/jquery.datepick.js"></script>
+		<script type="text/javascript" src="${theme.baseUrl}/static/js/extend.js"></script>
 		<decorator:head/>
     </head>
     <body>
@@ -41,12 +40,12 @@
 					<div class="holder">
 						<ul>
 							<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<spring:theme code="baseUrl"/>/dashboard">Dashboard</a></li>
-							<li><a href="<spring:theme code="baseUrl"/>/logout">Logout</a></li>
+							<li><a href="${theme.baseUrl}/dashboard">Dashboard</a></li>
+							<li><a href="${theme.baseUrl}/logout">Logout</a></li>
 							</security:authorize>
 
 							<c:if test="${!isLoggedIn}">
-							<li><a href="<spring:theme code="baseUrl"/>/login">Login</a></li>
+							<li><a href="${theme.baseUrl}/login">Login</a></li>
 							</c:if>
 						</ul>
 					</div>
