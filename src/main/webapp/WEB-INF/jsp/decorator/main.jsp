@@ -3,9 +3,15 @@
     Created on : Nov 17, 2010, 6:36:40 AM
     Author     : josh
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
+<security:authorize ifAnyGranted="ROLE_USER">
+	<c:set var="isLoggedIn" value="true"/>
+</security:authorize>
+
 <!doctype html>
 <html>
     <head>
@@ -38,10 +44,10 @@
 							<li><a href="<spring:theme code="baseUrl"/>/dashboard">Dashboard</a></li>
 							<li><a href="<spring:theme code="baseUrl"/>/logout">Logout</a></li>
 							</security:authorize>
-							<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
+
+							<c:if test="${!isLoggedIn}">
 							<li><a href="<spring:theme code="baseUrl"/>/login">Login</a></li>
-							</security:authorize>
-							<li><a href="<spring:theme code="baseUrl"/>/login">Login</a></li>
+							</c:if>
 						</ul>
 					</div>
 				</div>

@@ -213,6 +213,7 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
 					<mode>both</mode>
+					<update>true</update>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -222,7 +223,7 @@
 			<id>local</id>
 			<build>
 				<filters>
-					<filter>filter.local.properties</filter>
+					<filter>src/main/filters/local.properties</filter>
 				</filters>
 			</build>
 		</profile>
@@ -230,7 +231,7 @@
 			<id>test</id>
 			<build>
 				<filters>
-					<filter>filter.test.properties</filter>
+					<filter>src/main/filters/test.properties</filter>
 				</filters>
 			</build>
 		</profile>
@@ -238,9 +239,19 @@
 			<id>prod</id>
 			<build>
 				<filters>
-					<filter>filter.prod.properties</filter>
+					<filter>src/main/filters/prod.properties</filter>
 				</filters>
 			</build>
 		</profile>
+		<profile>
+			<id>log4j-quiet</id>
+			<properties>
+				<log4j.consoleAppenderClass>org.apache.log4j.varia.NullAppender</log4j.consoleAppenderClass>
+				<log4j.priority>info</log4j.priority>
+			</properties>
+		</profile>
 	</profiles>
+    <properties>
+        <netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
+    </properties>
 </project>
