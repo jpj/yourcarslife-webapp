@@ -1,3 +1,9 @@
+/* Graph */
+#graph {
+	height: 125px;
+	margin-bottom: 30px;
+}
+
 .options {
 	height: 31px;
 	position: relative;

@@ -8,13 +8,26 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Vehicle Log</title>
-		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/vehicle-fuel-log.css"/>
 		<meta name="vehicleId" content="${vehicle.vehicleId}"/>
+		<title>Vehicle Log</title>
+
+		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/js/jquery/jqplot/jquery.jqplot.css"/>
+		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/vehicle-fuel-log.css"/>
+
+		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jqplot/jquery.jqplot.js"></script>
+		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jqplot/plugins/jqplot.highlighter.min.js"></script>
+		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jqplot/plugins/jqplot.cursor.min.js"></script>
 		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/vehicle-fuel-log.js"></script>
 	</head>
 	<body>
 		<p>${vehicle.name}: ${vehicle.notes}</p>
+
+		<div id="graph">
+			Graph
+		</div>
 
 		<div class="options">
 			<div class="add"><div class="indicator">+</div> <span class="text">Add</span></div>

@@ -1,6 +1,52 @@
 $(document).ready(function() {
 	var ycl = new YCL();
 	var vehicleId = $("meta[name=vehicleId]").attr("content");
+	$.jqplot.config.enablePlugins = true;
+
+	var graphVehicleFuelLogs = function(vehicleFuelLogs) {
+
+		var fuelEconomy = [];
+
+		$.each(vehicleFuelLogs, function(index, vehicleFuelLog) {
+
+			if (!vehicleFuelLog.missedFillup) {
+				var logDate = new Date(vehicleFuelLog.logDate);
+				fuelEconomy.push([logDate, vehicleFuelLog.economy]);
+			}
+		});
+
+		$("#graph").empty(); // Clear graph
+
+		$.jqplot("graph", [fuelEconomy], {
+			//title: "My Graph",
+			grid: {
+				borderWidth: 1,
+				shadow: false
+			},
+			series:[
+				{
+					lineWidth: 1,
+					color: "#6EAB75",
+					shadow: false
+				}
+			],
+			axes:{
+				xaxis: {
+					renderer: $.jqplot.DateAxisRenderer,
+					rendererOptions: {tickRenderer:$.jqplot.CanvasAxisTickRenderer}
+				},
+				yaxis: {
+					tickOptions: {
+						formatString: '%.2f'
+					}
+				}
+			},
+			highlighter: {
+				sizeAdjust: 7.5
+			},
+			cursor: {show: false}
+		});
+	};
 
 	var performSearch = function(request, callback) {
 
@@ -77,6 +123,9 @@ $(document).ready(function() {
 					$("#paging .from").text(from);
 					$("#paging .to").text(to > total ? total : to);
 					$("#paging .total").text(total);
+
+					// Do Graph
+					graphVehicleFuelLogs(response.vehicleFuelLogs);
 
 					if (callback instanceof Function) {
 						callback();
