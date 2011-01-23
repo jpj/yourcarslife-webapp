@@ -10,6 +10,9 @@
         <title>Home</title>
     </head>
     <body>
-        <div>Content</div>
+	    <p>
+		    <em>Your Car's Life</em> is an application to keep track of
+		    your car's fuel mileage and repairs.
+	    </p>
     </body>
 </html>

@@ -6,12 +6,21 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
-    <head>
-        <title>Login</title>
-	<script type="text/javascript" src="${theme.baseUrl}/static/js/login.js"></script>
-    </head>
-    <body>
-        <div>
+	<head>
+		<title>Login</title>
+		<script type="text/javascript" src="${theme.baseUrl}/static/js/login.js"></script>
+	</head>
+	<body>
+		<p>
+			Login to acces your account.
+		</p>
+		<c:if test="${not empty param.login_error}">
+			<div class="error">
+				<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
+			</div>
+		</c:if>
+
+		<div>
 			<form action="${theme.baseUrl}/j_spring_security_check" method="post" id="login">
 				<div>
 					<input type="text" name="j_username" value="<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>"/>
@@ -24,5 +33,5 @@
 				</div>
 			</form>
 		</div>
-    </body>
+	</body>
 </html>

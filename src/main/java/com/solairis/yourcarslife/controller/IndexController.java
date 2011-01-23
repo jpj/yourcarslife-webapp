@@ -55,15 +55,6 @@ public class IndexController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/")
-	public String home(Model model) {
-		return "home";
-	}
-
-	@RequestMapping(value = "/login")
-	public void login() {
-	}
-
 	@RequestMapping(value = "/dashboard")
 	@Transactional
 	public void dashboard(Model model) {
@@ -93,10 +84,5 @@ public class IndexController {
 		List<VehicleFuelLog> allVehicleFuelLogs = this.vehicleFuelLogDao.getVehicleFuelLogs(inputData);
 		model.addAttribute("allVehicleFuelLogsSize", allVehicleFuelLogs.size());
 		return "log";
-	}
-
-	@RequestMapping("/admin")
-	public String admin() {
-		return "admin";
 	}
 }
