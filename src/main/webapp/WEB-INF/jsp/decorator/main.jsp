@@ -17,7 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><decorator:title default="Welcome!"/> | Your Car's Life</title>
-		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/layout.css"/>
 		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/js/jquery/jq.datepicker/jquery.datepick.css"/>
 
 		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jquery-1.4.4.min.js"></script>
