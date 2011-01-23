@@ -12,7 +12,7 @@
     <body>
 	    <p>
 		    <em>Your Car's Life</em> is an application to keep track of
-		    your car's fuel mileage and repairs. (${buildNumber})
+		    your car's fuel mileage and repairs.
 	    </p>
     </body>
 </html>

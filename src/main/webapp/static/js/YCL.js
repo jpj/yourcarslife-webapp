@@ -6,8 +6,8 @@
 
 var YCL = function() {
 
-	var vehicleFuelLogServiceUrl = '${theme.baseUrl}/data/vehicle-fuel-log.json';
-	var saveVehicleFuelLogServiceUrl = '${theme.baseUrl}/data/save-vehicle-fuel-log.json';
+	var vehicleFuelLogServiceUrl = YCLConstants.BASE_URL + '/data/vehicle-fuel-log.json';
+	var saveVehicleFuelLogServiceUrl = YCLConstants.BASE_URL + '/data/save-vehicle-fuel-log.json';
 
 	/**
 	 * @class {YCL.vehicleFuelLogSearch} Service for searching vehicle fuel logs.
