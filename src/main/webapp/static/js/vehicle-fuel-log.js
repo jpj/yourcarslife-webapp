@@ -9,9 +9,10 @@ $(document).ready(function() {
 
 		$.each(vehicleFuelLogs, function(index, vehicleFuelLog) {
 
-			if (!vehicleFuelLog.missedFillup) {
+			if (!vehicleFuelLog.missedFillup && vehicleFuelLog.economy) {
 				var logDate = new Date(vehicleFuelLog.logDate);
-				fuelEconomy.push([logDate, vehicleFuelLog.economy]);
+				var economy = vehicleFuelLog.economy;
+				fuelEconomy.push([logDate, economy]);
 			}
 		});
 
@@ -44,7 +45,10 @@ $(document).ready(function() {
 			highlighter: {
 				sizeAdjust: 7.5
 			},
-			cursor: {show: false}
+			cursor: {
+				tooltipLocation: 'sw',
+				show: true
+			}
 		});
 	};
 
@@ -87,8 +91,8 @@ $(document).ready(function() {
 							$row.find(".odometer > .view.number").text( vehicleFuelLog.odometer.toFixed(1) ); // TODO - Adjustable fixed
 							$row.find(".fuel > .view.number").text( vehicleFuelLog.fuel );
 							$row.find(".date > .view").text( rowDate.getFullYear()+" "+rowDate.getMonthShortName()+" "+rowDate.getDate() ).attr("title", rowDate.toString());
-							//$row.find(".date").text( rowDate.getFullYear()+" "+rowDate.getMonthShortName()+" "+rowDate.getDate() ).attr("title", rowDate.toString());
-							$row.find(".economy > .number").text(".");
+							//$row.find(".economy > .number").text(".");
+							$row.find(".economy > .number").text( vehicleFuelLog.economy != null ? vehicleFuelLog.economy.toFixed(2) : "-");
 						}
 
 						if (month != null && month != rowDate.getMonth()) {
@@ -100,14 +104,14 @@ $(document).ready(function() {
 
 						// TODO: If this record and the previous were not modified, don't calculate economy.
 
-						if ( $prevRow.length !== 0 && prevFuel !== 0 && prevOdometer !== 0 && !$prevRow.data("missedFillup") ) {
-							var rawMpg = (prevOdometer - vehicleFuelLog.odometer) / prevFuel;
-							$prevRow.find(".economy > .number").text( rawMpg.toFixed(2) );
-						}
+//						if ( $prevRow.length !== 0 && prevFuel !== 0 && prevOdometer !== 0 && !$prevRow.data("missedFillup") ) {
+//							var rawMpg = (prevOdometer - vehicleFuelLog.odometer) / prevFuel;
+//							$prevRow.find(".economy > .number").text( rawMpg.toFixed(2) );
+//						}
 
 						prevFuel = vehicleFuelLog.fuel;
 						prevOdometer = vehicleFuelLog.odometer;
-						$row.find(".economy > .number").text('-');
+//						$row.find(".economy > .number").text('-');
 						
 					});
 
