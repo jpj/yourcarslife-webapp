@@ -6,6 +6,7 @@ $(document).ready(function() {
 	var graphVehicleFuelLogs = function(vehicleFuelLogs) {
 
 		var fuelEconomy = [];
+		var fuelEconomyAvg = new YCL.average();
 
 		$.each(vehicleFuelLogs, function(index, vehicleFuelLog) {
 
@@ -13,10 +14,12 @@ $(document).ready(function() {
 				var logDate = new Date(vehicleFuelLog.logDate);
 				var economy = vehicleFuelLog.economy;
 				fuelEconomy.push([logDate, economy]);
+				fuelEconomyAvg.add(economy);
 			}
 		});
 
 		$("#graph").empty(); // Clear graph
+		$("#graph-holder > .average-economy").text( fuelEconomyAvg.get() ); // Average Economy
 
 		$.jqplot("graph", [fuelEconomy], {
 			//title: "My Graph",

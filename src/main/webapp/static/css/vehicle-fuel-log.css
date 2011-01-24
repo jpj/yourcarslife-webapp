@@ -1,4 +1,14 @@
 /* Graph */
+#graph-holder {
+	position: relative;
+}
+
+#graph-holder > .average-economy {
+	position: absolute;
+	right: 0;
+	top: -25px;
+}
+
 #graph {
 	height: 125px;
 	margin-bottom: 30px;

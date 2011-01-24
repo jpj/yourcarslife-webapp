@@ -25,8 +25,9 @@
 	<body>
 		<p>${vehicle.name}: ${vehicle.notes}</p>
 
-		<div id="graph">
-			Graph
+		<div id="graph-holder">
+			<div class="average-economy"></div>
+			<div id="graph"></div>
 		</div>
 
 		<div class="options">
