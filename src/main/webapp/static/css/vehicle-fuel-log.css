@@ -15,7 +15,7 @@
 }
 
 .options {
-	height: 31px;
+	height: 45px;
 	position: relative;
 }
 
@@ -47,6 +47,7 @@
 #vehicleFuelLogs {
 	font-size: 17pt;
 	list-style: none;
+	margin: 0;
 	padding: 0;
 }
 

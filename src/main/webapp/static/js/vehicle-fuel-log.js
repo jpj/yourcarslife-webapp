@@ -1,6 +1,10 @@
 $(document).ready(function() {
 	var ycl = new YCL();
 	var vehicleId = $("meta[name=vehicleId]").attr("content");
+	var pagingData = {
+		pageNumber: 0
+	};
+
 	$.jqplot.config.enablePlugins = true;
 
 	var graphVehicleFuelLogs = function(vehicleFuelLogs) {
@@ -60,7 +64,7 @@ $(document).ready(function() {
 		$("#vehicleFuelLogs li:not(:first)").addClass("available");
 
 		ycl.vehicleFuelLogSearch(
-			{pageNumber: request.pageNumber, maxResults: 21, vehicleId: vehicleId},
+			{pageNumber: request.pageNumber, maxResults: 20, vehicleId: vehicleId},
 			/**
 			 * @function for you
 			 * @param {YCL.VehicleFuelLogResponse} response is the response
@@ -126,10 +130,11 @@ $(document).ready(function() {
 					var to = response.pageNumber * response.pageSize;
 					var total = response.totalResults;
 
-					$("#paging").data("pageNumber", response.pageNumber);
-					$("#paging .from").text(from);
-					$("#paging .to").text(to > total ? total : to);
-					$("#paging .total").text(total);
+					//$("#paging").data("pageNumber", response.pageNumber);
+					pagingData.pageNumber = response.pageNumber;
+					$(".paging .from").text(from);
+					$(".paging .to").text(to > total ? total : to);
+					$(".paging .total").text(total);
 
 					// Do Graph
 					graphVehicleFuelLogs(response.vehicleFuelLogs);
@@ -291,7 +296,7 @@ $(document).ready(function() {
 						}
 						performSearch(
 							{
-								pageNumber: $("#paging").data("pageNumber")
+								pageNumber: pagingData.pageNumber
 							},
 							function() {
 								$("#vehicleFuelLogs > li").each(function() {
@@ -334,7 +339,7 @@ $(document).ready(function() {
 			closeNewRow();
 		}
 		performSearch({
-			pageNumber: $("#paging").data("pageNumber")
+			pageNumber: pagingData.pageNumber
 		});
 		$row.removeClass("editing");
 		$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
@@ -349,17 +354,17 @@ $(document).ready(function() {
 	});
 
 	// Paging
-	$("#paging a[href=#prev]").click(function(e) {
+	$(".paging a[href=#prev]").click(function(e) {
 		e.preventDefault();
 		performSearch({
-			pageNumber: $("#paging").data("pageNumber") - 1
+			pageNumber: pagingData.pageNumber - 1
 		});
 	});
 
-	$("#paging a[href=#next]").click(function(e) {
+	$(".paging a[href=#next]").click(function(e) {
 		e.preventDefault();
 		performSearch({
-			pageNumber: $("#paging").data("pageNumber") + 1
+			pageNumber: pagingData.pageNumber + 1
 		});
 	});
 

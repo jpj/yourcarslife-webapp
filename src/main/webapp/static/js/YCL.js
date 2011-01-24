@@ -45,6 +45,7 @@ var YCL = function() {
 
 				var prevOdometer = 0;
 				var prevFuel = 0;
+				var prevMissedFillup = false;
 
 				$.each(data.vehicleFuelLogs, function(index, value) {
 
@@ -59,13 +60,14 @@ var YCL = function() {
 						vehicleFuelLogId: value.vehicleFuelLogId
 					});
 					
-					if (prevOdometer !== 0 && !value.missedFillup) {
+					if (prevOdometer && !prevMissedFillup) {
 						var economy = (prevOdometer - value.odometer)/prevFuel;
 						response.vehicleFuelLogs[response.vehicleFuelLogs.length-2].economy = economy;
 					}
 
 					prevOdometer = value.odometer;
 					prevFuel = value.fuel;
+					prevMissedFillup = value.missedFillup;
 
 				});
 			},

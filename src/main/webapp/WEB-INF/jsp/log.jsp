@@ -34,7 +34,15 @@
 			<div class="add"><div class="indicator">+</div> <span class="text">Add</span></div>
 		</div>
 
-		<div class="paging"></div>
+		<div class="paging">
+			<a href="#prev">prev</a>
+			<a href="#next">next</a>
+			<span class="from"></span>
+			-
+			<span class="to"></span>
+			of
+			<span class="total"></span>
+		</div>
 
 		<ul id="vehicleFuelLogs">
 			<c:forEach begin="1" end="101">
@@ -83,7 +91,7 @@
 				</li>
 			</c:forEach>
 		</ul>
-		<div id="paging">
+		<div class="paging">
 			<a href="#prev">prev</a>
 			<a href="#next">next</a>
 			<span class="from"></span>
