@@ -41,7 +41,10 @@ $(document).ready(function() {
 			axes:{
 				xaxis: {
 					renderer: $.jqplot.DateAxisRenderer,
-					rendererOptions: {tickRenderer:$.jqplot.CanvasAxisTickRenderer}
+					rendererOptions: {tickRenderer:$.jqplot.CanvasAxisTickRenderer},
+					tickOptions: {
+						formatString: '%Y %b %#d'
+					}
 				},
 				yaxis: {
 					tickOptions: {
