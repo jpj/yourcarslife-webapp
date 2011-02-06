@@ -109,6 +109,9 @@
 		<property name="vehicleDao" ref="vehicleDao"/>
 		<property name="vehicleFuelLogDao" ref="vehicleFuelLogDao"/>
 	</bean>
+	<bean id="createAccountFormDataValidator" class="com.solairis.yourcarslife.validator.CreateAccountFormDataValidator">
+		<property name="userService" ref="userService"/>
+	</bean>
 
 	<!-- Property Editors -->
 	<bean id="customDateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor">

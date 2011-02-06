@@ -11,6 +11,7 @@
 
 	<security:http use-expressions="true" auto-config="true">
 		<security:intercept-url pattern="/" filters="none"/>
+		<security:intercept-url pattern="/create-account" filters="none"/>
 		<security:intercept-url pattern="/login" filters="none"/>
 		<security:intercept-url pattern="/home" filters="none"/>
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>

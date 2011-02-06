@@ -13,7 +13,8 @@
 	</head>
 	<body>
 		<p>
-			Login to acces your account.
+			Login to acces your account or
+			<a href="<c:url value="/create-account"/>">create a new one</a>!
 		</p>
 		<c:if test="${not empty param.login_error}">
 			<div class="error">
@@ -24,7 +25,7 @@
 		<div>
 			<form action="<c:url value="/j_spring_security_check"/>" method="post" id="login">
 				<div class="input">
-					<label>Login
+					<label>Email
 					<input type="text" name="j_username" value="<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>" placeholder="Email"/>
 					</label>
 				</div>
