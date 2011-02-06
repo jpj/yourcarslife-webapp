@@ -8,6 +8,7 @@
 <html>
 	<head>
 		<title>Login</title>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/login.css"/>"/>
 		<script type="text/javascript" src="<c:url value="/static/js/login.js"/>"></script>
 	</head>
 	<body>
@@ -22,13 +23,17 @@
 
 		<div>
 			<form action="<c:url value="/j_spring_security_check"/>" method="post" id="login">
-				<div>
-					<input type="text" name="j_username" value="<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>"/>
+				<div class="input">
+					<label>Login
+					<input type="text" name="j_username" value="<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>" placeholder="Email"/>
+					</label>
 				</div>
-				<div>
+				<div class="input">
+					<label>Password
 					<input type="password" name="j_password"/>
+					</label>
 				</div>
-				<div>
+				<div class="input">
 					<input type="submit" value="Login"/>
 				</div>
 			</form>
