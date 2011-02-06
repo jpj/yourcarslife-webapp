@@ -17,15 +17,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><decorator:title default="Welcome!"/> | Your Car's Life</title>
-	<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/css/layout.css"/>
-		<link rel="stylesheet" type="text/css" href="<spring:theme code="baseUrl"/>/static/js/jquery/jq.datepicker/jquery.datepick.css"/>
+	<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/layout.css"/>"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/static/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
 
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jquery-1.4.4.min.js"></script>
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/jquery/jq.datepicker/jquery.datepick.js"></script>
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/extend.js"></script>
+		<script type="text/javascript" src="<c:url value="/static/js/jquery/jquery-1.4.4.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/static/js/jquery/jq.datepicker/jquery.datepick.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/static/js/extend.js"/>"></script>
 
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/YCLConstants.js"></script>
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/YCL.js"></script>
+		<script type="text/javascript" src="<c:url value="/static/js/YCLConstants.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/static/js/YCL.js"/>"></script>
 		<decorator:head/>
     </head>
     <body>
@@ -44,12 +44,12 @@
 					<div class="holder">
 						<ul>
 							<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<spring:theme code="baseUrl"/>/dashboard">Dashboard</a></li>
-							<li><a href="<spring:theme code="baseUrl"/>/logout">Logout</a></li>
+							<li><a href="<c:url value="/dashboard"/>">Dashboard</a></li>
+							<li><a href="<c:url value="/logout"/>">Logout</a></li>
 							</security:authorize>
 
 							<c:if test="${!isLoggedIn}">
-							<li><a href="<spring:theme code="baseUrl"/>/login">Login</a></li>
+							<li><a href="<c:url value="/login"/>">Login</a></li>
 							</c:if>
 						</ul>
 					</div>

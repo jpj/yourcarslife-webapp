@@ -48,15 +48,6 @@
 		<constructor-arg ref="messageSource"/>
 	</bean>
 
-	<!-- Theme -->
-	<bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
-		<property name="basenamePrefix" value="com.solairis.yourcarslife.theme."/>
-	</bean>
-
-	<bean id="themeResolver" class="org.springframework.web.servlet.theme.FixedThemeResolver">
-		<property name="defaultThemeName" value="default"/>
-	</bean>
-
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/jdbc/autologger"/>
 	</bean>

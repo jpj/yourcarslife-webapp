@@ -4,12 +4,11 @@
     Author     : josh
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 <html>
 	<head>
 		<title>Login</title>
-		<script type="text/javascript" src="<spring:theme code="baseUrl"/>/static/js/login.js"></script>
+		<script type="text/javascript" src="<c:url value="/static/js/login.js"/>"></script>
 	</head>
 	<body>
 		<p>
@@ -22,7 +21,7 @@
 		</c:if>
 
 		<div>
-			<form action="<spring:theme code="baseUrl"/>/j_spring_security_check" method="post" id="login">
+			<form action="<c:url value="/j_spring_security_check"/>" method="post" id="login">
 				<div>
 					<input type="text" name="j_username" value="<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>"/>
 				</div>
