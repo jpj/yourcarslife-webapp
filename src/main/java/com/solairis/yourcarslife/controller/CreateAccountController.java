@@ -6,6 +6,7 @@
 package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.CreateAccountFormData;
+import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.service.UserService;
 import com.solairis.yourcarslife.validator.CreateAccountFormDataValidator;
 import javax.validation.Valid;
@@ -46,7 +47,11 @@ public class CreateAccountController {
 	@RequestMapping(value="/create-account", method=RequestMethod.POST)
 	public String createAccountSubmit(@Valid CreateAccountFormData formData, BindingResult errors, Model model) {
 		if (!errors.hasFieldErrors()) {
-			// TODO Save User
+			User user = new User();
+			user.setEmail(formData.getEmail());
+			user.setEnabled(true);
+			user.setLogin(formData.getEmail());
+			this.userService.createUser(user, formData.getPassword());
 		}
 		model.addAttribute("errors", errors.getFieldErrors());
 		return errors.hasFieldErrors() ? "create-account" : "create-account-success";

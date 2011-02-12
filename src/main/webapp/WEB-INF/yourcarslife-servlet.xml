@@ -11,6 +11,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
+	<import resource="classpath:com/solairis/yourcarslife/spring/constant-beans.xml"/>
+	<import resource="classpath:com/solairis/yourcarslife/spring/service-beans.xml"/>
+
 	<context:component-scan base-package="com.solairis.yourcarslife.controller"/>
 
 	<mvc:view-controller path="/" view-name="home"/>
@@ -81,25 +84,6 @@
 	
 	<bean id="vehicleDao" class="com.solairis.yourcarslife.data.dao.impl.VehicleDaoHibernate">
 		<property name="sessionFactory" ref="mySessionFactory"/>
-	</bean>
-
-	<!-- Services -->
-	<bean id="userService" class="com.solairis.yourcarslife.service.impl.UserServiceImpl">
-		<property name="userDao" ref="userDao"/>
-	</bean>
-	<bean id="vehicleService" class="com.solairis.yourcarslife.service.impl.VehicleServiceImpl">
-		<property name="vehicleDao" ref="vehicleDao"/>
-	</bean>
-	<bean id="vehicleFuelLogService" class="com.solairis.yourcarslife.service.impl.VehicleFuelLogServiceImpl">
-		<property name="vehicleFuelLogDao" ref="vehicleFuelLogDao"/>
-	</bean>
-
-	<bean id="vehicleFuelLogMaxResultsUpperLimit" class="java.lang.Integer">
-		<constructor-arg value="200"/>
-	</bean>
-
-	<bean id="vehicleFuelLogDefaultMaxResults" class="java.lang.Integer">
-		<constructor-arg value="10"/>
 	</bean>
 
 	<!-- Validators -->
