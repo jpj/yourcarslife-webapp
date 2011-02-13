@@ -60,9 +60,10 @@
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mappingResources">
 			<list>
+				<value>com/solairis/yourcarslife/hibernate/User.hbm.xml</value>
+				<value>com/solairis/yourcarslife/hibernate/UserRole.hbm.xml</value>
 				<value>com/solairis/yourcarslife/hibernate/Vehicle.hbm.xml</value>
 				<value>com/solairis/yourcarslife/hibernate/VehicleFuelLog.hbm.xml</value>
-				<value>com/solairis/yourcarslife/hibernate/User.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties" value="hibernate.dialect=org.hibernate.dialect.MySQL5Dialect"/>

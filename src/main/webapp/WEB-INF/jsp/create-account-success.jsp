@@ -12,5 +12,7 @@
     </head>
     <body>
 	    <div>Your account has been created! Please <a href="<c:url value="/login"/>">login</a></div>
+
+	    <p>User Id: ${user.userId}</p>
     </body>
 </html>

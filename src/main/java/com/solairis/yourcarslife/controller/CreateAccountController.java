@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.CreateAccountFormData;
@@ -30,7 +29,6 @@ public class CreateAccountController {
 
 	@Autowired
 	private UserService userService;
-	
 	@Autowired
 	private Validator createAccountFormDataValidator;
 
@@ -39,12 +37,12 @@ public class CreateAccountController {
 		binder.setValidator(createAccountFormDataValidator);
 	}
 
-	@RequestMapping(value="/create-account", method={RequestMethod.GET, RequestMethod.HEAD})
+	@RequestMapping(value = "/create-account", method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String createAccountForm(@ModelAttribute CreateAccountFormData createAccountFormData) {
 		return "create-account";
 	}
 
-	@RequestMapping(value="/create-account", method=RequestMethod.POST)
+	@RequestMapping(value = "/create-account", method = RequestMethod.POST)
 	public String createAccountSubmit(@Valid CreateAccountFormData formData, BindingResult errors, Model model) {
 		if (!errors.hasFieldErrors()) {
 			User user = new User();
@@ -52,9 +50,9 @@ public class CreateAccountController {
 			user.setEnabled(true);
 			user.setLogin(formData.getEmail());
 			this.userService.createUser(user, formData.getPassword());
+			model.addAttribute("user", user);
 		}
 		model.addAttribute("errors", errors.getFieldErrors());
 		return errors.hasFieldErrors() ? "create-account" : "create-account-success";
 	}
-
 }
