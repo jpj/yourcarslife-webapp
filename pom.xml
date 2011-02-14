@@ -281,8 +281,8 @@
 						<configuration>
 							<server>solairis-prod</server>
 							<mode>war</mode>
-							<url>http://www.solairis.com:8080/manager</url>
-							<path>/yourcarslife</path>
+							<url>http://yourcarslife.com:8080/manager</url>
+							<path>/</path>
 						</configuration>
 					</plugin>
 				</plugins>
