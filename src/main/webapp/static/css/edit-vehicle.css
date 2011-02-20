@@ -1,0 +1,31 @@
+#editVehicleFormData .input {
+	height: 41px;
+	margin-top: 12px;
+	position: relative;
+}
+
+#editVehicleFormData .input.notes {
+	height: 95px;
+}
+
+#editVehicleFormData .input .error {
+	font-size: 10px;
+	left: 100px;
+	position: absolute;
+	top: -13px;
+}
+
+#editVehicleFormData .input input, #editVehicleFormData .input textarea {
+	left: 100px;
+	position: absolute;
+	top: 0;
+	width: 350px;
+}
+
+#editVehicleFormData .input textarea {
+	height: 85px;
+}
+
+#editVehicleFormData .input input[type=submit] {
+	width: auto;
+}

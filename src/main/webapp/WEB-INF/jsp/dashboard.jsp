@@ -8,6 +8,10 @@
 
 		<h2>Your Vehicles</h2>
 
+		<p>
+			(<a href="<c:url value="/edit-vehicle/0"/>">Add new vehicle</a>)
+		</p>
+
 		<ul id="vehicles">
 			<c:forEach var="vehicle" items="${vehicles}">
 				<li class="vehicle">

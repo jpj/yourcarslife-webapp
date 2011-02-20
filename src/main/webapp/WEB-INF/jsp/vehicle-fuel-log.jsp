@@ -19,10 +19,12 @@
 		<script type="text/javascript" src="<c:url value="/static/js/jquery/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/static/js/jquery/jqplot/plugins/jqplot.highlighter.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/static/js/jquery/jqplot/plugins/jqplot.cursor.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/static/js/vehicle-fuel-log.js"/>"></script>
+                <script type="text/javascript" src="<c:url value="/static/js/vehicle-fuel-log.js"/>"></script>
 	</head>
 	<body>
-		<p>${vehicle.name}: ${vehicle.notes}</p>
+		<p>
+                    <a href="<c:url value="/edit-vehicle/${vehicle.vehicleId}"/>">${vehicle.name}</a>: ${vehicle.notes}
+                </p>
 
 		<div id="graph-holder">
 			<div class="average-economy"></div>

@@ -13,6 +13,7 @@
 
 	<bean id="editVehicleFormDataValidator" class="com.solairis.yourcarslife.validator.EditVehicleFormDataValidator">
 		<property name="vehicleService" ref="vehicleService"/>
+		<property name="userService" ref="userService"/>
 	</bean>
 
 	<bean id="vehicleFuelLogFormDataValidator" class="com.solairis.yourcarslife.validator.VehicleFuelLogFormDataValidator"/>
