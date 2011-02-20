@@ -13,6 +13,7 @@
 
 	<import resource="classpath:com/solairis/yourcarslife/spring/constant-beans.xml"/>
 	<import resource="classpath:com/solairis/yourcarslife/spring/service-beans.xml"/>
+	<import resource="classpath:com/solairis/yourcarslife/spring/validator-beans.xml"/>
 
 	<context:component-scan base-package="com.solairis.yourcarslife.controller"/>
 
@@ -85,17 +86,6 @@
 	
 	<bean id="vehicleDao" class="com.solairis.yourcarslife.data.dao.impl.VehicleDaoHibernate">
 		<property name="sessionFactory" ref="mySessionFactory"/>
-	</bean>
-
-	<!-- Validators -->
-	<bean id="vehicleFuelLogFormDataValidator" class="com.solairis.yourcarslife.validator.VehicleFuelLogFormDataValidator"/>
-	<bean id="saveVehicleFuelLogFormDataValidator" class="com.solairis.yourcarslife.validator.SaveVehicleFuelLogFormDataValidator">
-		<property name="userDao" ref="userDao"/>
-		<property name="vehicleDao" ref="vehicleDao"/>
-		<property name="vehicleFuelLogDao" ref="vehicleFuelLogDao"/>
-	</bean>
-	<bean id="createAccountFormDataValidator" class="com.solairis.yourcarslife.validator.CreateAccountFormDataValidator">
-		<property name="userService" ref="userService"/>
 	</bean>
 
 	<!-- Property Editors -->
