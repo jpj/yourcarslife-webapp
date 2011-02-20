@@ -4,11 +4,9 @@
  */
 package com.solairis.yourcarslife.controller;
 
-import com.solairis.yourcarslife.data.dao.VehicleFuelLogDao;
 import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.data.domain.Vehicle;
 import com.solairis.yourcarslife.service.UserService;
-import com.solairis.yourcarslife.service.VehicleFuelLogService;
 import com.solairis.yourcarslife.service.VehicleService;
 import com.solairis.yourcarslife.service.exception.ServiceException;
 import com.solairis.yourcarslife.util.UrlUtil;
@@ -27,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author josh
  */
 @Controller
-public class IndexController {
+public class VehicleFuelLogController {
 
 	@Autowired
 	private UserService userService;
@@ -48,7 +46,7 @@ public class IndexController {
 		ModelAndView mav = new ModelAndView("log");
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
-		Vehicle vehicle = this.vehicleService.getVehicleByNameAndUser(UrlUtil.convertFromUrl(vehicleName), user.getUserId());
+		Vehicle vehicle = this.vehicleService.getVehicleByNameAndUser(vehicleName, user.getUserId());
 
 		model.addAttribute("vehicle", vehicle);
 

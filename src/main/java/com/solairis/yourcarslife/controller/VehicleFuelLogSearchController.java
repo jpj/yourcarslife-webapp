@@ -4,7 +4,6 @@
  */
 package com.solairis.yourcarslife.controller;
 
-import com.solairis.yourcarslife.command.SaveVehicleFuelLogFormData;
 import com.solairis.yourcarslife.command.VehicleFuelLogFormData;
 import com.solairis.yourcarslife.data.dao.VehicleFuelLogDao;
 import com.solairis.yourcarslife.data.domain.User;
@@ -29,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author josh
  */
 @Controller
-public class VehicleFuelLogController {
+public class VehicleFuelLogSearchController {
 
 	@Autowired
 	private VehicleFuelLogService vehicleFuelLogService;
@@ -43,10 +42,8 @@ public class VehicleFuelLogController {
 	private Integer vehicleFuelLogMaxResultsUpperLimit;
 	@Autowired
 	private Integer vehicleFuelLogDefaultMaxResults;
-	@Autowired
-	private VehicleFuelLogDao vehicleFuelLogDao;
 
-	@InitBinder
+	@InitBinder("vehicleFuelLogFormData")
 	protected void initBinder(WebDataBinder binder) {
 		binder.setValidator(vehicleFuelLogFormDataValidator);
 	}
