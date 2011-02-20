@@ -61,7 +61,7 @@ public class EditVehicleController {
 	}
 
 	@RequestMapping(value="/edit-vehicle/{vehicleId}", method=RequestMethod.POST)
-	public String submit(@Valid EditVehicleFormData formData, BindingResult errors) {
+	public String submit(@Valid EditVehicleFormData formData, BindingResult errors, Model model) {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
 		if (!errors.hasErrors()) {
@@ -77,6 +77,7 @@ public class EditVehicleController {
 			vehicle.setDescription(formData.getDescription());
 			vehicle.setNotes(formData.getNotes());
 			this.vehicleService.saveVehicle(vehicle);
+			model.addAttribute("success", true);
 		}
 		return "edit-vehicle";
 	}

@@ -4,7 +4,9 @@
     Author     : Johnson
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!doctype html>
 
 <html>
@@ -15,6 +17,11 @@
 		<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/edit-vehicle.css"/>"/>
 	</head>
 	<body>
+
+		<c:if test="${success}">
+			<p class="success">Vehicle Updated</p>
+		</c:if>
+
 		<div>
 			<form:form commandName="editVehicleFormData">
 				<div>
