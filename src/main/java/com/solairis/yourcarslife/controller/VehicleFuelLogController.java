@@ -41,7 +41,7 @@ public class VehicleFuelLogController {
 		return mav;
 	}
 
-	@RequestMapping("/log/{vehicleName}")
+	@RequestMapping("/vehicle-fuel-log/{vehicleName}")
 	public String log(@PathVariable String vehicleName, Model model) {
 		ModelAndView mav = new ModelAndView("log");
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -50,6 +50,6 @@ public class VehicleFuelLogController {
 
 		model.addAttribute("vehicle", vehicle);
 
-		return "log";
+		return "vehicle-fuel-log";
 	}
 }

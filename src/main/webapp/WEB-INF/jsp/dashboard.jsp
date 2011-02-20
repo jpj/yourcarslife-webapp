@@ -11,7 +11,7 @@
 		<ul id="vehicles">
 			<c:forEach var="vehicle" items="${vehicles}">
 				<li class="vehicle">
-					<h3><a class="name" href="<c:url value="/log/${vehicle.name}" />">${vehicle.name}</a></h3>
+					<h3><a class="name" href="<c:url value="/vehicle-fuel-log/${vehicle.name}" />">${vehicle.name}</a></h3>
 					<div class="details">
 						<div class="holder">
 							<p>Notes: ${vehicle.notes}</p>
