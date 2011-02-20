@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,17 +30,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 
 	@Autowired
-	private VehicleFuelLogDao vehicleFuelLogDao;
-	@Autowired
 	private UserService userService;
 	@Autowired
 	private VehicleService vehicleService;
-	@Autowired
-	private VehicleFuelLogService vehicleFuelLogService;
 	private final Logger logger = Logger.getLogger(this.getClass());
 
 	@ExceptionHandler(value = ServiceException.class)
 	public ModelAndView handleServiceException(Exception e) {
+                logger.fatal("", e);
 		ModelAndView mav = new ModelAndView("error");
 		mav.addObject("errorMessage", e.getMessage());
 		return mav;
