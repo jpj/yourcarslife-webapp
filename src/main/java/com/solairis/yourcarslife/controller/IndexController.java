@@ -47,19 +47,6 @@ public class IndexController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/dashboard")
-	@Transactional
-	public void dashboard(Model model) {
-
-		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
-
-		model.addAttribute("vehicles", this.vehicleService.getVehiclesByUser(user));
-
-		model.addAttribute("user", user);
-
-	}
-
 	@RequestMapping("/log/{vehicleName}")
 	public String log(@PathVariable String vehicleName, Model model) {
 		ModelAndView mav = new ModelAndView("log");

@@ -1,5 +1,4 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 	<head>
 		<title>Dashboard</title>
@@ -12,7 +11,7 @@
 		<ul id="vehicles">
 			<c:forEach var="vehicle" items="${vehicles}">
 				<li class="vehicle">
-					<h3><a class="name" href="<c:url value="/log"/>/${fn:replace(vehicle.name, " ", "_")}">${vehicle.name}</a></h3>
+					<h3><a class="name" href="<c:url value="/log/${vehicle.name}" />">${vehicle.name}</a></h3>
 					<div class="details">
 						<div class="holder">
 							<p>Notes: ${vehicle.notes}</p>
