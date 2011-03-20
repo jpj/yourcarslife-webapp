@@ -13,8 +13,7 @@ body {
 
 body, input, textarea {
 	font-family: helvetica, arial;
-	font-size: 16px;
-/*	line-height: 20px;*/
+/*	font-size: 18px;*/
 }
 
 form {
@@ -35,19 +34,28 @@ form {
 Header
 */
 #header .banner {
-	-moz-border-radius: 5px;
-	background-color: #ececec;
+	-moz-border-radius: 9px;
+	background-color: #800000;
+	color: #ffffff;
 	margin: 15px 0 15px 100px;
 	width: 958px;
 }
 
 #header .banner .holder {
 	padding: 5px 0 5px 25px;
+	position: relative;
 }
 
 #header .banner .holder .site-title {
 	font-size: 60pt;
-	text-shadow: silver 1px 1px 2px;
+/*	text-shadow: silver 1px 1px 2px;*/
+}
+
+#header .banner .holder .symbol {
+	font-size: 60pt;
+	position: absolute;
+	right: 25px;
+	top: -7px;
 }
 
 #header .banner .holder h1 {
@@ -76,12 +84,18 @@ Page
 }
 
 #navigation {
-	-moz-border-radius: 5px;
-	background-color: #ececec;
+	-moz-border-radius: 9px;
+	background-color: #800000;
+	color: #ffffff;
 	left: 0;
+	min-height: 300px;
 	position: absolute;
 	top: 0;
 	width: 172px;
+}
+
+#navigation a:link, #navigation a:visited {
+	color: #ffffff;
 }
 
 #navigation > .holder {

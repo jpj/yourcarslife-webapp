@@ -46,7 +46,7 @@
 			<div class="banner">
 				<div class="holder">
 					<div class="site-title">Your Car's Life</div>
-					<h1><decorator:title default="Welcome"/></h1>
+					<div class="symbol">&#10033;</div>
 				</div>
 			</div>
 		</div>

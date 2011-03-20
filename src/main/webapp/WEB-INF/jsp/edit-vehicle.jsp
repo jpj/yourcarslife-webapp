@@ -12,7 +12,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Editing Your ${vehicle.name}</title>
+		<title>Editing ${vehicle.name}</title>
 
 		<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/edit-vehicle.css"/>"/>
 	</head>
