@@ -26,12 +26,12 @@
 			<form action="<c:url value="/j_spring_security_check"/>" method="post" id="login">
 				<div class="input">
 					<label>Email
-						<input type="text" name="j_username" value="<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}" escapeXml="false"/></c:if>" placeholder="Email"/>
+						<input type="text" name="j_username" value="<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}" escapeXml="false"/></c:if>" placeholder="Email" autofocus="autofocus"/>
 					</label>
 				</div>
 				<div class="input">
 					<label>Password
-					<input type="password" name="j_password"/>
+					<input type="password" name="j_password" placeholder="Password"/>
 					</label>
 				</div>
 				<div class="input">

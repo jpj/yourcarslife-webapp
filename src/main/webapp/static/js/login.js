@@ -1,7 +1,5 @@
 $(document).ready(function() {
-	if ( $("#login input[name=j_username]").val() == '' ) {
+	if ( !('autofocus' in document.createElement('input'))) {
 		$("#login input[name=j_username]").focus();
-	} else {
-		$("#login input[name=j_password]").focus();
 	}
 });
