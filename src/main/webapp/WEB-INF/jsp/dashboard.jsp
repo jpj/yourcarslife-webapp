@@ -25,7 +25,9 @@
 
 				<ul id="vehicles">
 					<c:forEach var="vehicle" items="${vehicles}">
-						<li class="vehicle">
+						<li class="vehicle available">
+							<form action="#">
+								<div class="display">
 							<h3><a class="name" href="<c:url value="/vehicle-fuel-log/${vehicle.name}" />">${vehicle.name}</a></h3>
 							<div class="details">
 								<div class="holder">
@@ -33,6 +35,8 @@
 									<p>Description: ${vehicle.description}</p>
 								</div>
 							</div>
+								</div>
+							</form>
 						</li>
 					</c:forEach>
 				</ul>
