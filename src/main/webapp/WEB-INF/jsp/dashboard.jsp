@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Dashboard</title>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/dashboard.css"/>"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/dashboard.css"/>"/>
 	</head>
 	<body>
 

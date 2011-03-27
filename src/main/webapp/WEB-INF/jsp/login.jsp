@@ -8,8 +8,8 @@
 <html>
 	<head>
 		<title>Login</title>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/login.css"/>"/>
-		<script type="text/javascript" src="<c:url value="/static/js/login.js"/>"></script>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/login.css"/>"/>
+		<script type="text/javascript" src="<c:url value="/resources/js/login.js"/>"></script>
 	</head>
 	<body>
 		<p>

@@ -14,7 +14,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Editing ${vehicle.name}</title>
 
-		<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/edit-vehicle.css"/>"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/edit-vehicle.css"/>"/>
 	</head>
 	<body>
 

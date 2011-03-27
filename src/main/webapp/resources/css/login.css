@@ -1,0 +1,10 @@
+#login > .input {
+	height: 35px;
+	position: relative;
+}
+
+#login > .input input {
+	left: 83px;
+	position: absolute;
+	top: -5px;
+}

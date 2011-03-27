@@ -17,15 +17,15 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title><decorator:title default="Welcome!"/> | Your Car's Life</title>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/layout.css"/>"/>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/static/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout.css"/>"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
 
-		<script type="text/javascript" src="<c:url value="/static/js/jquery/jquery-1.4.4.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/static/js/jquery/jq.datepicker/jquery.datepick.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/static/js/extend.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.4.4.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/extend.js"/>"></script>
 
-		<script type="text/javascript" src="<c:url value="/static/js/YCLConstants.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/static/js/YCL.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/YCLConstants.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/YCL.js"/>"></script>
 		<decorator:head/>
 
 		<script type="text/javascript">
