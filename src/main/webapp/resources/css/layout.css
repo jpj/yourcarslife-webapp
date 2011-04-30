@@ -37,7 +37,7 @@ Header
 	-moz-border-radius: 9px;
 	background-color: #800000;
 	color: #ffffff;
-	margin: 15px 0 15px 100px;
+	margin: 15px auto;
 	width: 958px;
 }
 
@@ -69,7 +69,7 @@ Header
 Page
 */
 #page .container {
-	margin-left: 100px;
+	margin: 0 auto;
 	position: relative;
 	width: 960px;
 }
