@@ -55,24 +55,20 @@
 		<div id="page">
 			<div class="container">
 				<div id="navigation">
-					<div class="holder">
-						<ul>
-							<security:authorize ifAnyGranted="ROLE_USER">
-								<li><a href="<c:url value="/dashboard"/>">Dashboard</a></li>
-								<li><a href="<c:url value="/logout"/>">Logout</a></li>
-							</security:authorize>
+					<ul>
+						<security:authorize ifAnyGranted="ROLE_USER">
+							<li><a href="<c:url value="/dashboard"/>">Dashboard</a></li>
+							<li><a href="<c:url value="/logout"/>">Logout</a></li>
+						</security:authorize>
 
-							<c:if test="${!isLoggedIn}">
-								<li><a href="<c:url value="/login"/>">Login</a></li>
-							</c:if>
-						</ul>
-					</div>
+						<c:if test="${!isLoggedIn}">
+							<li><a href="<c:url value="/login"/>">Login</a></li>
+						</c:if>
+					</ul>
 				</div>
 				<div id="page-content">
-					<div class="holder">
-						<div class="content">
-							<decorator:body/>
-						</div>
+					<div class="content">
+						<decorator:body/>
 					</div>
 				</div>
 			</div>

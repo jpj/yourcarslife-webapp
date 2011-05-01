@@ -74,36 +74,27 @@ Page
 	width: 960px;
 }
 
-/*#page-content {
-	font-size: 16px;
-	line-height: 20px;
-}*/
-
-#page-content > .holder {
-	padding: 2px 15px 15px 193px;
+#page-content {
+	padding: 2px 15px 15px 15px;
 }
 
 #navigation {
 	-moz-border-radius: 9px;
 	background-color: #800000;
 	color: #ffffff;
-	left: 0;
-	min-height: 300px;
-	position: absolute;
-	top: 0;
-	width: 172px;
+	overflow: hidden;
 }
 
 #navigation a:link, #navigation a:visited {
 	color: #ffffff;
 }
 
-#navigation > .holder {
-	padding: 20px;
-}
-
 #navigation ul {
+	float: left;
+	height: 25px;
 	list-style: none;
 	margin: 0;
+	overflow: hidden;
 	padding: 0;
+	width: 150px;
 }
