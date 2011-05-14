@@ -10,6 +10,8 @@
 }
 
 #graph {
+	background-color: #f2f2f2;
+	box-shadow: 4px 4px 4px #5c5c5c;
 	height: 125px;
 	margin-bottom: 30px;
 }
@@ -237,4 +239,9 @@
 	bottom: 5px;
 	position: absolute;
 	right: 5px;
+}
+
+/* Paging */
+.paging {
+	display: none;
 }

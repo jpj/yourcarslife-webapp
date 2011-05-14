@@ -139,6 +139,16 @@ $(document).ready(function() {
 					$(".paging .to").text(to > total ? total : to);
 					$(".paging .total").text(total);
 
+					if (total > response.pageSize) {
+						$(".paging").show();
+					} else {
+						$(".paging").hide();
+					}
+
+					if (response.totalResults == 0) {
+						openNewRow();
+					}
+
 					// Do Graph
 					graphVehicleFuelLogs(response.vehicleFuelLogs);
 
@@ -195,7 +205,7 @@ $(document).ready(function() {
 						var octaneMean = new YCL.mean();
 						var fuelAvg = new YCL.average();
 						$("#vehicleFuelLogs > li:not(:first):not(.unused):lt(11)").each(function() {
-							var odometer = parseInt( $(this).find(".odometer > .view.number").text() );
+							var odometer = isNaN( $(this).find(".odometer > .view.number").text() ) ? 0 : parseInt( $(this).find(".odometer > .view.number").text() );
 							if (prevOdometer !== 0) {
 								//alert("made it " + odometer);
 								odometerDifference = odometerDifference + prevOdometer - odometer;
@@ -211,10 +221,10 @@ $(document).ready(function() {
 						// Create New Log
 						vehicleFuelLog = {
 							logDate: now.getTime(),
-							odometer: prevOdometerReading + odometerDifference/odometerCount,
+							odometer: odometerCount == 0 ? 0 : prevOdometerReading + odometerDifference/odometerCount,
 							fuel: fuelAvg.get(),
 							octane: octaneMean.get(),
-							missedFillup: false
+							missedFillup: odometerCount == 0
 						};
 					}
 
