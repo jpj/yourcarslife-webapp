@@ -45,10 +45,8 @@
 	<body>
 		<div id="header">
 			<div class="banner">
-				<div class="holder">
-					<div class="site-title">Your Car's Life</div>
-					<div class="symbol">&#10033;</div>
-				</div>
+				<div class="site-title">Your Car's Life</div>
+				<div class="symbol">&#10033;</div>
 			</div>
 		</div>
 

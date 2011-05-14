@@ -12,11 +12,20 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Editing ${vehicle.name}</title>
+		<title><c:choose><c:when test="${vehicle == null}">Add New Vehicle</c:when><c:otherwise>Editing ${vehicle.name}</c:otherwise></c:choose></title>
 
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/edit-vehicle.css"/>"/>
 	</head>
 	<body>
+
+		<c:choose>
+			<c:when test="${vehicle == null}">
+				<h1>Add New Vehicle</h1>
+			</c:when>
+			<c:otherwise>
+				<h1>Editing ${vehicle.name}</h1>
+			</c:otherwise>
+		</c:choose>
 
 		<c:if test="${success}">
 			<p class="success">Vehicle Updated</p>

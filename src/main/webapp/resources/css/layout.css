@@ -37,32 +37,25 @@ Header
 	-moz-border-radius: 9px;
 	background-color: #800000;
 	color: #ffffff;
-	margin: 15px auto;
-	width: 958px;
+	margin: 5px auto;
+	width: 933px;
 }
 
-#header .banner .holder {
+#header .banner {
 	padding: 5px 0 5px 25px;
 	position: relative;
 }
 
-#header .banner .holder .site-title {
+#header .banner .site-title {
 	font-size: 60pt;
 /*	text-shadow: silver 1px 1px 2px;*/
 }
 
-#header .banner .holder .symbol {
+#header .banner .symbol {
 	font-size: 60pt;
 	position: absolute;
 	right: 25px;
-	top: -7px;
-}
-
-#header .banner .holder h1 {
-	color: #9F7A7A;
-	margin: -18px 0 0 56px;
-	padding: 0;
-	text-shadow: silver 1px 1px 1px;
+	top: 3px;
 }
 
 /*
@@ -90,11 +83,25 @@ Page
 }
 
 #navigation ul {
-	float: left;
-	height: 25px;
 	list-style: none;
 	margin: 0;
-	overflow: hidden;
+}
+
+#navigation ul li {
+	float: left;
+	margin: 0;
 	padding: 0;
+}
+
+#navigation ul li a {
+	display: block;
+	overflow: hidden;
+	padding: 3px 0;
+	text-align: center;
+	text-decoration: none;
 	width: 150px;
+}
+
+#navigation ul li a:hover {
+	background-color: #9a0000;
 }

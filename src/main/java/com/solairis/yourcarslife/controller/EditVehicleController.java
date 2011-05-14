@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -33,10 +32,8 @@ public class EditVehicleController {
 
 	@Autowired
 	private UserService userService;
-
 	@Autowired
 	private VehicleService vehicleService;
-
 	@Autowired
 	private Validator editVehicleFormDataValidator;
 
@@ -46,37 +43,43 @@ public class EditVehicleController {
 	}
 
 	@RequestMapping(value = "/edit-vehicle/{vehicleId}", method = {RequestMethod.GET, RequestMethod.HEAD})
-	public String form(@PathVariable long vehicleId, @ModelAttribute EditVehicleFormData formData, Model model) {
+	public String form(@PathVariable long vehicleId, @ModelAttribute EditVehicleFormData editVehicleFormData, Model model) {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
-		Vehicle vehicle = this.vehicleService.getVehicleByUserAndVehicleId(user, vehicleId);
+
+		Vehicle vehicle = null;
+		if (vehicleId > 0) {
+			vehicle = this.vehicleService.getVehicleByUserAndVehicleId(user, vehicleId);
+		}
+		model.addAttribute("vehicle", vehicle);
 
 		if (vehicle != null) {
-			formData.setVehicleId(vehicle.getVehicleId());
-			formData.setName(vehicle.getName());
-			formData.setDescription(vehicle.getDescription());
-			formData.setNotes(vehicle.getNotes());
+			editVehicleFormData.setVehicleId(vehicle.getVehicleId());
+			editVehicleFormData.setName(vehicle.getName());
+			editVehicleFormData.setDescription(vehicle.getDescription());
+			editVehicleFormData.setNotes(vehicle.getNotes());
 		}
 		return "edit-vehicle";
 	}
 
-	@RequestMapping(value="/edit-vehicle/{vehicleId}", method=RequestMethod.POST)
-	public String submit(@Valid EditVehicleFormData formData, BindingResult errors, Model model) {
+	@RequestMapping(value = "/edit-vehicle/{vehicleId}", method = RequestMethod.POST)
+	public String submit(@Valid EditVehicleFormData editVehicleFormData, BindingResult errors, Model model) {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
 		if (!errors.hasErrors()) {
 			Vehicle vehicle = null;
 
-			if (formData.getVehicleId() == 0) {
+			if (editVehicleFormData.getVehicleId() == 0) {
 				vehicle = new Vehicle();
 				vehicle.setUser(user);
 			} else {
-				vehicle = this.vehicleService.getVehicle(formData.getVehicleId());
+				vehicle = this.vehicleService.getVehicle(editVehicleFormData.getVehicleId());
 			}
-			vehicle.setName(formData.getName());
-			vehicle.setDescription(formData.getDescription());
-			vehicle.setNotes(formData.getNotes());
+			vehicle.setName(editVehicleFormData.getName());
+			vehicle.setDescription(editVehicleFormData.getDescription());
+			vehicle.setNotes(editVehicleFormData.getNotes());
 			this.vehicleService.saveVehicle(vehicle);
+			model.addAttribute("vehicle", vehicle);
 			model.addAttribute("success", true);
 		}
 		return "edit-vehicle";
