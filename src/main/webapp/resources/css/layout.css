@@ -33,11 +33,14 @@ form {
 /*
 Header
 */
-#header .banner {
-	-moz-border-radius: 9px;
+#header {
 	background-color: #800000;
+}
+#header .banner {
+/*	-moz-border-radius: 9px;*/
+/*	background-color: #800000;*/
 	color: #ffffff;
-	margin: 5px auto;
+	margin: 1px auto;
 	width: 933px;
 }
 
@@ -72,7 +75,7 @@ Page
 }
 
 #navigation {
-	-moz-border-radius: 9px;
+	-moz-border-radius: 0 0 9px 9px;
 	background-color: #800000;
 	color: #ffffff;
 	overflow: hidden;
