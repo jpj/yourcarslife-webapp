@@ -16,9 +16,11 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"/>
 		<title><decorator:title default="Welcome!"/> | Your Car's Life</title>
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout.css"/>" media="screen"/>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout-mobile.css"/>" media="only screen and (max-device-width: 480px)"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout-mobile.css"/>" media="screen and (max-width: 480px)"/>
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
 
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.4.4.min.js"/>"></script>
@@ -46,7 +48,7 @@
 		<div id="header">
 			<div class="banner">
 				<div class="site-title">Your Car's Life</div>
-				<div class="symbol">&#10033;</div>
+				<div class="symbol"><span class="default">&#10033;</span><span class="small">*</span></div>
 			</div>
 		</div>
 

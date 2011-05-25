@@ -61,6 +61,10 @@ Header
 	top: 3px;
 }
 
+#header .banner .symbol .small {
+	display: none;
+}
+
 /*
 Page
 */
@@ -76,6 +80,7 @@ Page
 
 #navigation {
 	-moz-border-radius: 0 0 9px 9px;
+	-webkit-border-radius: 0 0 9px 9px;
 	background-color: #800000;
 	color: #ffffff;
 	overflow: hidden;
