@@ -1,0 +1,23 @@
+.options > .add {
+	font-size: 20pt;
+}
+
+#vehicleFuelLogs > li > form > .display > .odometer > .number {
+	font-size: inherit;
+}
+
+#vehicleFuelLogs > li > form > .display > .fuel > .number {
+	font-size: inherit;
+}
+
+#vehicleFuelLogs > li > form > .display > .economy {
+	top: 5px;
+}
+
+#vehicleFuelLogs > li > form > .display > .economy > .number {
+	font-size: 20pt;
+}
+
+#vehicleFuelLogs > li > form > .display > .economy > .units {
+	font-size: 15pt;
+}

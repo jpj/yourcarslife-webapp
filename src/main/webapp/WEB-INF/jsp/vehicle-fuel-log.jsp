@@ -12,6 +12,7 @@
 
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.css"/>"/>
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/vehicle-fuel-log.css"/>"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/vehicle-fuel-log-small.css"/>" media="screen and (max-width: 480px)"/>
 
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.dateAxisRenderer.min.js"/>"></script>
@@ -56,12 +57,12 @@
 							</div>
 							<div class="odometer">
 								<span class="view number"></span>
-								<input type="text" class="edit number" name="odometer"/>
+								<input type="number" class="edit number" name="odometer"/>
 								<span class="units">mi</span>
 							</div>
 							<div class="fuel">
 								<span class="view number"></span>
-								<input type="text" class="edit number" name="fuel"/>
+								<input type="number" class="edit number" name="fuel"/>
 								<span class="units">gal</span>
 							</div>
 							<div class="economy"><span class="number"></span> <span class="units">mpg</span></div>
@@ -78,7 +79,7 @@
 								</div>
 								<div class="octane">
 									<label>
-										<input type="text" name="octane"/>
+										<input type="number" name="octane"/>
 										Octane
 									</label>
 								</div>

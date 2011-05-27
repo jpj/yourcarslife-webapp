@@ -165,6 +165,7 @@ $(document).ready(function() {
 	var openNewRow = function() {
 		var $row = $("#vehicleFuelLogs > li.new");
 		$row.slideDown(500 ,function() {
+			$row.find(".odometer .edit.number").focus();
 			$(".options > .add > .indicator").text("-");
 		});
 		editRecord( $row );

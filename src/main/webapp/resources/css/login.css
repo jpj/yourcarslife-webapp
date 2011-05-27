@@ -8,3 +8,9 @@
 	position: absolute;
 	top: -5px;
 }
+
+#login > .input .remember-me {
+	left: 110px;
+	position: absolute;
+	top: 0;
+}

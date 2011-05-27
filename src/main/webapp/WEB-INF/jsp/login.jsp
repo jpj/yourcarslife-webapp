@@ -31,7 +31,13 @@
 				</div>
 				<div class="input">
 					<label>Password
-					<input type="password" name="j_password" placeholder="Password"/>
+						<input type="password" name="j_password" placeholder="Password"/>
+					</label>
+				</div>
+				<div class="input">
+					<label>
+						<input type="checkbox" name="_spring_security_remember_me"/> <span class="remember-me">Remember me</span>
+
 					</label>
 				</div>
 				<div class="input">

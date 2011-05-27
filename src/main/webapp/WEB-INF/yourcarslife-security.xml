@@ -22,6 +22,7 @@
 		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
 		<security:form-login login-page="/login" default-target-url="/dashboard" authentication-failure-url="/login?login_error=true"/>
 		<security:anonymous/>
+		<security:remember-me key="filmlib" user-service-ref="jdbcUserService"/>
 		<security:http-basic/>
 	</security:http>
 
