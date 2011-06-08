@@ -20,7 +20,7 @@
 		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"/>
 		<title><decorator:title default="Welcome!"/> | Your Car's Life</title>
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout.css"/>" media="screen"/>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout-mobile.css"/>" media="screen and (max-width: 480px)"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout-mobile.css"/>" media="screen and (max-width: 600px)"/>
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
 
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.4.4.min.js"/>"></script>

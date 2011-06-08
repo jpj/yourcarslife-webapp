@@ -189,11 +189,11 @@ $(document).ready(function() {
 			$row.find(".odometer > .edit.number").width(odometerWidth);
 			$row.find(".fuel > .edit.number").width(fuelWidth);
 
-			ycl.getVehicleFuelLog(vehicleId, $row.data("vehicleFuelLogId"), function(vehicleFuelLog, status) {
+			ycl.getVehicleFuelLog(vehicleId, vehicleFuelLogId, function(vehicleFuelLog, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
 
 					// Create defaults for new log
-					if (vehicleFuelLog == null && $row.hasClass("new")) {
+					if ((vehicleFuelLog == null || vehicleFuelLogId == null) && $row.hasClass("new")) {
 						$row.find(".odometer > .edit.number").width(100);
 						$row.find(".fuel > .edit.number").width(80);
 						var now = new Date();
@@ -225,7 +225,7 @@ $(document).ready(function() {
 							odometer: odometerCount == 0 ? 0 : prevOdometerReading + odometerDifference/odometerCount,
 							fuel: fuelAvg.get(),
 							octane: octaneMean.get(),
-							missedFillup: odometerCount == 0
+							missedFillup: odometerCount == 0 && prevOdometer == 0
 						};
 					}
 
