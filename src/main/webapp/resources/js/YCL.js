@@ -17,9 +17,13 @@ var YCL = function() {
 	 */
 	this.vehicleFuelLogSearch = function(request, callback) {
 
+		//alert("Online: " + navigator.onLine);
+		var maxResults = request.maxResults;
+		var pageNumber = request.pageNumber;
+
 		var requestData = {
-			pageNumber: request.pageNumber,
-			maxResults: request.maxResults,
+			pageNumber: pageNumber,
+			maxResults: maxResults,
 			vehicleId: request.vehicleId,
 			vehicleFuelLogId: request.vehicleFuelLogId
 		};
@@ -28,55 +32,105 @@ var YCL = function() {
 		var response = {
 			vehicleFuelLogs: []
 		};
-
-		$.ajax({
-			url: vehicleFuelLogServiceUrl,
-			data: requestData,
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
-				alert("error: " + XMLHttpRequest.statusText);
-			},
-			success: function(data) {
-				status = YCL.VehicleFuelLogStatus.OK;
-
-				response.pageNumber = data.pageNumber;
-				response.pageSize = data.pageSize;
-				response.totalResults = data.totalResults;
-
-				var prevOdometer = 0;
-				var prevFuel = 0;
-				var prevMissedFillup = false;
-
-				$.each(data.vehicleFuelLogs, function(index, value) {
-
-					response.vehicleFuelLogs.push({
-						created: value.created,
-						fuel: value.fuel,
-						logDate: value.logDate,
-						missedFillup: value.missedFillup,
-						modified: value.modified,
-						octane: value.octane,
-						odometer: value.odometer,
-						vehicleFuelLogId: value.vehicleFuelLogId
-					});
-					
-					if (prevOdometer && !prevMissedFillup) {
-						var economy = (prevOdometer - value.odometer)/prevFuel;
-						response.vehicleFuelLogs[response.vehicleFuelLogs.length-2].economy = economy;
-					}
-
-					prevOdometer = value.odometer;
-					prevFuel = value.fuel;
-					prevMissedFillup = value.missedFillup;
-
-				});
-			},
-			complete: function() {
-				if (callback instanceof Function) {
-					callback(response, status);
-				}
+		
+		var yclStore = JSON.parse( window.localStorage.getItem("ycl") );
+		status = YCL.VehicleFuelLogStatus.OK;
+		var vehicle = null;
+		$.each(yclStore.vehicles, function(i, val) {
+			if (val.vehicleId == request.vehicleId) {
+				vehicle = val;
 			}
 		});
+		if (vehicle == null) {
+			alert("Couldn't get vehicle");
+			throw "Could't get vehicle";
+		}
+
+		response.pageNumber = pageNumber;
+		response.pageSize = maxResults;
+		response.totalResults = vehicle.vehicleFuelLogs.length;
+
+		var prevOdometer = 0;
+		var prevFuel = 0;
+		var prevMissedFillup = false;
+		var startRecord = maxResults * (pageNumber - 1);
+
+		for (i = 0; i < maxResults && i + startRecord < vehicle.vehicleFuelLogs.length; i++) {
+			var value = vehicle.vehicleFuelLogs[i + startRecord];
+
+			response.vehicleFuelLogs.push({
+				created: value.created,
+				fuel: value.fuel,
+				logDate: value.logDate,
+				missedFillup: value.missedFillup,
+				modified: value.modified,
+				octane: value.octane,
+				odometer: value.odometer,
+				vehicleFuelLogId: value.vehicleFuelLogId
+			});
+					
+			if (prevOdometer && !prevMissedFillup) {
+				var economy = (prevOdometer - value.odometer)/prevFuel;
+				response.vehicleFuelLogs[response.vehicleFuelLogs.length-2].economy = economy;
+			}
+
+			prevOdometer = value.odometer;
+			prevFuel = value.fuel;
+			prevMissedFillup = value.missedFillup;
+
+		}
+		if (callback instanceof Function) {
+			callback(response, status);
+		}
+
+	//		$.ajax({
+	//			url: vehicleFuelLogServiceUrl,
+	//			data: requestData,
+	//			error: function(XMLHttpRequest, textStatus, errorThrown) {
+	//				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
+	//				alert("error: " + XMLHttpRequest.statusText);
+	//			},
+	//			success: function(data) {
+	//				status = YCL.VehicleFuelLogStatus.OK;
+	//
+	//				response.pageNumber = data.pageNumber;
+	//				response.pageSize = data.pageSize;
+	//				response.totalResults = data.totalResults;
+	//
+	//				var prevOdometer = 0;
+	//				var prevFuel = 0;
+	//				var prevMissedFillup = false;
+	//
+	//				$.each(data.vehicleFuelLogs, function(index, value) {
+	//
+	//					response.vehicleFuelLogs.push({
+	//						created: value.created,
+	//						fuel: value.fuel,
+	//						logDate: value.logDate,
+	//						missedFillup: value.missedFillup,
+	//						modified: value.modified,
+	//						octane: value.octane,
+	//						odometer: value.odometer,
+	//						vehicleFuelLogId: value.vehicleFuelLogId
+	//					});
+	//					
+	//					if (prevOdometer && !prevMissedFillup) {
+	//						var economy = (prevOdometer - value.odometer)/prevFuel;
+	//						response.vehicleFuelLogs[response.vehicleFuelLogs.length-2].economy = economy;
+	//					}
+	//
+	//					prevOdometer = value.odometer;
+	//					prevFuel = value.fuel;
+	//					prevMissedFillup = value.missedFillup;
+	//
+	//				});
+	//			},
+	//			complete: function() {
+	//				if (callback instanceof Function) {
+	//					callback(response, status);
+	//				}
+	//			}
+	//		});
 	};
 
 	/**
@@ -86,17 +140,61 @@ var YCL = function() {
 	 * @param {function} callback
 	 *	function({@link YCL.VehicleFuelLog} vehicleFuelLog, {@link YCL.VehicleFuelLogStatus} status)
 	 */
+	//	this.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
+	//		this.vehicleFuelLogSearch({
+	//			vehicleId: vehicleId, 
+	//			vehicleFuelLogId: vehicleFuelLogId
+	//		}, function(response, status) {
+	//			var vehicleFuelLog = null;
+	//
+	//			if (status === YCL.VehicleFuelLogStatus.OK && response.vehicleFuelLogs.length === 1) {
+	//				vehicleFuelLog = response.vehicleFuelLogs[0];
+	//			}
+	//			if (callback instanceof Function) {
+	//				callback(vehicleFuelLog, status);
+	//			}
+	//		});
+	//	};
 	this.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
-		this.vehicleFuelLogSearch({vehicleId: vehicleId, vehicleFuelLogId: vehicleFuelLogId}, function(response, status) {
-			var vehicleFuelLog = null;
 
-			if (status === YCL.VehicleFuelLogStatus.OK && response.vehicleFuelLogs.length === 1) {
-				vehicleFuelLog = response.vehicleFuelLogs[0];
-			}
-			if (callback instanceof Function) {
-				callback(vehicleFuelLog, status);
+		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
+		var response = {
+			vehicleFuelLog: null
+		};
+		
+		var yclStore = JSON.parse( window.localStorage.getItem("ycl") );
+		status = YCL.VehicleFuelLogStatus.OK;
+		var vehicle = null;
+		$.each(yclStore.vehicles, function(i, val) {
+			if (val.vehicleId == vehicleId) {
+				vehicle = val;
 			}
 		});
+		if (vehicle == null) {
+			alert("Couldn't get vehicle");
+			throw "Could't get vehicle";
+		}
+
+		for (i = 0; i < vehicle.vehicleFuelLogs.length; i++) {
+			var value = vehicle.vehicleFuelLogs[i];
+
+			if (vehicleFuelLogId == value.vehicleFuelLogId) {
+				response.vehicleFuelLog = {
+					created: value.created,
+					fuel: value.fuel,
+					logDate: value.logDate,
+					missedFillup: value.missedFillup,
+					modified: value.modified,
+					octane: value.octane,
+					odometer: value.odometer,
+					vehicleFuelLogId: value.vehicleFuelLogId
+				};
+			}
+
+		}
+		if (callback instanceof Function) {
+			callback(response.vehicleFuelLog, status);
+		}
 	};
 
 	/**
@@ -106,52 +204,153 @@ var YCL = function() {
 	 *	function({@link YCL.SaveVehicleFuelLogResponse} response, {@link YCL.VehicleFuelLogStatus} status)
 	 */
 	this.saveVehicleFuelLog = function(request, callback) {
-
-		var requestData = {
-			vehicleFuelLogId: request.vehicleFuelLogId,
-			vehicleId: request.vehicleId,
-			logDate: request.logDate.getFullYear()+'/'+parseInt(request.logDate.getMonth()+1)+'/'+request.logDate.getDate(),
-			odometer: request.odometer,
-			fuel: request.fuel,
-			octane: request.octane,
-			missedFillup: request.missedFillup
-		};
+		
 		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
 		var response = {
 			errors: [],
 			success: false,
 			vehicleFuelLogId: 0
 		};
-
-		$.ajax({
-			url: saveVehicleFuelLogServiceUrl,
-			data: requestData,
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
-				alert("error: " + XMLHttpRequest.statusText);
-			},
-			success: function(data) {
-				status = YCL.VehicleFuelLogStatus.OK;
-				if (data.errors.length > 0) {
-					response.success = false;
-					$.each(data.errors, function(index, error) {
-						response.errors.push({
-							code: error.code,
-							fieldName: error.field
-						});
-					});
-				} else {
-					response.success = true;
-					response.vehicleFuelLogId = data.vehicleFuelLogId;
-				}
-			},
-			complete: function() {
-				if (callback instanceof Function) {
-					callback(response, status);
-				}
+		
+		var yclStore = JSON.parse( window.localStorage.getItem("ycl") );
+		status = YCL.VehicleFuelLogStatus.OK;
+		var vehicle = null;
+		var vehicleRecordId = -1;
+		$.each(yclStore.vehicles, function(i, val) {
+			if (val.vehicleId == request.vehicleId) {
+				vehicle = val;
+				vehicleRecordId = i;
 			}
-		})
+		});
+		if (vehicle == null) {
+			alert("Couldn't get vehicle");
+			throw "Could't get vehicle";
+		}
+		
+		var vehicleFuelLog = null;
+		var recordId = -1;
 
+		for (i = 0; i < vehicle.vehicleFuelLogs.length; i++) {
+			var value = vehicle.vehicleFuelLogs[i];
+
+			if (request.vehicleFuelLogId == value.vehicleFuelLogId) {
+				vehicleFuelLog = value;
+				recordId = i;
+			}
+
+		}
+		
+		if (vehicleFuelLog == null) {
+			vehicleFuelLog.vehicleFuelLogId = -1;
+		}
+		
+		vehicleFuelLog.logDate = request.logDate.getFullYear()+'/'+parseInt(request.logDate.getMonth()+1)+'/'+request.logDate.getDate();
+		vehicleFuelLog.odometer = parseFloat( request.odometer );
+		vehicleFuelLog.fuel = request.fuel;
+		vehicleFuelLog.octane = request.octane;
+		vehicleFuelLog.missedFillup = request.missedFillup;
+		
+		// TODO - make better
+		vehicle.vehicleFuelLogs[recordId] = vehicleFuelLog;
+		yclStore.vehicles[vehicleRecordId] = vehicle;
+		window.localStorage.setItem("ycl", JSON.stringify(yclStore) );
+		
+		response.success = true;
+		response.vehicleFuelLogId = vehicleFuelLog.vehicleFuelLogId;
+		
+		if (callback instanceof Function) {
+			callback(response, status);
+		}
+
+	//		var requestData = {
+	//			vehicleFuelLogId: request.vehicleFuelLogId,
+	//			vehicleId: request.vehicleId,
+	//			logDate: request.logDate.getFullYear()+'/'+parseInt(request.logDate.getMonth()+1)+'/'+request.logDate.getDate(),
+	//			odometer: request.odometer,
+	//			fuel: request.fuel,
+	//			octane: request.octane,
+	//			missedFillup: request.missedFillup
+	//		};
+	//		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
+	//		var response = {
+	//			errors: [],
+	//			success: false,
+	//			vehicleFuelLogId: 0
+	//		};
+	//
+	//		$.ajax({
+	//			url: saveVehicleFuelLogServiceUrl,
+	//			data: requestData,
+	//			error: function(XMLHttpRequest, textStatus, errorThrown) {
+	//				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
+	//				alert("error: " + XMLHttpRequest.statusText);
+	//			},
+	//			success: function(data) {
+	//				status = YCL.VehicleFuelLogStatus.OK;
+	//				if (data.errors.length > 0) {
+	//					response.success = false;
+	//					$.each(data.errors, function(index, error) {
+	//						response.errors.push({
+	//							code: error.code,
+	//							fieldName: error.field
+	//						});
+	//					});
+	//				} else {
+	//					response.success = true;
+	//					response.vehicleFuelLogId = data.vehicleFuelLogId;
+	//				}
+	//			},
+	//			complete: function() {
+	//				if (callback instanceof Function) {
+	//					callback(response, status);
+	//				}
+	//			}
+	//		});
+
+	};
+	
+	this.getVehicles = function(request, callback) {
+		var yclStore = JSON.parse( window.localStorage.getItem("ycl") );
+		var status = YCL.VehicleStatus.OK;
+		var response = {
+			vehicles: []
+		};
+		
+		$.each(yclStore.vehicles, function(i, val) {
+			response.vehicles.push({
+				description: val.description,
+				name: val.name,
+				notes: val.notes,
+				vehicleId: val.vehicleId
+			});
+		});
+		
+		if (callback instanceof Function) {
+			callback(response, status);
+		}
+	};
+	
+	this.getVehicleById = function(vehicleId, callback) {
+		var yclStore = JSON.parse( window.localStorage.getItem("ycl") );
+		var status = YCL.VehicleStatus.OK;
+		var response = {
+			vehicle: null
+		};
+		
+		$.each(yclStore.vehicles, function(i, val) {
+			if (vehicleId == val.vehicleId) {
+				response.vehicle = {
+					description: val.description,
+					name: val.name,
+					notes: val.notes,
+					vehicleId: val.vehicleId
+				};
+			}
+		});
+		
+		if (callback instanceof Function) {
+			callback(response, status);
+		}
 	};
 
 };
@@ -250,6 +449,20 @@ YCL.SaveVehicleFuelLogResponse = {
 };
 
 /**
+ * @class {YCL.Vehicle}
+ * @property {String} description Vehicle description
+ * @property {String} name Name of vehicle
+ * @property {String} notes Vehicle notes
+ * @property {Number} vehicleId Vehicle ID number
+ */
+YCL.Vehicle = {
+	description: null,
+	name: null,
+	notes: null,
+	vehicleId: null
+};
+
+/**
  * @name YCL.VehicleFuelLog
  * @class
  * @property {Number} created
@@ -299,5 +512,14 @@ YCL.VehicleFuelLogStatus = {
 	 * There was an error with the request
 	 * @constant
 	 */
+	UNKNOWN_ERROR: "UNKNOWN_ERROR"
+};
+
+/**
+ * @class {YCL.VehicleStatus}
+ */
+YCL.VehicleStatus = {
+	INCOMPLETE: "INCOMPLETE",
+	OK: "OK",
 	UNKNOWN_ERROR: "UNKNOWN_ERROR"
 };

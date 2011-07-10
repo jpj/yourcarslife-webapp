@@ -1,11 +1,18 @@
 $(document).ready(function() {
 	var ycl = new YCL();
-	var vehicleId = $("meta[name=vehicleId]").attr("content");
 	var pagingData = {
 		pageNumber: 0
 	};
 
 	$.jqplot.config.enablePlugins = true;
+	
+	var getCurrentVehicleFuelLogRequest = function() {
+		return JSON.parse(location.hash.substr(1, location.hash.length));
+	};
+	
+	var setCurrentVehicleFuelLogRequest = function(request) {
+		window.location.hash = JSON.stringify(request);
+	};
 
 	var graphVehicleFuelLogs = function(vehicleFuelLogs) {
 
@@ -64,10 +71,20 @@ $(document).ready(function() {
 
 	var performSearch = function(request, callback) {
 
+		var vehicleFuelLogRequest = getCurrentVehicleFuelLogRequest();
 		$("#vehicleFuelLogs li:not(:first)").addClass("available");
+		
+		ycl.getVehicleById(vehicleFuelLogRequest.vehicleId, function(response, status) {
+			if (status == YCL.VehicleStatus.OK) {
+				$("#vehicle .name").text(response.vehicle.name);
+				$("#vehicle .notes").text(response.vehicle.notes);
+			} else {
+				alert("Error getting vehicle: " + status);
+			}
+		});
 
 		ycl.vehicleFuelLogSearch(
-			{pageNumber: request.pageNumber, maxResults: 20, vehicleId: vehicleId},
+			{pageNumber: request.pageNumber, maxResults: 20, vehicleId: vehicleFuelLogRequest.vehicleId},
 			/**
 			 * @function for you
 			 * @param {YCL.VehicleFuelLogResponse} response is the response
@@ -185,11 +202,12 @@ $(document).ready(function() {
 			var odometerWidth = $row.find(".odometer > .view.number").width();
 			var fuelWidth = $row.find(".fuel > .view.number").width();
 			var vehicleFuelLogId = $row.data("vehicleFuelLogId");
+			var vehicleFuelLogRequest = getCurrentVehicleFuelLogRequest();
 
 			$row.find(".odometer > .edit.number").width(odometerWidth);
 			$row.find(".fuel > .edit.number").width(fuelWidth);
 
-			ycl.getVehicleFuelLog(vehicleId, vehicleFuelLogId, function(vehicleFuelLog, status) {
+			ycl.getVehicleFuelLog(vehicleFuelLogRequest.vehicleId, vehicleFuelLogId, function(vehicleFuelLog, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
 
 					// Create defaults for new log
@@ -285,6 +303,7 @@ $(document).ready(function() {
 		var $form = $(this).parent().parent().parent().parent();
 		var $row = $(this).parent().parent().parent().parent().parent();
 		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
+		var vehicleFuelLogRequest = getCurrentVehicleFuelLogRequest();
 
 		$row.find("input.error").removeClass("error");
 
@@ -296,7 +315,7 @@ $(document).ready(function() {
 				octane: $form.find("input[name=octane]").val(),
 				odometer: $form.find("input[name=odometer]").val(),
 				vehicleFuelLogId: $row.data("vehicleFuelLogId"),
-				vehicleId: vehicleId
+				vehicleId: vehicleFuelLogRequest.vehicleId
 			},
 			function(response, status) {
 				if (status == YCL.VehicleFuelLogStatus.OK) {
@@ -364,7 +383,7 @@ $(document).ready(function() {
 	// Default Search
 	$("#vehicleFuelLogs > li:first").removeClass("available").addClass("new");
 	performSearch({
-		pageNumber: 1
+		pageNumber: getCurrentVehicleFuelLogRequest().page || 1
 	});
 
 	// Paging
@@ -373,6 +392,9 @@ $(document).ready(function() {
 		performSearch({
 			pageNumber: pagingData.pageNumber - 1
 		});
+		var request = getCurrentVehicleFuelLogRequest();
+		request.page = pagingData.pageNumber;
+		setCurrentVehicleFuelLogRequest(request);
 	});
 
 	$(".paging a[href=#next]").click(function(e) {
@@ -380,6 +402,9 @@ $(document).ready(function() {
 		performSearch({
 			pageNumber: pagingData.pageNumber + 1
 		});
+		var request = getCurrentVehicleFuelLogRequest();
+		request.page = pagingData.pageNumber;
+		setCurrentVehicleFuelLogRequest(request);
 	});
 
 	// Misc
