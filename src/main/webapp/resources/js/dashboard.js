@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	var ycl = new YCL();
-	ycl.getVehicles(null, function(response, status) {
+	var yclService = new YCL.YCLServiceFactory.getInstance();
+	yclService.getVehicles(null, function(response, status) {
 		if (status == YCL.VehicleStatus.OK) {
 			if (response.vehicles.length > 0) {
 			$.each(response.vehicles, function(i, vehicle) {

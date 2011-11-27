@@ -1,5 +1,6 @@
+
 $(document).ready(function() {
-	var ycl = new YCL();
+	var yclService = YCL.YCLServiceFactory.getInstance();
 	var pagingData = {
 		pageNumber: 0
 	};
@@ -74,7 +75,7 @@ $(document).ready(function() {
 		var vehicleFuelLogRequest = getCurrentVehicleFuelLogRequest();
 		$("#vehicleFuelLogs li:not(:first)").addClass("available");
 		
-		ycl.getVehicleById(vehicleFuelLogRequest.vehicleId, function(response, status) {
+		yclService.getVehicleById(vehicleFuelLogRequest.vehicleId, function(response, status) {
 			if (status == YCL.VehicleStatus.OK) {
 				$("#vehicle .name").text(response.vehicle.name);
 				$("#vehicle .notes").text(response.vehicle.notes);
@@ -83,7 +84,7 @@ $(document).ready(function() {
 			}
 		});
 
-		ycl.vehicleFuelLogSearch(
+		yclService.vehicleFuelLogSearch(
 			{pageNumber: request.pageNumber, maxResults: 20, vehicleId: vehicleFuelLogRequest.vehicleId},
 			/**
 			 * @function for you
@@ -207,7 +208,7 @@ $(document).ready(function() {
 			$row.find(".odometer > .edit.number").width(odometerWidth);
 			$row.find(".fuel > .edit.number").width(fuelWidth);
 
-			ycl.getVehicleFuelLog(vehicleFuelLogRequest.vehicleId, vehicleFuelLogId, function(vehicleFuelLog, status) {
+			yclService.getVehicleFuelLog(vehicleFuelLogRequest.vehicleId, vehicleFuelLogId, function(vehicleFuelLog, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
 
 					// Create defaults for new log
@@ -307,7 +308,7 @@ $(document).ready(function() {
 
 		$row.find("input.error").removeClass("error");
 
-		ycl.saveVehicleFuelLog(
+		yclService.saveVehicleFuelLog(
 			{
 				fuel: $form.find("input[name=fuel]").val(),
 				logDate: $row.data("logDate"),
