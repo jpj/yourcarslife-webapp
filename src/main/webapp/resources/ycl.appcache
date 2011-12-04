@@ -1,0 +1,42 @@
+CACHE MANIFEST
+
+# rev 7
+
+CACHE:
+../
+../dashboard
+../offline
+../vehicle-fuel-log
+./js/YCL.js
+./js/YCLConstants.js
+./js/dashboard.js
+./js/extend.js
+./js/offline-mode.js
+./js/vehicle-fuel-log.js
+./js/jquery/jquery-1.4.4.min.js
+
+./js/jquery/jq.datepicker/jquery.datepick.css
+./js/jquery/jq.datepicker/jquery.datepick.js 
+./js/jquery/jqplot/jquery.jqplot.css 
+./js/jquery/jqplot/jquery.jqplot.js 
+./js/jquery/jqplot/plugins/jqplot.dateAxisRenderer.min.js 
+./js/jquery/jqplot/plugins/jqplot.canvasTextRenderer.min.js 
+./js/jquery/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js 
+./js/jquery/jqplot/plugins/jqplot.highlighter.min.js 
+./js/jquery/jqplot/plugins/jqplot.cursor.min.js
+
+./css/dashboard.css
+./css/edit-vehicle.css
+./css/layout.css
+./css/layout-mobile.css
+./css/vehicle-fuel-log.css
+./css/vehicle-fuel-log-small.css
+
+#FALLBACK:
+#/ ../offline
+
+NETWORK:
+../login
+../api/dashboard.json
+../data/vehicle-fuel-log.json
+../data/save-vehicle-fuel-log.json

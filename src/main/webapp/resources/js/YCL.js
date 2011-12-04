@@ -54,15 +54,12 @@ YCL.YCLServiceAjaxImpl = function() {
 	 */
 	yclService.vehicleFuelLogSearch = function(request, callback) {
 
-<<<<<<< HEAD
 		var maxResults = request.maxResults;
 		var pageNumber = request.pageNumber;
 
-=======
->>>>>>> parent of 1874f26... Everything fitted for localStorage. Need to go back and revise plan:
 		var requestData = {
-			pageNumber: request.pageNumber,
-			maxResults: request.maxResults,
+			pageNumber: pageNumber,
+			maxResults: maxResults,
 			vehicleId: request.vehicleId,
 			vehicleFuelLogId: request.vehicleFuelLogId
 		};
@@ -129,16 +126,11 @@ YCL.YCLServiceAjaxImpl = function() {
 	 * @param {function} callback
 	 *	function({@link YCL.VehicleFuelLog} vehicleFuelLog, {@link YCL.VehicleFuelLogStatus} status)
 	 */
-<<<<<<< HEAD
 	yclService.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
 		this.vehicleFuelLogSearch({
 			vehicleId: vehicleId, 
 			vehicleFuelLogId: vehicleFuelLogId
 		}, function(response, status) {
-=======
-	this.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
-		this.vehicleFuelLogSearch({vehicleId: vehicleId, vehicleFuelLogId: vehicleFuelLogId}, function(response, status) {
->>>>>>> parent of 1874f26... Everything fitted for localStorage. Need to go back and revise plan:
 			var vehicleFuelLog = null;
 
 			if (status === YCL.VehicleFuelLogStatus.OK && response.vehicleFuelLogs.length === 1) {
@@ -156,11 +148,7 @@ YCL.YCLServiceAjaxImpl = function() {
 	 * @param {Function} callback
 	 *	function({@link YCL.SaveVehicleFuelLogResponse} response, {@link YCL.VehicleFuelLogStatus} status)
 	 */
-<<<<<<< HEAD
 	yclService.saveVehicleFuelLog = function(request, callback) {
-=======
-	this.saveVehicleFuelLog = function(request, callback) {
->>>>>>> parent of 1874f26... Everything fitted for localStorage. Need to go back and revise plan:
 
 		var requestData = {
 			vehicleFuelLogId: request.vehicleFuelLogId,
@@ -205,7 +193,6 @@ YCL.YCLServiceAjaxImpl = function() {
 					callback(response, status);
 				}
 			}
-<<<<<<< HEAD
 		});
 
 	};
@@ -257,11 +244,6 @@ YCL.YCLServiceAjaxImpl = function() {
 	return yclService;
 
 };
-=======
-		})
-
-	};
->>>>>>> parent of 1874f26... Everything fitted for localStorage. Need to go back and revise plan:
 
 /**
  * @class {YCL.YCLServiceFactory}
@@ -370,6 +352,20 @@ YCL.SaveVehicleFuelLogResponse = {
 };
 
 /**
+ * @class {YCL.Vehicle}
+ * @property {String} description Vehicle description
+ * @property {String} name Name of vehicle
+ * @property {String} notes Vehicle notes
+ * @property {Number} vehicleId Vehicle ID number
+ */
+YCL.Vehicle = {
+	description: null,
+	name: null,
+	notes: null,
+	vehicleId: null
+};
+
+/**
  * @name YCL.VehicleFuelLog
  * @class
  * @property {Number} created
@@ -419,5 +415,14 @@ YCL.VehicleFuelLogStatus = {
 	 * There was an error with the request
 	 * @constant
 	 */
+	UNKNOWN_ERROR: "UNKNOWN_ERROR"
+};
+
+/**
+ * @class {YCL.VehicleStatus}
+ */
+YCL.VehicleStatus = {
+	INCOMPLETE: "INCOMPLETE",
+	OK: "OK",
 	UNKNOWN_ERROR: "UNKNOWN_ERROR"
 };
