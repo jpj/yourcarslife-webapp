@@ -6,8 +6,16 @@
         Purpose of the stylesheet follows.
 */
 
+#no-vehicles {
+	display: none;
+}
+
 #vehicles {
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+
+#vehicles .vehicle.unused {
+	display: none;
 }

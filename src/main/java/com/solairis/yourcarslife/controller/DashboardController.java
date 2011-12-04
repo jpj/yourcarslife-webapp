@@ -27,7 +27,7 @@ public class DashboardController {
 	@Autowired
 	private VehicleService vehicleService;
 
-	@RequestMapping(value = "/dashboard")
+	@RequestMapping(value = "/api/dashboard")
 	@Transactional
 	public void dashboard(Model model) {
 

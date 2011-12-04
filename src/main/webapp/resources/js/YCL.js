@@ -3,23 +3,63 @@
  * @author Josh Johnson
  */
 
+var YCL = {}; // YCL Namespace
 
-var YCL = function() {
+/**
+ * @class {YCL.YCLService} Interface for all YCLService implementations
+ */
+YCL.YCLService = function() {
+	
+	/**
+	 * @class {YCL.YCLService.vehicleFuelLogSearch} Search for vehicle fuel logs
+	 * @param {YCL.VehicleFuelLogRequest} request
+	 * @param {Function} callback
+	 */
+	this.vehicleFuelLogSearch = function(request, callback) {
+		throw "Method not implemented";
+	};
+	
+	/**
+	 * @class {YCL.YCLService.getVehicleFuelLog}
+	 * @param {Number} vehicleId
+	 * @param {Function} callback
+	 */
+	this.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
+		throw "Method not implemented";
+	};
+	
+	/**
+	 * @class {YCL.YCLService.getVehicles}
+	 * @param {null} request
+	 * @param {Function} callback
+	 */
+	this.getVehicles = function(request, callback) {
+		throw "Method not implemented";
+	};
+	
+};
+
+YCL.YCLServiceAjaxImpl = function() {
+	
+	var yclService = new YCL.YCLService();
 
 	var vehicleFuelLogServiceUrl = YCLConstants.BASE_URL + '/data/vehicle-fuel-log.json';
 	var saveVehicleFuelLogServiceUrl = YCLConstants.BASE_URL + '/data/save-vehicle-fuel-log.json';
 
 	/**
-	 * @class {YCL.vehicleFuelLogSearch} Service for searching vehicle fuel logs.
+	 * @class {YCL.YCLServiceAjaxImpl.vehicleFuelLogSearch} Service for searching vehicle fuel logs.
 	 * @param {YCL.VehicleFuelLogRequest} request
 	 * @param {function} callback
 	 *	function({@link YCL.VehicleFuelLogResponse} response, {@link YCL.VehicleFuelLogStatus} status)
 	 */
-	this.vehicleFuelLogSearch = function(request, callback) {
+	yclService.vehicleFuelLogSearch = function(request, callback) {
+
+		var maxResults = request.maxResults;
+		var pageNumber = request.pageNumber;
 
 		var requestData = {
-			pageNumber: request.pageNumber,
-			maxResults: request.maxResults,
+			pageNumber: pageNumber,
+			maxResults: maxResults,
 			vehicleId: request.vehicleId,
 			vehicleFuelLogId: request.vehicleFuelLogId
 		};
@@ -86,8 +126,11 @@ var YCL = function() {
 	 * @param {function} callback
 	 *	function({@link YCL.VehicleFuelLog} vehicleFuelLog, {@link YCL.VehicleFuelLogStatus} status)
 	 */
-	this.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
-		this.vehicleFuelLogSearch({vehicleId: vehicleId, vehicleFuelLogId: vehicleFuelLogId}, function(response, status) {
+	yclService.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
+		this.vehicleFuelLogSearch({
+			vehicleId: vehicleId, 
+			vehicleFuelLogId: vehicleFuelLogId
+		}, function(response, status) {
 			var vehicleFuelLog = null;
 
 			if (status === YCL.VehicleFuelLogStatus.OK && response.vehicleFuelLogs.length === 1) {
@@ -105,7 +148,7 @@ var YCL = function() {
 	 * @param {Function} callback
 	 *	function({@link YCL.SaveVehicleFuelLogResponse} response, {@link YCL.VehicleFuelLogStatus} status)
 	 */
-	this.saveVehicleFuelLog = function(request, callback) {
+	yclService.saveVehicleFuelLog = function(request, callback) {
 
 		var requestData = {
 			vehicleFuelLogId: request.vehicleFuelLogId,
@@ -150,10 +193,69 @@ var YCL = function() {
 					callback(response, status);
 				}
 			}
-		})
+		});
 
 	};
+	
+//	this.getVehicles = function(request, callback) {
+//		var yclStore = JSON.parse( window.localStorage.getItem("ycl") );
+//		var status = YCL.VehicleStatus.OK;
+//		var response = {
+//			vehicles: []
+//		};
+//		
+//		$.each(yclStore.vehicles, function(i, val) {
+//			response.vehicles.push({
+//				description: val.description,
+//				name: val.name,
+//				notes: val.notes,
+//				vehicleId: val.vehicleId
+//			});
+//		});
+//		
+//		if (callback instanceof Function) {
+//			callback(response, status);
+//		}
+//	};
+	
+//	this.getVehicleById = function(vehicleId, callback) {
+//		var yclStore = JSON.parse( window.localStorage.getItem("ycl") );
+//		var status = YCL.VehicleStatus.OK;
+//		var response = {
+//			vehicle: null
+//		};
+//		
+//		$.each(yclStore.vehicles, function(i, val) {
+//			if (vehicleId == val.vehicleId) {
+//				response.vehicle = {
+//					description: val.description,
+//					name: val.name,
+//					notes: val.notes,
+//					vehicleId: val.vehicleId
+//				};
+//			}
+//		});
+//		
+//		if (callback instanceof Function) {
+//			callback(response, status);
+//		}
+//	};
 
+	return yclService;
+
+};
+
+/**
+ * @class {YCL.YCLServiceFactory}
+ */
+YCL.YCLServiceFactory = {
+	/**
+	 * @function
+	 * @return {YCL.YCLService}
+	 */
+	getInstance: function() {
+		return new YCL.YCLServiceAjaxImpl();
+	}
 };
 
 YCL.average = function() {
@@ -250,6 +352,20 @@ YCL.SaveVehicleFuelLogResponse = {
 };
 
 /**
+ * @class {YCL.Vehicle}
+ * @property {String} description Vehicle description
+ * @property {String} name Name of vehicle
+ * @property {String} notes Vehicle notes
+ * @property {Number} vehicleId Vehicle ID number
+ */
+YCL.Vehicle = {
+	description: null,
+	name: null,
+	notes: null,
+	vehicleId: null
+};
+
+/**
  * @name YCL.VehicleFuelLog
  * @class
  * @property {Number} created
@@ -299,5 +415,14 @@ YCL.VehicleFuelLogStatus = {
 	 * There was an error with the request
 	 * @constant
 	 */
+	UNKNOWN_ERROR: "UNKNOWN_ERROR"
+};
+
+/**
+ * @class {YCL.VehicleStatus}
+ */
+YCL.VehicleStatus = {
+	INCOMPLETE: "INCOMPLETE",
+	OK: "OK",
 	UNKNOWN_ERROR: "UNKNOWN_ERROR"
 };
