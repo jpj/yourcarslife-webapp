@@ -3,7 +3,4 @@
     <decorator name="main" page="main.jsp">
           <pattern>/*</pattern>
     </decorator>
-    <excludes>
-	    <exclude>/resources/offline.html</exclude>
-    </excludes>
 </decorators>
