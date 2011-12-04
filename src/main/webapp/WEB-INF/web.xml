@@ -54,7 +54,7 @@
 	</filter-mapping>
 
 	<session-config>
-		<session-timeout>480</session-timeout>
+		<session-timeout>525949</session-timeout>
 	</session-config>
 
 </web-app>
