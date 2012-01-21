@@ -13,7 +13,7 @@
 </security:authorize>
 
 <!doctype html>
-<html>
+<html manifest="<c:url value="/resources/ycl.appcache"/>">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="HandheldFriendly" content="true"/>

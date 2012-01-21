@@ -27,6 +27,11 @@
 			/WEB-INF/yourcarslife-servlet.xml
 		</param-value>
 	</context-param>
+	
+	<mime-mapping>
+		<extension>appcache</extension>
+		<mime-type>text/cache-manifest</mime-type>
+	</mime-mapping>
 
 	<resource-ref>
 		<description>Autologger DB Connection</description>
@@ -54,7 +59,7 @@
 	</filter-mapping>
 
 	<session-config>
-		<session-timeout>525949</session-timeout>
+		<session-timeout>525949</session-timeout> <!-- 1 year -->
 	</session-config>
 
 </web-app>
