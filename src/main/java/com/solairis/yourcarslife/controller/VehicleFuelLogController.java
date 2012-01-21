@@ -9,7 +9,6 @@ import com.solairis.yourcarslife.data.domain.Vehicle;
 import com.solairis.yourcarslife.service.UserService;
 import com.solairis.yourcarslife.service.VehicleService;
 import com.solairis.yourcarslife.service.exception.ServiceException;
-import com.solairis.yourcarslife.util.UrlUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,12 +40,12 @@ public class VehicleFuelLogController {
 		return mav;
 	}
 
-	@RequestMapping("/vehicle-fuel-log/{vehicleName}")
-	public String log(@PathVariable String vehicleName, Model model) {
+	@RequestMapping("/vehicle-fuel-log/{vehicleId}")
+	public String log(@PathVariable("vehicleId") long vehicleId, Model model) {
 		ModelAndView mav = new ModelAndView("log");
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
-		Vehicle vehicle = this.vehicleService.getVehicleByNameAndUser(vehicleName, user.getUserId());
+		Vehicle vehicle = this.vehicleService.getVehicle(vehicleId);
 
 		model.addAttribute("vehicle", vehicle);
 
