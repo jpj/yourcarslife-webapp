@@ -34,7 +34,7 @@ public class DashboardController {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
 
-		model.addAttribute("vehicles", this.vehicleService.getVehiclesByUser(user));
+		model.addAttribute("vehicles", this.vehicleService.getVehiclesByUserId(user.getUserId()));
 
 		model.addAttribute("user", user);
 

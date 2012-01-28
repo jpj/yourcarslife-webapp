@@ -7,10 +7,10 @@ package com.solairis.yourcarslife.validator;
 import com.solairis.yourcarslife.command.SaveVehicleFuelLogFormData;
 import com.solairis.yourcarslife.data.dao.UserDao;
 import com.solairis.yourcarslife.data.dao.VehicleDao;
-import com.solairis.yourcarslife.data.dao.VehicleFuelLogDao;
+import com.solairis.yourcarslife.data.dao.LogDao;
 import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.data.domain.Vehicle;
-import com.solairis.yourcarslife.data.domain.VehicleFuelLog;
+import com.solairis.yourcarslife.data.domain.Log;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,7 @@ public class SaveVehicleFuelLogFormDataValidator implements Validator {
 
 	private UserDao userDao;
 	private VehicleDao vehicleDao;
-	private VehicleFuelLogDao vehicleFuelLogDao;
+	private LogDao logDao;
 	private final Logger logger = Logger.getLogger(this.getClass());
 
 	@Override
@@ -52,7 +52,7 @@ public class SaveVehicleFuelLogFormDataValidator implements Validator {
 			}
 		} else {
 			logger.debug("Validating for editing a vehicle fuel log");
-			VehicleFuelLog vehicleFuelLog = this.vehicleFuelLogDao.getVehicleFuelLog(saveVehicleFuelLogFormData.getVehicleFuelLogId());
+			Log vehicleFuelLog = this.logDao.getLog(saveVehicleFuelLogFormData.getVehicleFuelLogId());
 			if (vehicleFuelLog == null) {
 				errors.rejectValue("vehicleFuelLogId", "invalid");
 			} else {
@@ -85,7 +85,7 @@ public class SaveVehicleFuelLogFormDataValidator implements Validator {
 		this.vehicleDao = vehicleDao;
 	}
 
-	public void setVehicleFuelLogDao(VehicleFuelLogDao vehicleFuelLogDao) {
-		this.vehicleFuelLogDao = vehicleFuelLogDao;
+	public void setLogDao(LogDao logDao) {
+		this.logDao = logDao;
 	}
 }

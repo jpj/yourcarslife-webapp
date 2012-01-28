@@ -98,11 +98,6 @@
 			<version>1.2</version>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>yourcarslife_jar</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>3.0.5.RELEASE</version>
@@ -170,11 +165,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>yourcarslifeweb_jar</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-lgpl</artifactId>
 			<version>1.6.3</version>
@@ -189,6 +179,11 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.0.2.GA</version>
 		</dependency>
+	 <dependency>
+	  <groupId>${project.groupId}</groupId>
+	  <artifactId>yourcarslife-api</artifactId>
+	  <version>${project.version}</version>
+	 </dependency>
 	</dependencies>
 	<build>
 		<finalName>yourcarslife</finalName>

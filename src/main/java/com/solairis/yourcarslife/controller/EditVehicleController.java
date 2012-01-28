@@ -49,7 +49,7 @@ public class EditVehicleController {
 
 		Vehicle vehicle = null;
 		if (vehicleId > 0) {
-			vehicle = this.vehicleService.getVehicleByUserAndVehicleId(user, vehicleId);
+			vehicle = this.vehicleService.getVehicle(vehicleId);
 		}
 		model.addAttribute("vehicle", vehicle);
 

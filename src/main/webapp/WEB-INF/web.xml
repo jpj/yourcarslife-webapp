@@ -28,6 +28,11 @@
 		</param-value>
 	</context-param>
 	
+<!--	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>ycl.root</param-value>
+	</context-param>-->
+	
 	<mime-mapping>
 		<extension>appcache</extension>
 		<mime-type>text/cache-manifest</mime-type>
