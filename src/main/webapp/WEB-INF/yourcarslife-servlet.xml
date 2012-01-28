@@ -59,12 +59,9 @@
 
 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
-		<property name="mappingResources">
+		<property name="mappingLocations">
 			<list>
-				<value>com/solairis/yourcarslife/hibernate/User.hbm.xml</value>
-				<value>com/solairis/yourcarslife/hibernate/UserRole.hbm.xml</value>
-				<value>com/solairis/yourcarslife/hibernate/Vehicle.hbm.xml</value>
-				<value>com/solairis/yourcarslife/hibernate/VehicleFuelLog.hbm.xml</value>
+				<value>com/solairis/yourcarslife/data/domain/mapping/*.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties" value="hibernate.dialect=org.hibernate.dialect.MySQL5Dialect"/>
@@ -76,7 +73,7 @@
 
 	<tx:annotation-driven/>
 
-	<bean id="vehicleFuelLogDao" class="com.solairis.yourcarslife.data.dao.impl.VehicleFuelLogDaoHibernate">
+	<bean id="logDao" class="com.solairis.yourcarslife.data.dao.impl.LogDaoHibernate">
 		<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
 

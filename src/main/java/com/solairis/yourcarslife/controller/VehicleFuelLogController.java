@@ -8,7 +8,6 @@ import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.data.domain.Vehicle;
 import com.solairis.yourcarslife.service.UserService;
 import com.solairis.yourcarslife.service.VehicleService;
-import com.solairis.yourcarslife.service.exception.ServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,7 +31,7 @@ public class VehicleFuelLogController {
 	private VehicleService vehicleService;
 	private final Logger logger = Logger.getLogger(this.getClass());
 
-	@ExceptionHandler(value = ServiceException.class)
+	@ExceptionHandler(value = Exception.class)
 	public ModelAndView handleServiceException(Exception e) {
                 logger.fatal("", e);
 		ModelAndView mav = new ModelAndView("error");

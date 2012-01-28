@@ -5,11 +5,10 @@
 package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.VehicleFuelLogFormData;
-import com.solairis.yourcarslife.data.dao.VehicleFuelLogDao;
 import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.data.domain.Vehicle;
+import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.UserService;
-import com.solairis.yourcarslife.service.VehicleFuelLogService;
 import com.solairis.yourcarslife.service.VehicleService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class VehicleFuelLogSearchController {
 
 	@Autowired
-	private VehicleFuelLogService vehicleFuelLogService;
+	private LogService logService;
 	@Autowired
 	private VehicleService vehicleService;
 	@Autowired
@@ -54,15 +53,15 @@ public class VehicleFuelLogSearchController {
 		if (!errors.hasFieldErrors()) {
 			org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
-			Vehicle vehicle = this.vehicleService.getVehicleByUserAndVehicleId(user, vehicleFuelLogFormData.getVehicleId());
+			Vehicle vehicle = this.vehicleService.getVehicle(vehicleFuelLogFormData.getVehicleId());
 
 			if (vehicle != null) {
 				int maxResults = vehicleFuelLogFormData.getMaxResults();
 				int pageNumber = vehicleFuelLogFormData.getPageNumber() != 0 ? vehicleFuelLogFormData.getPageNumber() : 1;
 				maxResults = maxResults < 1 ? this.vehicleFuelLogDefaultMaxResults.intValue() : maxResults;
 				maxResults = maxResults > this.vehicleFuelLogMaxResultsUpperLimit.intValue() ? this.vehicleFuelLogMaxResultsUpperLimit.intValue() : maxResults;
-				model.addAttribute("vehicleFuelLogs", this.vehicleFuelLogService.getVehicleFuelLogsByVehicle(vehicleFuelLogFormData.getVehicleId(), vehicleFuelLogFormData.getVehicleFuelLogId(), pageNumber, maxResults));
-				model.addAttribute("totalResults", this.vehicleFuelLogService.getVehicleFuelLogCountByVehicle(vehicle.getVehicleId()));
+				model.addAttribute("vehicleFuelLogs", this.logService.getLogsForVehicle(vehicleFuelLogFormData.getVehicleId(), pageNumber, maxResults));
+				model.addAttribute("totalResults", this.logService.getLogCountByVehicle(vehicle.getVehicleId()));
 				model.addAttribute("pageSize", maxResults);
 				model.addAttribute("pageNumber", pageNumber);
 			}

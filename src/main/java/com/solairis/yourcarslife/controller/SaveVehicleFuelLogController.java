@@ -6,10 +6,10 @@ package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.SaveVehicleFuelLogFormData;
 import com.solairis.yourcarslife.data.domain.User;
-import com.solairis.yourcarslife.data.domain.Vehicle;
-import com.solairis.yourcarslife.data.domain.VehicleFuelLog;
+import com.solairis.yourcarslife.data.domain.Log;
+import com.solairis.yourcarslife.data.domain.LogFuel;
+import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.UserService;
-import com.solairis.yourcarslife.service.VehicleFuelLogService;
 import java.beans.PropertyEditor;
 import java.util.Date;
 import javax.validation.Valid;
@@ -32,7 +32,7 @@ public class SaveVehicleFuelLogController {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private VehicleFuelLogService vehicleFuelLogService;
+	private LogService logService;
 	@Autowired
 	private org.springframework.validation.Validator saveVehicleFuelLogFormDataValidator;
 	@Autowired
@@ -52,13 +52,13 @@ public class SaveVehicleFuelLogController {
 
 
 		if (!errors.hasFieldErrors()) {
-			VehicleFuelLog vehicleFuelLog = null;
+			LogFuel vehicleFuelLog = null;
 
 			if (saveVehicleFuelLogFormData.getVehicleFuelLogId() == 0) {
-				vehicleFuelLog = new VehicleFuelLog();
+				vehicleFuelLog = new LogFuel();
 				vehicleFuelLog.setActive(true);
 			} else {
-				vehicleFuelLog = this.vehicleFuelLogService.getVehicleFuelLog(saveVehicleFuelLogFormData.getVehicleFuelLogId());
+				vehicleFuelLog = (LogFuel)this.logService.getLog(saveVehicleFuelLogFormData.getVehicleFuelLogId());
 			}
 
 			vehicleFuelLog.setFuel(saveVehicleFuelLogFormData.getFuel());
@@ -68,8 +68,8 @@ public class SaveVehicleFuelLogController {
 			vehicleFuelLog.setOdometer(saveVehicleFuelLogFormData.getOdometer());
 			vehicleFuelLog.setVehicleId(saveVehicleFuelLogFormData.getVehicleId());
 
-			this.vehicleFuelLogService.saveVehicleFuelLog(vehicleFuelLog);
-			model.addAttribute("vehicleFuelLogId", vehicleFuelLog.getVehicleFuelLogId());
+			this.logService.save(vehicleFuelLog);
+			model.addAttribute("vehicleFuelLogId", vehicleFuelLog.getLogId());
 		}
 		model.addAttribute("errors", errors.getFieldErrors());
 	}
