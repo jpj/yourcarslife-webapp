@@ -5,6 +5,7 @@
 
 package com.solairis.yourcarslife.controller;
 
+import com.solairis.yourcarslife.data.dao.UserDao;
 import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.service.UserService;
 import com.solairis.yourcarslife.service.VehicleService;
