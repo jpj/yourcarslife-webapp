@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author josh
  */
 @Controller
-public class LogFuelController {
+public class FuelLogListController {
 
 	@Autowired
 	private LogService logService;
