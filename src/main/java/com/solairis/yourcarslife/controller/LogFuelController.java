@@ -5,11 +5,14 @@
 package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.VehicleFuelLogFormData;
+import com.solairis.yourcarslife.data.domain.Log;
 import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.data.domain.Vehicle;
 import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.UserService;
 import com.solairis.yourcarslife.service.VehicleService;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -70,4 +73,14 @@ public class LogFuelController {
 		return "fuel-log";
 	}
 
+	@RequestMapping(value = "/vehicle/log/fuel")
+	public String get(Model model) {
+		List<Log> logs = new ArrayList<Log>(101);
+		model.addAttribute("vehicle", null);
+		model.addAttribute("vehicleFuelLogs", logs);
+		model.addAttribute("totalResults", 100);
+		model.addAttribute("pageSize", 100);
+		model.addAttribute("pageNumber", 1);
+		return "fuel-log";
+	}
 }
