@@ -75,9 +75,7 @@ public class LogFuelController {
 
 	@RequestMapping(value = "/vehicle/log/fuel")
 	public String get(Model model) {
-		List<Log> logs = new ArrayList<Log>(101);
-		model.addAttribute("vehicle", null);
-		model.addAttribute("vehicleFuelLogs", logs);
+		model.addAttribute("fuelLogs", new String[101]);
 		model.addAttribute("totalResults", 100);
 		model.addAttribute("pageSize", 100);
 		model.addAttribute("pageNumber", 1);

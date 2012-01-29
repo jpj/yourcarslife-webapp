@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : log
     Created on : Nov 21, 2010, 8:26:55 PM
     Author     : josh
@@ -47,7 +47,7 @@
 		</div>
 
 		<ul id="vehicleFuelLogs">
-			<c:forEach begin="1" end="101">
+			<c:forEach items="${fuelLogs}" var="fuelLog">
 				<li class="available">
 					<form action="get">
 						<div class="display">
@@ -56,7 +56,7 @@
 								<input type="text" class="edit" name="logDate"/>
 							</div>
 							<div class="odometer">
-								<span class="view number"></span>
+								<span class="view number">${fuelLog.odometer}</span>
 								<input type="number" class="edit number" name="odometer"/>
 								<span class="units">mi</span>
 							</div>
