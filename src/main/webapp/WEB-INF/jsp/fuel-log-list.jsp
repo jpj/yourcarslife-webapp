@@ -4,6 +4,7 @@
     Author     : josh
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html>
 	<head>
@@ -23,7 +24,7 @@
 	</head>
 	<body>
 		<p>
-                    <a href="<c:url value="/edit-vehicle/${vehicle.vehicleId}"/>">${vehicle.name}</a>: ${vehicle.notes}
+			<a href="<c:url value="/edit-vehicle/${vehicle.vehicleId}"/>">${vehicle.name}</a>: ${vehicle.notes}
                 </p>
 
 		<div id="graph-holder">
@@ -46,50 +47,57 @@
 		</div>
 
 		<ul id="vehicleFuelLogs">
+			<c:set var="prevFuelLog"/>
 			<c:forEach items="${fuelLogs}" var="fuelLog">
-				<li class="available">
-					<form action="get">
-						<div class="display">
-							<div class="date">
-								<span class="view"></span>
-								<input type="text" class="edit" name="logDate"/>
-							</div>
-							<div class="odometer">
-								<span class="view number">${fuelLog.odometer}</span>
-								<input type="number" class="edit number" name="odometer"/>
-								<span class="units">mi</span>
-							</div>
-							<div class="fuel">
-								<span class="view number"></span>
-								<input type="number" class="edit number" name="fuel"/>
-								<span class="units">gal</span>
-							</div>
-							<div class="economy"><span class="number"></span> <span class="units">mpg</span></div>
-							<div class="edit-button"><a href="#edit0">edit</a></div>
-						</div>
-						<div class="edit-section">
-							<div class="separator"></div>
-							<div class="holder">
-								<div class="missedFillup">
-									<label>
-										<input type="checkbox" name="missedFillup"/>
-										Missed a Fill-Up
-									</label>
+				<c:if test="${not empty prevFuelLog}"> <%-- TODO - this is always null when here as template --%>
+					<li class="available">
+						<form action="get">
+							<div class="display">
+								<div class="date">
+									<span class="view"><fmt:formatDate pattern="yyyy MMM dd" value="${prevFuelLog.logDate}"/></span>
+									<input type="text" class="edit" name="logDate"/>
 								</div>
-								<div class="octane">
-									<label>
-										<input type="number" name="octane"/>
-										Octane
-									</label>
+								<div class="odometer">
+									<span class="view number">${prevFuelLog.odometer}</span>
+									<input type="number" class="edit number" name="odometer"/>
+									<span class="units">mi</span>
 								</div>
-								<div class="submit">
-									<input type="submit" name="save" value="Save"/>
-									<input type="submit" name="cancel" value="Cancel"/>
+								<div class="fuel">
+									<span class="view number"><fmt:formatNumber type="number" maxFractionDigits="3" minFractionDigits="3" value="${prevFuelLog.fuel}"/></span>
+									<input type="number" class="edit number" name="fuel"/>
+									<span class="units">gal</span>
+								</div>
+								<div class="economy">
+									<span class="number"><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(prevFuelLog.odometer - fuelLog.odometer) / prevFuelLog.fuel}"/></span>
+									<span class="units">mpg</span>
+								</div>
+								<div class="edit-button"><a href="#edit0">edit</a></div>
+							</div>
+							<div class="edit-section">
+								<div class="separator"></div>
+								<div class="holder">
+									<div class="missedFillup">
+										<label>
+											<input type="checkbox" name="missedFillup"/>
+											Missed a Fill-Up
+										</label>
+									</div>
+									<div class="octane">
+										<label>
+											<input type="number" name="octane"/>
+											Octane
+										</label>
+									</div>
+									<div class="submit">
+										<input type="submit" name="save" value="Save"/>
+										<input type="submit" name="cancel" value="Cancel"/>
+									</div>
 								</div>
 							</div>
-						</div>
-					</form>
-				</li>
+						</form>
+					</li>
+				</c:if>
+				<c:set var="prevFuelLog" value="${fuelLog}"/>
 			</c:forEach>
 		</ul>
 		<div class="paging">
