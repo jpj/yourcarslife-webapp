@@ -61,8 +61,8 @@ public class FuelLogListController {
 				maxResults = maxResults < 1 ? this.vehicleFuelLogDefaultMaxResults.intValue() : maxResults;
 				maxResults = maxResults > this.vehicleFuelLogMaxResultsUpperLimit.intValue() ? this.vehicleFuelLogMaxResultsUpperLimit.intValue() : maxResults;
 				model.addAttribute("vehicle", vehicle);
-				model.addAttribute("vehicleFuelLogs", this.logService.getLogsForVehicle(vehicleId, pageNumber, maxResults));
-				model.addAttribute("totalResults", this.logService.getLogCountByVehicle(vehicle.getVehicleId()));
+				model.addAttribute("fuelLogs", this.logService.getFuelLogsForVehicle(vehicleId, pageNumber, maxResults));
+				model.addAttribute("totalResults", this.logService.getFuelLogCountByVehicle(vehicle.getVehicleId()));
 				model.addAttribute("pageSize", maxResults);
 				model.addAttribute("pageNumber", pageNumber);
 			}
@@ -70,7 +70,7 @@ public class FuelLogListController {
 
 		model.addAttribute("errors", errors.getFieldErrors());
 
-		return "fuel-log";
+		return "fuel-log-list";
 	}
 
 	@RequestMapping(value = "/vehicle/log/fuel")
@@ -79,6 +79,6 @@ public class FuelLogListController {
 		model.addAttribute("totalResults", 100);
 		model.addAttribute("pageSize", 100);
 		model.addAttribute("pageNumber", 1);
-		return "fuel-log";
+		return "fuel-log-list";
 	}
 }
