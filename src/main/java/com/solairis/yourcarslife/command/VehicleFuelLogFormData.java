@@ -13,7 +13,6 @@ public class VehicleFuelLogFormData {
 
 	private int pageNumber;
 	private int maxResults;
-	private long vehicleId;
 	private long vehicleFuelLogId;
 
 	public int getMaxResults() {
@@ -38,14 +37,6 @@ public class VehicleFuelLogFormData {
 
 	public void setVehicleFuelLogId(long vehicleFuelLogId) {
 		this.vehicleFuelLogId = vehicleFuelLogId;
-	}
-
-	public long getVehicleId() {
-		return vehicleId;
-	}
-
-	public void setVehicleId(long vehicleId) {
-		this.vehicleId = vehicleId;
 	}
 
 }

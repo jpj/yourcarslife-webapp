@@ -56,12 +56,12 @@ public class SaveVehicleFuelLogFormDataValidator implements Validator {
 			if (vehicleFuelLog == null) {
 				errors.rejectValue("vehicleFuelLogId", "invalid");
 			} else {
-				if (saveVehicleFuelLogFormData.getVehicleId() != vehicleFuelLog.getVehicleId()) {
+				if (saveVehicleFuelLogFormData.getVehicleId() != vehicleFuelLog.getVehicle().getVehicleId()) {
 					errors.rejectValue("vehicleId", "invalid");
 				}
 			}
 		}
-		
+
 		if (saveVehicleFuelLogFormData.getLogDate() == null) {
 			errors.rejectValue("logDate", "required");
 		}

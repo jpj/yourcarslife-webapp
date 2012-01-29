@@ -1,4 +1,4 @@
-/* 
+/*
  * @fileOverview YCL JS API
  * @author Josh Johnson
  */
@@ -30,7 +30,7 @@ var YCL = function() {
 		};
 
 		$.ajax({
-			url: vehicleFuelLogServiceUrl,
+			url: YCLConstants.BASE_URL + '/vehicle/' + request.vehicleId + '/log/fuel.json',
 			data: requestData,
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
@@ -59,7 +59,7 @@ var YCL = function() {
 						odometer: value.odometer,
 						vehicleFuelLogId: value.vehicleFuelLogId
 					});
-					
+
 					if (prevOdometer && !prevMissedFillup) {
 						var economy = (prevOdometer - value.odometer)/prevFuel;
 						response.vehicleFuelLogs[response.vehicleFuelLogs.length-2].economy = economy;

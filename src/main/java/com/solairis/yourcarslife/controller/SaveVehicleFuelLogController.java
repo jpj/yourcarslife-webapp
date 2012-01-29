@@ -6,10 +6,10 @@ package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.SaveVehicleFuelLogFormData;
 import com.solairis.yourcarslife.data.domain.User;
-import com.solairis.yourcarslife.data.domain.Log;
 import com.solairis.yourcarslife.data.domain.LogFuel;
 import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.UserService;
+import com.solairis.yourcarslife.service.VehicleService;
 import java.beans.PropertyEditor;
 import java.util.Date;
 import javax.validation.Valid;
@@ -33,6 +33,8 @@ public class SaveVehicleFuelLogController {
 	private UserService userService;
 	@Autowired
 	private LogService logService;
+	@Autowired
+	private VehicleService vehicleService;
 	@Autowired
 	private org.springframework.validation.Validator saveVehicleFuelLogFormDataValidator;
 	@Autowired
@@ -66,7 +68,7 @@ public class SaveVehicleFuelLogController {
 			vehicleFuelLog.setMissedFillup(saveVehicleFuelLogFormData.isMissedFillup());
 			vehicleFuelLog.setOctane(saveVehicleFuelLogFormData.getOctane());
 			vehicleFuelLog.setOdometer(saveVehicleFuelLogFormData.getOdometer());
-			vehicleFuelLog.setVehicleId(saveVehicleFuelLogFormData.getVehicleId());
+			vehicleFuelLog.setVehicle(this.vehicleService.getVehicle(saveVehicleFuelLogFormData.getVehicleId()));
 
 			this.logService.save(vehicleFuelLog);
 			model.addAttribute("vehicleFuelLogId", vehicleFuelLog.getLogId());
