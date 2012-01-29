@@ -7,7 +7,6 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="vehicleId" content="${vehicle.vehicleId}"/>
 		<title>Vehicle Log</title>
 
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.css"/>"/>

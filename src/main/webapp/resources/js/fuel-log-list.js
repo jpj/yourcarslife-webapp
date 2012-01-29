@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var ycl = new YCL();
-	var vehicleId = $("meta[name=vehicleId]").attr("content");
+	var vehicleId = YCL.Request.getParameter("vehicleId");
 	var pagingData = {
 		pageNumber: 0
 	};
@@ -271,127 +271,129 @@ $(document).ready(function() {
 		}
 	};
 
-	// Add click events
 
-	/* Edit */
-	$("#vehicleFuelLogs > li > form > .display > .edit-button > a").click(function(e) {
-		e.preventDefault();
-		editRecord( $(this).parent().parent().parent().parent() );
-	});
+	if (vehicleId) {
+		// Add click events
 
-	/* Save */
-	$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=save]").click(function(e) {
-		e.preventDefault();
-		var $form = $(this).parent().parent().parent().parent();
-		var $row = $(this).parent().parent().parent().parent().parent();
-		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
+		/* Edit */
+		$("#vehicleFuelLogs > li > form > .display > .edit-button > a").click(function(e) {
+			e.preventDefault();
+			editRecord( $(this).parent().parent().parent().parent() );
+		});
 
-		$row.find("input.error").removeClass("error");
+		/* Save */
+		$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=save]").click(function(e) {
+			e.preventDefault();
+			var $form = $(this).parent().parent().parent().parent();
+			var $row = $(this).parent().parent().parent().parent().parent();
+			var vehicleFuelLogId = $row.data("vehicleFuelLogId");
 
-		ycl.saveVehicleFuelLog(
-			{
-				fuel: $form.find("input[name=fuel]").val(),
-				logDate: $row.data("logDate"),
-				missedFillup: $form.find("input[name=missedFillup]").is(":checked"),
-				octane: $form.find("input[name=octane]").val(),
-				odometer: $form.find("input[name=odometer]").val(),
-				vehicleFuelLogId: $row.data("vehicleFuelLogId"),
-				vehicleId: vehicleId
-			},
-			function(response, status) {
-				if (status == YCL.VehicleFuelLogStatus.OK) {
-					if (response.success) {
+			$row.find("input.error").removeClass("error");
 
-						// Close edit section, refresh searth, highlight entry in list.
-						$row.find(".edit-section").hide();
+			ycl.saveVehicleFuelLog(
+				{
+					fuel: $form.find("input[name=fuel]").val(),
+					logDate: $row.data("logDate"),
+					missedFillup: $form.find("input[name=missedFillup]").is(":checked"),
+					octane: $form.find("input[name=octane]").val(),
+					odometer: $form.find("input[name=odometer]").val(),
+					vehicleFuelLogId: $row.data("vehicleFuelLogId"),
+					vehicleId: vehicleId
+				},
+				function(response, status) {
+					if (status == YCL.VehicleFuelLogStatus.OK) {
+						if (response.success) {
 
-						if ($row.hasClass("new")) {
-							closeNewRow();
-						}
-						performSearch(
-							{
-								pageNumber: pagingData.pageNumber
-							},
-							function() {
-								$("#vehicleFuelLogs > li").each(function() {
-									if (response.vehicleFuelLogId === $(this).data("vehicleFuelLogId") && !$(this).hasClass("new")) {
-										$(this).addClass("fresh");
-										$(this).data("freshTimeoutId", setTimeout(function($row) {$row.removeClass("fresh");}, 8000, $(this)) );
-										return false;
-									}
-								});
+							// Close edit section, refresh searth, highlight entry in list.
+							$row.find(".edit-section").hide();
+
+							if ($row.hasClass("new")) {
+								closeNewRow();
 							}
-						);
-						$row.removeClass("editing");
-						$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
-						$(".options > .add").removeClass("disabled");
+							performSearch(
+								{
+									pageNumber: pagingData.pageNumber
+								},
+								function() {
+									$("#vehicleFuelLogs > li").each(function() {
+										if (response.vehicleFuelLogId === $(this).data("vehicleFuelLogId") && !$(this).hasClass("new")) {
+											$(this).addClass("fresh");
+											$(this).data("freshTimeoutId", setTimeout(function($row) {$row.removeClass("fresh");}, 8000, $(this)) );
+											return false;
+										}
+										return true;
+									});
+								}
+							);
+							$row.removeClass("editing");
+							$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
+							$(".options > .add").removeClass("disabled");
 
+						} else {
+							$.each(response.errors, function(index, error) {
+								$form.find("input[name="+error.fieldName+"]").addClass("error");
+							});
+						}
 					} else {
-						$.each(response.errors, function(index, error) {
-							$form.find("input[name="+error.fieldName+"]").addClass("error");
-						});
+						alert("Error saving record: " + status);
 					}
+				}
+			);
+		});
+
+		/* Cancel */
+		$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=cancel]").click(function(e) {
+			e.preventDefault();
+			var $row = $(this).parent().parent().parent().parent().parent();
+			$row.find("input.error").removeClass("error");
+
+			// Close Edit Section and redraw search results
+			if ( !$row.hasClass("new") ) {
+				$row.find(".edit-section").hide();
+			}
+			if ($row.hasClass("new")) {
+				closeNewRow();
+			}
+			performSearch({
+				pageNumber: pagingData.pageNumber
+			});
+			$row.removeClass("editing");
+			$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
+			$(".options > .add").removeClass("disabled");
+
+		});
+
+		// Default Search
+		$("#vehicleFuelLogs > li:first").removeClass("available").addClass("new");
+		performSearch({
+			pageNumber: 1
+		});
+
+		// Paging
+		$(".paging a[href=#prev]").click(function(e) {
+			e.preventDefault();
+			performSearch({
+				pageNumber: pagingData.pageNumber - 1
+			});
+		});
+
+		$(".paging a[href=#next]").click(function(e) {
+			e.preventDefault();
+			performSearch({
+				pageNumber: pagingData.pageNumber + 1
+			});
+		});
+
+		// Misc
+		$(".options > .add").click(function() {
+			if (!$(this).hasClass("disabled")) {
+				if ( $("#vehicleFuelLogs > li.new").is(":visible") ) {
+					closeNewRow();
 				} else {
-					alert("Error saving record: " + status);
+					openNewRow();
 				}
 			}
-		);
-	});
-
-	/* Cancel */
-	$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=cancel]").click(function(e) {
-		e.preventDefault();
-		var $row = $(this).parent().parent().parent().parent().parent();
-		$row.find("input.error").removeClass("error");
-		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
-
-		// Close Edit Section and redraw search results
-		if ( !$row.hasClass("new") ) {
-			$row.find(".edit-section").hide();
-		}
-		if ($row.hasClass("new")) {
-			closeNewRow();
-		}
-		performSearch({
-			pageNumber: pagingData.pageNumber
 		});
-		$row.removeClass("editing");
-		$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
-		$(".options > .add").removeClass("disabled");
-
-	});
-
-	// Default Search
-	$("#vehicleFuelLogs > li:first").removeClass("available").addClass("new");
-	performSearch({
-		pageNumber: 1
-	});
-
-	// Paging
-	$(".paging a[href=#prev]").click(function(e) {
-		e.preventDefault();
-		performSearch({
-			pageNumber: pagingData.pageNumber - 1
-		});
-	});
-
-	$(".paging a[href=#next]").click(function(e) {
-		e.preventDefault();
-		performSearch({
-			pageNumber: pagingData.pageNumber + 1
-		});
-	});
-
-	// Misc
-	//alert($("#vehicleFuelLogs > li").length);
-	$(".options > .add").click(function() {
-		if (!$(this).hasClass("disabled")) {
-			if ( $("#vehicleFuelLogs > li.new").is(":visible") ) {
-				closeNewRow();
-			} else {
-				openNewRow();
-			}
-		}
-	});
-
+	}
+	
 });

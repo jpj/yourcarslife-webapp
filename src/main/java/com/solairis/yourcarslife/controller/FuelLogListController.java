@@ -49,7 +49,7 @@ public class FuelLogListController {
 		binder.setValidator(vehicleFuelLogFormDataValidator);
 	}
 
-	@RequestMapping(value = "/vehicle/{vehicleId}/log/fuel")
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/fuel/list")
 	@Transactional
 	public String submit(@PathVariable("vehicleId") long vehicleId, @Valid VehicleFuelLogFormData vehicleFuelLogFormData, BindingResult errors, Model model) {
 		if (!errors.hasFieldErrors()) {
@@ -73,7 +73,7 @@ public class FuelLogListController {
 		return "fuel-log-list";
 	}
 
-	@RequestMapping(value = "/vehicle/log/fuel")
+	@RequestMapping(value = "/vehicle/log/fuel/list")
 	public String get(Model model) {
 		model.addAttribute("fuelLogs", new String[101]);
 		model.addAttribute("totalResults", 100);

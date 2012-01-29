@@ -6,7 +6,6 @@
 
 var YCL = function() {
 
-	var vehicleFuelLogServiceUrl = YCLConstants.BASE_URL + '/data/vehicle-fuel-log.json';
 	var saveVehicleFuelLogServiceUrl = YCLConstants.BASE_URL + '/data/save-vehicle-fuel-log.json';
 
 	/**
@@ -30,7 +29,7 @@ var YCL = function() {
 		};
 
 		$.ajax({
-			url: YCLConstants.BASE_URL + '/vehicle/' + request.vehicleId + '/log/fuel.json',
+			url: YCLConstants.BASE_URL + '/vehicle/' + request.vehicleId + '/log/fuel/list.json',
 			data: requestData,
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
@@ -47,7 +46,7 @@ var YCL = function() {
 				var prevFuel = 0;
 				var prevMissedFillup = false;
 
-				$.each(data.vehicleFuelLogs, function(index, value) {
+				$.each(data.fuelLogs, function(index, value) {
 
 					response.vehicleFuelLogs.push({
 						created: value.created,
@@ -154,6 +153,59 @@ var YCL = function() {
 
 	};
 
+};
+
+YCL.Request = {
+	getParameter: function(name) {
+		var hash = document.location.hash;
+		var pageRequestString = hash != null && hash.length > 0 ? hash.substr(1, hash.length) : null;
+		var pageRequest = null;
+		var requestString = null;
+		if (pageRequestString != null) {
+			// The client will sometimes sub %22 for " when copying.
+			// Stringify will have already escaped " to \" so this should
+			// be fine.
+			requestString = pageRequestString.replace(/\%22/g, '"').replace(/\%7B/g, '{').replace(/\%7D/g, '}');
+		}
+
+		if (requestString != null) {
+			try {
+				pageRequest = JSON.parse( requestString );
+			} catch (e) {}
+		}
+
+		if (pageRequest != null) {
+			return pageRequest[name];
+		}
+		return null;
+	},
+	setParameter: function(name, value) {
+		var hash = document.location.hash;
+		var pageRequestString = hash != null && hash.length > 0 ? hash.substr(1, hash.length) : null;
+		var pageRequest = null;
+		var requestString = null;
+		if (pageRequestString != null) {
+			// The client will sometimes sub %22 for " when copying.
+			// Stringify will have already escaped " to \" so this should
+			// be fine.
+			requestString = pageRequestString.replace(/\%22/g, '"').replace(/\%7B/g, '{').replace(/\%7D/g, '}');
+		}
+
+		if (requestString != null) {
+			try {
+				pageRequest = JSON.parse( requestString );
+			} catch (e) {}
+		}
+		
+		if (pageRequest == null) {
+			pageRequest = {};
+		}
+		
+		pageRequest[name] = value;
+
+		// Persist request to anchor hash
+		document.location.hash = JSON.stringify(pageRequest);
+	}
 };
 
 YCL.average = function() {
