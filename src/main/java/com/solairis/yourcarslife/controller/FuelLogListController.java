@@ -72,13 +72,4 @@ public class FuelLogListController {
 
 		return "fuel-log-list";
 	}
-
-	@RequestMapping(value = "/vehicle/log/fuel/list")
-	public String get(Model model) {
-		model.addAttribute("fuelLogs", new String[101]);
-		model.addAttribute("totalResults", 100);
-		model.addAttribute("pageSize", 100);
-		model.addAttribute("pageNumber", 1);
-		return "fuel-log-list";
-	}
 }
