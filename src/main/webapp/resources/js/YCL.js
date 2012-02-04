@@ -17,7 +17,6 @@ var YCL = function() {
 	this.vehicleFuelLogSearch = function(request, callback) {
 
 		var requestData = {
-			pageNumber: request.pageNumber,
 			maxResults: request.maxResults,
 			vehicleId: request.vehicleId,
 			vehicleFuelLogId: request.vehicleFuelLogId
@@ -29,7 +28,7 @@ var YCL = function() {
 		};
 
 		$.ajax({
-			url: YCLConstants.BASE_URL + '/vehicle/' + request.vehicleId + '/log/fuel/list.json',
+			url: YCLConstants.BASE_URL + '/vehicle/' + request.vehicleId + '/log/fuel/list/'+request.pageNumber+'.json',
 			data: requestData,
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
