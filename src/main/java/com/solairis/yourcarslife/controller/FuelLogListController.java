@@ -49,15 +49,14 @@ public class FuelLogListController {
 		binder.setValidator(vehicleFuelLogFormDataValidator);
 	}
 
-	@RequestMapping(value = "/vehicle/{vehicleId}/log/fuel/list")
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/fuel/list/{pageNumber}")
 	@Transactional
-	public String submit(@PathVariable("vehicleId") long vehicleId, @Valid VehicleFuelLogFormData vehicleFuelLogFormData, BindingResult errors, Model model) {
+	public String submit(@PathVariable("vehicleId") long vehicleId, @PathVariable("pageNumber") int pageNumber, @Valid VehicleFuelLogFormData vehicleFuelLogFormData, BindingResult errors, Model model) {
 		if (!errors.hasFieldErrors()) {
 			Vehicle vehicle = this.vehicleService.getVehicle(vehicleId);
 
 			if (vehicle != null) {
 				int maxResults = vehicleFuelLogFormData.getMaxResults();
-				int pageNumber = vehicleFuelLogFormData.getPageNumber() != 0 ? vehicleFuelLogFormData.getPageNumber() : 1;
 				maxResults = maxResults < 1 ? this.vehicleFuelLogDefaultMaxResults.intValue() : maxResults;
 				maxResults = maxResults > this.vehicleFuelLogMaxResultsUpperLimit.intValue() ? this.vehicleFuelLogMaxResultsUpperLimit.intValue() : maxResults;
 				model.addAttribute("vehicle", vehicle);
