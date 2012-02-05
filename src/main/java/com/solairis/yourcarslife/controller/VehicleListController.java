@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author josh
  */
 @Controller
-public class DashboardController {
+public class VehicleListController {
 
 	@Autowired
 	private UserService userService;
