@@ -1,8 +1,8 @@
 CACHE MANIFEST
-# Version 1.0.001
+# Version 1.0.002
 
 CACHE:
-../vehicle/log/fuel/list
+#../vehicle/log/fuel/list
 
 NETWORK:
 *
