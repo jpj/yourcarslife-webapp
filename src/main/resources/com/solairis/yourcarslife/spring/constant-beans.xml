@@ -17,7 +17,7 @@
 	</bean>
 
 	<bean id="vehicleFuelLogDefaultMaxResults" class="java.lang.Integer">
-		<constructor-arg value="10"/>
+		<constructor-arg value="20"/>
 	</bean>
 
 </beans>

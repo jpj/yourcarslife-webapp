@@ -2,8 +2,7 @@ CACHE MANIFEST
 # Version 1.0.001
 
 CACHE:
-../vehicle-fuel-log/Honda%20Civic
-../vehicle-fuel-log/Honda Civic
+../vehicle/log/fuel/list
 
 NETWORK:
 *

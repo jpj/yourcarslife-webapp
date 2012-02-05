@@ -5,6 +5,7 @@
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!doctype html>
 <html>
 	<head>
@@ -48,9 +49,10 @@
 
 		<ul id="vehicleFuelLogs">
 			<c:set var="prevFuelLog"/>
-			<c:forEach items="${fuelLogs}" var="fuelLog">
-				<c:if test="${not empty prevFuelLog}"> <%-- TODO - this is always null when here as template --%>
-					<li class="available">
+			<c:forEach begin="0" end="20" varStatus="fuelLogRow">
+				<c:set var="fuelLog" value="${fuelLogs[fuelLogRow.index]}"/>
+				<c:if test="${not fuelLogRow.first}">
+					<li class="available ${empty prevFuelLog ? 'unused' : ''}">
 						<form action="get">
 							<div class="display">
 								<div class="date">
@@ -68,7 +70,16 @@
 									<span class="units">gal</span>
 								</div>
 								<div class="economy">
-									<span class="number"><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(prevFuelLog.odometer - fuelLog.odometer) / prevFuelLog.fuel}"/></span>
+									<span class="number">
+										<c:choose>
+											<c:when test="${prevFuelLog.missedFillup or fuelLogRow.index eq fn:length(fuelLogs)}">
+												-
+											</c:when>
+											<c:otherwise>
+												<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(prevFuelLog.odometer - fuelLog.odometer) / prevFuelLog.fuel}"/>
+											</c:otherwise>
+										</c:choose>
+									</span>
 									<span class="units">mpg</span>
 								</div>
 								<div class="edit-button"><a href="#edit0">edit</a></div>

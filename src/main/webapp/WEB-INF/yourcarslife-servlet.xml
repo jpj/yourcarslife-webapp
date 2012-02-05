@@ -20,6 +20,7 @@
 	<mvc:view-controller path="/" view-name="home"/>
 	<mvc:view-controller path="/login"/>
 	<mvc:view-controller path="/admin"/>
+	<mvc:view-controller path="/vehicle/log/fuel/list" view-name="fuel-log-list"/>
 	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
 	<mvc:annotation-driven/>
 
