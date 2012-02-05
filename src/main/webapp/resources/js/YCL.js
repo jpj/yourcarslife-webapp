@@ -127,7 +127,7 @@ var YCL = function() {
 	 * @param {Function} callback
 	 *	function({@link YCL.SaveVehicleFuelLogResponse} response, {@link YCL.VehicleFuelLogStatus} status)
 	 */
-	this.saveVehicleFuelLog = function(request, callback) {
+	this.saveFuelLog = function(request, callback) {
 
 		var requestData = {
 			logId: request.logId,
@@ -146,8 +146,9 @@ var YCL = function() {
 		};
 
 		$.ajax({
-			url: saveVehicleFuelLogServiceUrl,
+			url: YCLConstants.BASE_URL + '/vehicle/' + request.vehicleId + '/log/fuel/'+(request.logId ? request.logId : '')+'.json',
 			data: requestData,
+			type: 'POST',
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
 				alert("error: " + XMLHttpRequest.statusText);
@@ -164,7 +165,6 @@ var YCL = function() {
 					});
 				} else {
 					response.success = true;
-					response.logId = data.logId;
 				}
 			},
 			complete: function() {

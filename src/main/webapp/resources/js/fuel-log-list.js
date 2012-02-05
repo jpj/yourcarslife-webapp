@@ -302,7 +302,7 @@ $(document).ready(function() {
 
 			$row.find("input.error").removeClass("error");
 
-			ycl.saveVehicleFuelLog(
+			ycl.saveFuelLog(
 				{
 					fuel: $form.find("input[name=fuel]").val(),
 					logDate: $row.data("logDate"),
