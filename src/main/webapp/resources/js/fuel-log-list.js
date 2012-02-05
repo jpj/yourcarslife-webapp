@@ -75,6 +75,10 @@ $(document).ready(function() {
 			 */
 			function(response, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
+					// Vehicle Info
+					$("#vehicle .name").text(response.vehicle.name);
+					$("#vehicle .notes").text(response.vehicle.notes);
+
 					var prevFuel = 0;
 					var prevOdometer = 0;
 					var month = null;
@@ -122,7 +126,7 @@ $(document).ready(function() {
 						prevFuel = vehicleFuelLog.fuel;
 						prevOdometer = vehicleFuelLog.odometer;
 //						$row.find(".economy > .number").text('-');
-						
+
 					});
 
 					$("#vehicleFuelLogs > li.available").addClass("unused");
@@ -273,6 +277,7 @@ $(document).ready(function() {
 
 
 	if (vehicleId) {
+
 		// Add click events
 
 		/* Edit */
@@ -395,5 +400,5 @@ $(document).ready(function() {
 			}
 		});
 	}
-	
+
 });

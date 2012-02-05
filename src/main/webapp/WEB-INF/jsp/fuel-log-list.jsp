@@ -24,8 +24,8 @@
                 <script type="text/javascript" src="<c:url value="/resources/js/fuel-log-list.js"/>"></script>
 	</head>
 	<body>
-		<p>
-			<a href="<c:url value="/edit-vehicle/${vehicle.vehicleId}"/>">${vehicle.name}</a>: ${vehicle.notes}
+		<p id="vehicle">
+			<a class="name" href="<c:url value="/edit-vehicle/${vehicle.vehicleId}"/>">${vehicle.name}</a>: <span class="notes">${vehicle.notes}</span>
                 </p>
 
 		<div id="graph-holder">

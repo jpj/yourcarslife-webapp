@@ -24,6 +24,7 @@ var YCL = function() {
 
 		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
 		var response = {
+			vehicle: {},
 			vehicleFuelLogs: []
 		};
 
@@ -40,6 +41,10 @@ var YCL = function() {
 				response.pageNumber = data.pageNumber;
 				response.pageSize = data.pageSize;
 				response.totalResults = data.totalResults;
+				response.vehicle.vehicleId = data.vehicle.vehicleId;
+				response.vehicle.name = data.vehicle.name;
+				response.vehicle.description = data.vehicle.description;
+				response.vehicle.notes = data.vehicle.notes;
 
 				var prevOdometer = 0;
 				var prevFuel = 0;
