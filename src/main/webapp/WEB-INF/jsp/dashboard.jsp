@@ -3,6 +3,7 @@
 	<head>
 		<title>Dashboard</title>
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/dashboard.css"/>"/>
+		<script type="text/javascript" src="<c:url value="/resources/js/vehicle-list.js"/>"></script>
 	</head>
 	<body>
 
@@ -26,17 +27,15 @@
 				<ul id="vehicles">
 					<c:forEach var="vehicle" items="${vehicles}">
 						<li class="vehicle available">
-							<form action="#">
-								<div class="display">
-									<h3><a class="name" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/fuel/list/1" />">${vehicle.name}</a> (<a href="<c:url value="/edit-vehicle/${vehicle.vehicleId}"/>">edit</a>)</h3>
-									<div class="details">
-										<div class="holder">
-											<p>Notes: ${vehicle.notes}</p>
-											<p>Description: ${vehicle.description}</p>
-										</div>
+							<div class="display">
+								<h3><a class="name fuel-log-list" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/fuel/list/1" />">${vehicle.name}</a> (<a href="<c:url value="/edit-vehicle/${vehicle.vehicleId}"/>">edit</a>)</h3>
+								<div class="details">
+									<div class="holder">
+										<p class="notes">Notes: ${vehicle.notes}</p>
+										<p class="description">Description: ${vehicle.description}</p>
 									</div>
 								</div>
-							</form>
+							</div>
 						</li>
 					</c:forEach>
 				</ul>

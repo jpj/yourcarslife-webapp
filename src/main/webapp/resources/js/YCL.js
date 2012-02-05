@@ -148,7 +148,44 @@ var YCL = function() {
 					callback(response, status);
 				}
 			}
-		})
+		});
+
+	};
+
+	/**
+	 * @param {YCL.VehicleListRequest} request
+	 * @param {Function} callback
+	 */
+	this.getVehicleList = function(request, callback) {
+
+		var status = YCL.VehicleListRequestStatus.INCOMPLETE;
+		var response = {
+			vehicles: []
+		};
+
+		$.ajax({
+			url: YCLConstants.BASE_URL + '/vehicle/list.json',
+			data: null,
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				status = YCL.VehicleListRequestStatus.UNKNOWN_ERROR;
+			},
+			success: function(data) {
+				status = YCL.VehicleListRequestStatus.OK;
+				$.each(data.vehicles, function(index, vehicle) {
+					response.vehicles.push({
+						vehicleId: vehicle.vehicleId,
+						name: vehicle.name,
+						description: vehicle.description,
+						notes: vehicle.notes
+					});
+				});
+			},
+			complete: function() {
+				if (callback instanceof Function) {
+					callback(response, status);
+				}
+			}
+		});
 
 	};
 
@@ -195,11 +232,11 @@ YCL.Request = {
 				pageRequest = JSON.parse( requestString );
 			} catch (e) {}
 		}
-		
+
 		if (pageRequest == null) {
 			pageRequest = {};
 		}
-		
+
 		pageRequest[name] = value;
 
 		// Persist request to anchor hash
@@ -351,4 +388,14 @@ YCL.VehicleFuelLogStatus = {
 	 * @constant
 	 */
 	UNKNOWN_ERROR: "UNKNOWN_ERROR"
+};
+
+YCL.VehiclListRequest = {};
+
+YCL.VehicleListRequestStatus = {
+
+	INCOMPLETE: "INCOMPLETE",
+	OK: "OK",
+	UNKNOWN_ERROR: "UNKNOWN_ERROR"
+
 };

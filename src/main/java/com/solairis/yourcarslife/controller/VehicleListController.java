@@ -27,17 +27,19 @@ public class VehicleListController {
 	@Autowired
 	private VehicleService vehicleService;
 
-	@RequestMapping(value = "/dashboard")
+	@RequestMapping(value = "/vehicle/list")
 	@Transactional
-	public void dashboard(Model model) {
-
+	public String vehicleList(Model model) {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
-
 		model.addAttribute("vehicles", this.vehicleService.getVehiclesByUserId(user.getUserId()));
-
 		model.addAttribute("user", user);
+		return "dashboard";
+	}
 
+	@RequestMapping(value="/dashboard")
+	public String dashboard() {
+		return "redirect:/vehicle/list";
 	}
 
 }
