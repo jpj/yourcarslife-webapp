@@ -5,8 +5,8 @@
 package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.SaveVehicleFuelLogFormData;
-import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.data.domain.LogFuel;
+import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.UserService;
 import com.solairis.yourcarslife.service.VehicleService;
@@ -54,7 +54,7 @@ public class SaveVehicleFuelLogController {
 
 
 		if (!errors.hasFieldErrors()) {
-			LogFuel vehicleFuelLog = null;
+			LogFuel vehicleFuelLog;
 
 			if (saveVehicleFuelLogFormData.getVehicleFuelLogId() == 0) {
 				vehicleFuelLog = new LogFuel();
