@@ -96,9 +96,9 @@ $(document).ready(function() {
 
 						$row.removeClass("available").removeClass("unused");
 
-						//if ( $row.data("vehicleFuelLogId") !== vehicleFuelLog.vehicleFuelLogId && $row.data("modified") !== vehicleFuelLog.modified ) {
+						//if ( $row.data("logId") !== vehicleFuelLog.logId && $row.data("modified") !== vehicleFuelLog.modified ) {
 						if (true) {
-							$row.data("vehicleFuelLogId", vehicleFuelLog.vehicleFuelLogId);
+							$row.data("logId", vehicleFuelLog.logId);
 							$row.data("modified", vehicleFuelLog.modified);
 							$row.data("octane", vehicleFuelLog.octane);
 							$row.data("missedFillup", vehicleFuelLog.missedFillup);
@@ -188,16 +188,18 @@ $(document).ready(function() {
 			clearTimeout( $row.removeClass("fresh").data("freshTimeoutId") );
 			var odometerWidth = $row.find(".odometer > .view.number").width();
 			var fuelWidth = $row.find(".fuel > .view.number").width();
-			var vehicleFuelLogId = $row.data("vehicleFuelLogId");
+			var logId = $row.data("logId");
 
 			$row.find(".odometer > .edit.number").width(odometerWidth);
 			$row.find(".fuel > .edit.number").width(fuelWidth);
 
-			ycl.getVehicleFuelLog(vehicleId, vehicleFuelLogId, function(vehicleFuelLog, status) {
+			ycl.getFuelLog({vehicleId : vehicleId, logId : logId}, function(response, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
 
+					var fuelLog = null;
+
 					// Create defaults for new log
-					if ((vehicleFuelLog == null || vehicleFuelLogId == null) && $row.hasClass("new")) {
+					if (logId == null && $row.hasClass("new")) {
 						$row.find(".odometer > .edit.number").width(100);
 						$row.find(".fuel > .edit.number").width(80);
 						var now = new Date();
@@ -212,31 +214,37 @@ $(document).ready(function() {
 						$("#vehicleFuelLogs > li:not(:first):not(.unused):lt(11)").each(function() {
 							var odometer = isNaN( $(this).find(".odometer > .view.number").text() ) ? 0 : parseInt( $(this).find(".odometer > .view.number").text() );
 							if (prevOdometer !== 0) {
-								//alert("made it " + odometer);
 								odometerDifference = odometerDifference + prevOdometer - odometer;
 								odometerCount++;
 
 								fuelAvg.add( $(this).find(".fuel > .view.number").text() );
 							}
 							prevOdometer = odometer;
-
 							octaneMean.add( $(this).data("octane") );
 						});
 
 						// Create New Log
-						vehicleFuelLog = {
+						fuelLog = {
 							logDate: now.getTime(),
 							odometer: odometerCount == 0 ? 0 : prevOdometerReading + odometerDifference/odometerCount,
 							fuel: fuelAvg.get(),
 							octane: octaneMean.get(),
 							missedFillup: odometerCount == 0 && prevOdometer == 0
 						};
+					} else {
+						fuelLog = {
+							logDate: response.fuelLog.logDate,
+							odometer: response.fuelLog.odometer,
+							fuel: response.fuelLog.fuel,
+							octane: response.fuelLog.octane,
+							missedFillup: response.fuelLog.missedFillup
+						};
 					}
 
-					var logDate = new Date(vehicleFuelLog.logDate);
-					$row.find(".odometer > .edit.number").val( vehicleFuelLog.odometer );
-					$row.find(".fuel > .edit.number").val( vehicleFuelLog.fuel );
-					$row.find(".octane input[name=octane]").val( vehicleFuelLog.octane );
+					var logDate = new Date((fuelLog.logDate != null ? fuelLog.logDate : new Date().getTime()));
+					$row.find(".odometer > .edit.number").val( fuelLog.odometer );
+					$row.find(".fuel > .edit.number").val( fuelLog.fuel );
+					$row.find(".octane input[name=octane]").val( fuelLog.octane );
 					$row.data("logDate", logDate);
 					$row.find(".date > .edit").val( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() ).datepick({dateFormat: 'yyyy M dd', defaultDate: logDate, onSelect: function(dates) {
 							if (dates.length === 1) {
@@ -247,7 +255,7 @@ $(document).ready(function() {
 							}
 					}});
 
-					if (vehicleFuelLog.missedFillup) {
+					if (fuelLog.missedFillup) {
 						$row.find(".missedFillup input[name=missedFillup]").attr("checked", "checked");
 					} else {
 						$row.find(".missedFillup input[name=missedFillup]").removeAttr("checked");
@@ -264,7 +272,7 @@ $(document).ready(function() {
 
 			if ( !$row.hasClass("new") ) {
 				$("#vehicleFuelLogs > li:not(:first)").each(function(e) {
-					if ( $(this).data("vehicleFuelLogId") !== vehicleFuelLogId ) {
+					if ( $(this).data("logId") !== logId ) {
 						$(this).addClass("lead");
 						return true;
 					} else {
@@ -291,7 +299,6 @@ $(document).ready(function() {
 			e.preventDefault();
 			var $form = $(this).parent().parent().parent().parent();
 			var $row = $(this).parent().parent().parent().parent().parent();
-			var vehicleFuelLogId = $row.data("vehicleFuelLogId");
 
 			$row.find("input.error").removeClass("error");
 
@@ -302,7 +309,7 @@ $(document).ready(function() {
 					missedFillup: $form.find("input[name=missedFillup]").is(":checked"),
 					octane: $form.find("input[name=octane]").val(),
 					odometer: $form.find("input[name=odometer]").val(),
-					vehicleFuelLogId: $row.data("vehicleFuelLogId"),
+					logId: $row.data("logId"),
 					vehicleId: vehicleId
 				},
 				function(response, status) {
@@ -321,7 +328,7 @@ $(document).ready(function() {
 								},
 								function() {
 									$("#vehicleFuelLogs > li").each(function() {
-										if (response.vehicleFuelLogId === $(this).data("vehicleFuelLogId") && !$(this).hasClass("new")) {
+										if (response.logId === $(this).data("logId") && !$(this).hasClass("new")) {
 											$(this).addClass("fresh");
 											$(this).data("freshTimeoutId", setTimeout(function($row) {$row.removeClass("fresh");}, 8000, $(this)) );
 											return false;

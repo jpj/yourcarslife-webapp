@@ -19,7 +19,7 @@ var YCL = function() {
 		var requestData = {
 			maxResults: request.maxResults,
 			vehicleId: request.vehicleId,
-			vehicleFuelLogId: request.vehicleFuelLogId
+			logId: request.logId
 		};
 
 		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
@@ -60,7 +60,7 @@ var YCL = function() {
 						modified: value.modified,
 						octane: value.octane,
 						odometer: value.odometer,
-						vehicleFuelLogId: value.vehicleFuelLogId
+						logId: value.logId
 					});
 
 					if (prevOdometer && !prevMissedFillup) {
@@ -85,19 +85,38 @@ var YCL = function() {
 	/**
 	 * @class {YCL.getVehicleFuelLog} Service for retrieving one Vehicle Fuel Log
 	 * @param {Number} vehicleId
-	 * @param {Number} vehicleFuelLogId
+	 * @param {Number} logId
 	 * @param {function} callback
 	 *	function({@link YCL.VehicleFuelLog} vehicleFuelLog, {@link YCL.VehicleFuelLogStatus} status)
 	 */
-	this.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
-		this.vehicleFuelLogSearch({vehicleId: vehicleId, vehicleFuelLogId: vehicleFuelLogId}, function(response, status) {
-			var vehicleFuelLog = null;
+	this.getFuelLog = function(request, callback) {
 
-			if (status === YCL.VehicleFuelLogStatus.OK && response.vehicleFuelLogs.length === 1) {
-				vehicleFuelLog = response.vehicleFuelLogs[0];
-			}
-			if (callback instanceof Function) {
-				callback(vehicleFuelLog, status);
+		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
+		var response = {
+			fuelLog: null
+		};
+
+		$.ajax({
+			url: YCLConstants.BASE_URL + '/vehicle/' + request.vehicleId + '/log/fuel/'+(request.logId ? request.logId : '')+'.json',
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
+			},
+			success: function(data) {
+				status = YCL.VehicleFuelLogStatus.OK;
+
+				response.fuelLog = {
+					logId : data.fuelLogFormData.logId,
+					fuel : data.fuelLogFormData.fuel,
+					logDate : data.fuelLogFormData.logDate,
+					missedFillup: data.fuelLogFormData.missedFillup,
+					octane : data.fuelLogFormData.octane,
+					odometer : data.fuelLogFormData.odometer
+				};
+			},
+			complete: function() {
+				if (callback instanceof Function) {
+					callback(response, status);
+				}
 			}
 		});
 	};
@@ -111,7 +130,7 @@ var YCL = function() {
 	this.saveVehicleFuelLog = function(request, callback) {
 
 		var requestData = {
-			vehicleFuelLogId: request.vehicleFuelLogId,
+			logId: request.logId,
 			vehicleId: request.vehicleId,
 			logDate: request.logDate.getFullYear()+'/'+parseInt(request.logDate.getMonth()+1)+'/'+request.logDate.getDate(),
 			odometer: request.odometer,
@@ -123,7 +142,7 @@ var YCL = function() {
 		var response = {
 			errors: [],
 			success: false,
-			vehicleFuelLogId: 0
+			logId: 0
 		};
 
 		$.ajax({
@@ -145,7 +164,7 @@ var YCL = function() {
 					});
 				} else {
 					response.success = true;
-					response.vehicleFuelLogId = data.vehicleFuelLogId;
+					response.logId = data.logId;
 				}
 			},
 			complete: function() {
@@ -317,7 +336,7 @@ YCL.Error = {
  * @property {Boolean} missedFillup
  * @property {Number} octane Octane rating of gasoline
  * @property {Number} odometer Odometer reading
- * @property {Number} vehicleFuelLogId
+ * @property {Number} logId
  * @property {Number} vehicleId
  */
 YCL.SaveVehicleFuelLogRequest = {
@@ -326,7 +345,7 @@ YCL.SaveVehicleFuelLogRequest = {
 	missedFillup: null,
 	octane: null,
 	odometer: null,
-	vehicleFuelLogId: null,
+	logId: null,
 	vehicleId: null
 };
 
@@ -334,12 +353,12 @@ YCL.SaveVehicleFuelLogRequest = {
  * @class {YCL.SaveVehicleFuelLogResponse}
  * @property {Array} errors Array.<{@link YCL.Error}> List of errors
  * @property {Boolean} success
- * @property {Number} vehicleFuelLogId
+ * @property {Number} logId
  */
 YCL.SaveVehicleFuelLogResponse = {
 	errors: null,
 	success: null,
-	vehicleFuelLogId: null
+	logId: null
 };
 
 /**
@@ -352,7 +371,7 @@ YCL.SaveVehicleFuelLogResponse = {
  * @property {Number} modified
  * @property {Integer} octane
  * @property {Number} odometer
- * @property {Integer} vehicleFuelLogId
+ * @property {Integer} logId
  */
 
 /**
