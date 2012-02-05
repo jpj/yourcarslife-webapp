@@ -7,7 +7,6 @@ package com.solairis.yourcarslife.controller;
 import com.solairis.yourcarslife.command.FuelLogFormData;
 import com.solairis.yourcarslife.data.domain.LogFuel;
 import com.solairis.yourcarslife.service.LogService;
-import com.solairis.yourcarslife.service.UserService;
 import com.solairis.yourcarslife.service.VehicleService;
 import java.beans.PropertyEditor;
 import java.util.Date;
@@ -27,8 +26,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class FuelLogController {
 
-	@Autowired
-	private UserService userService;
 	@Autowired
 	private LogService logService;
 	@Autowired
@@ -81,7 +78,6 @@ public class FuelLogController {
 			fuelLog.setVehicle(this.vehicleService.getVehicle(vehicleId));
 
 			this.logService.save(fuelLog);
-			model.addAttribute("vehicleFuelLogId", fuelLog.getLogId());
 		}
 		model.addAttribute("errors", errors.getFieldErrors());
 		return "fuel-log";
