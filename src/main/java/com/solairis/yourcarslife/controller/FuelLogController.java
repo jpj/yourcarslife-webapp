@@ -66,6 +66,7 @@ public class FuelLogController {
 			if (formData.getLogId() == null) {
 				fuelLog = new LogFuel();
 				fuelLog.setActive(true);
+				fuelLog.setVehicle(this.vehicleService.getVehicle(vehicleId));
 			} else {
 				fuelLog = this.logService.getFuelLog(formData.getLogId());
 			}
@@ -75,7 +76,6 @@ public class FuelLogController {
 			fuelLog.setMissedFillup(formData.isMissedFillup());
 			fuelLog.setOctane(formData.getOctane());
 			fuelLog.setOdometer(formData.getOdometer());
-			fuelLog.setVehicle(this.vehicleService.getVehicle(vehicleId));
 
 			this.logService.save(fuelLog);
 		}
