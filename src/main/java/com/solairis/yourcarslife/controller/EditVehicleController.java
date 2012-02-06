@@ -13,15 +13,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -43,6 +40,7 @@ public class EditVehicleController {
 	}
 
 	@RequestMapping(value = "/edit-vehicle/{vehicleId}", method = {RequestMethod.GET, RequestMethod.HEAD})
+	@Transactional
 	public String form(@PathVariable long vehicleId, @ModelAttribute EditVehicleFormData editVehicleFormData, Model model) {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
@@ -63,11 +61,12 @@ public class EditVehicleController {
 	}
 
 	@RequestMapping(value = "/edit-vehicle/{vehicleId}", method = RequestMethod.POST)
+	@Transactional
 	public String submit(@Valid EditVehicleFormData editVehicleFormData, BindingResult errors, Model model) {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
 		if (!errors.hasErrors()) {
-			Vehicle vehicle = null;
+			Vehicle vehicle;
 
 			if (editVehicleFormData.getVehicleId() == 0) {
 				vehicle = new Vehicle();
