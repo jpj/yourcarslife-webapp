@@ -9,13 +9,13 @@ $(document).ready(function() {
 				$vehicle.find(".description").text(vehicle.description);
 				$vehicle.find(".notes").text(vehicle.notes);
 
-				var fuelLogListRequest = {
-					vehicleId: vehicle.vehicleId
-				};
-				var url = document.createElement("a");
-				url.href = YCLConstants.BASE_URL + "/vehicle/log/fuel/list";
-				url.hash = JSON.stringify(fuelLogListRequest);
-				$vehicle.find(".fuel-log-list").attr("href", url.href);
+				var fuelLogListUrl = document.createElement("a");
+				fuelLogListUrl.href = YCLConstants.BASE_URL + "/vehicle/log/fuel/list";
+				fuelLogListUrl.hash = JSON.stringify({vehicleId: vehicle.vehicleId});
+				var editVehicleUrl = document.createElement("a");
+				editVehicleUrl.href = YCLConstants.BASE_URL + "/vehicle/" + vehicle.vehicleId;
+				$vehicle.find(".fuel-log-list").attr("href", fuelLogListUrl.href);
+				$vehicle.find(".edit").attr("href", editVehicleUrl.href);
 				$vehicle.removeClass("available");
 			});
 		} else {

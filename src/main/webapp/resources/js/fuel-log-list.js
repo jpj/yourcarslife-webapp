@@ -76,7 +76,9 @@ $(document).ready(function() {
 			function(response, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
 					// Vehicle Info
-					$("#vehicle .name").text(response.vehicle.name);
+					var editVehicleUrl = document.createElement("a");
+					editVehicleUrl.href = YCLConstants.BASE_URL + "/vehicle/" + response.vehicle.vehicleId;
+					$("#vehicle .name").text(response.vehicle.name).attr("href", editVehicleUrl.href);
 					$("#vehicle .notes").text(response.vehicle.notes);
 
 					var prevFuel = 0;

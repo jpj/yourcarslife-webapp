@@ -39,7 +39,7 @@ public class EditVehicleController {
 		binder.setValidator(editVehicleFormDataValidator);
 	}
 
-	@RequestMapping(value = "/edit-vehicle/{vehicleId}", method = {RequestMethod.GET, RequestMethod.HEAD})
+	@RequestMapping(value = "/vehicle/{vehicleId}", method = {RequestMethod.GET, RequestMethod.HEAD})
 	@Transactional
 	public String form(@PathVariable long vehicleId, @ModelAttribute EditVehicleFormData editVehicleFormData, Model model) {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -57,10 +57,10 @@ public class EditVehicleController {
 			editVehicleFormData.setDescription(vehicle.getDescription());
 			editVehicleFormData.setNotes(vehicle.getNotes());
 		}
-		return "edit-vehicle";
+		return "vehicle";
 	}
 
-	@RequestMapping(value = "/edit-vehicle/{vehicleId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/vehicle/{vehicleId}", method = RequestMethod.POST)
 	@Transactional
 	public String submit(@Valid EditVehicleFormData editVehicleFormData, BindingResult errors, Model model) {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -81,6 +81,6 @@ public class EditVehicleController {
 			model.addAttribute("vehicle", vehicle);
 			model.addAttribute("success", true);
 		}
-		return "edit-vehicle";
+		return "vehicle";
 	}
 }

@@ -13,7 +13,7 @@
 			<c:when test="${empty vehicles}">
 				<p>
 					You have no vehicles. The first step is to
-					<a href="<c:url value="/edit-vehicle/0"/>">add a vehicle</a>,
+					<a href="<c:url value="/vehicle/0"/>">add a vehicle</a>,
 					then you can add fuel and service logs
 					to it.
 				</p>
@@ -21,14 +21,17 @@
 			<c:otherwise>
 
 				<p>
-			(<a href="<c:url value="/edit-vehicle/0"/>">Add new vehicle</a>)
+			(<a href="<c:url value="/vehicle/0"/>">Add new vehicle</a>)
 				</p>
 
 				<ul id="vehicles">
 					<c:forEach var="vehicle" items="${vehicles}">
 						<li class="vehicle available">
 							<div class="display">
-								<h3><a class="name fuel-log-list" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/fuel/list/1" />">${vehicle.name}</a> (<a href="<c:url value="/edit-vehicle/${vehicle.vehicleId}"/>">edit</a>)</h3>
+								<h3>
+									<a class="name fuel-log-list" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/fuel/list/1" />">${vehicle.name}</a>
+									(<a class="edit" href="<c:url value="/vehicle/${vehicle.vehicleId}"/>">edit</a>)
+								</h3>
 								<div class="details">
 									<div class="holder">
 										<p class="notes">Notes: ${vehicle.notes}</p>

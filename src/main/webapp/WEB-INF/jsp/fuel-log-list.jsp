@@ -25,7 +25,7 @@
 	</head>
 	<body>
 		<p id="vehicle">
-			<a class="name" href="<c:url value="/edit-vehicle/${vehicle.vehicleId}"/>">${vehicle.name}</a>: <span class="notes">${vehicle.notes}</span>
+			<a class="name" href="<c:url value="/vehicle/${vehicle.vehicleId}"/>">${vehicle.name}</a>: <span class="notes">${vehicle.notes}</span>
                 </p>
 
 		<div id="graph-holder">
