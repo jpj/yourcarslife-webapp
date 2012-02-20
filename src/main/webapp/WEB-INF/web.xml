@@ -6,6 +6,7 @@
 	<servlet>
 		<servlet-name>yourcarslife</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
@@ -27,12 +28,12 @@
 			/WEB-INF/yourcarslife-servlet.xml
 		</param-value>
 	</context-param>
-	
+
 <!--	<context-param>
 		<param-name>webAppRootKey</param-name>
 		<param-value>ycl.root</param-value>
 	</context-param>-->
-	
+
 	<mime-mapping>
 		<extension>appcache</extension>
 		<mime-type>text/cache-manifest</mime-type>
