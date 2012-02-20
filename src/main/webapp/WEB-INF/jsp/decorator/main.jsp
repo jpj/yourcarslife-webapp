@@ -58,7 +58,7 @@
 				<div id="navigation">
 					<ul>
 						<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<c:url value="/dashboard"/>">Dashboard</a></li>
+							<li><a href="<c:url value="/vehicle/list"/>">Dashboard</a></li>
 							<li><a href="<c:url value="/logout"/>">Logout</a></li>
 						</security:authorize>
 

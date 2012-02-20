@@ -35,7 +35,7 @@ public class FuelLogListController {
 
 	@RequestMapping(value = "/vehicle/{vehicleId}/log/fuel/list/{pageNumber}")
 	@Transactional
-	public String submit(@PathVariable("vehicleId") long vehicleId, @PathVariable("pageNumber") int pageNumber, @Valid VehicleFuelLogFormData vehicleFuelLogFormData, BindingResult errors, Model model) {
+	public String list(@PathVariable("vehicleId") long vehicleId, @PathVariable("pageNumber") int pageNumber, @Valid VehicleFuelLogFormData vehicleFuelLogFormData, BindingResult errors, Model model) {
 		if (!errors.hasFieldErrors()) {
 			Vehicle vehicle = this.vehicleService.getVehicle(vehicleId);
 

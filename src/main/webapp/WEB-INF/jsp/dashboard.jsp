@@ -31,6 +31,7 @@
 								<h3>
 									<a class="name fuel-log-list" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/fuel/list/1" />">${vehicle.name}</a>
 									(<a class="edit" href="<c:url value="/vehicle/${vehicle.vehicleId}"/>">edit</a>)
+									(<a class="maintenance-logs" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/maintenance/list/1"/>">Maintenance Logs</a>)
 								</h3>
 								<div class="details">
 									<div class="holder">
