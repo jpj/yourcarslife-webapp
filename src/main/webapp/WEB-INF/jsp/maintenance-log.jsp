@@ -43,6 +43,11 @@
 				<form:textarea path="description"/>
 			</p>
 			<p>
+				<form:label path="tagIds">Tags</form:label>
+				<a href="<c:url value="/user/tag/0"/>">New Tag</a>
+				<form:select path="tagIds" items="${userTags}" itemLabel="label" itemValue="tagId" multiple="true"/>
+			</p>
+			<p>
 				<input type="submit" value="Save"/>
 			</p>
 		</form:form>

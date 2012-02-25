@@ -6,12 +6,16 @@ package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.MaintenanceLogFormData;
 import com.solairis.yourcarslife.data.domain.MaintenanceLog;
+import com.solairis.yourcarslife.data.domain.Tag;
 import com.solairis.yourcarslife.service.LogService;
+import com.solairis.yourcarslife.service.TagService;
 import com.solairis.yourcarslife.service.VehicleService;
 import java.beans.PropertyEditor;
 import java.util.Date;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -29,8 +33,9 @@ public class MaintenanceLogController {
 	@Autowired
 	private LogService logService;
 	@Autowired
+	private TagService tagService;
+	@Autowired
 	private VehicleService vehicleService;
-
 	@Autowired
 	private PropertyEditor customDateEditor;
 
@@ -48,6 +53,9 @@ public class MaintenanceLogController {
 			formData.setLogDate(log.getLogDate());
 			formData.setOdometer(log.getOdometer());
 			formData.setSummary(log.getSummary());
+			for (Tag tag : log.getTags()) {
+				formData.getTagIds().add(tag.getTagId());
+			}
 		} else {
 			model.addAttribute("lastLog", logService.getMostRecentLogForVehicle(vehicleId));
 		}
@@ -71,6 +79,10 @@ public class MaintenanceLogController {
 			log.setLogDate(formData.getLogDate());
 			log.setOdometer(formData.getOdometer());
 			log.setSummary(formData.getSummary());
+			log.getTags().clear();
+			for (Long tagId : formData.getTagIds()) {
+				log.getTags().add(tagService.getTag(tagId));
+			}
 			logService.save(log);
 			model.addAttribute("saved", true);
 		}
@@ -80,6 +92,7 @@ public class MaintenanceLogController {
 
 	private void referenceData(long vehicleId, Model model) {
 		model.addAttribute("vehicle", vehicleService.getVehicle(vehicleId));
+		model.addAttribute("userTags", tagService.getTagsForUser( Long.parseLong( ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()) ) );
 	}
 
 }

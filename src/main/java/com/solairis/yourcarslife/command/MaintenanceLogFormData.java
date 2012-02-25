@@ -5,6 +5,8 @@
 package com.solairis.yourcarslife.command;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -16,6 +18,15 @@ public class MaintenanceLogFormData {
 	private String summary;
 	private String description;
 	private Double odometer;
+	private Set<Long> tagIds = new HashSet<Long>();
+
+	public Set<Long> getTagIds() {
+		return tagIds;
+	}
+
+	public void setTagIds(Set<Long> tagIds) {
+		this.tagIds = tagIds;
+	}
 
 	public Double getOdometer() {
 		return odometer;

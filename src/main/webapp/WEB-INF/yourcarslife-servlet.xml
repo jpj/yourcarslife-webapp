@@ -78,6 +78,10 @@
 		<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
 
+	<bean id="tagDao" class="com.solairis.yourcarslife.data.dao.impl.TagDaoHibernate">
+		<property name="sessionFactory" ref="mySessionFactory"/>
+	</bean>
+
 	<bean id="userDao" class="com.solairis.yourcarslife.data.dao.impl.UserDaoHibernate">
 		<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
