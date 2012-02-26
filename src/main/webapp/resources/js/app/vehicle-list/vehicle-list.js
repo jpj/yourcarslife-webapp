@@ -12,9 +12,13 @@ $(document).ready(function() {
 				var fuelLogListUrl = document.createElement("a");
 				fuelLogListUrl.href = YCLConstants.BASE_URL + "/vehicle/log/fuel/list";
 				fuelLogListUrl.hash = JSON.stringify({vehicleId: vehicle.vehicleId});
+				var maintLogListUrl = document.createElement("a");
+				maintLogListUrl.href = YCLConstants.BASE_URL + "/vehicle/log/maintenance/list";
+				maintLogListUrl.hash = JSON.stringify({vehicleId: vehicle.vehicleId});
 				var editVehicleUrl = document.createElement("a");
 				editVehicleUrl.href = YCLConstants.BASE_URL + "/vehicle/" + vehicle.vehicleId;
 				$vehicle.find(".fuel-log-list").attr("href", fuelLogListUrl.href);
+				$vehicle.find(".maintenance-log-list").attr("href", maintLogListUrl.href);
 				$vehicle.find(".edit").attr("href", editVehicleUrl.href);
 				$vehicle.removeClass("available");
 			});

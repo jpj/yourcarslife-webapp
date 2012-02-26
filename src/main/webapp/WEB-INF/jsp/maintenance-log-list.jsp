@@ -5,19 +5,24 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 <!doctype html>
 <html>
 	<head>
 		<title>Mainenance Logs</title>
+
+		<c:if test="${empty maintenanceLogs}">
+			<jwr:script src="/resources/js/app/maintenance-log-list.js"/>
+		</c:if>
 	</head>
-	<body>
+	<body id="maintenance-log-list-app">
 		<p>Vehicle: ${vehicle.name}</p>
 
 		<p>
 			<a href="<c:url value="/vehicle/${vehicle.vehicleId}/log/maintenance/0"/>">New</a>
 		</p>
 
-		<ul id="mainenance-logs">
+		<ul id="maintenance-logs">
 			<c:forEach items="${maintenanceLogs}" var="log">
 				<li class="maintenance-log">
 					<div>${log.logDate}</div>
@@ -26,5 +31,15 @@
 				</li>
 			</c:forEach>
 		</ul>
-	</body>
+
+		<!-- Templates -->
+		<script type="text/template" id="maintenance-log-template">
+			<a class="edit" href="">
+				<div class="log-date"></div>
+				<div class="summary"></div>
+				<div class="description"></div>
+				<div class="tags"></div>
+			</a>
+		</script>
+</body>
 </html>

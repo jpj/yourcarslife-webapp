@@ -1,0 +1,44 @@
+/* 
+    Document   : maintenance-log-list
+    Created on : Feb 26, 2012, 1:32:46 PM
+    Author     : josh
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#maintenance-logs {
+	
+}
+
+ul#maintenance-logs {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.maintenance-log {
+	margin-top: 7px;
+}
+
+.maintenance-log > a {
+	border-radius: 15px;
+	color: #000000;
+	display: block;
+	padding: 7px;
+	text-decoration: none;
+}
+
+.maintenance-log:nth-child(odd) > a {
+	background-color: #f8f8f8;
+}
+
+.maintenance-log > a:hover {
+	background-color: #ececec;
+}
+
+.maintenance-log .tag {
+	background-color: #EAEAFF;
+	border: 1px solid blue;
+	border-radius: 5px;
+	padding: 0 5px;
+}
