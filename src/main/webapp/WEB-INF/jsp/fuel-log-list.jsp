@@ -6,6 +6,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 <!doctype html>
 <html>
 	<head>
@@ -13,6 +14,7 @@
 
 		
 <!--                <script type="text/javascript" src="<c:url value="/resources/js/fuel-log-list.js"/>"></script>-->
+		<jwr:script src="/resources/js/app/fuel-log-list.js"/>
 	</head>
 	<body>
 		<p id="vehicle">

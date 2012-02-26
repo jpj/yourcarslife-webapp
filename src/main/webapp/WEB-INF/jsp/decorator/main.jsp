@@ -44,7 +44,7 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/YCLConstants.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/YCL.js"/>"></script>-->
 
-		<jwr:script src="/resources/js/app.js"/>
+		<jwr:script src="/resources/js/app/lib.js"/>
 		<jwr:style src="/resources/css/app.css"/>
 		<jwr:style src="/resources/css/app-small.css" media="screen and (max-width: 600px)"/>
 		<decorator:head/>
