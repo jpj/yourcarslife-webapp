@@ -35,7 +35,7 @@ $(function() {
 		
 		events: {
 			"click .view": "edit",
-			"click .edit": "close"
+			"submit .edit form": "close"
 		},
 		
 		initialize: function() {
@@ -45,9 +45,13 @@ $(function() {
 			$(this.el).html(this.template(this.model.toJSON()));
 			var logDate = new Date(this.model.get("logDate"));
 			this.$(".edit-log").attr("href", YCLConstants.BASE_URL+"/vehicle/"+vehicleId+"/log/maintenance/"+this.model.get("logId"));
-			this.$(".summary").text(this.model.get("summary"));
-			this.$(".log-date").text(logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate());
-			this.$(".description").text(this.model.get("description"));
+			this.$(".view .summary").text(this.model.get("summary"));
+			this.$(".view .log-date").text(logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+(logDate.getDate()+1));
+			this.$(".view .description").text(this.model.get("description"));
+			
+			this.$(".edit .summary input").val(this.model.get("summary"));
+			this.$(".edit .log-date input").val(logDate.getFullYear()+"-"+(logDate.getMonth()+1)+"-"+(logDate.getDate()+1));
+			this.$(".edit .description input").val(this.model.get("description"));
 			var maintLogView = this;
 			$.each(this.model.get("tags"), function(index, tag) {
 				maintLogView.$(".tags").append('<span class="tag">'+tag.label+'</span> ');
@@ -59,8 +63,13 @@ $(function() {
 			$(this.el).addClass("editing");
 			return false;
 		},
-		close: function() {
-			this.model.save({summary: "New Summary"});
+		close: function(e) {
+			e.preventDefault();
+			this.model.save({
+				summary: this.$(".edit .summary input").val(),
+				description: this.$(".edit .description input").val(),
+				logDate: this.$(".edit .log-date input").val()
+			});
 			$(this.el).removeClass("editing");
 		}
 	});

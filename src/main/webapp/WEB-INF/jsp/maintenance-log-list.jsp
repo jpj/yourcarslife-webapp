@@ -36,6 +36,13 @@
 		<script type="text/template" id="maintenance-log-template">
 			<div class="container edit">
 				Edit Div
+				<form method="get" action="#">
+					<div class="log-date"><input type="text"/></div>
+					<div class="summary"><input type="text"/></div>
+					<div class="description"><input type="text"/></div>
+					<div class="tags"></div>
+					<div><input type="submit" value="Save"/></div>
+				</form>
 			</div>
 			<a class="container view edit-log" href="">
 				<div class="log-date"></div>
