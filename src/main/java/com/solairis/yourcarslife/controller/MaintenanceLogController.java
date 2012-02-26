@@ -44,7 +44,7 @@ public class MaintenanceLogController {
 		binder.registerCustomEditor(Date.class, customDateEditor);
 	}
 
-	@RequestMapping(value="/vehicle/{vehicleId}/log/maintenance/{logId}", method= RequestMethod.GET)
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance/{logId}", method = RequestMethod.GET)
 	@Transactional
 	public String form(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") Long logId, @ModelAttribute MaintenanceLogFormData formData, Model model) {
 		if (logId != null && logId != 0) {
@@ -63,7 +63,7 @@ public class MaintenanceLogController {
 		return "maintenance-log";
 	}
 
-	@RequestMapping(value="/vehicle/{vehicleId}/log/maintenance/{logId}", method= RequestMethod.POST)
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance/{logId}", method = RequestMethod.POST)
 	@Transactional
 	public String submit(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") Long logId, @Valid MaintenanceLogFormData formData, BindingResult errors, Model model) {
 		MaintenanceLog log = null;
@@ -80,19 +80,20 @@ public class MaintenanceLogController {
 			log.setOdometer(formData.getOdometer());
 			log.setSummary(formData.getSummary());
 			log.getTags().clear();
-			for (Long tagId : formData.getTagIds()) {
-				log.getTags().add(tagService.getTag(tagId));
+			if (formData.getTagIds() != null) {
+				for (Long tagId : formData.getTagIds()) {
+					log.getTags().add(tagService.getTag(tagId));
+				}
 			}
 			logService.save(log);
 			model.addAttribute("saved", true);
 		}
 		referenceData(vehicleId, model);
-		return errors.hasErrors() ? "maintenance-log" : "redirect:/vehicle/"+vehicleId+"/log/maintenance/"+ (log == null ? "" : log.getLogId());
+		return errors.hasErrors() ? "maintenance-log" : "redirect:/vehicle/" + vehicleId + "/log/maintenance/" + (log == null ? "" : log.getLogId());
 	}
 
 	private void referenceData(long vehicleId, Model model) {
 		model.addAttribute("vehicle", vehicleService.getVehicle(vehicleId));
-		model.addAttribute("userTags", tagService.getTagsForUser( Long.parseLong( ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()) ) );
+		model.addAttribute("userTags", tagService.getTagsForUser(Long.parseLong(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())));
 	}
-
 }
