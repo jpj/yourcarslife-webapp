@@ -7,6 +7,7 @@
 <%@taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 
 <security:authorize ifAnyGranted="ROLE_USER">
 	<c:set var="isLoggedIn" value="true"/>
@@ -20,16 +21,32 @@
 		<meta name="HandheldFriendly" content="true"/>
 		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"/>
 		<title><decorator:title default="Welcome!"/> | Your Car's Life</title>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout.css"/>" media="screen"/>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout-mobile.css"/>" media="screen and (max-width: 600px)"/>
+<!--		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout.css"/>" media="screen"/>-->
+<!--		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout-mobile.css"/>" media="screen and (max-width: 600px)"/>-->
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
 
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.7.1.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/extend.js"/>"></script>
+
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.css"/>"/>
+<!--		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/fuel-log-list.css"/>"/>-->
+<!--		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/fuel-log-list-small.css"/>" media="screen and (max-width: 600px)"/>-->
+
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.dateAxisRenderer.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.canvasTextRenderer.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.highlighter.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.cursor.min.js"/>"></script>
+
+<!--		<script type="text/javascript" src="<c:url value="/resources/js/extend.js"/>"></script>
 
 		<script type="text/javascript" src="<c:url value="/resources/js/YCLConstants.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/YCL.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/YCL.js"/>"></script>-->
+
+		<jwr:script src="/resources/js/app.js"/>
+		<jwr:style src="/resources/css/app.css"/>
+		<jwr:style src="/resources/css/app-small.css" media="screen and (max-width: 600px)"/>
 		<decorator:head/>
 
 		<script type="text/javascript">
@@ -58,7 +75,7 @@
 				<div id="navigation">
 					<ul>
 						<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<c:url value="/dashboard"/>">Dashboard</a></li>
+							<li><a href="<c:url value="/vehicle/list"/>">Dashboard</a></li>
 							<li><a href="<c:url value="/logout"/>">Logout</a></li>
 						</security:authorize>
 

@@ -18,6 +18,10 @@
 		</property>
 	</bean>
 
+	<bean id="tagService" class="com.solairis.yourcarslife.service.TagService">
+		<property name="tagDao" ref="tagDao"/>
+	</bean>
+
 	<bean id="userService" class="com.solairis.yourcarslife.service.UserService">
 		<property name="userDao" ref="userDao"/>
 		<property name="passwordService" ref="passwordService"/>
