@@ -20,7 +20,7 @@ ul#maintenance-logs {
 	margin-top: 7px;
 }
 
-.maintenance-log > a {
+.maintenance-log > .container {
 	border-radius: 15px;
 	color: #000000;
 	display: block;
@@ -28,12 +28,24 @@ ul#maintenance-logs {
 	text-decoration: none;
 }
 
-.maintenance-log:nth-child(odd) > a {
+.maintenance-log:nth-child(odd) > .container {
 	background-color: #f8f8f8;
 }
 
-.maintenance-log > a:hover {
+.maintenance-log > .container:hover {
 	background-color: #ececec;
+}
+
+.maintenance-log > .container.edit {
+	display: none;
+}
+
+.maintenance-log.editing > .container.edit {
+	display: block;
+}
+
+.maintenance-log.editing > .container.view {
+	display: none;
 }
 
 .maintenance-log .tag {

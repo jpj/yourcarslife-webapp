@@ -34,7 +34,10 @@
 
 		<!-- Templates -->
 		<script type="text/template" id="maintenance-log-template">
-			<a class="edit" href="">
+			<div class="container edit">
+				Edit Div
+			</div>
+			<a class="container view edit-log" href="">
 				<div class="log-date"></div>
 				<div class="summary"></div>
 				<div class="description"></div>

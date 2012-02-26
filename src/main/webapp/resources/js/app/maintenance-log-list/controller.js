@@ -8,6 +8,7 @@ $(function() {
 	var vehicleId = YCL.Request.getParameter("vehicleId");
 	
 	var MaintLog = Backbone.Model.extend({
+		idAttribute: "logId",
 		defaults: function() {
 			return {
 				logDate: null,
@@ -31,13 +32,19 @@ $(function() {
 		tagName: "li",
 		className: "maintenance-log",
 		template: _.template($("#maintenance-log-template").html()),
+		
+		events: {
+			"click .view": "edit",
+			"click .edit": "close"
+		},
+		
 		initialize: function() {
 			this.model.bind('change', this.render, this);
 		},
 		render: function() {
 			$(this.el).html(this.template(this.model.toJSON()));
 			var logDate = new Date(this.model.get("logDate"));
-			this.$(".edit").attr("href", YCLConstants.BASE_URL+"/vehicle/"+vehicleId+"/log/maintenance/"+this.model.get("logId"));
+			this.$(".edit-log").attr("href", YCLConstants.BASE_URL+"/vehicle/"+vehicleId+"/log/maintenance/"+this.model.get("logId"));
 			this.$(".summary").text(this.model.get("summary"));
 			this.$(".log-date").text(logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate());
 			this.$(".description").text(this.model.get("description"));
@@ -46,6 +53,15 @@ $(function() {
 				maintLogView.$(".tags").append('<span class="tag">'+tag.label+'</span> ');
 			});
 			return this;
+		},
+		
+		edit: function() {
+			$(this.el).addClass("editing");
+			return false;
+		},
+		close: function() {
+			this.model.save({summary: "New Summary"});
+			$(this.el).removeClass("editing");
 		}
 	});
 	

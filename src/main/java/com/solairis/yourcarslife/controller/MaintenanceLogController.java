@@ -12,6 +12,7 @@ import com.solairis.yourcarslife.service.TagService;
 import com.solairis.yourcarslife.service.VehicleService;
 import java.beans.PropertyEditor;
 import java.util.Date;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -90,6 +91,32 @@ public class MaintenanceLogController {
 		}
 		referenceData(vehicleId, model);
 		return errors.hasErrors() ? "maintenance-log" : "redirect:/vehicle/" + vehicleId + "/log/maintenance/" + (log == null ? "" : log.getLogId());
+	}
+
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance", method = RequestMethod.GET)
+	@Transactional
+	@ResponseBody
+	public List<MaintenanceLog> listBody(@PathVariable("vehicleId") long vehicleId, Model model) {
+		return logService.getMaintenanceLogsForVehicle(vehicleId, 1, 100);
+	}
+
+	// TODO - Should we handle this?
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance/{logId}", method = RequestMethod.PUT)
+	@Transactional
+	@ResponseBody
+	public MaintenanceLog put(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") long logId, @RequestBody MaintenanceLog log, Model model) {
+		if (logId != log.getLogId()) {
+			throw new IllegalArgumentException("Param Log ID ("+logId+") does not match Request Body Log ID ("+log.getLogId()+")");
+		}
+		return this.save(vehicleId, log, model);
+	}
+
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance", method = RequestMethod.POST)
+	@Transactional
+	@ResponseBody
+	public MaintenanceLog save(@PathVariable("vehicleId") long vehicleId, @RequestBody MaintenanceLog log, Model model) {
+		logService.save(log);
+		return log;
 	}
 
 	private void referenceData(long vehicleId, Model model) {

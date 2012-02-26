@@ -13,5 +13,6 @@
         <p>Uh oh.</p>
 
 		<p>${errorMessage}</p>
+		<p>${log.odometer}</p>
     </body>
 </html>

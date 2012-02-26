@@ -38,11 +38,4 @@ public class MaintenanceLogListController {
 		return "maintenance-log-list";
 	}
 
-	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance", method= RequestMethod.GET)
-	@Transactional
-	@ResponseBody
-	public List<MaintenanceLog> listBody(@PathVariable("vehicleId") long vehicleId, Model model) {
-		return logService.getMaintenanceLogsForVehicle(vehicleId, 1, 100);
-	}
-
 }
