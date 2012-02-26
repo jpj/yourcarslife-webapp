@@ -6,13 +6,13 @@
 
 <!doctype html>
 <html>
-    <head>
-        <title>Home</title>
-    </head>
-    <body>
-	    <p>
-		    <em>Your Car's Life</em> is an application to keep track of
-		    your car's fuel mileage and repairs.
-	    </p>
-    </body>
+	<head>
+		<title>Home</title>
+	</head>
+	<body>
+		<p>
+			<em>Your Car's Life</em> is an application to keep track of
+			your car's fuel mileage and repairs.
+		</p>
+	</body>
 </html>

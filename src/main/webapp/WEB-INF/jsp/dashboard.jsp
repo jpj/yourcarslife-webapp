@@ -3,9 +3,6 @@
 <html>
 	<head>
 		<title>Dashboard</title>
-<!--		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/dashboard.css"/>"/>
-		<script type="text/javascript" src="<c:url value="/resources/js/vehicle-list.js"/>"></script>-->
-		
 		<jwr:script src="/resources/js/app/vehicle-list.js"/>
 	</head>
 	<body>

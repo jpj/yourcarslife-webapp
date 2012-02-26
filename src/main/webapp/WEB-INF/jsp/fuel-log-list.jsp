@@ -11,9 +11,6 @@
 <html>
 	<head>
 		<title>Vehicle Log</title>
-
-		
-<!--                <script type="text/javascript" src="<c:url value="/resources/js/fuel-log-list.js"/>"></script>-->
 		<jwr:script src="/resources/js/app/fuel-log-list.js"/>
 	</head>
 	<body>

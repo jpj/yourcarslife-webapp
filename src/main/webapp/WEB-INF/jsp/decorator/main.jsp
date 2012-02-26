@@ -21,28 +21,24 @@
 		<meta name="HandheldFriendly" content="true"/>
 		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"/>
 		<title><decorator:title default="Welcome!"/> | Your Car's Life</title>
-<!--		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout.css"/>" media="screen"/>-->
-<!--		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout-mobile.css"/>" media="screen and (max-width: 600px)"/>-->
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
 
+		<!-- Frameworks: Jquery, Underscore, Backbone -->
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.7.1.min.js"/>"></script>
+		<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+		<script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone.js"></script>
+		
+		<!-- Jquery Datepicker -->
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.js"/>"></script>
 
+		<!-- Jquery JQPlot -->
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.css"/>"/>
-<!--		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/fuel-log-list.css"/>"/>-->
-<!--		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/fuel-log-list-small.css"/>" media="screen and (max-width: 600px)"/>-->
-
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.dateAxisRenderer.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.canvasTextRenderer.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.highlighter.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.cursor.min.js"/>"></script>
-
-<!--		<script type="text/javascript" src="<c:url value="/resources/js/extend.js"/>"></script>
-
-		<script type="text/javascript" src="<c:url value="/resources/js/YCLConstants.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/YCL.js"/>"></script>-->
 
 		<jwr:script src="/resources/js/app/lib.js"/>
 		<jwr:style src="/resources/css/app.css"/>

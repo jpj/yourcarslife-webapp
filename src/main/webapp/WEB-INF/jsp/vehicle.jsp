@@ -11,10 +11,7 @@
 
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title><c:choose><c:when test="${vehicle == null}">Add New Vehicle</c:when><c:otherwise>Editing ${vehicle.name}</c:otherwise></c:choose></title>
-
-<!--		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/edit-vehicle.css"/>"/>-->
 	</head>
 	<body>
 
