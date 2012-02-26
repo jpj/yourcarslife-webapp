@@ -165,6 +165,7 @@
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>2.4.2</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -308,11 +309,12 @@
 			<version>3.3.2.GA</version>
 			<scope>provided</scope>
 		</dependency>
-	 <dependency>
-	  <groupId>net.jawr</groupId>
-	  <artifactId>jawr</artifactId>
-	  <version>3.3.3</version>
-	 </dependency>
+		<dependency>
+			<groupId>net.jawr</groupId>
+			<artifactId>jawr</artifactId>
+			<version>3.3.3</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>yourcarslife</finalName>
