@@ -308,6 +308,11 @@
 			<version>3.3.2.GA</version>
 			<scope>provided</scope>
 		</dependency>
+	 <dependency>
+	  <groupId>net.jawr</groupId>
+	  <artifactId>jawr</artifactId>
+	  <version>3.3.3</version>
+	 </dependency>
 	</dependencies>
 	<build>
 		<finalName>yourcarslife</finalName>
