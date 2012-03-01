@@ -38,16 +38,19 @@
 				Edit Div
 				<form method="get" action="#">
 					<div class="log-date"><input type="text"/></div>
-					<div class="summary"><input type="text"/></div>
-					<div class="description"><input type="text"/></div>
+					<div class="summary"><input type="text" value="<\%=summary\%>"/></div>
+					<div class="description"><input type="text" value="<\%=description\%>"/></div>
 					<div class="tags"></div>
-					<div><input type="submit" value="Save"/></div>
+					<div>
+						<input type="submit" value="Save"/>
+						<input type="button" value="Cancel" class="cancel"/>
+					</div>
 				</form>
 			</div>
 			<a class="container view edit-log" href="">
 				<div class="log-date"></div>
-				<div class="summary"></div>
-				<div class="description"></div>
+				<div class="summary"><\%=summary\%></div>
+				<div class="description"><\%=description\%></div>
 				<div class="tags"></div>
 			</a>
 		</script>
