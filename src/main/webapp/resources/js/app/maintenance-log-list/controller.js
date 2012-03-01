@@ -10,8 +10,9 @@ $(function() {
 	var MaintLog = Backbone.Model.extend({
 		idAttribute: "logId",
 		defaults: function() {
+			var now = new Date();
 			return {
-				logDate: null,
+				logDate: now.getTime(),
 				summary: null,
 				description: null
 			};
@@ -43,7 +44,7 @@ $(function() {
 			this.model.bind('change', this.render, this);
 		},
 		render: function() {
-			var model = this.model;
+			// TODO - attach date as data() to main li
 			var $el = $(this.el);
 			$(this.el).html(this.template(this.model.toJSON()));
 			var logDate = new Date(this.model.get("logDate"));
@@ -57,10 +58,12 @@ $(function() {
 					alert("Error getting date");
 				}
 			}});
-			var maintLogView = this;
-			$.each(this.model.get("tags"), function(index, tag) {
-				maintLogView.$(".tags").append('<span class="tag">'+tag.label+'</span> ');
-			});
+			if (this.model.get("tags")) {
+				var maintLogView = this;
+				$.each(this.model.get("tags"), function(index, tag) {
+					maintLogView.$(".tags").append('<span class="tag">'+tag.label+'</span> ');
+				});
+			}
 			return this;
 		},
 
@@ -79,7 +82,12 @@ $(function() {
 		close: function(e) {
 			e.preventDefault();
 			this.model.set(this.serialize());
-			this.model.save();
+			if (this.model.get("logId")) {
+				this.model.save();
+			} else {
+				MaintenanceLogs.create(this.model.toJSON());
+			}
+
 			$(this.el).removeClass("editing");
 		},
 		cancel: function(e) {
@@ -91,7 +99,12 @@ $(function() {
 	});
 
 	var AppView = Backbone.View.extend({
-		el: $("#maintenance-log-list-app"),
+		el: $("body"),
+
+		events: {
+			"click #add-new-maintenance-log": "addNew"
+		},
+
 		initialize: function() {
 			MaintenanceLogs.bind('add', this.addOne, this);
 			MaintenanceLogs.bind('all', this.render, this);
@@ -107,6 +120,13 @@ $(function() {
 		},
 		addAll: function() {
 			MaintenanceLogs.each(this.addOne);
+		},
+
+		addNew: function(e) {
+			e.preventDefault();
+			var view = new MaintLogView({model: new MaintLog});
+			$("#add-new-maintenance-log").parent().append(view.render().el);
+			// TODO - Delete "new" container
 		}
 	});
 

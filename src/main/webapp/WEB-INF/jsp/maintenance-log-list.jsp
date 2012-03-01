@@ -19,7 +19,7 @@
 		<p>Vehicle: ${vehicle.name}</p>
 
 		<p>
-			<a href="<c:url value="/vehicle/${vehicle.vehicleId}/log/maintenance/0"/>">New</a>
+			<a id="add-new-maintenance-log" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/maintenance/0"/>">New</a>
 		</p>
 
 		<ul id="maintenance-logs">
