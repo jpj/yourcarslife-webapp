@@ -44,10 +44,10 @@ $(function() {
 			this.model.bind('change', this.render, this);
 		},
 		render: function() {
-			// TODO - attach date as data() to main li
 			var $el = $(this.el);
 			$(this.el).html(this.template(this.model.toJSON()));
 			var logDate = new Date(this.model.get("logDate"));
+			$(this.el).data("logDate", logDate);
 			this.$(".edit-log").attr("href", YCLConstants.BASE_URL+"/vehicle/"+vehicleId+"/log/maintenance/"+this.model.get("logId"));
 			this.$(".view .log-date").text( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() );
 
@@ -84,11 +84,13 @@ $(function() {
 			this.model.set(this.serialize());
 			if (this.model.get("logId")) {
 				this.model.save();
+				$(this.el).removeClass("editing");
 			} else {
 				MaintenanceLogs.create(this.model.toJSON());
+				$(this.el).remove();
 			}
 
-			$(this.el).removeClass("editing");
+
 		},
 		cancel: function(e) {
 			e.preventDefault();
