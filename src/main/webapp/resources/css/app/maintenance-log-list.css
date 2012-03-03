@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : maintenance-log-list
     Created on : Feb 26, 2012, 1:32:46 PM
     Author     : josh
@@ -7,7 +7,7 @@
 */
 
 #maintenance-logs {
-	
+
 }
 
 ul#maintenance-logs {
@@ -30,6 +30,14 @@ ul#maintenance-logs {
 
 .maintenance-log:nth-child(odd) > .container {
 	background-color: #f8f8f8;
+}
+
+.maintenance-log.new > .container {
+	background-color: yellow;
+}
+
+.maintenance-log.new > .container:hover {
+	background-color: lightyellow;
 }
 
 .maintenance-log > .container:hover {

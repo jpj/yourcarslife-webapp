@@ -13,8 +13,10 @@ $(function() {
 			var now = new Date();
 			return {
 				logDate: now.getTime(),
+				odometer: null,
 				summary: null,
-				description: null
+				description: null,
+				active: true
 			};
 		}
 	});
@@ -27,6 +29,9 @@ $(function() {
 	});
 
 	var MaintenanceLogs = new MaintLogList;
+	MaintenanceLogs.comparator = function(maintLog) {
+		return maintLog.get("odometer") * -1;
+	};
 
 	// Views
 	var MaintLogView = Backbone.View.extend({
@@ -36,7 +41,7 @@ $(function() {
 
 		events: {
 			"click .view": "edit",
-			"submit .edit form": "close",
+			"submit .edit form": "save",
 			"click .cancel" : "cancel"
 		},
 
@@ -69,8 +74,9 @@ $(function() {
 
 		serialize: function() {
 			return {
+				odometer: this.$(".edit .odometer input").val(),
 				summary: this.$(".edit .summary input").val(),
-				description: this.$(".edit .description input").val(),
+				description: this.$(".edit .description textarea").val(),
 				logDate: $(this.el).data("logDate")
 			};
 		},
@@ -79,24 +85,38 @@ $(function() {
 			$(this.el).addClass("editing");
 			return false;
 		},
-		close: function(e) {
+		save: function(e) {
 			e.preventDefault();
 			this.model.set(this.serialize());
 			if (this.model.get("logId")) {
+				// Existing Model
 				this.model.save();
 				$(this.el).removeClass("editing");
 			} else {
+				// New Model
 				MaintenanceLogs.create(this.model.toJSON());
 				$(this.el).remove();
 			}
-
-
 		},
 		cancel: function(e) {
 			e.preventDefault();
 			$(this.el).removeClass("editing");
 			this.model.fetch();
 			this.render();
+		},
+
+		enableEditMode: function() {
+			$(this.el).addClass("editing");
+		},
+
+		disableEditMode: function() {
+			$(this.el).removeClass("editing");
+		},
+		enableNew: function() {
+			$(this.el).addClass("new");
+		},
+		disableNew: function() {
+			$(this.el).removeClass("new");
 		}
 	});
 
@@ -117,8 +137,17 @@ $(function() {
 
 		},
 		addOne: function(maintLog) {
+			var logIndex = MaintenanceLogs.indexOf(maintLog);
 			var view = new MaintLogView({model: maintLog});
-			$("#maintenance-logs").append(view.render().el);
+			if ($("#maintenance-logs .maintenance-log").length == 0 || $("#maintenance-logs .maintenance-log:eq("+logIndex+")").length == 0) {
+				$("#maintenance-logs").append(view.render().el);
+			} else {
+				$("#maintenance-logs .maintenance-log:eq("+logIndex+")").before(view.render().el);
+			}
+			view.enableNew();
+			setTimeout(function() {
+				view.disableNew();
+			}, 2000);
 		},
 		addAll: function() {
 			MaintenanceLogs.each(this.addOne);
@@ -127,8 +156,8 @@ $(function() {
 		addNew: function(e) {
 			e.preventDefault();
 			var view = new MaintLogView({model: new MaintLog});
+			view.enableEditMode();
 			$("#add-new-maintenance-log").parent().append(view.render().el);
-			// TODO - Delete "new" container
 		}
 	});
 

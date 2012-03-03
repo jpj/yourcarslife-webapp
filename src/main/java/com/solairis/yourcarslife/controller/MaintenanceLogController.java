@@ -100,7 +100,6 @@ public class MaintenanceLogController {
 		return logService.getMaintenanceLogsForVehicle(vehicleId, 1, 100);
 	}
 
-	// TODO - Should we handle this?
 	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance/{logId}", method = RequestMethod.PUT)
 	@Transactional
 	@ResponseBody
@@ -108,13 +107,15 @@ public class MaintenanceLogController {
 		if (logId != log.getLogId()) {
 			throw new IllegalArgumentException("Param Log ID ("+logId+") does not match Request Body Log ID ("+log.getLogId()+")");
 		}
-		return this.save(vehicleId, log, model);
+		logService.save(log);
+		return log;
 	}
 
 	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance", method = RequestMethod.POST)
 	@Transactional
 	@ResponseBody
 	public MaintenanceLog save(@PathVariable("vehicleId") long vehicleId, @RequestBody MaintenanceLog log, Model model) {
+		log.setVehicle(vehicleService.getVehicle(vehicleId));
 		logService.save(log);
 		return log;
 	}

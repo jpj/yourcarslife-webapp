@@ -35,11 +35,11 @@
 		<!-- Templates -->
 		<script type="text/template" id="maintenance-log-template">
 			<div class="container edit">
-				Edit Div
 				<form method="get" action="#">
-					<div class="log-date"><input type="text"/></div>
-					<div class="summary"><input type="text" value="<\%=summary\%>"/></div>
-					<div class="description"><input type="text" value="<\%=description\%>"/></div>
+					<div class="log-date"><input type="text" placeholder="Date"/></div>
+					<div class="odometer"><input type="number" step=".1" value="<\%=odometer\%>" placeholder="Odometer"/></div>
+					<div class="summary"><input type="text" value="<\%=summary\%>" placeholder="Summary"/></div>
+					<div class="description"><textarea placeholder="Description"><\%=description\%></textarea></div>
 					<div class="tags"></div>
 					<div>
 						<input type="submit" value="Save"/>
@@ -49,6 +49,7 @@
 			</div>
 			<a class="container view edit-log" href="">
 				<div class="log-date"></div>
+				<div class="odometer"><\%=odometer\%></div>
 				<div class="summary"><\%=summary\%></div>
 				<div class="description"><\%=description\%></div>
 				<div class="tags"></div>
