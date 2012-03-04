@@ -3,12 +3,6 @@
  * @author Josh Johnson
  */
 
-window.solairis = window.solairis || {};
-solairis.ycl = {
-	constant: {},
-	util: {}
-};
-
 var YCL = function() {
 
 	var saveVehicleFuelLogServiceUrl = YCLConstants.BASE_URL + '/data/save-vehicle-fuel-log.json';
