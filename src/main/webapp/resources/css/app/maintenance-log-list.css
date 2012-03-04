@@ -16,6 +16,15 @@ ul#maintenance-logs, ul#new-maintenance-log {
 	margin: 0;
 }
 
+/* New Entry */
+#new-maintenance-log {
+	margin-bottom: 25px;
+}
+#new-maintenance-log .maintenance-log.new .container {
+	border: 1px dashed black;
+	background-color: #E9FFE6;
+}
+
 .maintenance-log {
 	margin-top: 7px;
 }
@@ -33,11 +42,11 @@ ul#maintenance-logs, ul#new-maintenance-log {
 }
 
 .maintenance-log.new > .container {
-	background-color: yellow;
+	background-color: #fffe9d;
 }
 
 .maintenance-log.new > .container:hover {
-	background-color: lightyellow;
+	background-color: #ffffc2;
 }
 
 .maintenance-log > .container:hover {
@@ -54,6 +63,54 @@ ul#maintenance-logs, ul#new-maintenance-log {
 
 .maintenance-log.editing > .container.view {
 	display: none;
+}
+
+.maintenance-log .units {
+	color: #d1d1d1;
+}
+
+.maintenance-log .log-date, .maintenance-log .odometer, .maintenance-log .summary {
+	left: 0;
+	position: absolute;
+	top: 4px;
+}
+
+.maintenance-log .log-date {
+	left: 9px;
+	color: #c7c7c7;
+}
+
+.maintenance-log .log-date input {
+	width: 78px;
+}
+
+.maintenance-log .odometer {
+	left: 104px;
+}
+
+.maintenance-log .odometer input {
+	text-align: right;
+	width: 110px;
+}
+
+.maintenance-log .odometer .number, .maintenance-log .odometer .number input {
+	font-size: 17pt;
+}
+
+.maintenance-log .summary {
+	left: 260px;
+}
+
+.maintenance-log .summary, .maintenance-log .summary input {
+	font-size: 17pt;
+}
+
+.maintenance-log .summary input {
+	width: 300px;
+}
+
+.maintenance-log .description {
+	margin: 39px 0 14px 25px;
 }
 
 .maintenance-log .tag {

@@ -63,6 +63,11 @@ $(function() {
 					alert("Error getting date");
 				}
 			}});
+
+//			alert(this.model.get("odometer"));
+			this.$(".view .odometer .number").text(this.model.get("odometer").toFixed(1));
+			this.$(".edit .odometer .number input").val(this.model.get("odometer").toFixed(1));
+
 			if (this.model.get("tags")) {
 				var maintLogView = this;
 				$.each(this.model.get("tags"), function(index, tag) {
@@ -74,7 +79,7 @@ $(function() {
 
 		serialize: function() {
 			return {
-				odometer: this.$(".edit .odometer input").val(),
+				odometer: parseFloat( this.$(".edit .odometer input").val() ),
 				summary: this.$(".edit .summary input").val(),
 				description: this.$(".edit .description textarea").val(),
 				logDate: $(this.el).data("logDate")
