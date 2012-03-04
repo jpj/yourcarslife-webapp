@@ -11,30 +11,30 @@
 	<head>
 		<title>Mainenance Logs</title>
 
-		<c:if test="${empty maintenanceLogs}">
-			<jwr:script src="/resources/js/app/maintenance-log-list.js"/>
+		<c:if test="${empty serviceLogs}">
+			<jwr:script src="/resources/js/app/service-log-list.js"/>
 		</c:if>
 	</head>
-	<body id="maintenance-log-list-app">
+	<body id="service-log-list-app">
 		<p>Vehicle: ${vehicle.name}</p>
 
 		<p>
-			<a id="add-new-maintenance-log" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/maintenance/0"/>">New</a>
+			<a id="add-new-service-log" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/service/0"/>">New</a>
 		</p>
-		<ul id="new-maintenance-log"></ul>
+		<ul id="new-service-log"></ul>
 
-		<ul id="maintenance-logs">
-			<c:forEach items="${maintenanceLogs}" var="log">
-				<li class="maintenance-log">
+		<ul id="service-logs">
+			<c:forEach items="${serviceLogs}" var="log">
+				<li class="service-log">
 					<div>${log.logDate}</div>
-					<div><a href="<c:url value="/vehicle/${vehicle.vehicleId}/log/maintenance/${log.logId}"/>">${log.summary}</a></div>
+					<div><a href="<c:url value="/vehicle/${vehicle.vehicleId}/log/service/${log.logId}"/>">${log.summary}</a></div>
 					<div>${log.description}</div>
 				</li>
 			</c:forEach>
 		</ul>
 
 		<!-- Templates -->
-		<script type="text/template" id="maintenance-log-template">
+		<script type="text/template" id="service-log-template">
 			<div class="container edit">
 				<form method="get" action="#">
 					<div class="log-date"><input type="text" placeholder="Date"/></div>

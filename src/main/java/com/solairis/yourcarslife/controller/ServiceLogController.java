@@ -4,8 +4,8 @@
  */
 package com.solairis.yourcarslife.controller;
 
-import com.solairis.yourcarslife.command.MaintenanceLogFormData;
-import com.solairis.yourcarslife.data.domain.MaintenanceLog;
+import com.solairis.yourcarslife.command.ServiceLogFormData;
+import com.solairis.yourcarslife.data.domain.ServiceLog;
 import com.solairis.yourcarslife.data.domain.Tag;
 import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.TagService;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
  * @author Joshua Johnson
  */
 @Controller
-public class MaintenanceLogController {
+public class ServiceLogController {
 
 	@Autowired
 	private LogService logService;
@@ -45,11 +45,11 @@ public class MaintenanceLogController {
 		binder.registerCustomEditor(Date.class, customDateEditor);
 	}
 
-	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance/{logId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/service/{logId}", method = RequestMethod.GET)
 	@Transactional
-	public String form(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") Long logId, @ModelAttribute MaintenanceLogFormData formData, Model model) {
+	public String form(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") Long logId, @ModelAttribute ServiceLogFormData formData, Model model) {
 		if (logId != null && logId != 0) {
-			MaintenanceLog log = logService.getMaintenanceLog(logId);
+			ServiceLog log = logService.getServiceLog(logId);
 			formData.setDescription(log.getDescription());
 			formData.setLogDate(log.getLogDate());
 			formData.setOdometer(log.getOdometer());
@@ -61,20 +61,20 @@ public class MaintenanceLogController {
 			model.addAttribute("lastLog", logService.getMostRecentLogForVehicle(vehicleId));
 		}
 		referenceData(vehicleId, model);
-		return "maintenance-log";
+		return "service-log";
 	}
 
-	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance/{logId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/service/{logId}", method = RequestMethod.POST)
 	@Transactional
-	public String submit(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") Long logId, @Valid MaintenanceLogFormData formData, BindingResult errors, Model model) {
-		MaintenanceLog log = null;
+	public String submit(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") Long logId, @Valid ServiceLogFormData formData, BindingResult errors, Model model) {
+		ServiceLog log = null;
 		if (!errors.hasErrors()) {
 			if (logId == null || logId == 0) {
-				log = new MaintenanceLog();
+				log = new ServiceLog();
 				log.setActive(true);
 				log.setVehicle(vehicleService.getVehicle(vehicleId));
 			} else {
-				log = logService.getMaintenanceLog(logId);
+				log = logService.getServiceLog(logId);
 			}
 			log.setDescription(formData.getDescription());
 			log.setLogDate(formData.getLogDate());
@@ -90,20 +90,20 @@ public class MaintenanceLogController {
 			model.addAttribute("saved", true);
 		}
 		referenceData(vehicleId, model);
-		return errors.hasErrors() ? "maintenance-log" : "redirect:/vehicle/" + vehicleId + "/log/maintenance/" + (log == null ? "" : log.getLogId());
+		return errors.hasErrors() ? "service-log" : "redirect:/vehicle/" + vehicleId + "/log/service/" + (log == null ? "" : log.getLogId());
 	}
 
-	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance", method = RequestMethod.GET)
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/service", method = RequestMethod.GET)
 	@Transactional
 	@ResponseBody
-	public List<MaintenanceLog> listBody(@PathVariable("vehicleId") long vehicleId, Model model) {
-		return logService.getMaintenanceLogsForVehicle(vehicleId, 1, 100);
+	public List<ServiceLog> listBody(@PathVariable("vehicleId") long vehicleId, Model model) {
+		return logService.getServiceLogsForVehicle(vehicleId, 1, 100);
 	}
 
-	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance/{logId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/service/{logId}", method = RequestMethod.PUT)
 	@Transactional
 	@ResponseBody
-	public MaintenanceLog put(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") long logId, @RequestBody MaintenanceLog log, Model model) {
+	public ServiceLog put(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") long logId, @RequestBody ServiceLog log, Model model) {
 		if (logId != log.getLogId()) {
 			throw new IllegalArgumentException("Param Log ID ("+logId+") does not match Request Body Log ID ("+log.getLogId()+")");
 		}
@@ -111,10 +111,10 @@ public class MaintenanceLogController {
 		return log;
 	}
 
-	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance", method = RequestMethod.POST)
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/service", method = RequestMethod.POST)
 	@Transactional
 	@ResponseBody
-	public MaintenanceLog save(@PathVariable("vehicleId") long vehicleId, @RequestBody MaintenanceLog log, Model model) {
+	public ServiceLog save(@PathVariable("vehicleId") long vehicleId, @RequestBody ServiceLog log, Model model) {
 		log.setVehicle(vehicleService.getVehicle(vehicleId));
 		logService.save(log);
 		return log;

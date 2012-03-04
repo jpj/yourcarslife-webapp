@@ -1,5 +1,5 @@
 <%--
-    Document   : maintenance-log
+    Document   : service-log
     Created on : Feb 20, 2012, 2:37:54 PM
     Author     : Joshua Johnson
 --%>
@@ -9,7 +9,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Maintenance Log</title>
+		<title>Service Log</title>
 	</head>
 	<body>
 		<c:if test="${param.saved}">
@@ -18,9 +18,9 @@
 			</p>
 		</c:if>
 			<p>
-				<a href="<c:url value="/vehicle/${vehicle.vehicleId}/log/maintenance/list/1"/>">Back to list</a>
+				<a href="<c:url value="/vehicle/${vehicle.vehicleId}/log/service/list/1"/>">Back to list</a>
 			</p>
-		<form:form commandName="maintenanceLogFormData">
+		<form:form commandName="serviceLogFormData">
 			<p>
 				<form:label path="logDate">Date</form:label>
 				<form:input path="logDate"/>

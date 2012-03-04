@@ -4,7 +4,7 @@
  */
 package com.solairis.yourcarslife.controller;
 
-import com.solairis.yourcarslife.data.domain.MaintenanceLog;
+import com.solairis.yourcarslife.data.domain.ServiceLog;
 import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.VehicleService;
 import java.util.List;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Josh Johnson
  */
 @Controller
-public class MaintenanceLogListController {
+public class ServiceLogListController {
 
 	@Autowired
 	private VehicleService vehicleService;
@@ -30,12 +30,12 @@ public class MaintenanceLogListController {
 	@Autowired
 	private LogService logService;
 
-	@RequestMapping(value = "/vehicle/{vehicleId}/log/maintenance/list/{pageNumber}")
+	@RequestMapping(value = "/vehicle/{vehicleId}/log/service/list/{pageNumber}")
 	@Transactional
 	public String list(@PathVariable("vehicleId") long vehicleId, @PathVariable("pageNumber") Integer pageNumber, Model model) {
 		model.addAttribute("vehicle", vehicleService.getVehicle(vehicleId));
-		model.addAttribute("maintenanceLogs", logService.getMaintenanceLogsForVehicle(vehicleId, pageNumber == null || pageNumber == 0 ? 1 : pageNumber, 100));
-		return "maintenance-log-list";
+		model.addAttribute("serviceLogs", logService.getServiceLogsForVehicle(vehicleId, pageNumber == null || pageNumber == 0 ? 1 : pageNumber, 100));
+		return "service-log-list";
 	}
 
 }

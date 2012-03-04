@@ -12,7 +12,7 @@ import java.util.Set;
  *
  * @author Joshua Johnson
  */
-public class MaintenanceLogFormData {
+public class ServiceLogFormData {
 
 	private Date logDate;
 	private String summary;

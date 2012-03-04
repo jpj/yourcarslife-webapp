@@ -7,7 +7,7 @@ $(function() {
 
 	var vehicleId = YCL.Request.getParameter("vehicleId");
 
-	var MaintLog = Backbone.Model.extend({
+	var ServiceLog = Backbone.Model.extend({
 		idAttribute: "logId",
 		defaults: function() {
 			var now = new Date();
@@ -21,23 +21,23 @@ $(function() {
 		}
 	});
 
-	var MaintLogList = Backbone.Collection.extend({
-		model: MaintLog,
+	var ServiceLogList = Backbone.Collection.extend({
+		model: ServiceLog,
 		url: function() {
-			return YCLConstants.BASE_URL + '/vehicle/'+vehicleId+'/log/maintenance';
+			return YCLConstants.BASE_URL + '/vehicle/'+vehicleId+'/log/service';
 		}
 	});
 
-	var MaintenanceLogs = new MaintLogList;
-	MaintenanceLogs.comparator = function(maintLog) {
-		return maintLog.get("odometer") * -1;
+	var ServiceLogs = new ServiceLogList;
+	ServiceLogs.comparator = function(ServiceLog) {
+		return ServiceLog.get("odometer") * -1;
 	};
 
 	// Views
-	var MaintLogView = Backbone.View.extend({
+	var ServiceLogView = Backbone.View.extend({
 		tagName: "li",
-		className: "maintenance-log",
-		template: _.template($("#maintenance-log-template").html()),
+		className: "service-log",
+		template: _.template($("#service-log-template").html()),
 
 		events: {
 			"click .view": "edit",
@@ -53,7 +53,7 @@ $(function() {
 			$(this.el).html(this.template(this.model.toJSON()));
 			var logDate = new Date(this.model.get("logDate"));
 			$(this.el).data("logDate", logDate);
-			this.$(".edit-log").attr("href", YCLConstants.BASE_URL+"/vehicle/"+vehicleId+"/log/maintenance/"+this.model.get("logId"));
+			this.$(".edit-log").attr("href", YCLConstants.BASE_URL+"/vehicle/"+vehicleId+"/log/service/"+this.model.get("logId"));
 			this.$(".view .log-date").text( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() );
 
 			this.$(".edit .log-date input").val( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() ).datepick({dateFormat: 'yyyy M dd', defaultDate: logDate, onSelect: function(dates) {
@@ -70,9 +70,9 @@ $(function() {
 			this.$(".edit .odometer .number input").val(odometer);
 
 			if (this.model.get("tags")) {
-				var maintLogView = this;
+				var ServiceLogView = this;
 				$.each(this.model.get("tags"), function(index, tag) {
-					maintLogView.$(".tags").append('<span class="tag">'+tag.label+'</span> ');
+					ServiceLogView.$(".tags").append('<span class="tag">'+tag.label+'</span> ');
 				});
 			}
 			return this;
@@ -100,7 +100,7 @@ $(function() {
 				$(this.el).removeClass("editing");
 			} else {
 				// New Model
-				MaintenanceLogs.create(this.model.toJSON());
+				ServiceLogs.create(this.model.toJSON());
 				$(this.el).remove();
 			}
 		},
@@ -130,25 +130,25 @@ $(function() {
 		el: $("body"),
 
 		events: {
-			"click #add-new-maintenance-log": "addNew"
+			"click #add-new-service-log": "addNew"
 		},
 
 		initialize: function() {
-			MaintenanceLogs.bind('add', this.addOne, this);
-			MaintenanceLogs.bind('all', this.render, this);
-			MaintenanceLogs.bind('reset', this.addAll, this);
-			MaintenanceLogs.fetch();
+			ServiceLogs.bind('add', this.addOne, this);
+			ServiceLogs.bind('all', this.render, this);
+			ServiceLogs.bind('reset', this.addAll, this);
+			ServiceLogs.fetch();
 		},
 		render: function() {
 
 		},
-		addOne: function(maintLog) {
-			var logIndex = MaintenanceLogs.indexOf(maintLog);
-			var view = new MaintLogView({model: maintLog});
-			if ($("#maintenance-logs .maintenance-log").length == 0 || $("#maintenance-logs .maintenance-log:eq("+logIndex+")").length == 0) {
-				$("#maintenance-logs").append(view.render().el);
+		addOne: function(ServiceLog) {
+			var logIndex = ServiceLogs.indexOf(ServiceLog);
+			var view = new ServiceLogView({model: ServiceLog});
+			if ($("#service-logs .service-log").length == 0 || $("#service-logs .service-log:eq("+logIndex+")").length == 0) {
+				$("#service-logs").append(view.render().el);
 			} else {
-				$("#maintenance-logs .maintenance-log:eq("+logIndex+")").before(view.render().el);
+				$("#service-logs .service-log:eq("+logIndex+")").before(view.render().el);
 			}
 			view.enableNew();
 			setTimeout(function() {
@@ -156,15 +156,15 @@ $(function() {
 			}, 2000);
 		},
 		addAll: function() {
-			MaintenanceLogs.each(this.addOne);
+			ServiceLogs.each(this.addOne);
 		},
 
 		addNew: function(e) {
 			e.preventDefault();
-			var view = new MaintLogView({model: new MaintLog});
+			var view = new ServiceLogView({model: new ServiceLog});
 			view.enableEditMode();
 			view.enableNew();
-			$("#new-maintenance-log").html(view.render().el);
+			$("#new-service-log").html(view.render().el);
 		}
 	});
 
