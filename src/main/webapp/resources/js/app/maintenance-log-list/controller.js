@@ -157,7 +157,8 @@ $(function() {
 			e.preventDefault();
 			var view = new MaintLogView({model: new MaintLog});
 			view.enableEditMode();
-			$("#add-new-maintenance-log").parent().append(view.render().el);
+			view.enableNew();
+			$("#new-maintenance-log").html(view.render().el);
 		}
 	});
 

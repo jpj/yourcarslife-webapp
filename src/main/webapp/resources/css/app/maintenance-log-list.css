@@ -10,7 +10,7 @@
 
 }
 
-ul#maintenance-logs {
+ul#maintenance-logs, ul#new-maintenance-log {
 	list-style: none;
 	padding: 0;
 	margin: 0;

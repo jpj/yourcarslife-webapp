@@ -21,6 +21,7 @@
 		<p>
 			<a id="add-new-maintenance-log" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/maintenance/0"/>">New</a>
 		</p>
+		<ul id="new-maintenance-log"></ul>
 
 		<ul id="maintenance-logs">
 			<c:forEach items="${maintenanceLogs}" var="log">
@@ -55,5 +56,5 @@
 				<div class="tags"></div>
 			</a>
 		</script>
-</body>
+	</body>
 </html>
