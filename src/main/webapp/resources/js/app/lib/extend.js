@@ -15,3 +15,11 @@ Date.prototype.getDayName = function() {
 	var d = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 	return d[this.getDay()];
 };
+
+String.prototype.pad = function(length) {
+	var str = this;
+	while (str.length < length) {
+		str = '0' + str;
+	}
+	return str;
+};

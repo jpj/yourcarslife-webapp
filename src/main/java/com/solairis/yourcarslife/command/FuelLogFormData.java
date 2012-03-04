@@ -11,21 +11,20 @@ import java.util.Date;
  *
  * @author josh
  */
-public class SaveVehicleFuelLogFormData {
+public class FuelLogFormData {
 
-	private long vehicleFuelLogId;
-	private long vehicleId;
+	private Long logId;
 	private Date logDate;
-	private double odometer;
-	private double fuel;
-	private int octane;
+	private Double odometer;
+	private Double fuel;
+	private Integer octane;
 	private boolean missedFillup;
 
-	public double getFuel() {
+	public Double getFuel() {
 		return fuel;
 	}
 
-	public void setFuel(double fuel) {
+	public void setFuel(Double fuel) {
 		this.fuel = fuel;
 	}
 
@@ -45,36 +44,28 @@ public class SaveVehicleFuelLogFormData {
 		this.missedFillup = missedFillup;
 	}
 
-	public int getOctane() {
+	public Integer getOctane() {
 		return octane;
 	}
 
-	public void setOctane(int octane) {
+	public void setOctane(Integer octane) {
 		this.octane = octane;
 	}
 
-	public double getOdometer() {
+	public Double getOdometer() {
 		return odometer;
 	}
 
-	public void setOdometer(double odometer) {
+	public void setOdometer(Double odometer) {
 		this.odometer = odometer;
 	}
 
-	public long getVehicleFuelLogId() {
-		return vehicleFuelLogId;
+	public Long getLogId() {
+		return logId;
 	}
 
-	public void setVehicleFuelLogId(long vehicleFuelLogId) {
-		this.vehicleFuelLogId = vehicleFuelLogId;
-	}
-
-	public long getVehicleId() {
-		return vehicleId;
-	}
-
-	public void setVehicleId(long vehicleId) {
-		this.vehicleId = vehicleId;
+	public void setLogId(Long logId) {
+		this.logId = logId;
 	}
 
 }

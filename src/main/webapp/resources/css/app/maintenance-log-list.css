@@ -1,0 +1,121 @@
+/*
+    Document   : maintenance-log-list
+    Created on : Feb 26, 2012, 1:32:46 PM
+    Author     : josh
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#maintenance-logs {
+
+}
+
+ul#maintenance-logs, ul#new-maintenance-log {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+/* New Entry */
+#new-maintenance-log {
+	margin-bottom: 25px;
+}
+#new-maintenance-log .maintenance-log.new .container {
+	border: 1px dashed black;
+	background-color: #E9FFE6;
+}
+
+.maintenance-log {
+	margin-top: 7px;
+}
+
+.maintenance-log > .container {
+	border-radius: 15px;
+	color: #000000;
+	display: block;
+	padding: 7px;
+	text-decoration: none;
+}
+
+.maintenance-log:nth-child(odd) > .container {
+	background-color: #f8f8f8;
+}
+
+.maintenance-log.new > .container {
+	background-color: #fffe9d;
+}
+
+.maintenance-log.new > .container:hover {
+	background-color: #ffffc2;
+}
+
+.maintenance-log > .container:hover {
+	background-color: #ececec;
+}
+
+.maintenance-log > .container.edit {
+	display: none;
+}
+
+.maintenance-log.editing > .container.edit {
+	display: block;
+}
+
+.maintenance-log.editing > .container.view {
+	display: none;
+}
+
+.maintenance-log .units {
+	color: #d1d1d1;
+}
+
+.maintenance-log .log-date, .maintenance-log .odometer, .maintenance-log .summary {
+	left: 0;
+	position: absolute;
+	top: 4px;
+}
+
+.maintenance-log .log-date {
+	left: 9px;
+	color: #c7c7c7;
+}
+
+.maintenance-log .log-date input {
+	width: 78px;
+}
+
+.maintenance-log .odometer {
+	left: 104px;
+}
+
+.maintenance-log .odometer input {
+	text-align: right;
+	width: 110px;
+}
+
+.maintenance-log .odometer .number, .maintenance-log .odometer .number input {
+	font-size: 17pt;
+}
+
+.maintenance-log .summary {
+	left: 260px;
+}
+
+.maintenance-log .summary, .maintenance-log .summary input {
+	font-size: 17pt;
+}
+
+.maintenance-log .summary input {
+	width: 300px;
+}
+
+.maintenance-log .description {
+	margin: 39px 0 14px 25px;
+}
+
+.maintenance-log .tag {
+	background-color: #EAEAFF;
+	border: 1px solid blue;
+	border-radius: 5px;
+	padding: 0 5px;
+}

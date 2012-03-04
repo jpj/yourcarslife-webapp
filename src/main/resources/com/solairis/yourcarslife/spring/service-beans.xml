@@ -11,17 +11,26 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	<bean id="userService" class="com.solairis.yourcarslife.service.impl.UserServiceImpl">
-		<property name="userDao" ref="userDao"/>
+
+	<bean id="passwordService" class="com.solairis.yourcarslife.service.impl.PasswordServiceSpringSecurity">
 		<property name="passwordEncoder">
 			<bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
 		</property>
 	</bean>
-	<bean id="vehicleService" class="com.solairis.yourcarslife.service.impl.VehicleServiceImpl">
+
+	<bean id="tagService" class="com.solairis.yourcarslife.service.TagService">
+		<property name="tagDao" ref="tagDao"/>
+	</bean>
+
+	<bean id="userService" class="com.solairis.yourcarslife.service.UserService">
+		<property name="userDao" ref="userDao"/>
+		<property name="passwordService" ref="passwordService"/>
+	</bean>
+	<bean id="vehicleService" class="com.solairis.yourcarslife.service.VehicleService">
 		<property name="vehicleDao" ref="vehicleDao"/>
 	</bean>
-	<bean id="vehicleFuelLogService" class="com.solairis.yourcarslife.service.impl.VehicleFuelLogServiceImpl">
-		<property name="vehicleFuelLogDao" ref="vehicleFuelLogDao"/>
+	<bean id="logService" class="com.solairis.yourcarslife.service.LogService">
+		<property name="logDao" ref="logDao"/>
 	</bean>
 
 </beans>

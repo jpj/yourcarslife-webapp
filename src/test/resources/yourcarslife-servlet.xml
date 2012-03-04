@@ -15,24 +15,13 @@
 	<import resource="classpath:com/solairis/yourcarslife/spring/service-beans.xml"/>
 	<import resource="classpath:com/solairis/yourcarslife/spring/validator-beans.xml"/>
 
-	<mvc:annotation-driven/>
 	<context:component-scan base-package="com.solairis.yourcarslife.controller"/>
 
 	<mvc:view-controller path="/" view-name="home"/>
 	<mvc:view-controller path="/login"/>
 	<mvc:view-controller path="/admin"/>
-	<mvc:view-controller path="/vehicle/log/fuel/list" view-name="fuel-log-list"/>
-	<mvc:view-controller path="/vehicle/log/maintenance/list" view-name="maintenance-log-list"/>
 	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
-
-	<bean id="jawrBase" abstract="true" class="net.jawr.web.servlet.JawrSpringController">
-		<property name="configLocation" value="/jawr.properties"/>
-	</bean>
-
-	<bean id="jawrJsController" parent="jawrBase"/>
-	<bean id="jawrCssController" parent="jawrBase">
-		<property name="type" value="css"/>
-	</bean>
+	<mvc:annotation-driven/>
 
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="ignoreAcceptHeader" value="true"/>
@@ -64,15 +53,22 @@
 		<constructor-arg ref="messageSource"/>
 	</bean>
 
-	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+<!--	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/jdbc/autologger"/>
+	</bean>-->
+
+	<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/autologger"/>
+		<property name="username" value="autologger"/>
+		<property name="password" value="testpass"/>
 	</bean>
 
 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mappingLocations">
 			<list>
-				<value>classpath:com/solairis/yourcarslife/data/domain/mapping/*.hbm.xml</value>
+				<value>com/solairis/yourcarslife/data/domain/mapping/*.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties" value="hibernate.dialect=org.hibernate.dialect.MySQL5Dialect"/>
@@ -88,11 +84,11 @@
 		<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
 
-	<bean id="tagDao" class="com.solairis.yourcarslife.data.dao.impl.TagDaoHibernate">
+	<bean id="userDao" class="com.solairis.yourcarslife.data.dao.impl.UserDaoHibernate">
 		<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
 
-	<bean id="userDao" class="com.solairis.yourcarslife.data.dao.impl.UserDaoHibernate">
+	<bean id="tagDao" class="com.solairis.yourcarslife.data.dao.impl.TagDaoHibernate">
 		<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
 
@@ -108,15 +104,6 @@
 			</bean>
 		</constructor-arg>
 		<constructor-arg value="false"/>
-	</bean>
-
-	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<props>
-				<prop key="/**/*.js">jawrJsController</prop>
-				<prop key="/**/*.css">jawrCssController</prop>
-			</props>
-		</property>
 	</bean>
 
 </beans>

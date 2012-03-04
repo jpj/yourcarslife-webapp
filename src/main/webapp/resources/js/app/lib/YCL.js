@@ -1,76 +1,40 @@
-/* 
+/*
  * @fileOverview YCL JS API
  * @author Josh Johnson
  */
 
-var YCL = {}; // YCL Namespace
-
-/**
- * @class {YCL.YCLService} Interface for all YCLService implementations
- */
-YCL.YCLService = function() {
-	
-	/**
-	 * @class {YCL.YCLService.vehicleFuelLogSearch} Search for vehicle fuel logs
-	 * @param {YCL.VehicleFuelLogRequest} request
-	 * @param {Function} callback
-	 */
-	this.vehicleFuelLogSearch = function(request, callback) {
-		throw "Method not implemented";
-	};
-	
-	/**
-	 * @class {YCL.YCLService.getVehicleFuelLog}
-	 * @param {Number} vehicleId
-	 * @param {Function} callback
-	 */
-	this.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
-		throw "Method not implemented";
-	};
-	
-	/**
-	 * @class {YCL.YCLService.getVehicles}
-	 * @param {null} request
-	 * @param {Function} callback
-	 */
-	this.getVehicles = function(request, callback) {
-		throw "Method not implemented";
-	};
-	
+window.solairis = window.solairis || {};
+solairis.ycl = {
+	constant: {},
+	util: {}
 };
 
-YCL.YCLServiceAjaxImpl = function() {
-	
-	var yclService = new YCL.YCLService();
+var YCL = function() {
 
-	var vehicleFuelLogServiceUrl = YCLConstants.BASE_URL + '/data/vehicle-fuel-log.json';
 	var saveVehicleFuelLogServiceUrl = YCLConstants.BASE_URL + '/data/save-vehicle-fuel-log.json';
 
 	/**
-	 * @class {YCL.YCLServiceAjaxImpl.vehicleFuelLogSearch} Service for searching vehicle fuel logs.
+	 * @class {YCL.vehicleFuelLogSearch} Service for searching vehicle fuel logs.
 	 * @param {YCL.VehicleFuelLogRequest} request
 	 * @param {function} callback
 	 *	function({@link YCL.VehicleFuelLogResponse} response, {@link YCL.VehicleFuelLogStatus} status)
 	 */
-	yclService.vehicleFuelLogSearch = function(request, callback) {
-
-		var maxResults = request.maxResults;
-		var pageNumber = request.pageNumber;
+	this.vehicleFuelLogSearch = function(request, callback) {
 
 		var requestData = {
-			pageNumber: pageNumber,
-			maxResults: maxResults,
+			maxResults: request.maxResults,
 			vehicleId: request.vehicleId,
-			vehicleFuelLogId: request.vehicleFuelLogId
+			logId: request.logId
 		};
 
 		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
 		var response = {
+			vehicle: {},
 			vehicleFuelLogs: []
 		};
 
 		$.ajax({
-			url: vehicleFuelLogServiceUrl,
+			url: YCLConstants.BASE_URL + '/vehicle/' + request.vehicleId + '/log/fuel/list/'+request.pageNumber+'.json',
 			data: requestData,
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
@@ -82,12 +46,16 @@ YCL.YCLServiceAjaxImpl = function() {
 				response.pageNumber = data.pageNumber;
 				response.pageSize = data.pageSize;
 				response.totalResults = data.totalResults;
+				response.vehicle.vehicleId = data.vehicle.vehicleId;
+				response.vehicle.name = data.vehicle.name;
+				response.vehicle.description = data.vehicle.description;
+				response.vehicle.notes = data.vehicle.notes;
 
 				var prevOdometer = 0;
 				var prevFuel = 0;
 				var prevMissedFillup = false;
 
-				$.each(data.vehicleFuelLogs, function(index, value) {
+				$.each(data.fuelLogs, function(index, value) {
 
 					response.vehicleFuelLogs.push({
 						created: value.created,
@@ -97,9 +65,9 @@ YCL.YCLServiceAjaxImpl = function() {
 						modified: value.modified,
 						octane: value.octane,
 						odometer: value.odometer,
-						vehicleFuelLogId: value.vehicleFuelLogId
+						logId: value.logId
 					});
-					
+
 					if (prevOdometer && !prevMissedFillup) {
 						var economy = (prevOdometer - value.odometer)/prevFuel;
 						response.vehicleFuelLogs[response.vehicleFuelLogs.length-2].economy = economy;
@@ -122,22 +90,38 @@ YCL.YCLServiceAjaxImpl = function() {
 	/**
 	 * @class {YCL.getVehicleFuelLog} Service for retrieving one Vehicle Fuel Log
 	 * @param {Number} vehicleId
-	 * @param {Number} vehicleFuelLogId
+	 * @param {Number} logId
 	 * @param {function} callback
 	 *	function({@link YCL.VehicleFuelLog} vehicleFuelLog, {@link YCL.VehicleFuelLogStatus} status)
 	 */
-	yclService.getVehicleFuelLog = function(vehicleId, vehicleFuelLogId, callback) {
-		this.vehicleFuelLogSearch({
-			vehicleId: vehicleId, 
-			vehicleFuelLogId: vehicleFuelLogId
-		}, function(response, status) {
-			var vehicleFuelLog = null;
+	this.getFuelLog = function(request, callback) {
 
-			if (status === YCL.VehicleFuelLogStatus.OK && response.vehicleFuelLogs.length === 1) {
-				vehicleFuelLog = response.vehicleFuelLogs[0];
-			}
-			if (callback instanceof Function) {
-				callback(vehicleFuelLog, status);
+		var status = YCL.VehicleFuelLogStatus.INCOMPLETE;
+		var response = {
+			fuelLog: null
+		};
+
+		$.ajax({
+			url: YCLConstants.BASE_URL + '/vehicle/' + request.vehicleId + '/log/fuel/'+(request.logId ? request.logId : '')+'.json',
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
+			},
+			success: function(data) {
+				status = YCL.VehicleFuelLogStatus.OK;
+
+				response.fuelLog = {
+					logId : data.fuelLogFormData.logId,
+					fuel : data.fuelLogFormData.fuel,
+					logDate : data.fuelLogFormData.logDate,
+					missedFillup: data.fuelLogFormData.missedFillup,
+					octane : data.fuelLogFormData.octane,
+					odometer : data.fuelLogFormData.odometer
+				};
+			},
+			complete: function() {
+				if (callback instanceof Function) {
+					callback(response, status);
+				}
 			}
 		});
 	};
@@ -148,10 +132,10 @@ YCL.YCLServiceAjaxImpl = function() {
 	 * @param {Function} callback
 	 *	function({@link YCL.SaveVehicleFuelLogResponse} response, {@link YCL.VehicleFuelLogStatus} status)
 	 */
-	yclService.saveVehicleFuelLog = function(request, callback) {
+	this.saveFuelLog = function(request, callback) {
 
 		var requestData = {
-			vehicleFuelLogId: request.vehicleFuelLogId,
+			logId: request.logId,
 			vehicleId: request.vehicleId,
 			logDate: request.logDate.getFullYear()+'/'+parseInt(request.logDate.getMonth()+1)+'/'+request.logDate.getDate(),
 			odometer: request.odometer,
@@ -163,12 +147,13 @@ YCL.YCLServiceAjaxImpl = function() {
 		var response = {
 			errors: [],
 			success: false,
-			vehicleFuelLogId: 0
+			logId: 0
 		};
 
 		$.ajax({
-			url: saveVehicleFuelLogServiceUrl,
+			url: YCLConstants.BASE_URL + '/vehicle/' + request.vehicleId + '/log/fuel/'+(request.logId ? request.logId : '')+'.json',
 			data: requestData,
+			type: 'POST',
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				status = YCL.VehicleFuelLogStatus.UNKNOWN_ERROR;
 				alert("error: " + XMLHttpRequest.statusText);
@@ -185,7 +170,6 @@ YCL.YCLServiceAjaxImpl = function() {
 					});
 				} else {
 					response.success = true;
-					response.vehicleFuelLogId = data.vehicleFuelLogId;
 				}
 			},
 			complete: function() {
@@ -196,65 +180,96 @@ YCL.YCLServiceAjaxImpl = function() {
 		});
 
 	};
-	
-//	this.getVehicles = function(request, callback) {
-//		var yclStore = JSON.parse( window.localStorage.getItem("ycl") );
-//		var status = YCL.VehicleStatus.OK;
-//		var response = {
-//			vehicles: []
-//		};
-//		
-//		$.each(yclStore.vehicles, function(i, val) {
-//			response.vehicles.push({
-//				description: val.description,
-//				name: val.name,
-//				notes: val.notes,
-//				vehicleId: val.vehicleId
-//			});
-//		});
-//		
-//		if (callback instanceof Function) {
-//			callback(response, status);
-//		}
-//	};
-	
-//	this.getVehicleById = function(vehicleId, callback) {
-//		var yclStore = JSON.parse( window.localStorage.getItem("ycl") );
-//		var status = YCL.VehicleStatus.OK;
-//		var response = {
-//			vehicle: null
-//		};
-//		
-//		$.each(yclStore.vehicles, function(i, val) {
-//			if (vehicleId == val.vehicleId) {
-//				response.vehicle = {
-//					description: val.description,
-//					name: val.name,
-//					notes: val.notes,
-//					vehicleId: val.vehicleId
-//				};
-//			}
-//		});
-//		
-//		if (callback instanceof Function) {
-//			callback(response, status);
-//		}
-//	};
 
-	return yclService;
+	/**
+	 * @param {YCL.VehicleListRequest} request
+	 * @param {Function} callback
+	 */
+	this.getVehicleList = function(request, callback) {
+
+		var status = YCL.VehicleListRequestStatus.INCOMPLETE;
+		var response = {
+			vehicles: []
+		};
+
+		$.ajax({
+			url: YCLConstants.BASE_URL + '/vehicle/list.json',
+			data: null,
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				status = YCL.VehicleListRequestStatus.UNKNOWN_ERROR;
+			},
+			success: function(data) {
+				status = YCL.VehicleListRequestStatus.OK;
+				$.each(data.vehicles, function(index, vehicle) {
+					response.vehicles.push({
+						vehicleId: vehicle.vehicleId,
+						name: vehicle.name,
+						description: vehicle.description,
+						notes: vehicle.notes
+					});
+				});
+			},
+			complete: function() {
+				if (callback instanceof Function) {
+					callback(response, status);
+				}
+			}
+		});
+
+	};
 
 };
 
-/**
- * @class {YCL.YCLServiceFactory}
- */
-YCL.YCLServiceFactory = {
-	/**
-	 * @function
-	 * @return {YCL.YCLService}
-	 */
-	getInstance: function() {
-		return new YCL.YCLServiceAjaxImpl();
+YCL.Request = {
+	getParameter: function(name) {
+		var hash = document.location.hash;
+		var pageRequestString = hash != null && hash.length > 0 ? hash.substr(1, hash.length) : null;
+		var pageRequest = null;
+		var requestString = null;
+		if (pageRequestString != null) {
+			// The client will sometimes sub %22 for " when copying.
+			// Stringify will have already escaped " to \" so this should
+			// be fine.
+			requestString = pageRequestString.replace(/\%22/g, '"').replace(/\%7B/g, '{').replace(/\%7D/g, '}');
+		}
+
+		if (requestString != null) {
+			try {
+				pageRequest = JSON.parse( requestString );
+			} catch (e) {}
+		}
+
+		if (pageRequest != null) {
+			return pageRequest[name];
+		}
+		return null;
+	},
+	setParameter: function(name, value) {
+		var hash = document.location.hash;
+		var pageRequestString = hash != null && hash.length > 0 ? hash.substr(1, hash.length) : null;
+		var pageRequest = null;
+		var requestString = null;
+		if (pageRequestString != null) {
+			// The client will sometimes sub %22 for " when copying.
+			// Stringify will have already escaped " to \" so this should
+			// be fine.
+			requestString = pageRequestString.replace(/\%22/g, '"').replace(/\%7B/g, '{').replace(/\%7D/g, '}');
+		}
+
+		if (requestString != null) {
+			try {
+				pageRequest = JSON.parse( requestString );
+			} catch (e) {}
+		}
+
+		if (pageRequest == null) {
+			pageRequest = {};
+		}
+
+		pageRequest[name] = value;
+
+		// Persist request to anchor hash
+		document.location.hash = JSON.stringify(pageRequest);
 	}
 };
 
@@ -326,7 +341,7 @@ YCL.Error = {
  * @property {Boolean} missedFillup
  * @property {Number} octane Octane rating of gasoline
  * @property {Number} odometer Odometer reading
- * @property {Number} vehicleFuelLogId
+ * @property {Number} logId
  * @property {Number} vehicleId
  */
 YCL.SaveVehicleFuelLogRequest = {
@@ -335,7 +350,7 @@ YCL.SaveVehicleFuelLogRequest = {
 	missedFillup: null,
 	octane: null,
 	odometer: null,
-	vehicleFuelLogId: null,
+	logId: null,
 	vehicleId: null
 };
 
@@ -343,26 +358,12 @@ YCL.SaveVehicleFuelLogRequest = {
  * @class {YCL.SaveVehicleFuelLogResponse}
  * @property {Array} errors Array.<{@link YCL.Error}> List of errors
  * @property {Boolean} success
- * @property {Number} vehicleFuelLogId
+ * @property {Number} logId
  */
 YCL.SaveVehicleFuelLogResponse = {
 	errors: null,
 	success: null,
-	vehicleFuelLogId: null
-};
-
-/**
- * @class {YCL.Vehicle}
- * @property {String} description Vehicle description
- * @property {String} name Name of vehicle
- * @property {String} notes Vehicle notes
- * @property {Number} vehicleId Vehicle ID number
- */
-YCL.Vehicle = {
-	description: null,
-	name: null,
-	notes: null,
-	vehicleId: null
+	logId: null
 };
 
 /**
@@ -375,7 +376,7 @@ YCL.Vehicle = {
  * @property {Number} modified
  * @property {Integer} octane
  * @property {Number} odometer
- * @property {Integer} vehicleFuelLogId
+ * @property {Integer} logId
  */
 
 /**
@@ -418,11 +419,12 @@ YCL.VehicleFuelLogStatus = {
 	UNKNOWN_ERROR: "UNKNOWN_ERROR"
 };
 
-/**
- * @class {YCL.VehicleStatus}
- */
-YCL.VehicleStatus = {
+YCL.VehiclListRequest = {};
+
+YCL.VehicleListRequestStatus = {
+
 	INCOMPLETE: "INCOMPLETE",
 	OK: "OK",
 	UNKNOWN_ERROR: "UNKNOWN_ERROR"
+
 };

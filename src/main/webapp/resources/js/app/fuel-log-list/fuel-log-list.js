@@ -1,19 +1,11 @@
-
 $(document).ready(function() {
-	var yclService = YCL.YCLServiceFactory.getInstance();
+	var ycl = new YCL();
+	var vehicleId = YCL.Request.getParameter("vehicleId");
 	var pagingData = {
 		pageNumber: 0
 	};
 
 	$.jqplot.config.enablePlugins = true;
-	
-	var getCurrentVehicleFuelLogRequest = function() {
-		return JSON.parse(location.hash.substr(1, location.hash.length));
-	};
-	
-	var setCurrentVehicleFuelLogRequest = function(request) {
-		window.location.hash = JSON.stringify(request);
-	};
 
 	var graphVehicleFuelLogs = function(vehicleFuelLogs) {
 
@@ -72,20 +64,10 @@ $(document).ready(function() {
 
 	var performSearch = function(request, callback) {
 
-		var vehicleFuelLogRequest = getCurrentVehicleFuelLogRequest();
 		$("#vehicleFuelLogs li:not(:first)").addClass("available");
-		
-		yclService.getVehicleById(vehicleFuelLogRequest.vehicleId, function(response, status) {
-			if (status == YCL.VehicleStatus.OK) {
-				$("#vehicle .name").text(response.vehicle.name);
-				$("#vehicle .notes").text(response.vehicle.notes);
-			} else {
-				alert("Error getting vehicle: " + status);
-			}
-		});
 
-		yclService.vehicleFuelLogSearch(
-			{pageNumber: request.pageNumber, maxResults: 20, vehicleId: vehicleFuelLogRequest.vehicleId},
+		ycl.vehicleFuelLogSearch(
+			{pageNumber: request.pageNumber, maxResults: 20, vehicleId: vehicleId},
 			/**
 			 * @function for you
 			 * @param {YCL.VehicleFuelLogResponse} response is the response
@@ -93,6 +75,12 @@ $(document).ready(function() {
 			 */
 			function(response, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
+					// Vehicle Info
+					var editVehicleUrl = document.createElement("a");
+					editVehicleUrl.href = YCLConstants.BASE_URL + "/vehicle/" + response.vehicle.vehicleId;
+					$("#vehicle .name").text(response.vehicle.name).attr("href", editVehicleUrl.href);
+					$("#vehicle .notes").text(response.vehicle.notes);
+
 					var prevFuel = 0;
 					var prevOdometer = 0;
 					var month = null;
@@ -110,9 +98,9 @@ $(document).ready(function() {
 
 						$row.removeClass("available").removeClass("unused");
 
-						//if ( $row.data("vehicleFuelLogId") !== vehicleFuelLog.vehicleFuelLogId && $row.data("modified") !== vehicleFuelLog.modified ) {
+						//if ( $row.data("logId") !== vehicleFuelLog.logId && $row.data("modified") !== vehicleFuelLog.modified ) {
 						if (true) {
-							$row.data("vehicleFuelLogId", vehicleFuelLog.vehicleFuelLogId);
+							$row.data("logId", vehicleFuelLog.logId);
 							$row.data("modified", vehicleFuelLog.modified);
 							$row.data("octane", vehicleFuelLog.octane);
 							$row.data("missedFillup", vehicleFuelLog.missedFillup);
@@ -140,7 +128,7 @@ $(document).ready(function() {
 						prevFuel = vehicleFuelLog.fuel;
 						prevOdometer = vehicleFuelLog.odometer;
 //						$row.find(".economy > .number").text('-');
-						
+
 					});
 
 					$("#vehicleFuelLogs > li.available").addClass("unused");
@@ -202,17 +190,18 @@ $(document).ready(function() {
 			clearTimeout( $row.removeClass("fresh").data("freshTimeoutId") );
 			var odometerWidth = $row.find(".odometer > .view.number").width();
 			var fuelWidth = $row.find(".fuel > .view.number").width();
-			var vehicleFuelLogId = $row.data("vehicleFuelLogId");
-			var vehicleFuelLogRequest = getCurrentVehicleFuelLogRequest();
+			var logId = $row.data("logId");
 
 			$row.find(".odometer > .edit.number").width(odometerWidth);
 			$row.find(".fuel > .edit.number").width(fuelWidth);
 
-			yclService.getVehicleFuelLog(vehicleFuelLogRequest.vehicleId, vehicleFuelLogId, function(vehicleFuelLog, status) {
+			ycl.getFuelLog({vehicleId : vehicleId, logId : logId}, function(response, status) {
 				if (status === YCL.VehicleFuelLogStatus.OK) {
 
+					var fuelLog = null;
+
 					// Create defaults for new log
-					if ((vehicleFuelLog == null || vehicleFuelLogId == null) && $row.hasClass("new")) {
+					if (logId == null && $row.hasClass("new")) {
 						$row.find(".odometer > .edit.number").width(100);
 						$row.find(".fuel > .edit.number").width(80);
 						var now = new Date();
@@ -227,31 +216,37 @@ $(document).ready(function() {
 						$("#vehicleFuelLogs > li:not(:first):not(.unused):lt(11)").each(function() {
 							var odometer = isNaN( $(this).find(".odometer > .view.number").text() ) ? 0 : parseInt( $(this).find(".odometer > .view.number").text() );
 							if (prevOdometer !== 0) {
-								//alert("made it " + odometer);
 								odometerDifference = odometerDifference + prevOdometer - odometer;
 								odometerCount++;
 
 								fuelAvg.add( $(this).find(".fuel > .view.number").text() );
 							}
 							prevOdometer = odometer;
-
 							octaneMean.add( $(this).data("octane") );
 						});
 
 						// Create New Log
-						vehicleFuelLog = {
+						fuelLog = {
 							logDate: now.getTime(),
 							odometer: odometerCount == 0 ? 0 : prevOdometerReading + odometerDifference/odometerCount,
 							fuel: fuelAvg.get(),
 							octane: octaneMean.get(),
 							missedFillup: odometerCount == 0 && prevOdometer == 0
 						};
+					} else {
+						fuelLog = {
+							logDate: response.fuelLog.logDate,
+							odometer: response.fuelLog.odometer,
+							fuel: response.fuelLog.fuel,
+							octane: response.fuelLog.octane,
+							missedFillup: response.fuelLog.missedFillup
+						};
 					}
 
-					var logDate = new Date(vehicleFuelLog.logDate);
-					$row.find(".odometer > .edit.number").val( vehicleFuelLog.odometer );
-					$row.find(".fuel > .edit.number").val( vehicleFuelLog.fuel );
-					$row.find(".octane input[name=octane]").val( vehicleFuelLog.octane );
+					var logDate = new Date((fuelLog.logDate != null ? fuelLog.logDate : new Date().getTime()));
+					$row.find(".odometer > .edit.number").val( fuelLog.odometer );
+					$row.find(".fuel > .edit.number").val( fuelLog.fuel );
+					$row.find(".octane input[name=octane]").val( fuelLog.octane );
 					$row.data("logDate", logDate);
 					$row.find(".date > .edit").val( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() ).datepick({dateFormat: 'yyyy M dd', defaultDate: logDate, onSelect: function(dates) {
 							if (dates.length === 1) {
@@ -262,7 +257,7 @@ $(document).ready(function() {
 							}
 					}});
 
-					if (vehicleFuelLog.missedFillup) {
+					if (fuelLog.missedFillup) {
 						$row.find(".missedFillup input[name=missedFillup]").attr("checked", "checked");
 					} else {
 						$row.find(".missedFillup input[name=missedFillup]").removeAttr("checked");
@@ -279,7 +274,7 @@ $(document).ready(function() {
 
 			if ( !$row.hasClass("new") ) {
 				$("#vehicleFuelLogs > li:not(:first)").each(function(e) {
-					if ( $(this).data("vehicleFuelLogId") !== vehicleFuelLogId ) {
+					if ( $(this).data("logId") !== logId ) {
 						$(this).addClass("lead");
 						return true;
 					} else {
@@ -290,134 +285,129 @@ $(document).ready(function() {
 		}
 	};
 
-	// Add click events
 
-	/* Edit */
-	$("#vehicleFuelLogs > li > form > .display > .edit-button > a").click(function(e) {
-		e.preventDefault();
-		editRecord( $(this).parent().parent().parent().parent() );
-	});
+	if (vehicleId) {
 
-	/* Save */
-	$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=save]").click(function(e) {
-		e.preventDefault();
-		var $form = $(this).parent().parent().parent().parent();
-		var $row = $(this).parent().parent().parent().parent().parent();
-		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
-		var vehicleFuelLogRequest = getCurrentVehicleFuelLogRequest();
+		// Add click events
 
-		$row.find("input.error").removeClass("error");
+		/* Edit */
+		$("#vehicleFuelLogs > li > form > .display > .edit-button > a").click(function(e) {
+			e.preventDefault();
+			editRecord( $(this).parent().parent().parent().parent() );
+		});
 
-		yclService.saveVehicleFuelLog(
-			{
-				fuel: $form.find("input[name=fuel]").val(),
-				logDate: $row.data("logDate"),
-				missedFillup: $form.find("input[name=missedFillup]").is(":checked"),
-				octane: $form.find("input[name=octane]").val(),
-				odometer: $form.find("input[name=odometer]").val(),
-				vehicleFuelLogId: $row.data("vehicleFuelLogId"),
-				vehicleId: vehicleFuelLogRequest.vehicleId
-			},
-			function(response, status) {
-				if (status == YCL.VehicleFuelLogStatus.OK) {
-					if (response.success) {
+		/* Save */
+		$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=save]").click(function(e) {
+			e.preventDefault();
+			var $form = $(this).parent().parent().parent().parent();
+			var $row = $(this).parent().parent().parent().parent().parent();
 
-						// Close edit section, refresh searth, highlight entry in list.
-						$row.find(".edit-section").hide();
+			$row.find("input.error").removeClass("error");
 
-						if ($row.hasClass("new")) {
-							closeNewRow();
-						}
-						performSearch(
-							{
-								pageNumber: pagingData.pageNumber
-							},
-							function() {
-								$("#vehicleFuelLogs > li").each(function() {
-									if (response.vehicleFuelLogId === $(this).data("vehicleFuelLogId") && !$(this).hasClass("new")) {
-										$(this).addClass("fresh");
-										$(this).data("freshTimeoutId", setTimeout(function($row) {$row.removeClass("fresh");}, 8000, $(this)) );
-										return false;
-									}
-								});
+			ycl.saveFuelLog(
+				{
+					fuel: $form.find("input[name=fuel]").val(),
+					logDate: $row.data("logDate"),
+					missedFillup: $form.find("input[name=missedFillup]").is(":checked"),
+					octane: $form.find("input[name=octane]").val(),
+					odometer: $form.find("input[name=odometer]").val(),
+					logId: $row.data("logId"),
+					vehicleId: vehicleId
+				},
+				function(response, status) {
+					if (status == YCL.VehicleFuelLogStatus.OK) {
+						if (response.success) {
+
+							// Close edit section, refresh searth, highlight entry in list.
+							$row.find(".edit-section").hide();
+
+							if ($row.hasClass("new")) {
+								closeNewRow();
 							}
-						);
-						$row.removeClass("editing");
-						$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
-						$(".options > .add").removeClass("disabled");
+							performSearch(
+								{
+									pageNumber: pagingData.pageNumber
+								},
+								function() {
+									$("#vehicleFuelLogs > li").each(function() {
+										if (response.logId === $(this).data("logId") && !$(this).hasClass("new")) {
+											$(this).addClass("fresh");
+											$(this).data("freshTimeoutId", setTimeout(function($row) {$row.removeClass("fresh");}, 8000, $(this)) );
+											return false;
+										}
+										return true;
+									});
+								}
+							);
+							$row.removeClass("editing");
+							$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
+							$(".options > .add").removeClass("disabled");
 
+						} else {
+							$.each(response.errors, function(index, error) {
+								$form.find("input[name="+error.fieldName+"]").addClass("error");
+							});
+						}
 					} else {
-						$.each(response.errors, function(index, error) {
-							$form.find("input[name="+error.fieldName+"]").addClass("error");
-						});
+						alert("Error saving record: " + status);
 					}
+				}
+			);
+		});
+
+		/* Cancel */
+		$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=cancel]").click(function(e) {
+			e.preventDefault();
+			var $row = $(this).parent().parent().parent().parent().parent();
+			$row.find("input.error").removeClass("error");
+
+			// Close Edit Section and redraw search results
+			if ( !$row.hasClass("new") ) {
+				$row.find(".edit-section").hide();
+			}
+			if ($row.hasClass("new")) {
+				closeNewRow();
+			}
+			performSearch({
+				pageNumber: pagingData.pageNumber
+			});
+			$row.removeClass("editing");
+			$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
+			$(".options > .add").removeClass("disabled");
+
+		});
+
+		// Default Search
+		$("#vehicleFuelLogs > li:first").removeClass("available").addClass("new");
+		performSearch({
+			pageNumber: 1
+		});
+
+		// Paging
+		$(".paging a[href=#prev]").click(function(e) {
+			e.preventDefault();
+			performSearch({
+				pageNumber: pagingData.pageNumber - 1
+			});
+		});
+
+		$(".paging a[href=#next]").click(function(e) {
+			e.preventDefault();
+			performSearch({
+				pageNumber: pagingData.pageNumber + 1
+			});
+		});
+
+		// Misc
+		$(".options > .add").click(function() {
+			if (!$(this).hasClass("disabled")) {
+				if ( $("#vehicleFuelLogs > li.new").is(":visible") ) {
+					closeNewRow();
 				} else {
-					alert("Error saving record: " + status);
+					openNewRow();
 				}
 			}
-		);
-	});
-
-	/* Cancel */
-	$("#vehicleFuelLogs > li > form > .edit-section > .holder > .submit > input[name=cancel]").click(function(e) {
-		e.preventDefault();
-		var $row = $(this).parent().parent().parent().parent().parent();
-		$row.find("input.error").removeClass("error");
-		var vehicleFuelLogId = $row.data("vehicleFuelLogId");
-
-		// Close Edit Section and redraw search results
-		if ( !$row.hasClass("new") ) {
-			$row.find(".edit-section").hide();
-		}
-		if ($row.hasClass("new")) {
-			closeNewRow();
-		}
-		performSearch({
-			pageNumber: pagingData.pageNumber
 		});
-		$row.removeClass("editing");
-		$("#vehicleFuelLogs > li").removeClass("disabled").removeClass("lead");
-		$(".options > .add").removeClass("disabled");
-
-	});
-
-	// Default Search
-	$("#vehicleFuelLogs > li:first").removeClass("available").addClass("new");
-	performSearch({
-		pageNumber: getCurrentVehicleFuelLogRequest().page || 1
-	});
-
-	// Paging
-	$(".paging a[href=#prev]").click(function(e) {
-		e.preventDefault();
-		performSearch({
-			pageNumber: pagingData.pageNumber - 1
-		});
-		var request = getCurrentVehicleFuelLogRequest();
-		request.page = pagingData.pageNumber;
-		setCurrentVehicleFuelLogRequest(request);
-	});
-
-	$(".paging a[href=#next]").click(function(e) {
-		e.preventDefault();
-		performSearch({
-			pageNumber: pagingData.pageNumber + 1
-		});
-		var request = getCurrentVehicleFuelLogRequest();
-		request.page = pagingData.pageNumber;
-		setCurrentVehicleFuelLogRequest(request);
-	});
-
-	// Misc
-	//alert($("#vehicleFuelLogs > li").length);
-	$(".options > .add").click(function() {
-		if (!$(this).hasClass("disabled")) {
-			if ( $("#vehicleFuelLogs > li.new").is(":visible") ) {
-				closeNewRow();
-			} else {
-				openNewRow();
-			}
-		}
-	});
+	}
 
 });

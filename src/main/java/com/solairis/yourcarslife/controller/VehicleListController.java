@@ -20,24 +20,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author josh
  */
 @Controller
-public class DashboardController {
-	
+public class VehicleListController {
+
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private VehicleService vehicleService;
 
-	@RequestMapping(value = "/api/dashboard")
+	@RequestMapping(value = "/vehicle/list")
 	@Transactional
-	public void dashboard(Model model) {
-
+	public String vehicleList(Model model) {
 		org.springframework.security.core.userdetails.User securityUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = this.userService.getUser(Long.parseLong(securityUser.getUsername()));
-
-		model.addAttribute("vehicles", this.vehicleService.getVehiclesByUser(user));
-
+		model.addAttribute("vehicles", this.vehicleService.getVehiclesByUserId(user.getUserId()));
 		model.addAttribute("user", user);
+		return "dashboard";
+	}
 
+	@RequestMapping(value="/dashboard")
+	public String dashboard() {
+		return "redirect:/vehicle/list";
 	}
 
 }

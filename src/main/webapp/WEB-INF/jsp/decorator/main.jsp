@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : main
     Created on : Nov 17, 2010, 6:36:40 AM
     Author     : josh
@@ -7,32 +7,38 @@
 <%@taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
-<c:set var="isCache"><decorator:getProperty property="meta.isCache" default="false"/></c:set>
-<c:set var="manifest" value=""/>
-<c:if test="${isCache}">
-	<c:set var="manifest">manifest="<c:url value="/resources/ycl.appcache"/>"</c:set>
-</c:if>
+<%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 
 <!doctype html>
-<html ${manifest}>
+<!--<html manifest="<c:url value="/resources/ycl.appcache"/>">-->
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="HandheldFriendly" content="true"/>
 		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"/>
 		<title><decorator:title default="Welcome!"/> | Your Car's Life</title>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout.css"/>" media="screen"/>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout-mobile.css"/>" media="screen and (max-width: 600px)"/>
+
+		<!-- Frameworks: Jquery, Underscore, Backbone -->
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.7.1.min.js"/>"></script>
+		<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+		<script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone.js"></script>
+
+		<!-- Jquery Datepicker -->
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
-
-		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.4.4.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/extend.js"/>"></script>
 
-		<script type="text/javascript" src="<c:url value="/resources/js/YCLConstants.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/YCL.js"/>"></script>
+		<!-- Jquery JQPlot -->
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.css"/>"/>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.dateAxisRenderer.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.canvasTextRenderer.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.highlighter.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.cursor.min.js"/>"></script>
 
-		<script type="text/javascript" src="<c:url value="/resources/js/offline-mode.js"/>"></script>
+		<jwr:script src="/resources/js/app/lib.js"/>
+		<jwr:style src="/resources/css/app.css"/>
+		<jwr:style src="/resources/css/app-small.css" media="screen and (max-width: 600px)"/>
 		<decorator:head/>
 
 		<script type="text/javascript">
@@ -60,10 +66,14 @@
 			<div class="container">
 				<div id="navigation">
 					<ul>
-						<li class="login-required"><a href="<c:url value="/dashboard"/>">Dashboard</a></li>
-						<li class="login-required"><a href="<c:url value="/logout"/>">Logout</a></li>
-						<li class="anonymous-required"><a href="<c:url value="/login"/>">Login</a></li>
-						<li class="debug"><a id="app-cache-status" href="#">Init...</a></li>
+						<security:authorize ifAnyGranted="ROLE_USER">
+							<li><a href="<c:url value="/vehicle/list"/>">Dashboard</a></li>
+							<li><a href="<c:url value="/logout"/>">Logout</a></li>
+						</security:authorize>
+
+						<security:authorize ifNotGranted="ROLE_USER">
+							<li><a href="<c:url value="/login"/>">Login</a></li>
+						</security:authorize>
 					</ul>
 				</div>
 				<div id="page-content">

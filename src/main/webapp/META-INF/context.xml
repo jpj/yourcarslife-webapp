@@ -19,5 +19,5 @@
          -->
   <!-- url: The JDBC connection url for connecting to your MySQL dB.
          -->
-  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/autologger" password="vessEpIdd" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/autologger" username="autologger" validationQuery="SELECT NOW()"/>
+<!--  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/autologger" password="testpass" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/autologger" username="autologger" validationQuery="SELECT NOW()"/>-->
 </Context>

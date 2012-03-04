@@ -1,15 +1,17 @@
-<%-- 
+<%--
     Document   : login
     Created on : Dec 20, 2010, 6:30:15 PM
     Author     : josh
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html>
 	<head>
 		<title>Login</title>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/login.css"/>"/>
-		<script type="text/javascript" src="<c:url value="/resources/js/login.js"/>"></script>
+		<security:authorize ifAnyGranted="ROLE_USER">
+			<meta http-equiv="refresh" content="0; <c:url value="/dashboard"/>"/>
+		</security:authorize>
 	</head>
 	<body>
 		<p>

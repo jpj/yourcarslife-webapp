@@ -6,9 +6,9 @@
 package com.solairis.yourcarslife.validator;
 
 import com.solairis.yourcarslife.command.CreateAccountFormData;
-import com.solairis.yourcarslife.data.dao.UserDao;
 import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.service.UserService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -26,6 +26,7 @@ public class CreateAccountFormDataValidator implements Validator {
 	}
 
 	@Override
+	@Transactional
 	public void validate(Object target, Errors errors) {
 		CreateAccountFormData formData = (CreateAccountFormData)target;
 
