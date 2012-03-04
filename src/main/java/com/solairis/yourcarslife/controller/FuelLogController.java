@@ -5,7 +5,7 @@
 package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.FuelLogFormData;
-import com.solairis.yourcarslife.data.domain.LogFuel;
+import com.solairis.yourcarslife.data.domain.FuelLog;
 import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.VehicleService;
 import java.beans.PropertyEditor;
@@ -45,7 +45,7 @@ public class FuelLogController {
 	@Transactional
 	public String form(@PathVariable("logId") Long logId, @ModelAttribute FuelLogFormData formData, Model model) {
 		if (logId != null) {
-			LogFuel fuelLog = logService.getFuelLog(logId);
+			FuelLog fuelLog = logService.getFuelLog(logId);
 			formData.setFuel(fuelLog.getFuel());
 			formData.setLogDate(fuelLog.getLogDate());
 			formData.setLogId(fuelLog.getLogId());
@@ -61,10 +61,10 @@ public class FuelLogController {
 	public String submit(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") Long logId, @Valid FuelLogFormData formData, BindingResult errors, Model model) {
 
 		if (!errors.hasFieldErrors()) {
-			LogFuel fuelLog;
+			FuelLog fuelLog;
 
 			if (formData.getLogId() == null) {
-				fuelLog = new LogFuel();
+				fuelLog = new FuelLog();
 				fuelLog.setActive(true);
 				fuelLog.setVehicle(this.vehicleService.getVehicle(vehicleId));
 			} else {
