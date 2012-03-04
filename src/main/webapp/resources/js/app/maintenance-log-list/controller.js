@@ -65,8 +65,9 @@ $(function() {
 			}});
 
 //			alert(this.model.get("odometer"));
-			this.$(".view .odometer .number").text(this.model.get("odometer").toFixed(1));
-			this.$(".edit .odometer .number input").val(this.model.get("odometer").toFixed(1));
+			var odometer = this.model.get("odometer") == null ? null : this.model.get("odometer").toFixed(1);
+			this.$(".view .odometer .number").text(odometer);
+			this.$(".edit .odometer .number input").val(odometer);
 
 			if (this.model.get("tags")) {
 				var maintLogView = this;
