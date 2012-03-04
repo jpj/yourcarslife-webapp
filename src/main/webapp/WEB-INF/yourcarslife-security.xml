@@ -10,11 +10,13 @@
 	<security:global-method-security pre-post-annotations="enabled"/>
 
 	<security:http use-expressions="true" auto-config="true">
-		<security:intercept-url pattern="/" filters="none"/>
+<!--		<security:intercept-url pattern="/" filters="none"/>-->
+		<security:intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/create-account" filters="none"/>
 		<security:intercept-url pattern="/favicon.ico" filters="none"/>
 		<security:intercept-url pattern="/home" filters="none"/>
-		<security:intercept-url pattern="/login" filters="none"/>
+<!--		<security:intercept-url pattern="/login" filters="none"/>-->
+		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/resources/**" filters="none"/>
 		<security:intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN')"/>
@@ -41,5 +43,5 @@
 			<security:password-encoder hash="plaintext"/>
 		</security:authentication-provider>
 	</security:authentication-manager>
-	
+
 </beans>
