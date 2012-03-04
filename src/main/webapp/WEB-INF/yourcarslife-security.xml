@@ -13,14 +13,15 @@
 		<security:intercept-url pattern="/" filters="none"/>
 		<security:intercept-url pattern="/create-account" filters="none"/>
 		<security:intercept-url pattern="/favicon.ico" filters="none"/>
-		<security:intercept-url pattern="/home" filters="none"/>
-		<security:intercept-url pattern="/login" filters="none"/>
+		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS') or hasAnyRole('ROLE_USER')"/>
+<!--		<security:intercept-url pattern="/dashboard" access="hasAnyRole('ROLE_ANONYMOUS') or hasAnyRole('ROLE_USER')"/>-->
+<!--		<security:intercept-url pattern="/vehicle-fuel-log" access="hasAnyRole('ROLE_ANONYMOUS') or hasAnyRole('ROLE_USER')"/>-->
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/resources/**" filters="none"/>
 		<security:intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN')"/>
 <!--		<security:intercept-url pattern="/data/xml/**"/>-->
 		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
-		<security:form-login login-page="/login" default-target-url="/dashboard" authentication-failure-url="/login?login_error=true"/>
+		<security:form-login login-page="/login" default-target-url="/load" always-use-default-target="true" authentication-failure-url="/login?login_error=true"/>
 		<security:anonymous/>
 		<security:remember-me key="filmlib" user-service-ref="jdbcUserService"/>
 		<security:http-basic/>

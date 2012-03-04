@@ -8,12 +8,14 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<security:authorize ifAnyGranted="ROLE_USER">
-	<c:set var="isLoggedIn" value="true"/>
-</security:authorize>
+<c:set var="isCache"><decorator:getProperty property="meta.isCache" default="false"/></c:set>
+<c:set var="manifest" value=""/>
+<c:if test="${isCache}">
+	<c:set var="manifest">manifest="<c:url value="/resources/ycl.appcache"/>"</c:set>
+</c:if>
 
 <!doctype html>
-<html>
+<html ${manifest}>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="HandheldFriendly" content="true"/>
@@ -29,6 +31,8 @@
 
 		<script type="text/javascript" src="<c:url value="/resources/js/YCLConstants.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/YCL.js"/>"></script>
+
+		<script type="text/javascript" src="<c:url value="/resources/js/offline-mode.js"/>"></script>
 		<decorator:head/>
 
 		<script type="text/javascript">
@@ -56,14 +60,10 @@
 			<div class="container">
 				<div id="navigation">
 					<ul>
-						<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<c:url value="/dashboard"/>">Dashboard</a></li>
-							<li><a href="<c:url value="/logout"/>">Logout</a></li>
-						</security:authorize>
-
-						<c:if test="${!isLoggedIn}">
-							<li><a href="<c:url value="/login"/>">Login</a></li>
-						</c:if>
+						<li class="login-required"><a href="<c:url value="/dashboard"/>">Dashboard</a></li>
+						<li class="login-required"><a href="<c:url value="/logout"/>">Logout</a></li>
+						<li class="anonymous-required"><a href="<c:url value="/login"/>">Login</a></li>
+						<li class="debug"><a id="app-cache-status" href="#">Init...</a></li>
 					</ul>
 				</div>
 				<div id="page-content">

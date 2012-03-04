@@ -9,12 +9,13 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Home</title>
+		<meta name="isCache" content="false"/>
+		<title>Loading Application</title>
+		<script type="text/javascript" src="<c:url value="/resources/js/load.js"/>"></script>
 	</head>
 	<body>
-		<p>
-			<em>Your Car's Life</em> is an application to keep track of
-		    your car's fuel mileage and repairs.
+		<p id="loading">
+			Please hold while the application loads...
 		</p>
 	</body>
 </html>

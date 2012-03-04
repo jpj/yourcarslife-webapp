@@ -7,12 +7,12 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="vehicleId" content="${vehicle.vehicleId}"/>
+		<meta name="vehicleId" content="0"/>
 		<title>Vehicle Log</title>
 
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.css"/>"/>
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/vehicle-fuel-log.css"/>"/>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/vehicle-fuel-log-small.css"/>" media="screen and (max-width: 480px)"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/vehicle-fuel-log-small.css"/>" media="screen and (max-width: 600px)"/>
 
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.dateAxisRenderer.min.js"/>"></script>
@@ -23,8 +23,8 @@
                 <script type="text/javascript" src="<c:url value="/resources/js/vehicle-fuel-log.js"/>"></script>
 	</head>
 	<body>
-		<p>
-                    <a href="<c:url value="/edit-vehicle/${vehicle.vehicleId}"/>">${vehicle.name}</a>: ${vehicle.notes}
+		<p id="vehicle">
+                    <a class="name" href="<c:url value="/edit-vehicle/0"/>">Vehicle Name</a>: <span class="notes">Vehicle Notes</span>
                 </p>
 
 		<div id="graph-holder">

@@ -9,12 +9,11 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Home</title>
+		<title>Offline</title>
 	</head>
 	<body>
 		<p>
-			<em>Your Car's Life</em> is an application to keep track of
-		    your car's fuel mileage and repairs.
+			This particular page is not available in offline mode.
 		</p>
 	</body>
 </html>
