@@ -20,7 +20,7 @@
 
 		<!-- Frameworks: Jquery, Underscore, Backbone -->
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.7.1.min.js"/>"></script>
-		<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+		<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore.js"></script>
 		<script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone.js"></script>
 
 		<!-- Jquery Datepicker -->

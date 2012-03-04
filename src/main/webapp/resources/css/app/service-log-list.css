@@ -34,6 +34,7 @@ ul#service-logs, ul#new-service-log {
 	color: #000000;
 	display: block;
 	padding: 7px;
+	position: relative;
 	text-decoration: none;
 }
 
@@ -72,7 +73,7 @@ ul#service-logs, ul#new-service-log {
 .service-log .log-date, .service-log .odometer, .service-log .summary {
 	left: 0;
 	position: absolute;
-	top: 4px;
+	top: 11px;
 }
 
 .service-log .log-date {
@@ -106,11 +107,16 @@ ul#service-logs, ul#new-service-log {
 }
 
 .service-log .summary input {
-	width: 300px;
+	width: 630px;
 }
 
 .service-log .description {
-	margin: 39px 0 14px 25px;
+	margin: 46px 0 14px 25px;
+}
+
+.service-log .description textarea {
+	height: 100px;
+	width: 858px;
 }
 
 .service-log .tag {

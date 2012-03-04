@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : layout
     Created on : Nov 23, 2010, 8:42:19 PM
     Author     : josh
@@ -68,7 +68,7 @@ Header
 /*
 Page
 */
-#page .container {
+#page > .container {
 	margin: 0 auto;
 	position: relative;
 	width: 960px;

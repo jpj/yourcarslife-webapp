@@ -35,6 +35,6 @@
 	width: inherit;
 }
 
-#page .container {
+#page > .container {
 	width: inherit;
 }
