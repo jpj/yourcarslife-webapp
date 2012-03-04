@@ -9,10 +9,6 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 
-<security:authorize ifAnyGranted="ROLE_USER">
-	<c:set var="isLoggedIn" value="true"/>
-</security:authorize>
-
 <!doctype html>
 <!--<html manifest="<c:url value="/resources/ycl.appcache"/>">-->
 <html>
@@ -26,7 +22,7 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.7.1.min.js"/>"></script>
 		<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
 		<script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone.js"></script>
-		
+
 		<!-- Jquery Datepicker -->
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.js"/>"></script>
@@ -75,9 +71,9 @@
 							<li><a href="<c:url value="/logout"/>">Logout</a></li>
 						</security:authorize>
 
-						<c:if test="${!isLoggedIn}">
+						<security:authorize ifNotGranted="ROLE_USER">
 							<li><a href="<c:url value="/login"/>">Login</a></li>
-						</c:if>
+						</security:authorize>
 					</ul>
 				</div>
 				<div id="page-content">

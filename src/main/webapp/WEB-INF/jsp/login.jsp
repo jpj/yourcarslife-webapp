@@ -4,10 +4,14 @@
     Author     : josh
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html>
 	<head>
 		<title>Login</title>
+		<security:authorize ifAnyGranted="ROLE_USER">
+			<meta http-equiv="refresh" content="0; <c:url value="/dashboard"/>"/>
+		</security:authorize>
 	</head>
 	<body>
 		<p>
