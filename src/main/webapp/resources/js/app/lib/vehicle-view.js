@@ -8,14 +8,12 @@ $(function() {
 
 	view.Vehicle = Backbone.View.extend({
 		initialize: function() {
-			this.render();
+			this.model.on("change", this.render, this);
 		},
 		render: function() {
-			this.model.fetch({
-				success: function(model) {
-					alert("veh: "+ JSON.stringify( model.toJSON() ));
-				}
-			});
+			this.$(".name").text(this.model.get("name"));
+//			$(this.el).html(this.template(this.model.toJSON()));
+//			alert("veh: "+ JSON.stringify( this.model.toJSON() ));
 		},
 		doIt: function() {
 //			alert("veh: "+ JSON.stringify( this.model.toJSON() ));

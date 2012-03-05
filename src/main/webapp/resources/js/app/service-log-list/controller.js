@@ -139,12 +139,13 @@ $(function() {
 			ServiceLogs.bind('reset', this.addAll, this);
 			ServiceLogs.fetch();
 
+			var vehicleModel = new solairis.ycl.model.Vehicle({vehicleId: 1})
 			var vehicleView = new solairis.ycl.view.Vehicle({
-				el: null,
-				model: new solairis.ycl.model.Vehicle({
-					vehicleId: 1
-				})
+//				template: _.template($(".vehicle")),
+				el: $(".vehicle"),
+				model: vehicleModel
 			});
+			vehicleModel.fetch();
 		},
 		render: function() {
 
