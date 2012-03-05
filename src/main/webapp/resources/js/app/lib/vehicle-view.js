@@ -12,11 +12,6 @@ $(function() {
 		},
 		render: function() {
 			this.$(".name").text(this.model.get("name"));
-//			$(this.el).html(this.template(this.model.toJSON()));
-//			alert("veh: "+ JSON.stringify( this.model.toJSON() ));
-		},
-		doIt: function() {
-//			alert("veh: "+ JSON.stringify( this.model.toJSON() ));
 		}
 	});
 });

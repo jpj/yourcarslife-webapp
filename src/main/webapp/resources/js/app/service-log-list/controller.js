@@ -141,7 +141,6 @@ $(function() {
 
 			var vehicleModel = new solairis.ycl.model.Vehicle({vehicleId: 1})
 			var vehicleView = new solairis.ycl.view.Vehicle({
-//				template: _.template($(".vehicle")),
 				el: $(".vehicle"),
 				model: vehicleModel
 			});

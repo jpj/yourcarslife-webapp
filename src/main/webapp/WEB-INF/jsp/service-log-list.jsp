@@ -16,7 +16,7 @@
 		</c:if>
 	</head>
 	<body id="service-log-list-app">
-		<p class="vehicle">Vehicle: <span class="name">${vehicle.name}<\%=name%></span></p>
+		<p class="vehicle">Vehicle: <span class="name">${vehicle.name}</span></p>
 
 		<p>
 			<a id="add-new-service-log" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/service/0"/>">New</a>
