@@ -3,7 +3,14 @@
  * and open the template in the editor.
  */
 
-
 $(function() {
+	var model = solairis.ycl.model;
 
+	model.Vehicle = Backbone.Model.extend({
+		idAttribute: "vehicleId",
+		urlRoot: YCLConstants.BASE_URL + '/api/vehicle',
+		defaults: {
+
+		}
+	});
 });

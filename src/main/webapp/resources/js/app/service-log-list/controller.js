@@ -138,6 +138,13 @@ $(function() {
 			ServiceLogs.bind('all', this.render, this);
 			ServiceLogs.bind('reset', this.addAll, this);
 			ServiceLogs.fetch();
+
+			var vehicleView = new solairis.ycl.view.Vehicle({
+				el: null,
+				model: new solairis.ycl.model.Vehicle({
+					vehicleId: 1
+				})
+			});
 		},
 		render: function() {
 

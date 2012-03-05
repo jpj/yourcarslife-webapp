@@ -38,6 +38,13 @@ public class VehicleController {
 		return vehicleService.getVehiclesByUserId(Long.parseLong( ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()));
 	}
 
+	@RequestMapping(value="/api/vehicle/{vehicleId}", method= RequestMethod.GET)
+	@Transactional
+	@ResponseBody
+	public Vehicle get(@PathVariable("vehicleId") long vehicleId) {
+		return vehicleService.getVehicle(vehicleId);
+	}
+
 	@RequestMapping(value="/api/vehicle", method= RequestMethod.POST)
 	@Transactional
 	@ResponseBody

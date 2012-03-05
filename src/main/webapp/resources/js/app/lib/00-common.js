@@ -6,5 +6,7 @@
 window.solairis = window.solairis || {};
 solairis.ycl = {
 	constant: {},
-	util: {}
+	model: {},
+	util: {},
+	view: {}
 };
