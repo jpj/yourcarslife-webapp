@@ -70,14 +70,34 @@ ul#service-logs, ul#new-service-log {
 	color: #d1d1d1;
 }
 
-.service-log .log-date, .service-log .odometer, .service-log .summary {
+.service-log .log-date, .service-log .odometer, .service-log .summary, .service-log .cost {
 	left: 0;
 	position: absolute;
 	top: 11px;
 }
 
+.service-log .cost {
+	left: 32px;
+	top: 40px;
+}
+
+.service-log .cost input {
+	width: 78px;
+}
+
+.service-log .cost .units {
+	display: block;
+	left: -10px;
+	position: absolute;
+	top: 0;
+}
+
+.service-log.edit .cost .units {
+	top: 2px;
+}
+
 .service-log .log-date {
-	left: 9px;
+	left: 32px;
 	color: #c7c7c7;
 }
 
@@ -86,7 +106,7 @@ ul#service-logs, ul#new-service-log {
 }
 
 .service-log .odometer {
-	left: 104px;
+	left: 121px;
 }
 
 .service-log .odometer input {
@@ -99,7 +119,7 @@ ul#service-logs, ul#new-service-log {
 }
 
 .service-log .summary {
-	left: 260px;
+	left: 267px;
 }
 
 .service-log .summary, .service-log .summary input {
@@ -107,11 +127,11 @@ ul#service-logs, ul#new-service-log {
 }
 
 .service-log .summary input {
-	width: 630px;
+	width: 623px;
 }
 
 .service-log .description {
-	margin: 46px 0 14px 25px;
+	margin: 61px 0 14px 25px;
 }
 
 .service-log .description textarea {

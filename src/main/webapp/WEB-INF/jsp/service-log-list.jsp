@@ -38,6 +38,7 @@
 			<div class="container edit">
 				<form method="get" action="#">
 					<div class="log-date"><input type="text" placeholder="Date"/></div>
+					<div class="cost"><span class="units">$</span><span class="number"><input type="text" placeholder="Cost"/></span></div>
 					<div class="odometer"><span class="number"><input type="number" step=".1" value="<\%=odometer%>" placeholder="Odometer"/></span> <span class="units">mi</span></div>
 					<div class="summary"><input type="text" value="<\%=summary%>" placeholder="Summary"/></div>
 					<div class="description"><textarea placeholder="Description"><\%=description%></textarea></div>
@@ -50,6 +51,7 @@
 			</div>
 			<a class="container view edit-log" href="">
 				<div class="log-date"></div>
+				<div class="cost"><span class="units">$</span><span class="number"></span></div>
 				<div class="odometer"><span class="number"><\%=odometer%></span> <span class="units">mi</span></div>
 				<div class="summary"><\%=summary%></div>
 				<div class="description"><\%=description%></div>

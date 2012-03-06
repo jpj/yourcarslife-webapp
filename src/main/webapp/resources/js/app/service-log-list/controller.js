@@ -64,7 +64,11 @@ $(function() {
 				}
 			}});
 
-//			alert(this.model.get("odometer"));
+			var c = this.model.get("cost") == null || this.model.get("cost") === 0 ? null : this.model.get("cost").toString();
+			var costFmt = c == null ? null : c.substr(0, c.length - 2) + "." + c.substr(c.length -2);
+			this.$(".view .cost .number").text(costFmt);
+			this.$(".edit .cost .number input").val(costFmt);
+
 			var odometer = this.model.get("odometer") == null ? null : this.model.get("odometer").toFixed(1);
 			this.$(".view .odometer .number").text(odometer);
 			this.$(".edit .odometer .number input").val(odometer);
@@ -79,7 +83,18 @@ $(function() {
 		},
 
 		serialize: function() {
+			var cost = null;
+			var costStr = this.$(".edit .cost input").val();
+			if (costStr.indexOf(".") != -1) {
+				var costStrParts = costStr.split(".");
+				if (costStrParts.length == 2 && costStrParts[1].length == 2) {
+					cost = parseInt(costStrParts[0]+costStrParts[1]);
+				}
+			} else {
+				cost = parseInt(costStr+"00");
+			}
 			return {
+				cost: cost,
 				odometer: parseFloat( this.$(".edit .odometer input").val() ),
 				summary: this.$(".edit .summary input").val(),
 				description: this.$(".edit .description textarea").val(),
@@ -139,7 +154,7 @@ $(function() {
 			ServiceLogs.bind('reset', this.addAll, this);
 			ServiceLogs.fetch();
 
-			var vehicleModel = new solairis.ycl.model.Vehicle({vehicleId: 1})
+			var vehicleModel = new solairis.ycl.model.Vehicle({vehicleId: vehicleId})
 			var vehicleView = new solairis.ycl.view.Vehicle({
 				el: $(".vehicle"),
 				model: vehicleModel
