@@ -19,8 +19,11 @@ $(function() {
 	collection.FuelLogList = Backbone.Collection.extend({
 		model: model.FuelLog,
 		url: function() {
-			alert('Got Vehicle ID of ' + this.vehicleId);
 			return YCLConstants.BASE_URL + '/api/vehicle/'+this.vehicleId+'/log/fuel';
+		},
+		vehicleId: null,
+		setVehicleId: function(value) {
+			this.vehicleId = value;
 		}
 	});
 });
