@@ -10,12 +10,12 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Vehicle Log</title>
+		<title>Fuel Log</title>
 		<jwr:script src="/resources/js/app/fuel-log-list.js"/>
 	</head>
 	<body>
 		<p id="vehicle">
-			<a class="name" href="<c:url value="/vehicle/${vehicle.vehicleId}"/>">${vehicle.name}</a>: <span class="notes">${vehicle.notes}</span>
+			<a class="name" href="<c:url value=""/>"></a>: <span class="notes"></span>
                 </p>
 
 		<div id="graph-holder">
@@ -38,69 +38,8 @@
 		</div>
 
 		<ul id="vehicleFuelLogs">
-			<c:set var="prevFuelLog"/>
-			<c:forEach begin="0" end="20" varStatus="fuelLogRow">
-				<c:set var="fuelLog" value="${fuelLogs[fuelLogRow.index]}"/>
-				<c:if test="${not fuelLogRow.first}">
-					<li class="available ${empty prevFuelLog ? 'unused' : ''}">
-						<form action="get">
-							<div class="display">
-								<div class="date">
-									<span class="view"><fmt:formatDate pattern="yyyy MMM dd" value="${prevFuelLog.logDate}"/></span>
-									<input type="text" class="edit" name="logDate"/>
-								</div>
-								<div class="odometer">
-									<span class="view number">${prevFuelLog.odometer}</span>
-									<input type="number" class="edit number" name="odometer"/>
-									<span class="units">mi</span>
-								</div>
-								<div class="fuel">
-									<span class="view number"><fmt:formatNumber type="number" maxFractionDigits="3" minFractionDigits="3" value="${prevFuelLog.fuel}"/></span>
-									<input type="number" class="edit number" name="fuel"/>
-									<span class="units">gal</span>
-								</div>
-								<div class="economy">
-									<span class="number">
-										<c:choose>
-											<c:when test="${prevFuelLog.missedFillup or fuelLogRow.index eq fn:length(fuelLogs)}">
-												-
-											</c:when>
-											<c:otherwise>
-												<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(prevFuelLog.odometer - fuelLog.odometer) / prevFuelLog.fuel}"/>
-											</c:otherwise>
-										</c:choose>
-									</span>
-									<span class="units">mpg</span>
-								</div>
-								<div class="edit-button"><a href="#edit0">edit</a></div>
-							</div>
-							<div class="edit-section">
-								<div class="separator"></div>
-								<div class="holder">
-									<div class="missedFillup">
-										<label>
-											<input type="checkbox" name="missedFillup"/>
-											Missed a Fill-Up
-										</label>
-									</div>
-									<div class="octane">
-										<label>
-											<input type="number" name="octane"/>
-											Octane
-										</label>
-									</div>
-									<div class="submit">
-										<input type="submit" name="save" value="Save"/>
-										<input type="submit" name="cancel" value="Cancel"/>
-									</div>
-								</div>
-							</div>
-						</form>
-					</li>
-				</c:if>
-				<c:set var="prevFuelLog" value="${fuelLog}"/>
-			</c:forEach>
 		</ul>
+
 		<div class="paging">
 			<a href="#prev">prev</a>
 			<a href="#next">next</a>
@@ -110,5 +49,50 @@
 			of
 			<span class="total"></span>
 		</div>
+
+		<script id="fuel-log-template" type="text/template">
+			<div class="display">
+				<div class="date">
+					<span class="view"></span>
+					<input type="text" class="edit" name="logDate"/>
+				</div>
+				<div class="odometer">
+					<span class="view number"></span>
+					<input type="number" class="edit number" name="odometer"/>
+					<span class="units">mi</span>
+				</div>
+				<div class="fuel">
+					<span class="view number"></span>
+					<input type="number" class="edit number" name="fuel"/>
+					<span class="units">gal</span>
+				</div>
+				<div class="economy">
+					<span class="number"></span>
+					<span class="units">mpg</span>
+				</div>
+				<div class="edit-button"><a href="#edit0">edit</a></div>
+			</div>
+			<div class="edit-section">
+				<div class="separator"></div>
+				<div class="holder">
+					<div class="missedFillup">
+						<label>
+							<input type="checkbox" name="missedFillup"/>
+							Missed a Fill-Up
+						</label>
+					</div>
+					<div class="octane">
+						<label>
+							<input type="number" name="octane"/>
+							Octane
+						</label>
+					</div>
+					<div class="submit">
+						<input type="submit" name="save" value="Save"/>
+						<input type="submit" name="cancel" value="Cancel"/>
+					</div>
+				</div>
+			</div>
+		</script>
 	</body>
 </html>

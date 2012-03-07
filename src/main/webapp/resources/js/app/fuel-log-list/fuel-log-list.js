@@ -5,6 +5,11 @@ $(document).ready(function() {
 	var fuelLogs = new solairis.ycl.collection.FuelLogList;
 	fuelLogs.setVehicleId(vehicleId);
 
+	var fuelLogListView = new solairis.ycl.view.FuelLogList({collection: fuelLogs});
+//	fuelLogListView.setFuelLogs(fuelLogs);
+
+	fuelLogs.fetch();
+
 	var pagingData = {
 		pageNumber: 0
 	};
