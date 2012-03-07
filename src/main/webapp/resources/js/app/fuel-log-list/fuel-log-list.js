@@ -1,9 +1,10 @@
 $(document).ready(function() {
-	var fuelLogs = new solairis.ycl.collection.FuelLogList;
-	fuelLogs.setVehicleId(1234);
-	fuelLogs.fetch();
 	var ycl = new YCL();
 	var vehicleId = YCL.Request.getParameter("vehicleId");
+
+	var fuelLogs = new solairis.ycl.collection.FuelLogList;
+	fuelLogs.setVehicleId(vehicleId);
+
 	var pagingData = {
 		pageNumber: 0
 	};
