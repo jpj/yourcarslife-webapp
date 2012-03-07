@@ -1,4 +1,8 @@
 $(document).ready(function() {
+	var fuelLogs = new solairis.ycl.collection.FuelLogList({
+		vehicleId: 1234
+	});
+	fuelLogs.fetch();
 	var ycl = new YCL();
 	var vehicleId = YCL.Request.getParameter("vehicleId");
 	var pagingData = {
