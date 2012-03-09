@@ -321,6 +321,13 @@
 					</plugin>
 				</plugins>
 			</build>
+			<dependencies>
+				<dependency>
+					<groupId>net.jawr</groupId>
+					<artifactId>jawr</artifactId>
+					<version>3.3.3</version>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>test</id>
