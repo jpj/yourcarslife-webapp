@@ -9,6 +9,7 @@ $(function() {
 	view.FuelLog = Backbone.View.extend({
 		initialize: function() {
 			this.model.on("change", this.render, this);
+			this.model.on("all", this.render, this);
 		},
 		render: function() {
 			var fuelLog = this.model.toJSON();
@@ -22,9 +23,10 @@ $(function() {
 //			this.collection
 //			alert("constructors: "+JSON.stringify(constructors));
 			this.collection.on("change", this.render, this);
+			this.collection.on("all", this.render, this);
 		},
 		render: function() {
-			alert("init list: "+this.collection);
+			alert("init list: "+JSON.stringify(this.collection.toJSON()));
 		},
 
 		fuelLogs: [],
