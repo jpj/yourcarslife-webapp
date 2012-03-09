@@ -6,9 +6,10 @@ $(document).ready(function() {
 	fuelLogs.setVehicleId(vehicleId);
 
 	var fuelLogListView = new solairis.ycl.view.FuelLogList({collection: fuelLogs});
-//	fuelLogListView.setFuelLogs(fuelLogs);
 
 	fuelLogs.fetch();
+	
+	return;
 
 	var pagingData = {
 		pageNumber: 0

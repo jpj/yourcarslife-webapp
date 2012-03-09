@@ -20,18 +20,11 @@ $(function() {
 
 	view.FuelLogList = Backbone.View.extend({
 		initialize: function() {
-//			this.collection
-//			alert("constructors: "+JSON.stringify(constructors));
 			this.collection.on("change", this.render, this);
 			this.collection.on("all", this.render, this);
 		},
 		render: function() {
 			alert("init list: "+JSON.stringify(this.collection.toJSON()));
-		},
-
-		fuelLogs: [],
-		setFuelLogs: function(fuelLogs) {
-			this.fuelLogs = fuelLogs;
 		}
 	});
 });
