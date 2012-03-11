@@ -8,7 +8,7 @@ $(document).ready(function() {
 	var fuelLogListView = new solairis.ycl.view.FuelLogList({collection: fuelLogs});
 
 	fuelLogs.fetch();
-	
+
 	return;
 
 	var pagingData = {

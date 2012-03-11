@@ -20,8 +20,6 @@
 
 		<!-- Frameworks: Jquery, Underscore, Backbone -->
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.7.1.min.js"/>"></script>
-		<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore.js"></script>
-		<script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone.js"></script>
 
 		<!-- Jquery Datepicker -->
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
@@ -83,6 +81,53 @@
 				</div>
 			</div>
 		</div>
+
+		<script id="fuel-log-template" type="text/template">
+			<form>
+				<div class="display">
+					<div class="date">
+						<span class="view"></span>
+						<input type="text" class="edit" name="logDate"/>
+					</div>
+					<div class="odometer">
+						<span class="view number"></span>
+						<input type="number" class="edit number" name="odometer"/>
+						<span class="units">mi</span>
+					</div>
+					<div class="fuel">
+						<span class="view number"></span>
+						<input type="number" class="edit number" name="fuel"/>
+						<span class="units">gal</span>
+					</div>
+					<div class="economy">
+						<span class="number"></span>
+						<span class="units">mpg</span>
+					</div>
+					<div class="edit-button"><a href="#edit0">edit</a></div>
+				</div>
+				<div class="edit-section">
+					<div class="separator"></div>
+					<div class="holder">
+						<div class="missedFillup">
+							<label>
+								<input type="checkbox" name="missedFillup"/>
+								Missed a Fill-Up
+							</label>
+						</div>
+						<div class="octane">
+							<label>
+								<input type="number" name="octane"/>
+								Octane
+							</label>
+						</div>
+						<div class="submit">
+							<input type="submit" name="save" value="Save"/>
+							<input type="submit" name="cancel" value="Cancel"/>
+						</div>
+					</div>
+				</div>
+			</form>
+		</script>
 
 	</body>
 </html>

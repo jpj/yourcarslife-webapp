@@ -45,64 +45,64 @@
 	width: 25px;
 }
 
-#vehicleFuelLogs {
+#fuel-logs {
 /*	font-size: 17pt;*/
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-#vehicleFuelLogs input {
+#fuel-logs input {
 	font-size: 17pt;
 }
 
-#vehicleFuelLogs input[type=text] {
+#fuel-logs input[type=text] {
 /*	background-color: #DAF1FF;*/
 	background-color: #FFFFB8;
 	border: none;
 	padding: 0;
 }
 
-#vehicleFuelLogs input[type=text].error {
+#fuel-logs input[type=text].error {
 /*	background-color: #FFD6D6;*/
 	background-color: #FFBBB8;
 }
 
-#vehicleFuelLogs > li {
+#fuel-logs > li {
 	border-bottom: 1px solid #ececec;
 }
 
-#vehicleFuelLogs > li:hover, #vehicleFuelLogs > li.odd:hover {
+#fuel-logs > li:hover, #fuel-logs > li.odd:hover {
 	background-color: #ececec;
 }
 
-#vehicleFuelLogs > li.editing:hover {
+#fuel-logs > li.editing:hover {
 	background-color: #E9FFE6;
 }
 
-#vehicleFuelLogs > li.odd {
+#fuel-logs > li.odd {
 	background-color: #f8f8f8;
 }
 
-#vehicleFuelLogs > li.altMonth1 {
+#fuel-logs > li.altMonth1 {
 	border-left: 3px solid #3230FF;
 }
 
-#vehicleFuelLogs > li.altMonth2 {
+#fuel-logs > li.altMonth2 {
 	border-left: 3px solid #B7BBFF;
 }
-#vehicleFuelLogs > li.new {
+#fuel-logs > li.new {
 	background-color: #E9FFE6;
 	border-left: 6px solid #1FD700;
 	display: none;
 }
 
 
-#vehicleFuelLogs > li.available.unused {
+#fuel-logs > li.available.unused {
 	display: none;
 }
 
-#vehicleFuelLogs > li.editing {
+#fuel-logs > li.editing {
 	background-color: #E9FFE6;
 /*	border-bottom: 3px dotted black;*/
 	border-left: 6px solid #1FD700;
@@ -110,52 +110,52 @@
 	border-top: 3px dotted black;*/
 }
 
-#vehicleFuelLogs > li.fresh {
+#fuel-logs > li.fresh {
 	background-color: #FFFFB8;
 }
 
-#vehicleFuelLogs > li.disabled.lead {
+#fuel-logs > li.disabled.lead {
 	border-left: 3px solid #1FD700;
 }
 
-#vehicleFuelLogs > li > form > .display {
+#fuel-logs > li > form > .display {
 	height: 80px;
 	position: relative;
 }
 
 /* Odometer */
-#vehicleFuelLogs > li > form > .display > .odometer {
+#fuel-logs > li > form > .display > .odometer {
 	left: 9px;
 	position: absolute;
 	top: 33px;
 }
 
-#vehicleFuelLogs > li > form > .display > .odometer > .number {
+#fuel-logs > li > form > .display > .odometer > .number {
 	font-size: 17pt;
 }
 
-#vehicleFuelLogs > li > form > .display > .odometer > .units {
+#fuel-logs > li > form > .display > .odometer > .units {
 	color: #d1d1d1;
 /*	font-size: 12pt;*/
 }
 
 /* Fuel */
-#vehicleFuelLogs > li > form > .display > .fuel {
+#fuel-logs > li > form > .display > .fuel {
 	left: 138px;
 	position: absolute;
 	top: 33px;
 }
 
-#vehicleFuelLogs > li > form > .display > .fuel > .number {
+#fuel-logs > li > form > .display > .fuel > .number {
 	font-size: 17pt;
 }
 
-#vehicleFuelLogs > li > form > .display > .fuel > .units {
+#fuel-logs > li > form > .display > .fuel > .units {
 	color: #d1d1d1;
 	font-size: 12pt;
 }
 
-#vehicleFuelLogs > li > form > .display > .date {
+#fuel-logs > li > form > .display > .date {
 	color: #c7c7c7;
 /*	font-size: 12pt;*/
 	left: 10px;
@@ -163,34 +163,34 @@
 	top: 2px;
 }
 
-#vehicleFuelLogs > li > form > .display > .date > input.edit {
+#fuel-logs > li > form > .display > .date > input.edit {
 	color: #c7c7c7;
 	font-size: 12pt;
 	width: 95px;
 }
 
-#vehicleFuelLogs > li > form > .display > .economy {
+#fuel-logs > li > form > .display > .economy {
 /*	left: 390px;*/
 	position: absolute;
 	right: 10px;
 	top: 1px;
 }
 
-#vehicleFuelLogs > li > form > .display > .economy > .number {
+#fuel-logs > li > form > .display > .economy > .number {
 	font-size: 40pt;
 	color: #6EAB75;
 }
 
-#vehicleFuelLogs > li.editing > form > .display > .economy > .number {
+#fuel-logs > li.editing > form > .display > .economy > .number {
 	color: #CFCDCD;
 }
 
-#vehicleFuelLogs > li > form > .display > .economy > .units {
+#fuel-logs > li > form > .display > .economy > .units {
 	color: #ababab;
 	font-size: 30pt;
 }
 
-#vehicleFuelLogs > li > form > .display > .edit-button {
+#fuel-logs > li > form > .display > .edit-button {
 	bottom: 2px;
 	display: none;
 	font-size: 12pt;
@@ -198,52 +198,52 @@
 	right: 16px;
 }
 
-#vehicleFuelLogs > li:hover > form > .display > .edit-button {
+#fuel-logs > li:hover > form > .display > .edit-button {
 	display: block;
 }
 
-#vehicleFuelLogs > li.editing > form > .display > .edit-button, #vehicleFuelLogs > li.disabled > form > .display > .edit-button {
+#fuel-logs > li.editing > form > .display > .edit-button, #fuel-logs > li.disabled > form > .display > .edit-button {
 	display: none;
 }
 
 /* Viewing */
-#vehicleFuelLogs > li .edit {
+#fuel-logs > li .edit {
 	display: none;
 }
 
 /* Editing */
-#vehicleFuelLogs > li.editing .edit {
+#fuel-logs > li.editing .edit {
 	display: inline;
 }
-#vehicleFuelLogs > li.editing .view {
+#fuel-logs > li.editing .view {
 	display: none;
 }
 
 /* Edit Section */
-#vehicleFuelLogs > li > form > .edit-section {
+#fuel-logs > li > form > .edit-section {
 /*	background-color: #FFFFB8;*/
 	display: none;
 }
-#vehicleFuelLogs > li.new > form > .edit-section {
+#fuel-logs > li.new > form > .edit-section {
 	display: block;
 }
 
-#vehicleFuelLogs > li > form > .edit-section > .separator {
+#fuel-logs > li > form > .edit-section > .separator {
 	background-color: #d1d1d1;
 	height: 1px;
 	margin: 0 23px;
 }
 
-#vehicleFuelLogs > li > form > .edit-section > .holder {
+#fuel-logs > li > form > .edit-section > .holder {
 	padding: 5px;
 	position: relative;
 }
 
-#vehicleFuelLogs > li > form > .edit-section > .holder > .octane > label > input {
+#fuel-logs > li > form > .edit-section > .holder > .octane > label > input {
 	width: 35px;
 }
 
-#vehicleFuelLogs > li > form > .edit-section > .holder > .submit {
+#fuel-logs > li > form > .edit-section > .holder > .submit {
 	bottom: 5px;
 	position: absolute;
 	right: 5px;

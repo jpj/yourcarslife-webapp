@@ -3,27 +3,17 @@
  * and open the template in the editor.
  */
 
-$(function() {
-	var model = solairis.ycl.model;
-	var collection = solairis.ycl.collection;
+solairis.ycl.model.FuelLog = Backbone.Model.extend({
+	idAttribute: "logId"
+});
 
-	model.FuelLog = Backbone.Model.extend({
-		idAttribute: "logId",
-		defaults: function() {
-			return {
-
-			};
-		}
-	});
-
-	collection.FuelLogList = Backbone.Collection.extend({
-		model: model.FuelLog,
-		url: function() {
-			return YCLConstants.BASE_URL + '/api/vehicle/'+this.vehicleId+'/log/fuel';
-		},
-		vehicleId: null,
-		setVehicleId: function(value) {
-			this.vehicleId = value;
-		}
-	});
+solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
+	model: solairis.ycl.model.FuelLog,
+	url: function() {
+		return YCLConstants.BASE_URL + '/api/vehicle/'+this.vehicleId+'/log/fuel';
+	},
+	vehicleId: null,
+	setVehicleId: function(value) {
+		this.vehicleId = value;
+	}
 });
