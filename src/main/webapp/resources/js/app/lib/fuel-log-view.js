@@ -8,17 +8,18 @@ $(function() {
 solairis.ycl.view.FuelLog = Backbone.View.extend({
 	tagName: "li",
 	className: "fuel-log",
-	template: _.template($("#fuel-log-template").html()),
+//	template: _.template($("#fuel-log-template").html()),
 	initialize: function() {
 		this.model.on("change", this.render, this);
 		this.model.on("all", this.render, this);
 	},
 	render: function() {
+		var tmpl = solairis.ycl.template;
 		var fuelLog = this.model.toJSON();
 
-		$(this.el).html(this.template);
+		$(this.el).html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(fuelLog)));
 
-		this.$(".odometer .view").text(fuelLog.odometer);
+//		this.$(".odometer .view").text(fuelLog.odometer);
 		return this;
 	}
 });

@@ -86,11 +86,11 @@
 			<form>
 				<div class="display">
 					<div class="date">
-						<span class="view"></span>
+						<span class="view">{{logDate}}</span>
 						<input type="text" class="edit" name="logDate"/>
 					</div>
 					<div class="odometer">
-						<span class="view number"></span>
+						<span class="view number">{{odometer}}</span>
 						<input type="number" class="edit number" name="odometer"/>
 						<span class="units">mi</span>
 					</div>
