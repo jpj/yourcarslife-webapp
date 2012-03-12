@@ -19,7 +19,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 
 		$(this.el).html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(fuelLog)));
 
-//		this.$(".odometer .view").text(fuelLog.odometer);
+		this.$(".missedFillup input").get(0).checked = fuelLog.missedFillup;
 		return this;
 	}
 });

@@ -21,7 +21,12 @@ solairis.ycl.template.view.fuelLog = function(fuelLog) {
 		},
 		odometer: function() {
 			return fuelLog.odometer ? fuelLog.odometer.toFixed(1) : fuelLog.odometer;
-		}
+		},
+		fuel: function() {
+			return fuelLog.fuel ? fuelLog.fuel.toFixed(3) : fuelLog.fuel;
+		},
+		octane: fuelLog.octane,
+		missedFillup: fuelLog.missedFillup
 	};
 };
 

@@ -87,16 +87,16 @@
 				<div class="display">
 					<div class="date">
 						<span class="view">{{logDate}}</span>
-						<input type="text" class="edit" name="logDate"/>
+						<input type="text" class="edit" name="logDate" value="{{logDate}}"/>
 					</div>
 					<div class="odometer">
 						<span class="view number">{{odometer}}</span>
-						<input type="number" class="edit number" name="odometer"/>
+						<input type="number" class="edit number" name="odometer" value="{{odometer}}"/>
 						<span class="units">mi</span>
 					</div>
 					<div class="fuel">
-						<span class="view number"></span>
-						<input type="number" class="edit number" name="fuel"/>
+						<span class="view number">{{fuel}}</span>
+						<input type="number" class="edit number" name="fuel" value="{{fuel}}"/>
 						<span class="units">gal</span>
 					</div>
 					<div class="economy">
@@ -116,7 +116,7 @@
 						</div>
 						<div class="octane">
 							<label>
-								<input type="number" name="octane"/>
+								<input type="number" name="octane" value="{{octane}}"/>
 								Octane
 							</label>
 						</div>
