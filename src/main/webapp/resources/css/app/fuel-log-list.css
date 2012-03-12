@@ -68,41 +68,41 @@
 	background-color: #FFBBB8;
 }
 
-#fuel-logs > li {
+.fuel-log {
 	border-bottom: 1px solid #ececec;
 }
 
-#fuel-logs > li:hover, #fuel-logs > li.odd:hover {
+.fuel-log:hover, .fuel-log.odd:hover {
 	background-color: #ececec;
 }
 
-#fuel-logs > li.editing:hover {
+.fuel-log.editing:hover {
 	background-color: #E9FFE6;
 }
 
-#fuel-logs > li.odd {
+.fuel-log.odd {
 	background-color: #f8f8f8;
 }
 
-#fuel-logs > li.altMonth1 {
+.fuel-log.altMonth1 {
 	border-left: 3px solid #3230FF;
 }
 
-#fuel-logs > li.altMonth2 {
+.fuel-log.altMonth2 {
 	border-left: 3px solid #B7BBFF;
 }
-#fuel-logs > li.new {
+.fuel-log.new {
 	background-color: #E9FFE6;
 	border-left: 6px solid #1FD700;
 	display: none;
 }
 
 
-#fuel-logs > li.available.unused {
+.fuel-log.available.unused {
 	display: none;
 }
 
-#fuel-logs > li.editing {
+.fuel-log.editing {
 	background-color: #E9FFE6;
 /*	border-bottom: 3px dotted black;*/
 	border-left: 6px solid #1FD700;
@@ -110,52 +110,52 @@
 	border-top: 3px dotted black;*/
 }
 
-#fuel-logs > li.fresh {
+.fuel-log.fresh {
 	background-color: #FFFFB8;
 }
 
-#fuel-logs > li.disabled.lead {
+.fuel-log.disabled.lead {
 	border-left: 3px solid #1FD700;
 }
 
-#fuel-logs > li > form > .display {
+.fuel-log .display {
 	height: 80px;
 	position: relative;
 }
 
 /* Odometer */
-#fuel-logs > li > form > .display > .odometer {
+.fuel-log .display > .odometer {
 	left: 9px;
 	position: absolute;
 	top: 33px;
 }
 
-#fuel-logs > li > form > .display > .odometer > .number {
+.fuel-log .display > .odometer > .number {
 	font-size: 17pt;
 }
 
-#fuel-logs > li > form > .display > .odometer > .units {
+.fuel-log .display > .odometer > .units {
 	color: #d1d1d1;
 /*	font-size: 12pt;*/
 }
 
 /* Fuel */
-#fuel-logs > li > form > .display > .fuel {
+.fuel-log .display > .fuel {
 	left: 138px;
 	position: absolute;
 	top: 33px;
 }
 
-#fuel-logs > li > form > .display > .fuel > .number {
+.fuel-log .display > .fuel > .number {
 	font-size: 17pt;
 }
 
-#fuel-logs > li > form > .display > .fuel > .units {
+.fuel-log .display > .fuel > .units {
 	color: #d1d1d1;
 	font-size: 12pt;
 }
 
-#fuel-logs > li > form > .display > .date {
+.fuel-log .display > .date {
 	color: #c7c7c7;
 /*	font-size: 12pt;*/
 	left: 10px;
@@ -163,34 +163,34 @@
 	top: 2px;
 }
 
-#fuel-logs > li > form > .display > .date > input.edit {
+.fuel-log .display > .date > input.edit {
 	color: #c7c7c7;
 	font-size: 12pt;
 	width: 95px;
 }
 
-#fuel-logs > li > form > .display > .economy {
+.fuel-log .display > .economy {
 /*	left: 390px;*/
 	position: absolute;
 	right: 10px;
 	top: 1px;
 }
 
-#fuel-logs > li > form > .display > .economy > .number {
+.fuel-log .display > .economy > .number {
 	font-size: 40pt;
 	color: #6EAB75;
 }
 
-#fuel-logs > li.editing > form > .display > .economy > .number {
+.fuel-log.editing .display > .economy > .number {
 	color: #CFCDCD;
 }
 
-#fuel-logs > li > form > .display > .economy > .units {
+.fuel-log .display > .economy > .units {
 	color: #ababab;
 	font-size: 30pt;
 }
 
-#fuel-logs > li > form > .display > .edit-button {
+.fuel-log .display > .edit-button {
 	bottom: 2px;
 	display: none;
 	font-size: 12pt;
@@ -198,52 +198,57 @@
 	right: 16px;
 }
 
-#fuel-logs > li:hover > form > .display > .edit-button {
+.fuel-log:hover .display > .edit-button {
 	display: block;
 }
 
-#fuel-logs > li.editing > form > .display > .edit-button, #fuel-logs > li.disabled > form > .display > .edit-button {
+.fuel-log.editing .display > .edit-button, .fuel-log.disabled .display > .edit-button {
 	display: none;
 }
 
 /* Viewing */
-#fuel-logs > li .edit {
+.fuel-log .edit {
 	display: none;
 }
 
 /* Editing */
-#fuel-logs > li.editing .edit {
+.fuel-log.editing .edit {
 	display: inline;
 }
-#fuel-logs > li.editing .view {
+.fuel-log.editing .view {
 	display: none;
 }
 
 /* Edit Section */
-#fuel-logs > li > form > .edit-section {
+.fuel-log .edit-section {
 /*	background-color: #FFFFB8;*/
 	display: none;
 }
-#fuel-logs > li.new > form > .edit-section {
+
+.fuel-log.editing .edit-section {
 	display: block;
 }
 
-#fuel-logs > li > form > .edit-section > .separator {
+.fuel-log.new .edit-section {
+	display: block;
+}
+
+.fuel-log .edit-section > .separator {
 	background-color: #d1d1d1;
 	height: 1px;
 	margin: 0 23px;
 }
 
-#fuel-logs > li > form > .edit-section > .holder {
+.fuel-log .edit-section > .holder {
 	padding: 5px;
 	position: relative;
 }
 
-#fuel-logs > li > form > .edit-section > .holder > .octane > label > input {
+.fuel-log .edit-section > .holder > .octane > label > input {
 	width: 35px;
 }
 
-#fuel-logs > li > form > .edit-section > .holder > .submit {
+.fuel-log .edit-section > .holder > .submit {
 	bottom: 5px;
 	position: absolute;
 	right: 5px;

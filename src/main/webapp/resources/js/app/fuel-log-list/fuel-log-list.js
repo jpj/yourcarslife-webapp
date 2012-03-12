@@ -1,13 +1,20 @@
 $(document).ready(function() {
-	var ycl = new YCL();
-	var vehicleId = YCL.Request.getParameter("vehicleId");
 
-	var fuelLogs = new solairis.ycl.collection.FuelLogList;
-	fuelLogs.setVehicleId(vehicleId);
+	var AppView = Backbone.View.extend({
+		el: $("body"),
+		initialize: function() {
+			var vehicleId = YCL.Request.getParameter("vehicleId");
 
-	var fuelLogListView = new solairis.ycl.view.FuelLogList({collection: fuelLogs});
+			var fuelLogs = new solairis.ycl.collection.FuelLogList;
+			fuelLogs.setVehicleId(vehicleId);
 
-	fuelLogs.fetch();
+			var fuelLogListView = new solairis.ycl.view.FuelLogList({collection: fuelLogs});
+
+			fuelLogs.fetch();
+		}
+	});
+
+	var appView = new AppView;
 
 	return;
 
@@ -161,10 +168,6 @@ $(document).ready(function() {
 						$(".paging").hide();
 					}
 
-					if (response.totalResults == 0) {
-						openNewRow();
-					}
-
 					// Do Graph
 					graphVehicleFuelLogs(response.vehicleFuelLogs);
 
@@ -176,15 +179,6 @@ $(document).ready(function() {
 				}
 			}
 		);
-	};
-
-	var openNewRow = function() {
-		var $row = $("#vehicleFuelLogs > li.new");
-		$row.slideDown(500 ,function() {
-			$row.find(".odometer .edit.number").focus();
-			$(".options > .add > .indicator").text("-");
-		});
-		editRecord( $row );
 	};
 
 	var closeNewRow = function() {
@@ -414,7 +408,7 @@ $(document).ready(function() {
 				if ( $("#vehicleFuelLogs > li.new").is(":visible") ) {
 					closeNewRow();
 				} else {
-					openNewRow();
+					alert("error. no new row");
 				}
 			}
 		});

@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-$(function() {
-//	alert($("#fuel-log-template").length);
 solairis.ycl.view.FuelLog = Backbone.View.extend({
 	tagName: "li",
 	className: "fuel-log",
-//	template: _.template($("#fuel-log-template").html()),
+	events: {
+		"click .edit-button a": "editFuelLog"
+	},
 	initialize: function() {
 		this.model.on("change", this.render, this);
 		this.model.on("all", this.render, this);
@@ -21,6 +17,10 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 
 		this.$(".missedFillup input").get(0).checked = fuelLog.missedFillup;
 		return this;
+	},
+	editFuelLog: function(e) {
+		e.preventDefault();
+		$(this.el).addClass("editing");
 	}
 });
 
@@ -41,5 +41,4 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 		this.collection.each(this.addOne);
 		return this;
 	}
-});
 });
