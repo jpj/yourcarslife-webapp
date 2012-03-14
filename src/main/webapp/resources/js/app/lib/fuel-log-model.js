@@ -17,7 +17,6 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 		this.vehicleId = value;
 	},
 	comparator: function(fuelLog) {
-		// TODO - test
 		return fuelLog.get("odometer") * -1;
 	},
 	average: function() {
