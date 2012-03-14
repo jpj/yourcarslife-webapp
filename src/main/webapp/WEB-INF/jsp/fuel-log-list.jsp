@@ -14,8 +14,8 @@
 		<jwr:script src="/resources/js/app/fuel-log-list.js"/>
 	</head>
 	<body>
-		<p id="vehicle">
-			<a class="name" href="<c:url value=""/>"></a>: <span class="notes"></span>
+		<p class="vehicle">
+			<span class="name"></span>: <span class="notes"></span>
                 </p>
 
 		<div id="graph-holder">
