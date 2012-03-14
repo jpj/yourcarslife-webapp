@@ -4,19 +4,14 @@
  */
 package com.solairis.yourcarslife.controller;
 
-import com.solairis.yourcarslife.command.FuelLogFormData;
 import com.solairis.yourcarslife.data.domain.FuelLog;
 import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.VehicleService;
 import java.beans.PropertyEditor;
-import java.util.Date;
 import java.util.List;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
