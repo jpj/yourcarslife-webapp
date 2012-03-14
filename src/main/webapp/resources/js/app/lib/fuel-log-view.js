@@ -21,6 +21,12 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		$(this.el).data("logDate", new Date(fuelLog.logDate));
 		return this;
 	},
+	serialize: function() {
+		return {
+			odometer: parseFloat( this.$(".odometer input.edit").val() ),
+			logDate: $(this.el).data("logDate")
+		};
+	},
 	editFuelLog: function(e) {
 		e.preventDefault();
 		$(this.el).addClass("editing");
@@ -32,6 +38,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	cancelFuelLog: function(e) {
 		e.preventDefault();
 		// TODO - Reset form
+		this.model.set(this.serialize());
 		$(this.el).removeClass("editing");
 	}
 });
