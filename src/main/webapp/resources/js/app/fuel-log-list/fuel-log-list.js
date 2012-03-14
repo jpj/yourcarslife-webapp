@@ -2,7 +2,11 @@ $(document).ready(function() {
 
 	var AppView = Backbone.View.extend({
 		el: $("body"),
+		events: {
+			
+		},
 		initialize: function() {
+			var app = this;
 			var vehicleId = YCL.Request.getParameter("vehicleId");
 
 			var fuelLogs = new solairis.ycl.collection.FuelLogList;
@@ -11,6 +15,13 @@ $(document).ready(function() {
 			var fuelLogListView = new solairis.ycl.view.FuelLogList({collection: fuelLogs});
 
 			fuelLogs.fetch();
+			
+			var vehicleModel = new solairis.ycl.model.Vehicle({vehicleId: vehicleId})
+			var vehicleView = new solairis.ycl.view.Vehicle({
+				el: app.$(".vehicle"),
+				model: vehicleModel
+			});
+			vehicleModel.fetch();
 		}
 	});
 
