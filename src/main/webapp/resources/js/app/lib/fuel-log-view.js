@@ -24,7 +24,10 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	serialize: function() {
 		return {
 			odometer: parseFloat( this.$(".odometer input.edit").val() ),
-			logDate: $(this.el).data("logDate")
+			logDate: $(this.el).data("logDate"),
+			fuel: parseFloat( this.$(".fuel input.edit").val() ),
+			octane: parseInt( this.$(".octane input").val() ),
+			missedFillup: this.$(".missedFillup input").get(0).checked
 		};
 	},
 	editFuelLog: function(e) {
@@ -33,13 +36,23 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	},
 	saveFuelLog: function(e) {
 		e.preventDefault();
-		alert("saving");
+		this.model.set(this.serialize());
+		if (this.model.get("logId")) {
+			this.model.save();
+			$(this.el).removeClass("editing");
+		} else {
+			this.fuelLogList.create(this.model.toJSON());
+			$(this.el).remove();
+		}
 	},
 	cancelFuelLog: function(e) {
 		e.preventDefault();
 		// TODO - Reset form
-		this.model.set(this.serialize());
 		$(this.el).removeClass("editing");
+	},
+	fuelLogList: null,
+	setFuelLogList: function(value) {
+		this.fuelLogList = value;
 	}
 });
 
