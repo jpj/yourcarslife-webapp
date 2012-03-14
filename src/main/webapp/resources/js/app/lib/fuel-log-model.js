@@ -23,7 +23,7 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 		var avg = 0;
 		// TODO - finish
 		this.each(function(fuelLog){
-			avg += fuelLog;
+//			avg += fuelLog;
 		});
 		return avg;
 	}

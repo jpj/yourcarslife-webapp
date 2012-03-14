@@ -3,7 +3,9 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	tagName: "li",
 	className: "fuel-log",
 	events: {
-		"click .edit-button a": "editFuelLog"
+		"click .edit-button a": "editFuelLog",
+		"click input[name=save]": "saveFuelLog",
+		"click input[name=cancel]": "cancelFuelLog"
 	},
 	initialize: function() {
 		this.model.on("change", this.render, this);
@@ -16,11 +18,21 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		$(this.el).html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(fuelLog)));
 
 		this.$(".missedFillup input").get(0).checked = fuelLog.missedFillup;
+		$(this.el).data("logDate", new Date(fuelLog.logDate));
 		return this;
 	},
 	editFuelLog: function(e) {
 		e.preventDefault();
 		$(this.el).addClass("editing");
+	},
+	saveFuelLog: function(e) {
+		e.preventDefault();
+		alert("saving");
+	},
+	cancelFuelLog: function(e) {
+		e.preventDefault();
+		// TODO - Reset form
+		$(this.el).removeClass("editing");
 	}
 });
 

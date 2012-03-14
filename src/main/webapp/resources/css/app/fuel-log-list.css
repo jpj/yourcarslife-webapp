@@ -141,7 +141,7 @@
 
 /* Fuel */
 .fuel-log .display > .fuel {
-	left: 138px;
+	left: 175px;
 	position: absolute;
 	top: 33px;
 }
@@ -157,7 +157,6 @@
 
 .fuel-log .display > .date {
 	color: #c7c7c7;
-/*	font-size: 12pt;*/
 	left: 10px;
 	position: absolute;
 	top: 2px;
@@ -166,11 +165,19 @@
 .fuel-log .display > .date > input.edit {
 	color: #c7c7c7;
 	font-size: 12pt;
-	width: 95px;
+	width: 147px;
+}
+
+.fuel-log .display > .odometer > input.edit {
+	width: 130px;
+}
+
+.fuel-log .display > .fuel > input.edit {
+	text-align: right;
+	width: 100px;
 }
 
 .fuel-log .display > .economy {
-/*	left: 390px;*/
 	position: absolute;
 	right: 10px;
 	top: 1px;
@@ -221,7 +228,6 @@
 
 /* Edit Section */
 .fuel-log .edit-section {
-/*	background-color: #FFFFB8;*/
 	display: none;
 }
 
