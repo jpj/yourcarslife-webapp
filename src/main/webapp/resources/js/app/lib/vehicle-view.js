@@ -12,6 +12,7 @@ $(function() {
 		},
 		render: function() {
 			this.$(".name").text(this.model.get("name"));
+			this.$(".notes").text(this.model.get("notes"));
 		}
 	});
 });
