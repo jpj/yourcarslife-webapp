@@ -33,6 +33,8 @@ $(document).ready(function() {
 			var view = new solairis.ycl.view.FuelLog({model: fuelLog, el: this.$(".new-fuel-log")});
 			view.setFuelLogList(this.fuelLogList);
 			view.enableNew();
+			// TODO - Set new record defults here (maybe render won't have to be called manually
+			// since we're changing the model.)
 			view.render();
 			this.$(".new-fuel-log").html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(fuelLog.toJSON())));
 		}
