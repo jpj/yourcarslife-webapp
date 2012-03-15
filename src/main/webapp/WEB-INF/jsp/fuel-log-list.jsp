@@ -26,6 +26,7 @@
 		<div class="options">
 			<div class="add"><div class="indicator">+</div> <span class="text">Add</span></div>
 		</div>
+		<div class="new-fuel-log"></div>
 
 		<div class="paging">
 			<a href="#prev">prev</a>

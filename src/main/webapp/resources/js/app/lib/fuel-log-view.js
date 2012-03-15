@@ -42,17 +42,26 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 			$(this.el).removeClass("editing");
 		} else {
 			this.fuelLogList.create(this.model.toJSON());
-			$(this.el).remove();
+			$(this.el).empty();
 		}
 	},
 	cancelFuelLog: function(e) {
 		e.preventDefault();
-		// TODO - Reset form
 		$(this.el).removeClass("editing");
+		if (this.model.get("logId")) {
+
+			this.model.fetch();
+			this.render();
+		} else {
+			$(this.el).empty();
+		}
 	},
 	fuelLogList: null,
 	setFuelLogList: function(value) {
 		this.fuelLogList = value;
+	},
+	enableNew: function() {
+		$(this.el).addClass("is-new").addClass("fuel-log").addClass("editing");
 	}
 });
 
@@ -67,6 +76,7 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 	addOne: function(fuelLogModel) {
 //		var logIndex = this.collection.indexOf(fuelLogModel);
 		var view = new solairis.ycl.view.FuelLog({model: fuelLogModel});
+		view.setFuelLogList(this.collection);
 		$("#fuel-logs").append(view.render().el)
 	},
 	addAll: function() {

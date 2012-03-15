@@ -8,12 +8,6 @@ $(function() {
 
 	model.Vehicle = Backbone.Model.extend({
 		idAttribute: "vehicleId",
-		urlRoot: YCLConstants.BASE_URL + '/api/vehicle',
-		defaults: function() {
-			var now = new Date();
-			return {
-				logDate: now.getTime()
-			};
-		}
+		urlRoot: YCLConstants.BASE_URL + '/api/vehicle'
 	});
 });

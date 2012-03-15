@@ -3,17 +3,20 @@ $(document).ready(function() {
 	var AppView = Backbone.View.extend({
 		el: $("body"),
 		events: {
-
+			"click #page-content .options .add": "addFuelLog"
 		},
+		vehicleId: null,
+		fuelLogList: null,
 		initialize: function() {
 			var app = this;
 			var vehicleId = YCL.Request.getParameter("vehicleId");
+			this.vehicleId = vehicleId;
 
 			var fuelLogs = new solairis.ycl.collection.FuelLogList;
 			fuelLogs.setVehicleId(vehicleId);
+			this.fuelLogList = fuelLogs;
 
 			var fuelLogListView = new solairis.ycl.view.FuelLogList({collection: fuelLogs});
-			fuelLogListView.setFuelLogList(fuelLogs);
 
 			fuelLogs.fetch();
 
@@ -23,6 +26,15 @@ $(document).ready(function() {
 				model: vehicleModel
 			});
 			vehicleModel.fetch();
+		},
+		addFuelLog: function() {
+			var tmpl = solairis.ycl.template;
+			var fuelLog = new solairis.ycl.model.FuelLog;
+			var view = new solairis.ycl.view.FuelLog({model: fuelLog, el: this.$(".new-fuel-log")});
+			view.setFuelLogList(this.fuelLogList);
+			view.enableNew();
+			view.render();
+			this.$(".new-fuel-log").html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(fuelLog.toJSON())));
 		}
 	});
 

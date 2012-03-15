@@ -4,7 +4,18 @@
  */
 
 solairis.ycl.model.FuelLog = Backbone.Model.extend({
-	idAttribute: "logId"
+	idAttribute: "logId",
+	defaults: function() {
+		var now = new Date();
+		return {
+			logDate: now.getTime(),
+			odometer: 0,
+			fuel: 0,
+			octane: 0,
+			missedFillup: false,
+			active: true
+		};
+	}
 });
 
 solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
