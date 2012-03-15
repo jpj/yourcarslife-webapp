@@ -102,7 +102,6 @@
 					<span class="number"></span>
 					<span class="units">mpg</span>
 				</div>
-				<div class="edit-button"><a href="#edit0">edit</a></div>
 			</div>
 			<div class="edit-section">
 				<div class="separator"></div>

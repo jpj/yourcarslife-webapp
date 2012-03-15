@@ -197,22 +197,6 @@
 	font-size: 30pt;
 }
 
-.fuel-log .display > .edit-button {
-	bottom: 2px;
-	display: none;
-	font-size: 12pt;
-	position: absolute;
-	right: 16px;
-}
-
-.fuel-log:hover .display > .edit-button {
-	display: block;
-}
-
-.fuel-log.editing .display > .edit-button, .fuel-log.disabled .display > .edit-button {
-	display: none;
-}
-
 /* Viewing */
 .fuel-log .edit {
 	display: none;

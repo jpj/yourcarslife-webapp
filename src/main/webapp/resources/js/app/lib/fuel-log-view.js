@@ -3,7 +3,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	tagName: "li",
 	className: "fuel-log",
 	events: {
-		"click .edit-button a": "editFuelLog",
+		"click .display": "editFuelLog",
 		"click input[name=save]": "saveFuelLog",
 		"click input[name=cancel]": "cancelFuelLog"
 	},
@@ -32,7 +32,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	},
 	editFuelLog: function(e) {
 		e.preventDefault();
-		$(this.el).addClass("editing");
+		this.$el.addClass("editing");
 	},
 	saveFuelLog: function(e) {
 		e.preventDefault();
