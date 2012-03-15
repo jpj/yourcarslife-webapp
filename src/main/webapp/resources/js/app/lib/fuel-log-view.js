@@ -49,7 +49,6 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		e.preventDefault();
 		$(this.el).removeClass("editing");
 		if (this.model.get("logId")) {
-
 			this.model.fetch();
 			this.render();
 		} else {

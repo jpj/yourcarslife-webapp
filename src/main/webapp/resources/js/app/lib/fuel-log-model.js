@@ -9,9 +9,9 @@ solairis.ycl.model.FuelLog = Backbone.Model.extend({
 		var now = new Date();
 		return {
 			logDate: now.getTime(),
-			odometer: 0,
-			fuel: 0,
-			octane: 0,
+			odometer: 0, // TODO - default to best guess based on last 10-ish fillups
+			fuel: 0, // TODO - default to best guess based on last 10-ish fillups
+			octane: 0, // TODO - default to mode of last 10-ish fillups
 			missedFillup: false,
 			active: true
 		};
