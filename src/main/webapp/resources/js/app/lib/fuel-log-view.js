@@ -13,12 +13,23 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	},
 	render: function() {
 		var tmpl = solairis.ycl.template;
-		var fuelLog = this.model.toJSON();
 
-		$(this.el).html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(fuelLog)));
+		$(this.el).html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(this.model.toJSON())));
+		var index = this.collection.indexOf(this.model);
 
-		this.$(".missedFillup input").get(0).checked = fuelLog.missedFillup;
-		$(this.el).data("logDate", new Date(fuelLog.logDate));
+		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
+		$(this.el).data("logDate", new Date(this.model.get("logDate")));
+
+		// Fuel Economy
+		if (index > 0) {
+
+		}
+		var nextModel = this.collection.at(index+1);
+		if (nextModel && nextModel.get("odometer") && !this.model.get("missedFillup")) {
+			this.$(".economy .number").text( ((this.model.get("odometer")-nextModel.get("odometer")) / this.model.get("fuel")).toFixed(2) );
+		} else {
+			this.$(".economy .number").text("-");
+		}
 		return this;
 	},
 	serialize: function() {
@@ -41,7 +52,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 			this.model.save();
 			$(this.el).removeClass("editing");
 		} else {
-			this.fuelLogList.create(this.model.toJSON());
+			this.collection.create(this.model.toJSON());
 			$(this.el).empty();
 		}
 	},
@@ -54,10 +65,6 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		} else {
 			$(this.el).empty();
 		}
-	},
-	fuelLogList: null,
-	setFuelLogList: function(value) {
-		this.fuelLogList = value;
 	},
 	enableNew: function() {
 		$(this.el).addClass("is-new").addClass("fuel-log").addClass("editing");
@@ -74,12 +81,14 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 	},
 	addOne: function(fuelLogModel) {
 //		var logIndex = this.collection.indexOf(fuelLogModel);
-		var view = new solairis.ycl.view.FuelLog({model: fuelLogModel});
-		view.setFuelLogList(this.collection);
+		var view = new solairis.ycl.view.FuelLog({model: fuelLogModel, collection: this.collection});
 		$("#fuel-logs").append(view.render().el)
 	},
 	addAll: function() {
-		this.collection.each(this.addOne);
+		var listView = this;
+		this.collection.each(function(fuelLog) {
+			listView.addOne.call(listView, fuelLog);
+		});
 		return this;
 	}
 });

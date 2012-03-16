@@ -161,13 +161,6 @@ $(document).ready(function() {
 						//alert(altMonth);
 						$row.addClass(altMonth ? "altMonth1" : "altMonth2").removeClass(!altMonth ? "altMonth1" : "altMonth2");
 
-						// TODO: If this record and the previous were not modified, don't calculate economy.
-
-//						if ( $prevRow.length !== 0 && prevFuel !== 0 && prevOdometer !== 0 && !$prevRow.data("missedFillup") ) {
-//							var rawMpg = (prevOdometer - vehicleFuelLog.odometer) / prevFuel;
-//							$prevRow.find(".economy > .number").text( rawMpg.toFixed(2) );
-//						}
-
 						prevFuel = vehicleFuelLog.fuel;
 						prevOdometer = vehicleFuelLog.odometer;
 //						$row.find(".economy > .number").text('-');
@@ -205,12 +198,6 @@ $(document).ready(function() {
 				}
 			}
 		);
-	};
-
-	var closeNewRow = function() {
-		$("#vehicleFuelLogs > li.new").slideUp(500 ,function() {
-			$(".options > .add > .indicator").text("+");
-		});
 	};
 
 	var editRecord = function($row) {
