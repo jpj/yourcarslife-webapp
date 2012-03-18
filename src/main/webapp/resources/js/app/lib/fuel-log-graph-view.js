@@ -55,7 +55,7 @@ solairis.ycl.view.FuelLogGraph = Backbone.View.extend({
 					tickOptions: {
 						formatString: '%.2f'
 					}
-//					, min: 0
+					, min: 0
 				}
 			},
 			highlighter: {
