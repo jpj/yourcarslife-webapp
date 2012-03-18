@@ -30,8 +30,7 @@ $(document).ready(function() {
 		addFuelLog: function() {
 			var tmpl = solairis.ycl.template;
 			var fuelLog = new solairis.ycl.model.FuelLog;
-			var view = new solairis.ycl.view.FuelLog({model: fuelLog, el: this.$(".new-fuel-log")});
-			view.setFuelLogList(this.fuelLogList);
+			var view = new solairis.ycl.view.FuelLog({model: fuelLog, collection: this.fuelLogList, el: this.$(".new-fuel-log")});
 			view.enableNew();
 			// TODO - Set new record defults here (maybe render won't have to be called manually
 			// since we're changing the model.)
