@@ -42,10 +42,6 @@ $(document).ready(function() {
 
 	return;
 
-	var pagingData = {
-		pageNumber: 0
-	};
-
 	$.jqplot.config.enablePlugins = true;
 
 	var graphVehicleFuelLogs = function(vehicleFuelLogs) {
@@ -104,22 +100,22 @@ $(document).ready(function() {
 	};
 
 
-	if (vehicleId) {
-
-		// Paging
-		$(".paging a[href=#prev]").click(function(e) {
-			e.preventDefault();
-			performSearch({
-				pageNumber: pagingData.pageNumber - 1
-			});
-		});
-
-		$(".paging a[href=#next]").click(function(e) {
-			e.preventDefault();
-			performSearch({
-				pageNumber: pagingData.pageNumber + 1
-			});
-		});
-	}
+//	if (vehicleId) {
+//
+//		// Paging
+//		$(".paging a[href=#prev]").click(function(e) {
+//			e.preventDefault();
+//			performSearch({
+//				pageNumber: pagingData.pageNumber - 1
+//			});
+//		});
+//
+//		$(".paging a[href=#next]").click(function(e) {
+//			e.preventDefault();
+//			performSearch({
+//				pageNumber: pagingData.pageNumber + 1
+//			});
+//		});
+//	}
 
 });
