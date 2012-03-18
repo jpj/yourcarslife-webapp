@@ -30,12 +30,45 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 	comparator: function(fuelLog) {
 		return fuelLog.get("odometer") * -1;
 	},
-	average: function() {
+	fuelAverage: function() {
 		var avg = 0;
 		// TODO - finish
 		this.each(function(fuelLog){
 //			avg += fuelLog;
 		});
 		return avg;
+	},
+	distanceAverage: function() {
+
+	},
+	octaneMode: function() {
+		var store = {};
+
+		var add = function(x) {
+			if ( store[x] == null ) {
+				store[x] = 0;
+			}
+
+			store[x]++;
+		};
+
+		var get = function() {
+			var highestKey = null;
+			var highest = 0;
+			for (var key in store) {
+				if (store[key] > highest) {
+					highest = store[key];
+					highestKey = key;
+				}
+			}
+			return highestKey;
+		};
+
+		for (var i = 0; i < 10 || i < this.length; i++) {
+			var fuelLog = this.at(i);
+			add(fuelLog.get("octane"));
+		}
+
+		return get();
 	}
 });

@@ -32,6 +32,7 @@ $(document).ready(function() {
 			var fuelLog = new solairis.ycl.model.FuelLog;
 			var view = new solairis.ycl.view.FuelLog({model: fuelLog, collection: this.fuelLogList, el: this.$(".new-fuel-log")});
 			view.enableNew();
+			fuelLog.set("octane", this.fuelLogList.octaneMode());
 			// TODO - Set new record defults here (maybe render won't have to be called manually
 			// since we're changing the model.)
 			view.render();
@@ -39,7 +40,7 @@ $(document).ready(function() {
 		}
 	});
 
-	var appView = new AppView;
+	var appView = new AppView; // Initialize Application
 
 	return;
 
