@@ -34,6 +34,7 @@ $(document).ready(function() {
 			view.enableNew();
 			fuelLog.set("octane", this.fuelLogList.octaneMode());
 			fuelLog.set("fuel", this.fuelLogList.fuelAverage());
+			fuelLog.set("odometer", this.fuelLogList.distanceAverage());
 			// TODO - Set new record defults here (maybe render won't have to be called manually
 			// since we're changing the model.)
 			view.render();

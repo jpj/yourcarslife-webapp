@@ -44,6 +44,19 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 	},
 	distanceAverage: function() {
 
+		var prevOdometer = 0;
+		var odometerDifference = 0;
+		var count = 0;
+		for (var i = 0; i < 10 && i < this.length; i++) {
+			var fuelLog = this.at(i);
+			if (prevOdometer != 0) {
+				odometerDifference += prevOdometer - fuelLog.get("odometer");
+				count++;
+			}
+			prevOdometer = fuelLog.get("odometer");
+		}
+
+		return count == 0 ? 0 : this.at(0).get("odometer") + odometerDifference / count;
 	},
 	octaneMode: function() {
 		var store = {};
