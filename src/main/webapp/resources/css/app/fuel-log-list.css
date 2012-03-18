@@ -182,6 +182,17 @@
 	width: 100px;
 }
 
+.fuel-log .display > .cost-per-fuel {
+	color: #c7c7c7;
+	left: 290px;
+	position: absolute;
+	top: 3px;
+}
+
+.fuel-log.is-new .display > .cost-per-fuel {
+	display: none;
+}
+
 .fuel-log .display > .odometer > input.edit {
 	width: 130px;
 }

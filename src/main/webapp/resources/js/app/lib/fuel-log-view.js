@@ -62,7 +62,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 			$(this.el).removeClass("editing");
 		} else {
 			this.collection.create(this.model.toJSON());
-			$(this.el).empty();
+			this.$el.empty();
 		}
 	},
 	cancelFuelLog: function(e) {

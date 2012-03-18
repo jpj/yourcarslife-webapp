@@ -93,6 +93,9 @@
 					<span class="view">{{cost}}</span>
 					<input type="number" class="edit" name="cost" value="{{cost}}"/>
 				</div>
+				<div class="cost-per-fuel">
+					(&#36;{{costPerFuel}}/gal.)
+				</div>
 				<div class="odometer">
 					<span class="view number">{{odometer}}</span>
 					<input type="number" class="edit number" name="odometer" value="{{odometer}}"/>
