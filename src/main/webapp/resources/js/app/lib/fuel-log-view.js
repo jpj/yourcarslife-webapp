@@ -14,22 +14,20 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	render: function() {
 		var tmpl = solairis.ycl.template;
 
-		$(this.el).html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(this.model.toJSON())));
 		var index = this.collection.indexOf(this.model);
-
-		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
-		$(this.el).data("logDate", new Date(this.model.get("logDate")));
-
-		// Fuel Economy
-		if (index > 0) {
-
-		}
+		
 		var nextModel = this.collection.at(index+1);
+		
+		this.$el.html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(this.model.toJSON())));
+		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
+		this.$el.data("logDate", new Date(this.model.get("logDate")));
+		
 		if (nextModel && nextModel.get("odometer") && !this.model.get("missedFillup")) {
 			this.$(".economy .number").text( ((this.model.get("odometer")-nextModel.get("odometer")) / this.model.get("fuel")).toFixed(2) );
 		} else {
 			this.$(".economy .number").text("-");
 		}
+		
 		return this;
 	},
 	serialize: function() {
