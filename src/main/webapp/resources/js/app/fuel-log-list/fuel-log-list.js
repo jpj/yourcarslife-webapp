@@ -16,7 +16,7 @@ $(document).ready(function() {
 			fuelLogs.setVehicleId(vehicleId);
 			this.fuelLogList = fuelLogs;
 
-			var fuelLogListView = new solairis.ycl.view.FuelLogList({collection: fuelLogs});
+			var fuelLogListView = new solairis.ycl.view.FuelLogList({collection: fuelLogs, el: $("#fuel-logs")});
 
 			fuelLogs.fetch();
 
