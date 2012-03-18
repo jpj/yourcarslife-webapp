@@ -32,11 +32,15 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 	},
 	fuelAverage: function() {
 		var avg = 0;
-		// TODO - finish
-		this.each(function(fuelLog){
-//			avg += fuelLog;
-		});
-		return avg;
+		var finalCount = 0;
+		for (var i = 0; i < 10 && i < this.length; i++) {
+			var fuelLog = this.at(i);
+			avg += fuelLog.get("fuel");
+			finalCount = i;
+		}
+		finalCount++;
+
+		return avg/finalCount;
 	},
 	distanceAverage: function() {
 
@@ -64,7 +68,7 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 			return highestKey;
 		};
 
-		for (var i = 0; i < 10 || i < this.length; i++) {
+		for (var i = 0; i < 10 && i < this.length; i++) {
 			var fuelLog = this.at(i);
 			add(fuelLog.get("octane"));
 		}
