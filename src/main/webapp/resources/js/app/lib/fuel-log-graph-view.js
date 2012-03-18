@@ -15,16 +15,18 @@ solairis.ycl.view.FuelLogGraph = Backbone.View.extend({
 			var index = viewContext.collection.indexOf(fuelLog);
 			var nextModel = viewContext.collection.at(index + 1);
 			
-			if (nextModel && nextModel.get("odometer") && !this.model.get("missedFillup")) {
+			if (nextModel && nextModel.get("odometer") && !fuelLog.get("missedFillup")) {
 				var logDate = new Date(fuelLog.get("logDate"));
-				fuelEconomy.push([logDate, ((this.model.get("odometer")-nextModel.get("odometer")) / this.model.get("fuel")).toFixed(2)]);
+				fuelEconomy.push([logDate, parseFloat(((fuelLog.get("odometer")-nextModel.get("odometer")) / fuelLog.get("fuel")).toFixed(2))]);
 			}
 		});
+		
+		alert(JSON.stringify(fuelEconomy));
 
 		this.$el.empty(); // Clear graph
 
-		$.jqplot("graph", [fuelEconomy], {
-			//title: "My Graph",
+		$.jqplot(this.$el.attr("id"), [fuelEconomy], {
+//			//title: "My Graph",
 			grid: {
 				borderWidth: 1,
 				shadow: false
