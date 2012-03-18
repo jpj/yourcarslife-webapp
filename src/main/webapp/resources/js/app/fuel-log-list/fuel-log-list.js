@@ -12,14 +12,19 @@ $(document).ready(function() {
 			var vehicleId = YCL.Request.getParameter("vehicleId");
 			this.vehicleId = vehicleId;
 
+			// Load Fuel Log list
 			var fuelLogs = new solairis.ycl.collection.FuelLogList;
 			fuelLogs.setVehicleId(vehicleId);
 			this.fuelLogList = fuelLogs;
 
 			var fuelLogListView = new solairis.ycl.view.FuelLogList({collection: fuelLogs, el: $("#fuel-logs")});
+			
+			// Load Graph
+			var fuelLogGraphView = new solairis.ycl.view.FuelLogGraph({collection: fuelLogs, el: $("#graph")});
 
 			fuelLogs.fetch();
 
+			// Load Vehicle
 			var vehicleModel = new solairis.ycl.model.Vehicle({vehicleId: vehicleId})
 			var vehicleView = new solairis.ycl.view.Vehicle({
 				el: app.$(".vehicle"),
@@ -39,66 +44,6 @@ $(document).ready(function() {
 	});
 
 	var appView = new AppView; // Initialize Application
-
-	return;
-
-	$.jqplot.config.enablePlugins = true;
-
-	var graphVehicleFuelLogs = function(vehicleFuelLogs) {
-
-		var fuelEconomy = [];
-		var fuelEconomyAvg = new YCL.average();
-
-		$.each(vehicleFuelLogs, function(index, vehicleFuelLog) {
-
-			if (!vehicleFuelLog.missedFillup && vehicleFuelLog.economy) {
-				var logDate = new Date(vehicleFuelLog.logDate);
-				var economy = vehicleFuelLog.economy;
-				fuelEconomy.push([logDate, economy]);
-				fuelEconomyAvg.add(economy);
-			}
-		});
-
-		$("#graph").empty(); // Clear graph
-		$("#graph-holder > .average-economy").text( fuelEconomyAvg.get() ); // Average Economy
-
-		$.jqplot("graph", [fuelEconomy], {
-			//title: "My Graph",
-			grid: {
-				borderWidth: 1,
-				shadow: false
-			},
-			series:[
-				{
-					lineWidth: 1,
-					color: "#6EAB75",
-					shadow: false
-				}
-			],
-			axes:{
-				xaxis: {
-					renderer: $.jqplot.DateAxisRenderer,
-					rendererOptions: {tickRenderer:$.jqplot.CanvasAxisTickRenderer},
-					tickOptions: {
-						formatString: '%Y %b %#d'
-					}
-				},
-				yaxis: {
-					tickOptions: {
-						formatString: '%.2f'
-					}
-				}
-			},
-			highlighter: {
-				sizeAdjust: 7.5
-			},
-			cursor: {
-				tooltipLocation: 'sw',
-				show: true
-			}
-		});
-	};
-
 
 //	if (vehicleId) {
 //
