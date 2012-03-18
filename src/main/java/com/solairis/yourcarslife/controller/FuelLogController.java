@@ -53,9 +53,10 @@ public class FuelLogController {
 	@RequestMapping(value="/api/vehicle/{vehicleId}/log/fuel", method= RequestMethod.POST)
 	@Transactional
 	@ResponseBody
-	public void save(@PathVariable("vehicleId") long vehicleId, @RequestBody FuelLog fuelLog) {
+	public FuelLog save(@PathVariable("vehicleId") long vehicleId, @RequestBody FuelLog fuelLog) {
 		fuelLog.setVehicle(this.vehicleService.getVehicle(vehicleId));
 		this.logService.save(fuelLog);
+		return fuelLog;
 	}
 
 	@RequestMapping(value = "/api/vehicle/{vehicleId}/log/fuel/{logId}", method = RequestMethod.PUT)
