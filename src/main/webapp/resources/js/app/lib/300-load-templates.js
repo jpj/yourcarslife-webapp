@@ -26,6 +26,11 @@ solairis.ycl.template.view.fuelLog = function(fuelLog) {
 			return fuelLog.fuel ? fuelLog.fuel.toFixed(3) : fuelLog.fuel;
 		},
 		octane: fuelLog.octane,
+		cost: function() {
+			var c = fuelLog.cost == null || fuelLog.cost === 0 ? null : fuelLog.cost.toString();
+			var costFmt = c == null ? null : c.substr(0, c.length - 2) + "." + c.substr(c.length -2);
+			return costFmt;
+		},
 		missedFillup: fuelLog.missedFillup
 	};
 };

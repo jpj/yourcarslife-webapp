@@ -52,18 +52,18 @@
 	padding: 0;
 }
 
-#fuel-logs input {
+.fuel-log input {
 	font-size: 17pt;
 }
 
-#fuel-logs input[type=text] {
+.fuel-log input[type=text] {
 /*	background-color: #DAF1FF;*/
 	background-color: #FFFFB8;
 	border: none;
 	padding: 0;
 }
 
-#fuel-logs input[type=text].error {
+.fuel-log input[type=text].error {
 /*	background-color: #FFD6D6;*/
 	background-color: #FFBBB8;
 }
@@ -166,6 +166,20 @@
 	color: #c7c7c7;
 	font-size: 12pt;
 	width: 147px;
+}
+
+.fuel-log .display > .cost {
+	color: #c7c7c7;
+	left: 162px;
+	position: absolute;
+	top: 2px;
+}
+
+.fuel-log .display > .cost > input.edit {
+	border: none;
+	font-size: 14pt;
+	text-align: right;
+	width: 100px;
 }
 
 .fuel-log .display > .odometer > input.edit {

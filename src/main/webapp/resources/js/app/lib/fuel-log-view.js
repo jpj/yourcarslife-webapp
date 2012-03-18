@@ -31,11 +31,22 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		return this;
 	},
 	serialize: function() {
+		var cost = null;
+		var costStr = this.$(".cost input").val();
+		if (costStr.indexOf(".") != -1) {
+			var costStrParts = costStr.split(".");
+			if (costStrParts.length == 2 && costStrParts[1].length == 2) {
+				cost = parseInt(costStrParts[0]+costStrParts[1]);
+			}
+		} else {
+			cost = parseInt(costStr+"00");
+		}
 		return {
 			odometer: parseFloat( this.$(".odometer input.edit").val() ),
 			logDate: $(this.el).data("logDate"),
 			fuel: parseFloat( this.$(".fuel input.edit").val() ),
 			octane: parseInt( this.$(".octane input").val() ),
+			cost: cost,
 			missedFillup: this.$(".missedFillup input").get(0).checked
 		};
 	},

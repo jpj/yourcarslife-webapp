@@ -88,6 +88,11 @@
 					<span class="view">{{logDate}}</span>
 					<input type="text" class="edit" name="logDate" value="{{logDate}}"/>
 				</div>
+				<div class="cost">
+					$
+					<span class="view">{{cost}}</span>
+					<input type="number" class="edit" name="cost" value="{{cost}}"/>
+				</div>
 				<div class="odometer">
 					<span class="view number">{{odometer}}</span>
 					<input type="number" class="edit number" name="odometer" value="{{odometer}}"/>
