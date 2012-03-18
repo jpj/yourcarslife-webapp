@@ -106,8 +106,6 @@ $(document).ready(function() {
 
 	if (vehicleId) {
 
-		// Add click events
-
 		// Paging
 		$(".paging a[href=#prev]").click(function(e) {
 			e.preventDefault();
@@ -121,17 +119,6 @@ $(document).ready(function() {
 			performSearch({
 				pageNumber: pagingData.pageNumber + 1
 			});
-		});
-
-		// Misc
-		$(".options > .add").click(function() {
-			if (!$(this).hasClass("disabled")) {
-				if ( $("#vehicleFuelLogs > li.new").is(":visible") ) {
-					closeNewRow();
-				} else {
-					alert("error. no new row");
-				}
-			}
 		});
 	}
 
