@@ -98,57 +98,6 @@ YCL.Request = {
 	}
 };
 
-YCL.average = function() {
-
-	var store = [];
-
-	this.add = function(x) {
-		if (!isNaN(x)) {
-			store.push( parseInt(x) );
-		} else {
-			throw "Only numbers can be entered to average. '"+x+"' is not a number.";
-		}
-	};
-
-	this.get = function() {
-		var total = 0;
-		for(var i = 0; i < store.length; i++) {
-			total += store[i];
-		}
-
-		return store.length != 0 ? total/store.length : 0;
-	};
-
-	return this;
-};
-
-YCL.mean = function() {
-
-	var store = {};
-
-	this.add = function(x) {
-		if ( store[x] == null ) {
-			store[x] = 0;
-		}
-
-		store[x]++;
-	};
-
-	this.get = function() {
-		var highestKey = null;
-		var highest = 0;
-		for (var key in store) {
-			if (store[key] > highest) {
-				highest = store[key];
-				highestKey = key;
-			}
-		}
-		return highestKey;
-	};
-
-	return this;
-};
-
 /**
  * @class {YCL.Error}
  * @property {String} code Error code
