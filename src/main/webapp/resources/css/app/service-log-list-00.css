@@ -136,7 +136,7 @@ ul#service-logs, ul#new-service-log {
 
 .service-log .description textarea {
 	height: 100px;
-	width: 858px;
+	width: 98%;
 }
 
 .service-log .tag {

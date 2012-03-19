@@ -6,6 +6,22 @@
         Purpose of the stylesheet follows.
 */
 
+@media screen and (max-width: 960px) {
+
+	.service-log .summary input {
+		width: 500px;
+	}
+
+}
+
+@media screen and (max-width: 819px) {
+
+	.service-log .summary input {
+		width: 300px;
+	}
+
+}
+
 @media screen and (max-width: 600px) {
 	
 	.service-log .summary {
@@ -13,7 +29,7 @@
 		top: 69px;
 	}
 	
-	.service-log .summary input, .service-log .description textarea {
+	.service-log .summary input {
 		width: 400px;
 	}
 	
