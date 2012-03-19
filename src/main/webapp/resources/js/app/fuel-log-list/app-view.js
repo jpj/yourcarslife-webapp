@@ -3,7 +3,8 @@ $(document).ready(function() {
 	var AppView = Backbone.View.extend({
 		el: $("body"),
 		events: {
-			"click #page-content .options .add": "addFuelLog"
+			"click #page-content .options .add": "addFuelLog",
+			"blur .fuel-log.is-new .fuel input": "guessCost"
 		},
 		vehicleId: null,
 		fuelLogList: null,
@@ -40,6 +41,16 @@ $(document).ready(function() {
 			fuelLog.set("odometer", this.fuelLogList.distanceAverage());
 			var view = new solairis.ycl.view.FuelLog({model: fuelLog, collection: this.fuelLogList, el: this.$(".new-fuel-log")});
 			view.render().enableNew();
+		},
+		guessCost: function() {
+			var $cost = this.$el.find(".fuel-log.is-new .cost input");
+			var fuel = this.$el.find(".fuel-log.is-new .fuel input").val();
+			if (!$cost.val()) {
+				var cost = this.fuelLogList.guessNextCost(fuel);
+				var c = cost == null || cost === 0 ? null : cost.toString();
+				var costFmt = c == null ? null : c.substr(0, c.length - 2) + "." + c.substr(c.length -2);
+				$cost.val(costFmt);
+			}
 		}
 	});
 

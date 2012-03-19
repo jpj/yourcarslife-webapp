@@ -88,5 +88,14 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 		}
 
 		return get();
+	},
+	
+	guessNextCost: function(fuel) {
+		var fuelLog = this.at(0);
+		if (fuelLog && fuelLog.get("cost") && fuelLog.get("fuel")) {
+			return parseInt(fuelLog.get("cost") / fuelLog.get("fuel") * fuel);
+		} else {
+			return 0;
+		}
 	}
 });
