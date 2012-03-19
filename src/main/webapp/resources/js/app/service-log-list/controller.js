@@ -79,6 +79,9 @@ $(function() {
 					ServiceLogView.$(".tags").append('<span class="tag">'+tag.label+'</span> ');
 				});
 			}
+			
+			this.$el.data("logId", this.model.get("logId"));
+			
 			return this;
 		},
 
