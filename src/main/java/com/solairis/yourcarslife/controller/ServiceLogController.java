@@ -96,7 +96,7 @@ public class ServiceLogController {
 	@RequestMapping(value = "/vehicle/{vehicleId}/log/service", method = RequestMethod.GET)
 	@Transactional
 	@ResponseBody
-	public List<ServiceLog> listBody(@PathVariable("vehicleId") long vehicleId, Model model) {
+	public List<ServiceLog> list(@PathVariable("vehicleId") long vehicleId, Model model) {
 		return logService.getServiceLogsForVehicle(vehicleId, 1, 100);
 	}
 
