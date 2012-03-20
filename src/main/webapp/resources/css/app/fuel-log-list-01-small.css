@@ -6,15 +6,11 @@
         Styles for 600px and smaller screen widths
 */
 
-@media screen and (max-width: 600px) {
-	
-	.fuel-log .display {
-		height: 130px;
-	}
-	
-	.fuel-log .display .economy {
-		left: 3px;
-		top: 60px;
-	}
-	
+.fuel-log .display {
+	height: 130px;
+}
+
+.fuel-log .display .economy {
+	left: 3px;
+	top: 60px;
 }
