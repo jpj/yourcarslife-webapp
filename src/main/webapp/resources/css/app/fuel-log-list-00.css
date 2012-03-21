@@ -15,6 +15,10 @@
 	margin-bottom: 30px;
 }
 
+#graph .jqplot-axis.jqplot-xaxis {
+	overflow: hidden;
+}
+
 .options {
 	height: 45px;
 	position: relative;
