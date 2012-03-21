@@ -36,7 +36,6 @@
 
 		<jwr:script src="/resources/js/app/lib.js"/>
 		<jwr:style src="/resources/css/app.css"/>
-		<jwr:style src="/resources/css/app-small.css" media="screen and (max-width: 600px)"/>
 		<decorator:head/>
 
 		<script type="text/javascript">

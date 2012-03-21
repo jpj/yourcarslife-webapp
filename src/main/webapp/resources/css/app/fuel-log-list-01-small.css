@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : fuel-log-list-small
     Created on : Mar 18, 2012, 8:02:07 PM
     Author     : josh
@@ -8,13 +8,46 @@
 
 @media screen and (max-width: 600px) {
 
-	.fuel-log .display {
+/*	.fuel-log .display {
 		height: 130px;
 	}
 
 	.fuel-log .display .economy {
 		left: 3px;
 		top: 60px;
+	}*/
+
+	#page-content {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	#graph {
+		margin-right: 30px;
+	}
+
+	.options > .add {
+		font-size: 20pt;
+	}
+
+	.fuel-log > .display > .odometer > .number {
+		font-size: inherit;
+	}
+
+	.fuel-log > .display > .fuel > .number {
+		font-size: inherit;
+	}
+
+	.fuel-log > .display > .economy {
+		top: 5px;
+	}
+
+	.fuel-log > .display > .economy > .number {
+		font-size: 20pt;
+	}
+
+	.fuel-log > .display > .economy > .units {
+		font-size: 15pt;
 	}
 
 }

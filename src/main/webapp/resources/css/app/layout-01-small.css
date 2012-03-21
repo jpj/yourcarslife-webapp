@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : layout-01-small
     Created on : Mar 18, 2012, 8:31:14 PM
     Author     : josh
@@ -7,17 +7,60 @@
 */
 
 @media screen and (max-width: 960px) {
-	
+
 	#page > .container {
 		width: auto;
 	}
-	
+
 }
 
 @media screen and (max-width: 933px) {
-	
+
 	#header .banner {
 		width: auto;
 	}
-	
+
+}
+
+@media screen and (max-width: 600px) {
+	#header .banner {
+		margin-top: 0;
+		width: inherit;
+	}
+
+	#header .banner .site-title {
+		font-size: 16pt;
+		font-weight: bold;
+	}
+
+	#header .banner .symbol {
+		font-size: 16pt;
+		top: 10px;
+	}
+
+	#header .banner .symbol .default {
+		display: none;
+	}
+
+	#header .banner .symbol .small {
+		display: inline;
+	}
+
+	#navigation {
+		-moz-border-radius: 0 0 5px 5px;
+		-webkit-border-radius: 0 0 5px 5px;
+	}
+
+	#navigation ul {
+		padding: 0;
+	}
+
+	#navigation ul li a {
+		padding: 3px 10px;
+		width: inherit;
+	}
+
+	#page > .container {
+		width: inherit;
+	}
 }
