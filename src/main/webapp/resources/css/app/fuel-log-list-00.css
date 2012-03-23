@@ -73,15 +73,19 @@
 	border-bottom: 1px solid #ececec;
 }
 
-.fuel-log:hover, .fuel-log.odd:hover {
+.fuel-log:hover, .fuel-log:nth-child(odd):hover {
 	background-color: #ececec;
+}
+
+.fuel-log.is-new {
+	border: 1px dashed black;
 }
 
 .fuel-log.editing:hover {
 	background-color: #E9FFE6;
 }
 
-.fuel-log.odd {
+.fuel-log:nth-child(odd) {
 	background-color: #f8f8f8;
 }
 
