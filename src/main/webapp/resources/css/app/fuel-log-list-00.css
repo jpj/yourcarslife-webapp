@@ -50,7 +50,6 @@
 }
 
 #fuel-logs {
-/*	font-size: 17pt;*/
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -61,14 +60,12 @@
 }
 
 .fuel-log input[type=text] {
-/*	background-color: #DAF1FF;*/
 	background-color: #FFFFB8;
 	border: none;
 	padding: 0;
 }
 
 .fuel-log input[type=text].error {
-/*	background-color: #FFD6D6;*/
 	background-color: #FFBBB8;
 }
 
@@ -144,7 +141,7 @@
 }
 
 /* Fuel */
-.fuel-log .display > .fuel {
+.fuel-log .fuel {
 	left: 175px;
 	position: absolute;
 	top: 33px;
@@ -166,53 +163,53 @@
 	top: 2px;
 }
 
-.fuel-log .display > .date > input.edit {
+.fuel-log .date input {
 	color: #c7c7c7;
 	font-size: 12pt;
 	width: 147px;
 }
 
-.fuel-log .display > .cost {
+.fuel-log .cost {
 	color: #c7c7c7;
 	left: 162px;
 	position: absolute;
 	top: 2px;
 }
 
-.fuel-log .display > .cost > input.edit {
+.fuel-log .cost input {
 	border: none;
 	font-size: 14pt;
 	text-align: right;
 	width: 100px;
 }
 
-.fuel-log .display > .cost-per-fuel {
+.fuel-log .cost-per-fuel {
 	color: #c7c7c7;
 	left: 290px;
 	position: absolute;
 	top: 3px;
 }
 
-.fuel-log.is-new .display > .cost-per-fuel {
+.fuel-log.is-new .cost-per-fuel {
 	display: none;
 }
 
-.fuel-log .display > .odometer > input.edit {
+.fuel-log .odometer input {
 	width: 130px;
 }
 
-.fuel-log .display > .fuel > input.edit {
+.fuel-log .fuel input {
 	text-align: right;
 	width: 100px;
 }
 
-.fuel-log .display > .economy {
+.fuel-log .economy {
 	position: absolute;
 	right: 10px;
 	top: 1px;
 }
 
-.fuel-log .display > .economy > .number {
+.fuel-log .economy .number {
 	font-size: 40pt;
 	color: #6EAB75;
 }
@@ -263,7 +260,7 @@
 	position: relative;
 }
 
-.fuel-log .edit-section > .holder > .octane > label > input {
+.fuel-log .octane input {
 	width: 60px;
 }
 

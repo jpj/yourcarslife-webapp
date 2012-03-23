@@ -8,15 +8,6 @@
 
 @media screen and (max-width: 600px) {
 
-/*	.fuel-log .display {
-		height: 130px;
-	}
-
-	.fuel-log .display .economy {
-		left: 3px;
-		top: 60px;
-	}*/
-
 	#page-content {
 		padding-left: 0;
 		padding-right: 0;
@@ -24,6 +15,27 @@
 
 	.options > .add {
 		font-size: 20pt;
+	}
+
+	.fuel-log .date input {
+		width: 100px;
+	}
+
+	.fuel-log .cost {
+		left: 123px;
+	}
+
+	.fuel-log .cost input {
+		font-size: inherit;
+		width: 60px;
+	}
+
+	.fuel-log .cost-per-fuel {
+		left: 207px;
+	}
+
+	.fuel-log .odometer input {
+		width: 82px;
 	}
 
 	.fuel-log > .display > .odometer > .number {
@@ -34,8 +46,16 @@
 		font-size: inherit;
 	}
 
-	.fuel-log > .display > .economy {
-		top: 5px;
+	.fuel-log .fuel {
+		left: 135px;
+	}
+
+	.fuel-log .fuel input {
+		width: 60px;
+	}
+
+	.fuel-log .economy {
+		top: 30px;
 	}
 
 	.fuel-log > .display > .economy > .number {
@@ -44,6 +64,11 @@
 
 	.fuel-log > .display > .economy > .units {
 		font-size: 15pt;
+	}
+
+	.fuel-log .octane input {
+		font-size: inherit;
+		width: 36px;
 	}
 
 }
