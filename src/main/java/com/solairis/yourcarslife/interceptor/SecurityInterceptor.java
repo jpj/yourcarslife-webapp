@@ -59,7 +59,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
 
 			String logIdParam = uriVars.get("logId");
 			if (logIdParam != null) {
-				Log log = this.logService.getFuelLog(Long.parseLong(logIdParam));
+				Log log = this.logService.getLog(Long.parseLong(logIdParam));
 				if (log.getVehicle().getUser().getUserId() != user.getUserId()) {
 					throw new AccessDeniedException("Log not owned by user");
 				}
