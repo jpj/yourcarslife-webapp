@@ -7,7 +7,15 @@
               http://www.springframework.org/schema/security
               http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-	<security:global-method-security pre-post-annotations="enabled"/>
+	<security:global-method-security pre-post-annotations="enabled">
+<!--		<security:expression-handler ref="yclExpressionHandler"/>-->
+	</security:global-method-security>
+
+<!--	<bean id="yclExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+		<property name="permissionEvaluator">
+			<bean class="com.solairis.yourcarslife.authentication.YclPermissionEvaluator"/>
+		</property>
+	</bean>-->
 
 	<security:http use-expressions="true" auto-config="true">
 		<security:intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
