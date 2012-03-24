@@ -4,7 +4,7 @@
  */
 
 $(function() {
-	
+
 	var converter = new Showdown.converter();
 
 	var vehicleId = YCL.Request.getParameter("vehicleId");
@@ -75,8 +75,8 @@ $(function() {
 			var odometer = this.model.get("odometer") == null ? null : this.model.get("odometer").toFixed(1);
 			this.$(".view .odometer .number").text(odometer);
 			this.$(".edit .odometer .number input").val(odometer);
-			
-			this.$(".view .description").html(converter.makeHtml(this.model.get('description')));
+
+			this.$(".view .description").html(this.model.get('description') == null ? null : converter.makeHtml(this.model.get('description')));
 
 			if (this.model.get("tags")) {
 				var ServiceLogView = this;
@@ -84,9 +84,9 @@ $(function() {
 					ServiceLogView.$(".tags").append('<span class="tag">'+tag.label+'</span> ');
 				});
 			}
-			
+
 			this.$el.data("logId", this.model.get("logId"));
-			
+
 			return this;
 		},
 
