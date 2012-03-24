@@ -7,6 +7,9 @@
               http://www.springframework.org/schema/security
               http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
+	<bean id="ep403" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
+	<bean id="epurl" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint"/>
+
 	<security:global-method-security pre-post-annotations="enabled">
 <!--		<security:expression-handler ref="yclExpressionHandler"/>-->
 	</security:global-method-security>
@@ -17,7 +20,11 @@
 		</property>
 	</bean>-->
 
-	<security:http use-expressions="true" auto-config="true">
+	<security:http use-expressions="true" entry-point-ref="ep403">
+		<security:intercept-url pattern="/api/**" access="hasAnyRole('ROLE_USER')"/>
+	</security:http>
+
+	<security:http use-expressions="true" auto-config="true" entry-point-ref="epurl">
 		<security:intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/create-account" filters="none"/>
 		<security:intercept-url pattern="/favicon.ico" filters="none"/>
