@@ -9,7 +9,7 @@
 		<title>Fuel Log</title>
 		<script type="text/javascript">
 			$(function() {
-				var appView = new solairis.ycl.view.FuelLogApp({el: $("body")}); // Initialize Application
+				var app = new solairis.ycl.view.FuelLogApp({el: $("body")}); // Initialize Application
 			});
 		</script>
 	</head>
