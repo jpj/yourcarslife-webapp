@@ -1,9 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 <html>
 	<head>
 		<title>Dashboard</title>
-		<jwr:script src="/resources/js/app/vehicle-list.js"/>
 	</head>
 	<body>
 
@@ -27,19 +25,6 @@
 				<ul id="vehicles">
 					<c:forEach var="vehicle" items="${vehicles}">
 						<li class="vehicle available">
-							<div class="display">
-								<h3>
-									<a class="name fuel-log-list" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/fuel/list/1" />">${vehicle.name}</a>
-									(<a class="edit" href="<c:url value="/vehicle/${vehicle.vehicleId}"/>">edit</a>)
-									(<a class="service-log-list" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/service/list/1"/>">Service Logs</a>)
-								</h3>
-								<div class="details">
-									<div class="holder">
-										<p class="notes">Notes: ${vehicle.notes}</p>
-										<p class="description">Description: ${vehicle.description}</p>
-									</div>
-								</div>
-							</div>
 						</li>
 					</c:forEach>
 				</ul>

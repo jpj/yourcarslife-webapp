@@ -132,6 +132,25 @@
 				</div>
 			</div>
 		</script>
+		
+		<script id="vehicle-template" type="text/template">
+			<div class="container edit">
+				
+			</div>
+			<a class="container view">
+				<h3>
+					<a class="name fuel-log-list" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/fuel/list/1" />">${vehicle.name}</a>
+					(<a class="edit" href="<c:url value="/vehicle/${vehicle.vehicleId}"/>">edit</a>)
+					(<a class="service-log-list" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/service/list/1"/>">Service Logs</a>)
+				</h3>
+				<div class="details">
+					<div class="holder">
+						<p class="notes">Notes: ${vehicle.notes}</p>
+						<p class="description">Description: ${vehicle.description}</p>
+					</div>
+				</div>
+			</a>
+		</script>
 
 	</body>
 </html>
