@@ -4,7 +4,7 @@
  */
 
 solairis.ycl.view.Vehicle = Backbone.View.extend({
-	tagName: "div",
+	tagName: "li",
 	className: "vehicle",
 	initialize: function() {
 		this.model.on("change", this.render, this);

@@ -113,7 +113,7 @@ $(function() {
 		edit: function() {
 			var descViewHeight = this.$(".container.view .description").height() + 20;
 			var descEditHeight = this.$(".container.edit .description textarea").height();
-			
+
 			if (descViewHeight > descEditHeight) {
 				this.$(".container.edit .description textarea").height( descViewHeight );
 			}
@@ -169,7 +169,7 @@ $(function() {
 			ServiceLogs.fetch();
 
 			var vehicleModel = new solairis.ycl.model.Vehicle({vehicleId: vehicleId})
-			var vehicleView = new solairis.ycl.view.Vehicle({
+			var vehicleView = new solairis.ycl.view.VehicleHeader({
 				el: $(".vehicle"),
 				model: vehicleModel
 			});
