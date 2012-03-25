@@ -25,11 +25,10 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 
 		// Load Vehicle
 		var vehicleModel = new solairis.ycl.model.Vehicle({vehicleId: vehicleId})
-		var vehicleView = new solairis.ycl.view.Vehicle({
+		var vehicleView = new solairis.ycl.view.VehicleHeader({
 			el: app.$(".vehicle-wrapper"),
 			model: vehicleModel
 		});
-		vehicleView.setTemplate(solairis.ycl.template.text.headerVehicle);
 		vehicleModel.fetch();
 	},
 	addFuelLog: function() {
