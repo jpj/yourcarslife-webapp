@@ -3,15 +3,15 @@
     Created on : Nov 21, 2010, 8:26:55 PM
     Author     : josh
 --%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 <!doctype html>
 <html>
 	<head>
 		<title>Fuel Log</title>
-		<jwr:script src="/resources/js/app/fuel-log-list.js"/>
+		<script type="text/javascript">
+			$(function() {
+				var appView = new solairis.ycl.view.FuelLogApp; // Initialize Application
+			});
+		</script>
 	</head>
 	<body>
 		<p class="vehicle">
