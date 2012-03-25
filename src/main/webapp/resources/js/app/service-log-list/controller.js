@@ -111,7 +111,7 @@ $(function() {
 		},
 
 		edit: function() {
-			var descViewHeight = this.$(".container.view .description").height();
+			var descViewHeight = this.$(".container.view .description").height() + 20;
 			var descEditHeight = this.$(".container.edit .description textarea").height();
 			
 			if (descViewHeight > descEditHeight) {
