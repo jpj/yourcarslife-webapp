@@ -11,7 +11,7 @@
 
 		<h2>Your Vehicles</h2>
 
-		<p>
+		<p class="user-has-no-vehicles">
 			You have no vehicles. The first step is to
 			<a class="add-new-vehicle" href="#">add a vehicle</a>,
 			then you can add fuel and service logs
