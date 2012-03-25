@@ -194,6 +194,10 @@
 	top: 3px;
 }
 
+/*.fuel-log .cost-per-fuel:first-letter {
+	font-size: 20pt;
+}*/
+
 .fuel-log.is-new .cost-per-fuel {
 	display: none;
 }

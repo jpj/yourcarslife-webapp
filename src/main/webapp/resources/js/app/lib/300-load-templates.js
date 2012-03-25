@@ -32,7 +32,7 @@ solairis.ycl.template.view.fuelLog = function(fuelLog) {
 			return costFmt;
 		},
 		costPerFuel: function() {
-			return fuelLog.cost ? parseFloat((costFmt)/fuelLog.fuel).toFixed(2) : "-"
+			return fuelLog.cost ? parseFloat((costFmt)/fuelLog.fuel).toFixed(3) : "-"
 		},
 		missedFillup: fuelLog.missedFillup
 	};
