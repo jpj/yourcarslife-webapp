@@ -137,18 +137,16 @@
 			<div class="container edit">
 				
 			</div>
-			<a class="container view">
+			<a class="container view" href="{{editVehicleUrl}}">
 				<h3>
-					<a class="name fuel-log-list" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/fuel/list/1" />">${vehicle.name}</a>
-					(<a class="edit" href="<c:url value="/vehicle/${vehicle.vehicleId}"/>">edit</a>)
-					(<a class="service-log-list" href="<c:url value="/vehicle/${vehicle.vehicleId}/log/service/list/1"/>">Service Logs</a>)
+					{{name}}
 				</h3>
-				<div class="details">
-					<div class="holder">
-						<p class="notes">Notes: ${vehicle.notes}</p>
-						<p class="description">Description: ${vehicle.description}</p>
-					</div>
-				</div>
+				<p>
+					<a href="{{fuelLogsUrl}}">Fuel Logs</a> |
+					<a href="{{serviceLogsUrl}}">Service Logs</a>
+				</p>
+				<p>Notes: {{notes}}</p>
+				<p>Description: {{description}}</p>
 			</a>
 		</script>
 
