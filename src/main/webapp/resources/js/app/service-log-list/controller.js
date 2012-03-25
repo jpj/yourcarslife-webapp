@@ -111,7 +111,13 @@ $(function() {
 		},
 
 		edit: function() {
-			$(this.el).addClass("editing");
+			var descViewHeight = this.$(".container.view .description").height();
+			var descEditHeight = this.$(".container.edit .description textarea").height();
+			
+			if (descViewHeight > descEditHeight) {
+				this.$(".container.edit .description textarea").height( descViewHeight );
+			}
+			this.$el.addClass("editing");
 			return false;
 		},
 		save: function(e) {
