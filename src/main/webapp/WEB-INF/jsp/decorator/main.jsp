@@ -149,6 +149,10 @@
 				<p>Description: {{description}}</p>
 			</a>
 		</script>
+		
+		<script id="header-vehicle-template" type="text/template">
+			<div>Vehicle: <span class="name">{{name}}</span></div>
+		</script>
 
 	</body>
 </html>

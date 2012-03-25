@@ -68,4 +68,5 @@ $(function() {
 
 	tmpl.fuelLog = $("#fuel-log-template").html();
 	tmpl.vehicle = $("#vehicle-template").html();
+	tmpl.headerVehicle = $("#header-vehicle-template").html();
 });
