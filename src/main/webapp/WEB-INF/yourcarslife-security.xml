@@ -7,9 +7,42 @@
               http://www.springframework.org/schema/security
               http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-	<security:global-method-security pre-post-annotations="enabled"/>
 
-	<security:http use-expressions="true" auto-config="true">
+
+
+	<bean id="entryPoint" class="org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint">
+		<constructor-arg>
+			<map>
+				<entry>
+					<key>
+						<bean class="com.solairis.yourcarslife.requestmatcher.ServicesRequestMatcher"/>
+					</key>
+					<bean id="ep403" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
+				</entry>
+			</map>
+		</constructor-arg>
+		<property name="defaultEntryPoint">
+			<bean class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+				<property name="loginFormUrl" value="/login"/>
+			</bean>
+		</property>
+	</bean>
+
+	<security:global-method-security pre-post-annotations="enabled">
+<!--		<security:expression-handler ref="yclExpressionHandler"/>-->
+	</security:global-method-security>
+
+<!--	<bean id="yclExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+		<property name="permissionEvaluator">
+			<bean class="com.solairis.yourcarslife.authentication.YclPermissionEvaluator"/>
+		</property>
+	</bean>-->
+
+<!--	<security:http use-expressions="true" entry-point-ref="ep403">
+		<security:intercept-url pattern="/api/**" access="hasAnyRole('ROLE_USER')"/>
+	</security:http>-->
+
+	<security:http use-expressions="true" auto-config="true" entry-point-ref="entryPoint">
 		<security:intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/create-account" filters="none"/>
 		<security:intercept-url pattern="/favicon.ico" filters="none"/>
