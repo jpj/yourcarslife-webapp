@@ -1,6 +1,5 @@
 
 solairis.ycl.view.FuelLogApp = Backbone.View.extend({
-	el: $("body"),
 	events: {
 		"click #page-content .options .add": "addFuelLog",
 		"blur .fuel-log.is-new .fuel input": "guessCost"
