@@ -64,6 +64,14 @@ public class SecurityInterceptor implements HandlerInterceptor {
 					throw new AccessDeniedException("Log not owned by user");
 				}
 			}
+
+			String userIdParam = uriVars.get("userId");
+			if (userIdParam != null) {
+				User requestedUser = this.userService.getUser(Long.parseLong(userIdParam));
+				if (requestedUser.getUserId() != user.getUserId()) {
+					throw new AccessDeniedException("Access denied to this user's info");
+				}
+			}
 		}
 		return true;
 	}
