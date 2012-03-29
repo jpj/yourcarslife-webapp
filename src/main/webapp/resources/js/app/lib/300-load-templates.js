@@ -53,7 +53,7 @@ solairis.ycl.template.view.vehicle = function(vehicle) {
 			fuelLogListUrl.href = YCLConstants.BASE_URL + "/vehicle/log/fuel/list";
 			fuelLogListUrl.hash = JSON.stringify({vehicleId: vehicle.vehicleId});
 			return fuelLogListUrl.href;
-		}, 
+		},
 		serviceLogsUrl: function() {
 			var serviceLogListUrl = document.createElement("a");
 			serviceLogListUrl.href = YCLConstants.BASE_URL + "/vehicle/log/service/list";
@@ -63,10 +63,18 @@ solairis.ycl.template.view.vehicle = function(vehicle) {
 	};
 };
 
+solairis.ycl.template.view.user = function(user) {
+	return {
+		userId: user.userId,
+		login: user.login
+	};
+};
+
 $(function() {
 	var tmpl = solairis.ycl.template.text;
 
 	tmpl.fuelLog = $("#fuel-log-template").html();
 	tmpl.vehicle = $("#vehicle-template").html();
 	tmpl.headerVehicle = $("#header-vehicle-template").html();
+	tmpl.headerUser = $("#header-user-template").html();
 });

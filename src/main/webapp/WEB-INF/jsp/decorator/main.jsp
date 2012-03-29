@@ -39,6 +39,12 @@
 		<decorator:head/>
 
 		<script type="text/javascript">
+			$(function() {
+				var app = new solairis.ycl.view.App();
+			});
+		</script>
+
+		<script type="text/javascript">
 			var _gaq = _gaq || [];
 			_gaq.push(['_setAccount', 'UA-12616011-3']);
 			_gaq.push(['_trackPageview']);
@@ -72,6 +78,8 @@
 							<li><a href="<c:url value="/login"/>">Login</a></li>
 						</security:authorize>
 					</ul>
+
+					<div class="user-wrapper"></div>
 				</div>
 				<div id="page-content">
 					<div class="content">
@@ -152,6 +160,12 @@
 
 		<script id="header-vehicle-template" type="text/template">
 			<div>Vehicle: <span class="name">{{name}}</span></div>
+		</script>
+
+		<script id="header-user-template" type="text/template">
+			<div>
+				<span class="login">{{login}}</span>
+			</div>
 		</script>
 
 	</body>

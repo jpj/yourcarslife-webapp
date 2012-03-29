@@ -113,3 +113,7 @@ Page
 #navigation ul li a:hover {
 	background-color: #9a0000;
 }
+
+#navigation .user {
+	background-color: green;
+}
