@@ -14,8 +14,7 @@
 		</script>
 	</head>
 	<body>
-		<p class="vehicle">
-			<span class="name"></span>: <span class="notes"></span>
+		<p class="vehicle-wrapper">
                 </p>
 
 		<div id="graph-holder">
