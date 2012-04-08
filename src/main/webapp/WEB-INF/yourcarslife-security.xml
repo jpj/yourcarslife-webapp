@@ -47,6 +47,7 @@
 		<security:intercept-url pattern="/create-account" filters="none"/>
 		<security:intercept-url pattern="/favicon.ico" filters="none"/>
 		<security:intercept-url pattern="/home" filters="none"/>
+		<security:intercept-url pattern="/api/currentuser" filters="none"/>
 		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/resources/**" filters="none"/>

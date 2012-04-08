@@ -46,13 +46,15 @@ public class SecurityInterceptor implements HandlerInterceptor {
 	@Override
 	@Transactional
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-		User user = this.userService.getUser(( Long.parseLong(((org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())) );
+		// TODO - fix NPE on next line.
+		org.springframework.security.core.userdetails.User userPrincipal = ((org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		User user = userPrincipal == null ? null : this.userService.getUser(( Long.parseLong(userPrincipal.getUsername())) );
 		Map<String, String> uriVars = (HashMap<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		if (uriVars != null) {
 			String vehicleIdParam = uriVars.get("vehicleId");
 			if (vehicleIdParam != null) {
 				Vehicle vehicle = this.vehicleService.getVehicle(Long.parseLong(vehicleIdParam));
-				if (vehicle.getUser().getUserId() != user.getUserId()) {
+				if (user == null || vehicle.getUser().getUserId() != user.getUserId()) {
 					throw new AccessDeniedException("User does not own vehicle");
 				}
 			}
@@ -60,8 +62,16 @@ public class SecurityInterceptor implements HandlerInterceptor {
 			String logIdParam = uriVars.get("logId");
 			if (logIdParam != null) {
 				Log log = this.logService.getLog(Long.parseLong(logIdParam));
-				if (log.getVehicle().getUser().getUserId() != user.getUserId()) {
+				if (user == null || log.getVehicle().getUser().getUserId() != user.getUserId()) {
 					throw new AccessDeniedException("Log not owned by user");
+				}
+			}
+
+			String userIdParam = uriVars.get("userId");
+			if (userIdParam != null) {
+				User requestedUser = this.userService.getUser(Long.parseLong(userIdParam));
+				if (user == null || requestedUser.getUserId() != user.getUserId()) {
+					throw new AccessDeniedException("Access denied to this user's info");
 				}
 			}
 		}
