@@ -38,8 +38,35 @@ solairis.ycl.template.view.fuelLog = function(fuelLog) {
 	};
 };
 
+solairis.ycl.template.view.vehicle = function(vehicle) {
+	return {
+		name: vehicle.name,
+		notes: vehicle.notes,
+		description: vehicle.description,
+		editVehicleUrl: function() {
+			var editVehicleUrl = document.createElement("a");
+			editVehicleUrl.href = YCLConstants.BASE_URL + "/vehicle/" + vehicle.vehicleId;
+			return editVehicleUrl.href;
+		},
+		fuelLogsUrl: function() {
+			var fuelLogListUrl = document.createElement("a");
+			fuelLogListUrl.href = YCLConstants.BASE_URL + "/vehicle/log/fuel/list";
+			fuelLogListUrl.hash = JSON.stringify({vehicleId: vehicle.vehicleId});
+			return fuelLogListUrl.href;
+		}, 
+		serviceLogsUrl: function() {
+			var serviceLogListUrl = document.createElement("a");
+			serviceLogListUrl.href = YCLConstants.BASE_URL + "/vehicle/log/service/list";
+			serviceLogListUrl.hash = JSON.stringify({vehicleId: vehicle.vehicleId});
+			return serviceLogListUrl.href;
+		}
+	};
+};
+
 $(function() {
 	var tmpl = solairis.ycl.template.text;
 
 	tmpl.fuelLog = $("#fuel-log-template").html();
+	tmpl.vehicle = $("#vehicle-template").html();
+	tmpl.headerVehicle = $("#header-vehicle-template").html();
 });

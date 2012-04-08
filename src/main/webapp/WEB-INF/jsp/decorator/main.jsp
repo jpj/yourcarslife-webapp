@@ -133,5 +133,26 @@
 			</div>
 		</script>
 
+		<script id="vehicle-template" type="text/template">
+			<div class="container edit">
+
+			</div>
+			<div class="container view">
+				<div class="name">
+					<a href="{{editVehicleUrl}}">{{name}}</a>
+				</div>
+				<div>
+					<a href="{{fuelLogsUrl}}">Fuel Logs</a> |
+					<a href="{{serviceLogsUrl}}">Service Logs</a>
+				</div>
+				<div>Notes: <span class="notes">{{notes}}</span></div>
+				<div>Description: <span class="description">{{description}}</span></div>
+			</div>
+		</script>
+
+		<script id="header-vehicle-template" type="text/template">
+			<div>Vehicle: <span class="name">{{name}}</span></div>
+		</script>
+
 	</body>
 </html>
