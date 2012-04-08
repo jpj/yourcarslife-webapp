@@ -71,7 +71,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		} else {
 			this.collection.create(this.model.toJSON(), {
 				success: function() {
-					ctx.$el.empty();
+					ctx.$el.removeClass("is-new editing fuel-log").empty();
 				},
 				error: function() {
 					alert("error adding new fuel log");
