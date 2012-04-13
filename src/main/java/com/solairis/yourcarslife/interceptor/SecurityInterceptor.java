@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -47,7 +48,13 @@ public class SecurityInterceptor implements HandlerInterceptor {
 	@Transactional
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
 		// TODO - fix NPE on next line.
-		org.springframework.security.core.userdetails.User userPrincipal = ((org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		org.springframework.security.core.userdetails.User userPrincipal = null;
+		try {
+			userPrincipal = auth == null ? null : ((org.springframework.security.core.userdetails.User)auth.getPrincipal());
+		} catch (ClassCastException e) {
+			// Don't care
+		}
 		User user = userPrincipal == null ? null : this.userService.getUser(( Long.parseLong(userPrincipal.getUsername())) );
 		Map<String, String> uriVars = (HashMap<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		if (uriVars != null) {

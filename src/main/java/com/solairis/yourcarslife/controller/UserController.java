@@ -6,7 +6,9 @@ package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.service.UserService;
+import com.sun.security.auth.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +38,19 @@ public class UserController {
 	@Transactional
 	@ResponseBody
 	public User getCurrentUser() {
-		return this.userService.getUser(( Long.parseLong(((org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())) );
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		org.springframework.security.core.userdetails.User authUser = null;
+		if (auth instanceof org.springframework.security.core.userdetails.User) {
+			authUser = (org.springframework.security.core.userdetails.User)auth.getPrincipal();
+		}
+
+		if (authUser != null) {
+			String userIdStr = authUser.getUsername();
+			long userId = Long.parseLong(userIdStr);
+			return this.userService.getUser(userId);
+		} else {
+			return null;
+		}
 	}
 
 }
