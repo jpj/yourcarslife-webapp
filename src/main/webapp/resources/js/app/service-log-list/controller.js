@@ -121,16 +121,29 @@ $(function() {
 			return false;
 		},
 		save: function(e) {
+			var ctx = this;
 			e.preventDefault();
 			this.model.set(this.serialize());
 			if (this.model.get("logId")) {
 				// Existing Model
-				this.model.save();
-				$(this.el).removeClass("editing");
+				this.model.save(null, {
+					success: function() {
+						ctx.$el.removeClass("editing");
+					},
+					error: function() {
+						alert("Error saving service log");
+					}
+				});
 			} else {
 				// New Model
-				ServiceLogs.create(this.model.toJSON());
-				$(this.el).remove();
+				ServiceLogs.create(this.model.toJSON(), {
+					success: function() {
+						ctx.$el.remove();
+					},
+					error: function() {
+						alert("Error creating new service log");
+					}
+				});
 			}
 		},
 		cancel: function(e) {

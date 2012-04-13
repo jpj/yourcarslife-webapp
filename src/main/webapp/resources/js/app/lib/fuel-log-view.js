@@ -56,14 +56,27 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		this.$el.addClass("editing");
 	},
 	saveFuelLog: function(e) {
+		var ctx = this;
 		e.preventDefault();
 		this.model.set(this.serialize());
 		if (this.model.get("logId")) {
-			this.model.save();
-			$(this.el).removeClass("editing");
+			this.model.save(null, {
+				success: function() {
+					ctx.$el.removeClass("editing");
+				},
+				error: function() {
+					alert("Error saving fuel log");
+				}
+			});
 		} else {
-			this.collection.create(this.model.toJSON());
-			this.$el.empty();
+			this.collection.create(this.model.toJSON(), {
+				success: function() {
+					ctx.$el.removeClass("is-new editing fuel-log").empty();
+				},
+				error: function() {
+					alert("error adding new fuel log");
+				}
+			});
 		}
 	},
 	cancelFuelLog: function(e) {
