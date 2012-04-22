@@ -37,8 +37,9 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 		fuelLog.set("octane", this.fuelLogList.octaneMode());
 		fuelLog.set("fuel", this.fuelLogList.fuelAverage());
 		fuelLog.set("odometer", this.fuelLogList.distanceAverage());
-		var view = new solairis.ycl.view.FuelLog({model: fuelLog, collection: this.fuelLogList, el: this.$(".new-fuel-log")});
-		view.render().enableNew();
+		var view = new solairis.ycl.view.FuelLog({model: fuelLog, collection: this.fuelLogList});
+		this.$(".new-fuel-log").html(view.render().el);
+		view.enableNew();
 	},
 	guessCost: function() {
 		var $cost = this.$el.find(".fuel-log.is-new .cost input");
