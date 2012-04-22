@@ -34,13 +34,15 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	serialize: function() {
 		var cost = null;
 		var costStr = this.$(".cost input").val();
-		if (costStr.indexOf(".") != -1) {
-			var costStrParts = costStr.split(".");
-			if (costStrParts.length == 2 && costStrParts[1].length == 2) {
-				cost = parseInt(costStrParts[0]+costStrParts[1]);
+		if (costStr != null) {
+			if (costStr.indexOf(".") != -1) {
+				var costStrParts = costStr.split(".");
+				if (costStrParts.length == 2 && costStrParts[1].length == 2) {
+					cost = parseInt(costStrParts[0]+costStrParts[1]);
+				}
+			} else {
+				cost = parseInt(costStr+"00");
 			}
-		} else {
-			cost = parseInt(costStr+"00");
 		}
 		return {
 			odometer: parseFloat( this.$(".odometer input.edit").val() ),
@@ -58,7 +60,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	saveFuelLog: function(e) {
 		var ctx = this;
 		e.preventDefault();
-		this.model.set(this.serialize());
+		this.model.set(this.serialize.call(ctx));
 		if (this.model.get("logId")) {
 			this.model.save(null, {
 				success: function() {
@@ -71,12 +73,15 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		} else {
 			this.collection.create(this.model.toJSON(), {
 				success: function() {
-					ctx.$el.removeClass("is-new editing fuel-log").empty();
+					// For some reason this creates an error
+					// where multiple fuel logs get entered.
+//					ctx.$el.removeClass("is-new editing fuel-log").empty();
 				},
 				error: function() {
 					alert("error adding new fuel log");
 				}
 			});
+			ctx.$el.removeClass("is-new editing fuel-log").empty();
 		}
 	},
 	cancelFuelLog: function(e) {
