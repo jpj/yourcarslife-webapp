@@ -90,55 +90,57 @@
 		</div>
 
 		<script id="fuel-log-template" type="text/template">
-			<div class="display">
-				<div class="date">
-					<span class="view">{{logDate}}</span>
-					<input type="text" class="edit" name="logDate" value="{{logDate}}"/>
-				</div>
-				<div class="cost">
-					$
-					<span class="view">{{cost}}</span>
-					<input type="text" class="edit" name="cost" value="{{cost}}"/>
-				</div>
-				<div class="cost-per-fuel">
-					{{costPerFuel}}/gal.
-				</div>
-				<div class="odometer">
-					<span class="view number">{{odometer}}</span>
-					<input type="number" class="edit number" name="odometer" value="{{odometer}}"/>
-					<span class="units">mi</span>
-				</div>
-				<div class="fuel">
-					<span class="view number">{{fuel}}</span>
-					<input type="number" class="edit number" name="fuel" value="{{fuel}}"/>
-					<span class="units">gal</span>
-				</div>
-				<div class="economy">
-					<span class="number"></span>
-					<span class="units">mpg</span>
-				</div>
-			</div>
-			<div class="edit-section">
-				<div class="separator"></div>
-				<div class="holder">
-					<div class="missedFillup">
-						<label>
-							<input type="checkbox" name="missedFillup"/>
-							Missed a Fill-Up
-						</label>
+			<form method="get" action="#">
+				<div class="display">
+					<div class="date">
+						<span class="view">{{logDate}}</span>
+						<input type="text" class="edit" name="logDate" value="{{logDate}}"/>
 					</div>
-					<div class="octane">
-						<label>
-							<input type="number" name="octane" value="{{octane}}"/>
-							Octane
-						</label>
+					<div class="cost">
+						$
+						<span class="view">{{cost}}</span>
+						<input type="text" class="edit" name="cost" value="{{cost}}"/>
 					</div>
-					<div class="submit">
-						<input type="submit" name="save" value="Save"/>
-						<input type="submit" name="cancel" value="Cancel"/>
+					<div class="cost-per-fuel">
+						{{costPerFuel}}/gal.
+					</div>
+					<div class="odometer">
+						<span class="view number">{{odometer}}</span>
+						<input type="number" class="edit number" name="odometer" value="{{odometer}}"/>
+						<span class="units">mi</span>
+					</div>
+					<div class="fuel">
+						<span class="view number">{{fuel}}</span>
+						<input type="number" class="edit number" name="fuel" value="{{fuel}}"/>
+						<span class="units">gal</span>
+					</div>
+					<div class="economy">
+						<span class="number"></span>
+						<span class="units">mpg</span>
 					</div>
 				</div>
-			</div>
+				<div class="edit-section">
+					<div class="separator"></div>
+					<div class="holder">
+						<div class="missedFillup">
+							<label>
+								<input type="checkbox" name="missedFillup"/>
+								Missed a Fill-Up
+							</label>
+						</div>
+						<div class="octane">
+							<label>
+								<input type="number" name="octane" value="{{octane}}"/>
+								Octane
+							</label>
+						</div>
+						<div class="submit">
+							<input type="submit" name="save" value="Save"/>
+							<input type="submit" name="cancel" value="Cancel"/>
+						</div>
+					</div>
+				</div>
+			</form>
 		</script>
 
 		<script id="vehicle-template" type="text/template">

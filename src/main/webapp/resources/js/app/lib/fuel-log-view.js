@@ -4,7 +4,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	className: "fuel-log",
 	events: {
 		"click .display": "editFuelLog",
-		"click input[name=save]": "saveFuelLog",
+		"submit form": "saveFuelLog",
 		"click input[name=cancel]": "cancelFuelLog",
 		"focus .date input": "addCalendar"
 	},
