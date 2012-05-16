@@ -39,7 +39,7 @@ public class FuelLogController {
 	@RequestMapping(value= "/api/vehicle/{vehicleId}/log/fuel", method= RequestMethod.GET)
 	@Transactional
 	@ResponseBody
-	public List<FuelLog> list(@PathVariable("vehicleId") long vehicleId, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="numResults", defaultValue="20") int numResults) {
+	public List<FuelLog> list(@PathVariable("vehicleId") long vehicleId, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="numResults") int numResults) {
 		return this.logService.getFuelLogsForVehicle(vehicleId, page, numResults > 1000 ? 1000 : numResults);
 	}
 
