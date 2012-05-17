@@ -37,8 +37,12 @@
 			<span class="total"></span>
 		</div>
 
-		<ul id="fuel-logs">
-		</ul>
+		<div id="fuel-logs-wrapper">
+			<ul id="fuel-logs">
+			</ul>
+			<div class="load-more">Load More</div>
+			<div class="load-all">Load all</div>
+		</div>
 
 		<div class="paging">
 			<a href="#prev">prev</a>
