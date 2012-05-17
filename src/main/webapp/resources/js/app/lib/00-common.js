@@ -16,3 +16,5 @@ solairis.ycl = {
 	util: {},
 	view: {}
 };
+
+$.ajaxSetup({ cache: false });
