@@ -223,11 +223,11 @@
 	color: #6EAB75;
 }
 
-.fuel-log.editing .display > .economy > .number {
+.fuel-log.editing .economy > .number {
 	color: #CFCDCD;
 }
 
-.fuel-log .display > .economy > .units {
+.fuel-log .economy > .units {
 	color: #ababab;
 	font-size: 30pt;
 }

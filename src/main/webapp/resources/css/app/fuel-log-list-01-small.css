@@ -35,19 +35,19 @@
 	}
 
 	.fuel-log .odometer input {
-		width: 82px;
+		width: 111px;
 	}
 
-	.fuel-log > .display > .odometer > .number {
+	.fuel-log .odometer > .number {
 		font-size: inherit;
 	}
 
-	.fuel-log > .display > .fuel > .number {
+	.fuel-log .fuel > .number {
 		font-size: inherit;
 	}
 
 	.fuel-log .fuel {
-		left: 135px;
+		left: 156px;
 	}
 
 	.fuel-log .fuel input {
@@ -58,11 +58,11 @@
 		top: 30px;
 	}
 
-	.fuel-log > .display > .economy > .number {
+	.fuel-log .economy > .number {
 		font-size: 20pt;
 	}
 
-	.fuel-log > .display > .economy > .units {
+	.fuel-log .economy > .units {
 		font-size: 15pt;
 	}
 
