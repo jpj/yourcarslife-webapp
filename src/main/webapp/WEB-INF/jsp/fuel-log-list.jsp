@@ -18,7 +18,7 @@
                 </p>
 
 		<div id="graph-holder">
-			<div class="average-economy"></div>
+			<div class="stats"></div>
 			<div id="graph"></div>
 		</div>
 

@@ -3,15 +3,9 @@
 	position: relative;
 }
 
-#graph-holder > .average-economy {
-	position: absolute;
-	right: 0;
-	top: -25px;
-}
-
 #graph {
 	background-color: #f2f2f2;
-	height: 200px;
+	height: 150px;
 	margin-bottom: 30px;
 }
 

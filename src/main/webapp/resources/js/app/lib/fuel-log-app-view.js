@@ -20,6 +20,9 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 
 		// Load Graph
 		var fuelLogGraphView = new solairis.ycl.view.FuelLogGraph({collection: fuelLogs, el: $("#graph")});
+		
+		// Load Stats
+		var fuelLogStatsView = new solairis.ycl.view.FuelLogStats({collection: fuelLogs, el: this.$(".stats")});
 
 		fuelLogs.fetch({
 			data: {

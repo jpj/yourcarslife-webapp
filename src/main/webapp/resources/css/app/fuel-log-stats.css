@@ -1,0 +1,12 @@
+/* 
+    Document   : fuel-log-stats
+    Created on : May 20, 2012, 3:20:55 PM
+    Author     : josh
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.stats .group {
+	padding-right: 10px;
+	white-space: nowrap;
+}

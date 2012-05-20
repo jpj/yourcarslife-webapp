@@ -77,4 +77,5 @@ $(function() {
 	tmpl.vehicle = $("#vehicle-template").html();
 	tmpl.headerVehicle = $("#header-vehicle-template").html();
 	tmpl.headerUser = $("#header-user-template").html();
+	tmpl.fuelLogStats = $("#fuel-log-stats-template").html();
 });

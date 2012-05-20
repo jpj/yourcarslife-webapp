@@ -97,5 +97,34 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 		} else {
 			return 0;
 		}
+	},
+	
+	economyAverage: function() {
+		var ctx = this;
+		var avg = 0;
+		var count = 0;
+		this.each(function(model, index) {
+			var nextModel = ctx.at(index+1);
+			if (nextModel && nextModel.get("odometer") && !model.get("missedFillup")) {
+				count++;
+				avg += (model.get("odometer") - nextModel.get("odometer")) / model.get("fuel").toFixed(2);
+			}
+		});
+		return count == 0 ? (0).toFixed(2) : (avg/count).toFixed(2);
+	},
+	
+	recentEconomyAverage: function() {
+		var ctx = this;
+		var avg = 0;
+		var count = 0;
+		this.each(function(model, index) {
+			var nextModel = ctx.at(index+1);
+			if (index < 10 && nextModel && nextModel.get("odometer") && !model.get("missedFillup")) {
+				count++;
+				avg += (model.get("odometer") - nextModel.get("odometer")) / model.get("fuel").toFixed(2);
+			}
+			// TODO - Break after first 10
+		});
+		return count == 0 ? (0).toFixed(2) : (avg/count).toFixed(2);
 	}
 });
