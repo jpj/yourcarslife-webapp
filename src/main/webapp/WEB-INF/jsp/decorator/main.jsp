@@ -107,7 +107,7 @@
 					<div class="odometer">
 						<span class="view number">{{odometer}}</span>
 						<input type="number" step=".1" class="edit number" name="odometer" value="{{odometer}}"/>
-						<span class="units">mi</span>
+						<span class="units">od</span>
 					</div>
 					<div class="fuel">
 						<span class="view number">{{fuel}}</span>
