@@ -99,7 +99,7 @@
 					<div class="cost">
 						$
 						<span class="view">{{cost}}</span>
-						<input type="number" class="edit" name="cost" value="{{cost}}"/>
+						<input type="number" step=".01" class="edit" name="cost" value="{{cost}}"/>
 					</div>
 					<div class="cost-per-fuel">
 						{{costPerFuel}}/gal.
