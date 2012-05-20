@@ -1,8 +1,8 @@
 
 solairis.ycl.view.FuelLogList = Backbone.View.extend({
 	events: {
-		"click .load-more": "addPage",
-		"click .load-all": "addAll"
+		"click .load-more": "loadPage",
+		"click .load-all": "loadAll"
 	},
 	initialize: function() {
 		this.collection.on("add", this.addOne, this);
@@ -39,5 +39,13 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 			}
 		});
 		return this;
+	},
+	loadAll: function(e) {
+		e.preventDefault();
+		this.addAll();
+	},
+	loadPage: function(e) {
+		e.preventDefault();
+		this.addPage();
 	}
 });

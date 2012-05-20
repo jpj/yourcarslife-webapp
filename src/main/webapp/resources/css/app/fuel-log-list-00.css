@@ -124,22 +124,22 @@
 }
 
 .fuel-log .display {
-	height: 80px;
+	height: 105px;
 	position: relative;
 }
 
 /* Odometer */
-.fuel-log .display > .odometer {
+.fuel-log .odometer {
 	left: 9px;
 	position: absolute;
 	top: 33px;
 }
 
-.fuel-log .display > .odometer > .number {
+.fuel-log .odometer > .number {
 	font-size: 17pt;
 }
 
-.fuel-log .display > .odometer > .units {
+.fuel-log .odometer > .units {
 	color: #d1d1d1;
 /*	font-size: 12pt;*/
 }
@@ -151,16 +151,16 @@
 	top: 33px;
 }
 
-.fuel-log .display > .fuel > .number {
+.fuel-log .fuel > .number {
 	font-size: 17pt;
 }
 
-.fuel-log .display > .fuel > .units {
+.fuel-log .fuel > .units, .fuel-log label {
 	color: #d1d1d1;
 	font-size: 12pt;
 }
 
-.fuel-log .display > .date {
+.fuel-log .date {
 	color: #c7c7c7;
 	left: 10px;
 	position: absolute;

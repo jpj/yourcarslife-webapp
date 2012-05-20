@@ -40,8 +40,10 @@
 		<div id="fuel-logs-wrapper">
 			<ul id="fuel-logs">
 			</ul>
-			<div class="load-more">Load More</div>
-			<div class="load-all">Load all</div>
+			<div>
+				<a class="button load-more" href="#">Load More</a>
+				<a class="button load-all" href="#">Load all</a>
+			</div>
 		</div>
 
 		<div class="paging">

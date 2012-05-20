@@ -106,12 +106,12 @@
 					</div>
 					<div class="odometer">
 						<span class="view number">{{odometer}}</span>
-						<input type="number" class="edit number" name="odometer" value="{{odometer}}"/>
+						<input type="number" step=".1" class="edit number" name="odometer" value="{{odometer}}"/>
 						<span class="units">mi</span>
 					</div>
 					<div class="fuel">
 						<span class="view number">{{fuel}}</span>
-						<input type="number" class="edit number" name="fuel" value="{{fuel}}"/>
+						<input type="number" step=".001" class="edit number" name="fuel" value="{{fuel}}"/>
 						<span class="units">gal</span>
 					</div>
 					<div class="economy">
@@ -130,8 +130,8 @@
 						</div>
 						<div class="octane">
 							<label>
-								<input type="number" name="octane" value="{{octane}}"/>
-								Octane
+								<input type="number" step="1" name="octane" value="{{octane}}"/>
+								Oct
 							</label>
 						</div>
 						<div class="submit">

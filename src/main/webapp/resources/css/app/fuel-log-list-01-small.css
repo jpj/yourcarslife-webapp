@@ -38,14 +38,6 @@
 		width: 111px;
 	}
 
-	.fuel-log .odometer > .number {
-		font-size: inherit;
-	}
-
-	.fuel-log .fuel > .number {
-		font-size: inherit;
-	}
-
 	.fuel-log .fuel {
 		left: 156px;
 	}
@@ -55,7 +47,7 @@
 	}
 
 	.fuel-log .economy {
-		top: 30px;
+		top: 70px;
 	}
 
 	.fuel-log .economy > .number {
@@ -64,11 +56,6 @@
 
 	.fuel-log .economy > .units {
 		font-size: 15pt;
-	}
-
-	.fuel-log .octane input {
-		font-size: inherit;
-		width: 36px;
 	}
 
 }
