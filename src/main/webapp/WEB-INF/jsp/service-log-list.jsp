@@ -38,7 +38,7 @@
 			<div class="container edit">
 				<form method="get" action="#">
 					<div class="log-date"><input type="text" placeholder="Date"/></div>
-					<div class="cost"><span class="units">$</span><span class="number"><input type="text" placeholder="Cost"/></span></div>
+					<div class="cost"><span class="units">$</span><span class="number"><input type="number" placeholder="Cost" step=".01"/></span></div>
 					<div class="odometer"><span class="number"><input type="number" step=".1" value="<\%=odometer%>" placeholder="Odometer"/></span> <span class="units">mi</span></div>
 					<div class="summary"><input type="text" value="<\%=summary%>" placeholder="Summary"/></div>
 					<div class="description"><textarea placeholder="Description"><\%=description%></textarea></div>
