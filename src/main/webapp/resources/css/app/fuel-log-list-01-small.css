@@ -46,10 +46,6 @@
 		width: 60px;
 	}
 
-	.fuel-log .economy {
-		top: 70px;
-	}
-
 	.fuel-log .economy > .number {
 		font-size: 20pt;
 	}
@@ -58,4 +54,15 @@
 		font-size: 15pt;
 	}
 
+}
+
+@media screen and (max-width: 400px) {
+
+	.fuel-log .display {
+		height: 105px;
+	}
+
+	.fuel-log .economy {
+		top: 70px;
+	}
 }
