@@ -11,7 +11,8 @@ solairis.ycl.view.FuelLogStats = Backbone.View.extend({
 		var ctx = this;
 		this.$el.html(solairis.ycl.template.render(solairis.ycl.template.text.fuelLogStats, {
 			averageEconomy: ctx.collection.economyAverage(),
-			recentAverageEconomy: ctx.collection.recentEconomyAverage()
+			recentAverageEconomy: ctx.collection.recentEconomyAverage(),
+			totalFillups: ctx.collection.length
 		}));
 		return this;
 	}
