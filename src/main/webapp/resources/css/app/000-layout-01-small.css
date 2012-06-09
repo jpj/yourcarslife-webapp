@@ -47,8 +47,7 @@
 	}
 
 	#navigation {
-		-moz-border-radius: 0 0 5px 5px;
-		-webkit-border-radius: 0 0 5px 5px;
+		border-radius: 0 0 5px 5px;
 	}
 
 	#navigation ul {
