@@ -169,7 +169,7 @@
 				<span class="login">{{login}}</span>
 			</div>
 		</script>
-		
+
 		<script id="fuel-log-stats-template" type="text/template">
 			<div>
 				<span class="group">Avg Eco: {{averageEconomy}}mpg</span>

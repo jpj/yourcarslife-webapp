@@ -5,7 +5,7 @@
       xsi:schemaLocation="http://www.springframework.org/schema/beans
               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
               http://www.springframework.org/schema/security
-              http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+              http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 
 
@@ -42,18 +42,18 @@
 		<security:intercept-url pattern="/api/**" access="hasAnyRole('ROLE_USER')"/>
 	</security:http>-->
 
+	<security:http pattern="/create-account" security="none"/>
+	<security:http pattern="/favicon.ico" security="none"/>
+	<security:http pattern="/resources/**" security="none"/>
+	<security:http pattern="/*/resources/**" security="none"/>
+
 	<security:http use-expressions="true" auto-config="true" entry-point-ref="entryPoint">
 		<security:intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
-		<security:intercept-url pattern="/create-account" filters="none"/>
-		<security:intercept-url pattern="/favicon.ico" filters="none"/>
-		<security:intercept-url pattern="/home" filters="none"/>
 		<security:intercept-url pattern="/api/currentuser" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
-		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/resources/**" filters="none"/>
-		<security:intercept-url pattern="/*/resources/**" filters="none"/>
 		<security:intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN')"/>
-		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/login"/>
+		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
+		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
 		<security:form-login login-page="/login" default-target-url='/vehicle/list' authentication-failure-url="/login?login_error=true"/>
 		<security:anonymous/>
 		<security:remember-me key="filmlib" user-service-ref="jdbcUserService"/>

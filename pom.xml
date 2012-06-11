@@ -18,37 +18,138 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>3.0.5.RELEASE</version>
+			<version>3.1.1.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>3.0.5.RELEASE</version>
+			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>3.1.0.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.1.0.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>3.1.0.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.1.1.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<artifactId>spring-aop</artifactId>
+			<groupId>org.springframework</groupId>
+			<type>jar</type>
+			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<artifactId>spring-asm</artifactId>
+			<groupId>org.springframework</groupId>
+			<type>jar</type>
+			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<artifactId>spring-beans</artifactId>
+			<groupId>org.springframework</groupId>
+			<type>jar</type>
+			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<artifactId>spring-context-support</artifactId>
+			<groupId>org.springframework</groupId>
+			<type>jar</type>
+			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<artifactId>spring-core</artifactId>
+			<groupId>org.springframework</groupId>
+			<type>jar</type>
+			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<artifactId>spring-expression</artifactId>
+			<groupId>org.springframework</groupId>
+			<type>jar</type>
+			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<artifactId>spring-jdbc</artifactId>
+			<groupId>org.springframework</groupId>
+			<type>jar</type>
+			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<artifactId>spring-security-acl</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<type>jar</type>
+			<version>3.1.0.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<artifactId>spring-security-core</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<type>jar</type>
+			<version>3.1.0.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<artifactId>spring-tx</artifactId>
+			<groupId>org.springframework</groupId>
+			<type>jar</type>
+			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<artifactId>spring-web</artifactId>
+			<groupId>org.springframework</groupId>
+			<type>jar</type>
+			<version>3.1.1.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>3.0.5.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -61,12 +162,6 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.13</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>3.0.5.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -134,101 +229,6 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>yourcarslife-api</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>3.0.5.RELEASE</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<artifactId>spring-aop</artifactId>
-			<groupId>org.springframework</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<artifactId>spring-asm</artifactId>
-			<groupId>org.springframework</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<artifactId>spring-beans</artifactId>
-			<groupId>org.springframework</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<artifactId>spring-context-support</artifactId>
-			<groupId>org.springframework</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<artifactId>spring-core</artifactId>
-			<groupId>org.springframework</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<artifactId>spring-expression</artifactId>
-			<groupId>org.springframework</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<artifactId>spring-jdbc</artifactId>
-			<groupId>org.springframework</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<artifactId>spring-security-acl</artifactId>
-			<groupId>org.springframework.security</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<artifactId>spring-security-core</artifactId>
-			<groupId>org.springframework.security</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<artifactId>spring-tx</artifactId>
-			<groupId>org.springframework</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<artifactId>spring-web</artifactId>
-			<groupId>org.springframework</groupId>
-			<type>jar</type>
-			<version>3.0.5.RELEASE</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -329,6 +329,108 @@
 				</plugins>
 			</build>
 			<dependencies>
+<!--				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+					<version>3.1.1.RELEASE</version>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+					<version>3.1.1.RELEASE</version>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-config</artifactId>
+					<version>3.1.0.RELEASE</version>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-web</artifactId>
+					<version>3.1.0.RELEASE</version>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-taglibs</artifactId>
+					<version>3.1.0.RELEASE</version>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-orm</artifactId>
+					<version>3.1.1.RELEASE</version>
+				</dependency>
+				<dependency>
+					<artifactId>spring-aop</artifactId>
+					<groupId>org.springframework</groupId>
+					<type>jar</type>
+					<version>3.1.1.RELEASE</version>
+				</dependency>
+				<dependency>
+					<artifactId>spring-asm</artifactId>
+					<groupId>org.springframework</groupId>
+					<type>jar</type>
+					<version>3.1.1.RELEASE</version>
+				</dependency>
+				<dependency>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+					<type>jar</type>
+					<version>3.1.1.RELEASE</version>
+				</dependency>
+				<dependency>
+					<artifactId>spring-context-support</artifactId>
+					<groupId>org.springframework</groupId>
+					<type>jar</type>
+					<version>3.1.1.RELEASE</version>
+				</dependency>
+				<dependency>
+					<artifactId>spring-core</artifactId>
+					<groupId>org.springframework</groupId>
+					<type>jar</type>
+					<version>3.1.1.RELEASE</version>
+					<exclusions>
+						<exclusion>
+							<artifactId>commons-logging</artifactId>
+							<groupId>commons-logging</groupId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				<dependency>
+					<artifactId>spring-expression</artifactId>
+					<groupId>org.springframework</groupId>
+					<type>jar</type>
+					<version>3.1.1.RELEASE</version>
+				</dependency>
+				<dependency>
+					<artifactId>spring-jdbc</artifactId>
+					<groupId>org.springframework</groupId>
+					<type>jar</type>
+					<version>3.1.1.RELEASE</version>
+				</dependency>
+				<dependency>
+					<artifactId>spring-security-acl</artifactId>
+					<groupId>org.springframework.security</groupId>
+					<type>jar</type>
+					<version>3.1.0.RELEASE</version>
+				</dependency>
+				<dependency>
+					<artifactId>spring-security-core</artifactId>
+					<groupId>org.springframework.security</groupId>
+					<type>jar</type>
+					<version>3.1.0.RELEASE</version>
+				</dependency>
+				<dependency>
+					<artifactId>spring-tx</artifactId>
+					<groupId>org.springframework</groupId>
+					<type>jar</type>
+					<version>3.1.1.RELEASE</version>
+				</dependency>
+				<dependency>
+					<artifactId>spring-web</artifactId>
+					<groupId>org.springframework</groupId>
+					<type>jar</type>
+					<version>3.1.1.RELEASE</version>
+				</dependency>-->
 				<dependency>
 					<groupId>net.jawr</groupId>
 					<artifactId>jawr</artifactId>

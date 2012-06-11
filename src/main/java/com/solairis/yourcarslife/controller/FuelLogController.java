@@ -7,13 +7,20 @@ package com.solairis.yourcarslife.controller;
 import com.solairis.yourcarslife.data.domain.FuelLog;
 import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.VehicleService;
-import java.beans.PropertyEditor;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -22,18 +29,16 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class FuelLogController {
 
-	@Autowired
+	@Resource
 	private LogService logService;
-	@Autowired
+	@Resource
 	private VehicleService vehicleService;
-	@Autowired
-	private org.springframework.validation.Validator fuelLogFormDataValidator;
-	@Autowired
-	private PropertyEditor customDateEditor;
+	@Resource
+	private Validator fuelLogValidator;
 
-	@InitBinder
+	@InitBinder(value={"fuelLog"})
 	protected void initBinder(WebDataBinder binder) {
-//		binder.setValidator(this.fuelLogFormDataValidator);
+		binder.setValidator(this.fuelLogValidator);
 	}
 
 	@RequestMapping(value= "/api/vehicle/{vehicleId}/log/fuel", method= RequestMethod.GET)
@@ -53,7 +58,7 @@ public class FuelLogController {
 	@RequestMapping(value="/api/vehicle/{vehicleId}/log/fuel", method= RequestMethod.POST)
 	@Transactional
 	@ResponseBody
-	public FuelLog save(@PathVariable("vehicleId") long vehicleId, @RequestBody FuelLog fuelLog) {
+	public FuelLog save(@PathVariable("vehicleId") long vehicleId, @Valid @RequestBody FuelLog fuelLog) {
 		fuelLog.setVehicle(this.vehicleService.getVehicle(vehicleId));
 		this.logService.save(fuelLog);
 		return fuelLog;
@@ -62,10 +67,20 @@ public class FuelLogController {
 	@RequestMapping(value = "/api/vehicle/{vehicleId}/log/fuel/{logId}", method = RequestMethod.PUT)
 	@Transactional
 	@ResponseBody
-	public void put(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") Long logId, @RequestBody FuelLog fuelLog) {
-		if (logId != fuelLog.getLogId()) {
-			throw new IllegalArgumentException("Log ID of "+logId+" passed on URL does not match the id "+fuelLog.getLogId()+ "passed in the body");
+	public void put(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") Long logId, @Valid @RequestBody FuelLog inFuelLog) {
+		if (logId != inFuelLog.getLogId()) {
+			throw new IllegalArgumentException("Log ID of "+logId+" passed on URL does not match the id "+inFuelLog.getLogId()+ "passed in the body");
 		}
-		this.logService.save(fuelLog);
+
+		FuelLog fuelLog = this.logService.getFuelLog(logId);
+		fuelLog.setActive(inFuelLog.isActive());
+		fuelLog.setCost(inFuelLog.getCost());
+		fuelLog.setFuel(inFuelLog.getFuel());
+		fuelLog.setLogDate(inFuelLog.getLogDate());
+		fuelLog.setMissedFillup(inFuelLog.isMissedFillup());
+		fuelLog.setOctane(inFuelLog.getOctane());
+		fuelLog.setOdometer(inFuelLog.getOdometer());
+
+//		this.logService.save(fuelLog);
 	}
 }
