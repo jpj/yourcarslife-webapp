@@ -11,9 +11,16 @@
 	<head>
 		<title>Service Logs</title>
 
-		<c:if test="${empty serviceLogs}">
-			<jwr:script src="/resources/js/app/service-log-list.js"/>
-		</c:if>
+		<script type="text/javascript">
+			$(function() {
+				var serviceLogs = new solairis.ycl.collection.ServiceLogList;
+				serviceLogs.comparator = function(ServiceLog) {
+					return ServiceLog.get("odometer") * -1;
+				};
+
+				new solairis.ycl.view.ServiceLogPage({el: $("body"), collection: serviceLogs});
+			});
+		</script>
 	</head>
 	<body id="service-log-list-app">
 		<p class="vehicle">Vehicle: <span class="name">${vehicle.name}</span></p>
