@@ -1,9 +1,10 @@
 solairis.ycl.router.App = Backbone.Router.extend({
 	routes: {
+		"": "dashboard",
 		"/": "dashboard",
-		"/vehicle/:id": "getVehicle",
-		"/log/fuel/:id": "getFuelLog",
-		"/log/service/:id": "getServiceLog"
+		"/vehicle/:vehicleId": "getVehicle",
+		"/log/fuel/:vehicleId": "getFuelLog",
+		"/log/service/:vehicleId": "getServiceLog"
 	},
 
 	dashboard: function() {
@@ -13,15 +14,23 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		vehicleList.fetch();
 	},
 
-	getVehicle: function(id) {
+	getVehicle: function(vehicleId) {
 		alert("Get vehicle not implemented yet");
 	},
 
-	getFuelLog: function(id) {
-		alert("Get fuel log not implemented yet");
+	getFuelLog: function(vehicleId) {
+		var fuelLogs = new solairis.ycl.collection.FuelLogList();
+		new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: fuelLogs, vehicleId: vehicleId});
+
+		fuelLogs.fetch({
+			data: {
+				numResults: 0,
+				vehicleId: vehicleId
+			}
+		});
 	},
 
-	getServiceLog: function(id) {
+	getServiceLog: function(vehicleId) {
 		alert("Get service log not implmented yet");
 	}
 });

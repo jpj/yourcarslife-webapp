@@ -111,6 +111,50 @@
 			</ul>
 		</script>
 
+		<script id="fuel-log-page-template" type="text/template">
+			<p class="vehicle-wrapper">
+			</p>
+
+			<div id="graph-holder">
+				<div class="stats"></div>
+				<div id="graph"></div>
+			</div>
+
+			<div class="options">
+				<div class="add"><div class="indicator">+</div> <span class="text">Add</span></div>
+			</div>
+			<div class="new-fuel-log"></div>
+
+			<div class="paging">
+				<a href="#prev">prev</a>
+				<a href="#next">next</a>
+				<span class="from"></span>
+				-
+				<span class="to"></span>
+				of
+				<span class="total"></span>
+			</div>
+
+			<div id="fuel-logs-wrapper">
+				<ul id="fuel-logs">
+				</ul>
+				<div>
+					<a class="button load-more" href="#">Load More</a>
+					<a class="button load-all" href="#">Load all</a>
+				</div>
+			</div>
+
+			<div class="paging">
+				<a href="#prev">prev</a>
+				<a href="#next">next</a>
+				<span class="from"></span>
+				-
+				<span class="to"></span>
+				of
+				<span class="total"></span>
+			</div>
+		</script>
+
 		<script id="fuel-log-template" type="text/template">
 			<form method="get" action="#">
 				<div class="display">
@@ -174,7 +218,7 @@
 					<a href="#/vehicle/{{vehicleId}}">{{name}}</a>
 				</div>
 				<div>
-					<a href="{{fuelLogsUrl}}">Fuel Logs</a> |
+					<a href="#/log/fuel/{{vehicleId}}">Fuel Logs</a> |
 					<a href="{{serviceLogsUrl}}">Service Logs</a>
 				</div>
 				<div>Notes: <span class="notes">{{notes}}</span></div>
