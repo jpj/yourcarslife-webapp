@@ -20,7 +20,7 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 
 		// Load Graph
 		var fuelLogGraphView = new solairis.ycl.view.FuelLogGraph({collection: fuelLogs, el: $("#graph")});
-		
+
 		// Load Stats
 		var fuelLogStatsView = new solairis.ycl.view.FuelLogStats({collection: fuelLogs, el: this.$(".stats")});
 
@@ -59,23 +59,3 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 		}
 	}
 });
-
-
-
-//	if (vehicleId) {
-//
-//		// Paging
-//		$(".paging a[href=#prev]").click(function(e) {
-//			e.preventDefault();
-//			performSearch({
-//				pageNumber: pagingData.pageNumber - 1
-//			});
-//		});
-//
-//		$(".paging a[href=#next]").click(function(e) {
-//			e.preventDefault();
-//			performSearch({
-//				pageNumber: pagingData.pageNumber + 1
-//			});
-//		});
-//	}
