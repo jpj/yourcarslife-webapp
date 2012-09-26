@@ -41,6 +41,10 @@
 		<script type="text/javascript">
 			$(function() {
 				var app = new solairis.ycl.view.App();
+
+				// TODO - START ROUTING
+				new solairis.ycl.router.App();
+				Backbone.history.start();
 			});
 		</script>
 
@@ -70,7 +74,7 @@
 				<div id="navigation">
 					<ul>
 						<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<c:url value="/vehicle/list"/>">Dashboard</a></li>
+							<li><a href="<c:url value="/vehicle/list"/>#/">Dashboard</a></li>
 							<li><a href="<c:url value="/logout"/>">Logout</a></li>
 						</security:authorize>
 
@@ -88,6 +92,24 @@
 				</div>
 			</div>
 		</div>
+
+		<script id="dashboard-template" type="text/template">
+			<h2>Your Vehicles</h2>
+
+			<p class="user-has-no-vehicles">
+				You have no vehicles. The first step is to
+				<a class="add-new-vehicle" href="#">add a vehicle</a>,
+				then you can add fuel and service logs
+				to it.
+			</p>
+
+			<p>
+				(<a class="add-new-vehicle" href="#">Add new vehicle</a>)
+			</p>
+
+			<ul id="vehicles">
+			</ul>
+		</script>
 
 		<script id="fuel-log-template" type="text/template">
 			<form method="get" action="#">
@@ -149,7 +171,7 @@
 			</div>
 			<div class="container view">
 				<div class="name">
-					<a href="{{editVehicleUrl}}">{{name}}</a>
+					<a href="#/vehicle/{{vehicleId}}">{{name}}</a>
 				</div>
 				<div>
 					<a href="{{fuelLogsUrl}}">Fuel Logs</a> |

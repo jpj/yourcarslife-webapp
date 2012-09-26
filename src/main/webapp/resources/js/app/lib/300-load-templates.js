@@ -40,6 +40,7 @@ solairis.ycl.template.view.fuelLog = function(fuelLog) {
 
 solairis.ycl.template.view.vehicle = function(vehicle) {
 	return {
+		vehicleId: vehicle.vehicleId,
 		name: vehicle.name,
 		notes: vehicle.notes,
 		description: vehicle.description,
@@ -73,6 +74,7 @@ solairis.ycl.template.view.user = function(user) {
 $(function() {
 	var tmpl = solairis.ycl.template.text;
 
+	tmpl.dashboard = $("#dashboard-template").html();
 	tmpl.fuelLog = $("#fuel-log-template").html();
 	tmpl.vehicle = $("#vehicle-template").html();
 	tmpl.headerVehicle = $("#header-vehicle-template").html();

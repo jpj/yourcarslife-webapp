@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-solairis.ycl.view.DashboardApp = Backbone.View.extend({
+solairis.ycl.view.Dashboard = Backbone.View.extend({
 	events: {
 	},
 	initialize: function() {
@@ -11,14 +11,13 @@ solairis.ycl.view.DashboardApp = Backbone.View.extend({
 		addNewVehicleAnchor.href = YCLConstants.BASE_URL + "/vehicle/0";
 		this.$(".add-new-vehicle").attr("href", addNewVehicleAnchor.href);
 
-		this.vehicleList = new solairis.ycl.collection.VehicleList;
-		this.vehicleList.on("all", this.render, this);
-		var vehicleListView = new solairis.ycl.view.VehicleList({el: this.$("#vehicles"), collection: this.vehicleList});
-
-		this.vehicleList.fetch();
+		this.collection.on("all", this.render, this);
 	},
 	render: function() {
-		if (this.vehicleList.length == 0) {
+		this.$el.html(solairis.ycl.template.text.dashboard);
+		var vehicleListView = new solairis.ycl.view.VehicleList({el: this.$("#vehicles"), collection: this.collection});
+		vehicleListView.render();
+		if (this.collection.length == 0) {
 			this.$(".user-has-no-vehicles").show();
 		} else {
 			this.$(".user-has-no-vehicles").hide();

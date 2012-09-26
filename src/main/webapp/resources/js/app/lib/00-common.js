@@ -8,6 +8,7 @@ solairis.ycl = {
 	collection: {},
 	constant: {},
 	model: {},
+	router: {},
 	template: {
 		render: null,
 		text: {},
