@@ -29,7 +29,8 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 		var view = new solairis.ycl.view.ServiceLog({
 			collection: this.collection,
 			model: serviceLog,
-			template: _.template($("#service-log-template").html())
+			template: _.template($("#service-log-template").html()),
+			vehicleId: this.options.vehicleId
 		});
 		if ($("#service-logs .service-log").length == 0 || $("#service-logs .service-log:eq("+logIndex+")").length == 0) {
 			$("#service-logs").append(view.render().el);
@@ -53,7 +54,8 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 		var view = new solairis.ycl.view.ServiceLog({
 			collection: this.collection,
 			model: new solairis.ycl.model.ServiceLog,
-			template: _.template($("#service-log-template").html())
+			template: _.template($("#service-log-template").html()),
+			vehicleId: this.options.vehicleId
 		});
 		view.enableEditMode();
 		view.enableNew();

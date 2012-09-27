@@ -13,8 +13,6 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 	initialize: function() {
 		this.model.bind('change', this.render, this);
 		this.template = this.options.template;
-
-		this.vehicleId = YCL.Request.getParameter("vehicleId");
 	},
 	render: function() {
 
@@ -108,7 +106,7 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 			});
 		} else {
 			// New Model
-			this.model.set("vehicle", {vehicleId: this.vehicleId});
+			this.model.set("vehicle", {vehicleId: this.options.vehicleId});
 
 			this.collection.create(this.model.toJSON(), {
 				success: function() {
