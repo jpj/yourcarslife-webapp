@@ -8,16 +8,9 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 		this.collection.bind('all', this.render, this);
 		this.collection.bind('reset', this.addAll, this);
 
-		var vehicleId = YCL.Request.getParameter("vehicleId");
+		this.$el.html( solairis.ycl.template.text.serviceLogPage );
 
-		this.collection.fetch({
-			data: {
-				vehicleId: vehicleId
-			},
-			error: function(a, errorResponse) {
-				alert("Error fetching service log list");
-			}
-		});
+		var vehicleId = this.options.vehicleId;
 
 		var vehicleModel = new solairis.ycl.model.Vehicle({
 			vehicleId: vehicleId

@@ -7,6 +7,7 @@ solairis.ycl.view.Dashboard = Backbone.View.extend({
 	events: {
 	},
 	initialize: function() {
+		document.title = "Dashboard | "+solairis.ycl.constant.SiteTitle;
 		var addNewVehicleAnchor = document.createElement("a");
 		addNewVehicleAnchor.href = YCLConstants.BASE_URL + "/vehicle/0";
 		this.$(".add-new-vehicle").attr("href", addNewVehicleAnchor.href);

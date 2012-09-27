@@ -19,6 +19,7 @@
 	<context:component-scan base-package="com.solairis.yourcarslife"/>
 
 	<mvc:view-controller path="/" view-name="home"/>
+	<mvc:view-controller path="/app" view-name="dashboard"/>
 	<mvc:view-controller path="/login"/>
 	<mvc:view-controller path="/admin"/>
 	<mvc:view-controller path="/vehicle/log/fuel/list" view-name="fuel-log-list"/>

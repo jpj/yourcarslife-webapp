@@ -31,6 +31,20 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	getServiceLog: function(vehicleId) {
-		alert("Get service log not implmented yet");
+		var serviceLogs = new solairis.ycl.collection.ServiceLogList;
+		serviceLogs.comparator = function(ServiceLog) {
+			return ServiceLog.get("odometer") * -1;
+		};
+
+		new solairis.ycl.view.ServiceLogPage({el: $("#page-content > .content"), collection: serviceLogs, vehicleId: vehicleId});
+
+		serviceLogs.fetch({
+			data: {
+				vehicleId: vehicleId
+			},
+			error: function(a, errorResponse) {
+				alert("Error fetching service log list");
+			}
+		});
 	}
 });

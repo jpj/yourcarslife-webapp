@@ -50,7 +50,10 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 			fuel: parseFloat( this.$(".fuel input.edit").val() ),
 			octane: parseInt( this.$(".octane input").val() ),
 			cost: cost,
-			missedFillup: this.$(".missedFillup input").get(0).checked
+			missedFillup: this.$(".missedFillup input").get(0).checked,
+			vehicle: {
+				vehicleId: this.options.vehicleId
+			}
 		};
 	},
 	editFuelLog: function(e) {

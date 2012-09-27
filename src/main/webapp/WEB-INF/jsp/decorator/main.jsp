@@ -41,10 +41,6 @@
 		<script type="text/javascript">
 			$(function() {
 				var app = new solairis.ycl.view.App();
-
-				// TODO - START ROUTING
-				new solairis.ycl.router.App();
-				Backbone.history.start();
 			});
 		</script>
 
@@ -74,7 +70,7 @@
 				<div id="navigation">
 					<ul>
 						<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<c:url value="/vehicle/list"/>#/">Dashboard</a></li>
+							<li><a href="<c:url value="/app"/>#/">Dashboard</a></li>
 							<li><a href="<c:url value="/logout"/>">Logout</a></li>
 						</security:authorize>
 
@@ -219,7 +215,7 @@
 				</div>
 				<div>
 					<a href="#/log/fuel/{{vehicleId}}">Fuel Logs</a> |
-					<a href="{{serviceLogsUrl}}">Service Logs</a>
+					<a href="#/log/service/{{vehicleId}}">Service Logs</a>
 				</div>
 				<div>Notes: <span class="notes">{{notes}}</span></div>
 				<div>Description: <span class="description">{{description}}</span></div>
@@ -242,6 +238,43 @@
 				<span class="group">Recent Eco: {{recentAverageEconomy}}mpg</span>
 				<span class="group">Total Fillups: {{totalFillups}}</span>
 			</div>
+		</script>
+
+		<script type="text/template" id="service-log-page-template">
+			<p class="vehicle">Vehicle: <span class="name"></span></p>
+
+			<p>
+				<a id="add-new-service-log" href="#">New</a>
+			</p>
+			<ul id="new-service-log"></ul>
+
+			<ul id="service-logs">
+			</ul>
+		</script>
+
+		<script type="text/template" id="service-log-template">
+			<div class="container edit">
+				<form method="get" action="#">
+					<div class="log-date"><input type="text" placeholder="Date"/></div>
+					<div class="cost"><span class="units">$</span><span class="number"><input type="number" placeholder="Cost" step=".01"/></span></div>
+					<div class="odometer"><span class="number"><input type="number" step=".1" value="<\%=odometer%>" placeholder="Odometer"/></span> <span class="units">mi</span></div>
+					<div class="summary"><input type="text" value="<\%=summary%>" placeholder="Summary"/></div>
+					<div class="description"><textarea placeholder="Description"><\%=description%></textarea></div>
+					<div class="tags"></div>
+					<div>
+						<input type="submit" value="Save"/>
+						<input type="button" value="Cancel" class="cancel"/>
+					</div>
+				</form>
+			</div>
+			<a class="container view edit-log" href="">
+				<div class="log-date"></div>
+				<div class="cost"><span class="units">$</span><span class="number"></span></div>
+				<div class="odometer"><span class="number"><\%=odometer%></span> <span class="units">mi</span></div>
+				<div class="summary"><\%=summary%></div>
+				<div class="description"><\%=description%></div>
+				<div class="tags"></div>
+			</a>
 		</script>
 
 	</body>

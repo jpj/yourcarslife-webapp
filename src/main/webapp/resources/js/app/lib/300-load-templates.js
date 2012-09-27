@@ -81,4 +81,5 @@ $(function() {
 	tmpl.headerVehicle = $("#header-vehicle-template").html();
 	tmpl.headerUser = $("#header-user-template").html();
 	tmpl.fuelLogStats = $("#fuel-log-stats-template").html();
+	tmpl.serviceLogPage = $("#service-log-page-template").html();
 });
