@@ -25,6 +25,9 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 		});
 		vehicleModel.fetch();
 	},
+	render: function() {
+		return this;
+	},
 	addFuelLog: function() {
 		var tmpl = solairis.ycl.template;
 		var fuelLog = new solairis.ycl.model.FuelLog;
