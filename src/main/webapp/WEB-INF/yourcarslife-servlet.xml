@@ -42,22 +42,6 @@
 		<property name="type" value="css"/>
 	</bean>
 
-	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-		<property name="ignoreAcceptHeader" value="true"/>
-<!--		<property name="messageSourceAccessor" ref="messageSourceAccessor"/>-->
-		<property name="mediaTypes">
-			<map>
-				<entry key="json" value="application/json" />
-<!--				<entry key="xml" value="application/xml" />-->
-			</map>
-		</property>
-		<property name="defaultViews">
-			<list>
-				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
-			</list>
-		</property>
-	</bean>
-
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 		<property name="prefix" value="/WEB-INF/jsp/"/>
