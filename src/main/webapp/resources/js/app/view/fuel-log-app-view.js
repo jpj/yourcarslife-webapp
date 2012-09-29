@@ -1,7 +1,6 @@
 solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 	events: {
-		"click #page-content .options .add": "addFuelLog",
-		"blur .fuel-log.is-new .fuel input": "guessCost"
+		"click #page-content .options .add": "addFuelLog"
 	},
 	initialize: function() {
 		document.title = "Fuel Logs | "+solairis.ycl.constant.SITE_TITLE;
@@ -37,15 +36,5 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 		var view = new solairis.ycl.view.FuelLog({model: fuelLog, collection: this.collection, vehicleId: this.options.vehicleId});
 		this.$(".new-fuel-log").html(view.render().el);
 		view.enableNew();
-	},
-	guessCost: function() {
-		var $cost = this.$el.find(".fuel-log.is-new .cost input");
-		var fuel = this.$el.find(".fuel-log.is-new .fuel input").val();
-		if (!$cost.val()) {
-			var cost = this.collection.guessNextCost(fuel);
-			var c = cost == null || cost === 0 ? null : cost.toString();
-			var costFmt = c == null ? null : c.substr(0, c.length - 2) + "." + c.substr(c.length -2);
-			$cost.val(costFmt);
-		}
 	}
 });
