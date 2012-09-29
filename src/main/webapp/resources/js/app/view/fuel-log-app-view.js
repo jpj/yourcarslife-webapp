@@ -3,8 +3,8 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 		"click #page-content .options .add": "addFuelLog",
 		"blur .fuel-log.is-new .fuel input": "guessCost"
 	},
-	fuelLogList: null,
 	initialize: function() {
+		document.title = "Fuel Logs | "+solairis.ycl.constant.SiteTitle;
 		var ctx = this;
 		this.$el.html( solairis.ycl.template.text.fuelLogPage );
 
