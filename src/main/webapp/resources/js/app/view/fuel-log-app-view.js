@@ -4,7 +4,7 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 		"blur .fuel-log.is-new .fuel input": "guessCost"
 	},
 	initialize: function() {
-		document.title = "Fuel Logs | "+solairis.ycl.constant.SiteTitle;
+		document.title = "Fuel Logs | "+solairis.ycl.constant.SITE_TITLE;
 		var ctx = this;
 		this.$el.html( solairis.ycl.template.text.fuelLogPage );
 

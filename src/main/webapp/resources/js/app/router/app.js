@@ -1,4 +1,7 @@
 solairis.ycl.router.App = Backbone.Router.extend({
+
+	fuelLogs: null,
+
 	routes: {
 		"": "dashboard",
 		"/": "dashboard",
@@ -19,15 +22,27 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	getFuelLog: function(vehicleId) {
-		var fuelLogs = new solairis.ycl.collection.FuelLogList();
-		new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: fuelLogs, vehicleId: vehicleId});
+		if (this.fuelLogs == null) {
+			this.fuelLogs = new solairis.ycl.collection.FuelLogList();
+		}
 
-		fuelLogs.fetch({
-			data: {
-				numResults: 0,
-				vehicleId: vehicleId
-			}
-		});
+		var fuelLogPageView = new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: this.fuelLogs, vehicleId: vehicleId});
+
+		if (this.fuelLogs.length == 0) {
+			this.fuelLogs.fetch({
+				data: {
+					numResults: 10,
+					vehicleId: vehicleId
+				},
+				error: function(a, errorResponse) {
+					alert("Error fetching fuel logs");
+				}
+			});
+		} else {
+			this.fuelLogs.trigger("reset");
+		}
+
+
 	},
 
 	getServiceLog: function(vehicleId) {

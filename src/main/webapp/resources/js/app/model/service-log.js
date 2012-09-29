@@ -21,6 +21,6 @@ solairis.ycl.model.ServiceLog = Backbone.Model.extend({
 solairis.ycl.collection.ServiceLogList = Backbone.Collection.extend({
 	model: solairis.ycl.model.ServiceLog,
 	url: function() {
-		return YCLConstants.BASE_URL + '/api/log/service';
+		return solairis.ycl.constant.BASE_URL + '/api/log/service';
 	}
 });

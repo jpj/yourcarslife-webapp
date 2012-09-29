@@ -22,7 +22,7 @@ solairis.ycl.model.FuelLog = Backbone.Model.extend({
 solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 	model: solairis.ycl.model.FuelLog,
 	url: function() {
-		return YCLConstants.BASE_URL + '/api/log/fuel';
+		return solairis.ycl.constant.BASE_URL + '/api/log/fuel';
 	},
 	comparator: function(fuelLog) {
 		return fuelLog.get("odometer") * -1;

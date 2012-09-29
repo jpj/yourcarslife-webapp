@@ -22,7 +22,7 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 		$(this.el).html(this.template(this.model.toJSON()));
 		var logDate = new Date(this.model.get("logDate"));
 		$(this.el).data("logDate", logDate);
-		this.$(".edit-log").attr("href", YCLConstants.BASE_URL+"/vehicle/"+this.vehicleId+"/log/service/"+this.model.get("logId"));
+		this.$(".edit-log").attr("href", solairis.ycl.constant.BASE_URL+"/vehicle/"+this.vehicleId+"/log/service/"+this.model.get("logId"));
 		this.$(".view .log-date").text( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() );
 
 		this.$(".edit .log-date input").val( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() ).datepick({

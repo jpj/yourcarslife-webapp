@@ -4,5 +4,5 @@
  */
 
 solairis.ycl.model.CurrentUser = Backbone.Model.extend({
-	url: YCLConstants.BASE_URL + '/api/currentuser'
+	url: solairis.ycl.constant.BASE_URL + '/api/currentuser'
 });
