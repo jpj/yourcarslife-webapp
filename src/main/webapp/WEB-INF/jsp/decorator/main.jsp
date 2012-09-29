@@ -136,7 +136,6 @@
 				</ul>
 				<div>
 					<a class="button load-more" href="#">Load More</a>
-					<a class="button load-all" href="#">Load all</a>
 				</div>
 			</div>
 
