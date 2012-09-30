@@ -1,6 +1,6 @@
 solairis.ycl.router.App = Backbone.Router.extend({
 
-	fuelLogs: null,
+	fuelLogsForVehicle: {},
 
 	routes: {
 		"": "dashboard",
@@ -22,15 +22,16 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	getFuelLog: function(vehicleId) {
-		if (this.fuelLogs == null) {
-			this.fuelLogs = new solairis.ycl.collection.FuelLogList();
+		if (this.fuelLogsForVehicle[vehicleId] == null) {
+			this.fuelLogsForVehicle[vehicleId] = new solairis.ycl.collection.FuelLogList();
 		}
 
-		var fuelLogPageView = new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: this.fuelLogs, vehicleId: vehicleId});
+		var fuelLogPageView = new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: this.fuelLogsForVehicle[vehicleId], vehicleId: vehicleId});
 
-		if (this.fuelLogs.length == 0) {
-			this.fuelLogs.fetch({
+		if (this.fuelLogsForVehicle[vehicleId].length == 0) {
+			this.fuelLogsForVehicle[vehicleId].fetch({
 				data: {
+					offset: 0,
 					numResults: 10,
 					vehicleId: vehicleId
 				},
@@ -39,7 +40,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 				}
 			});
 		} else {
-			this.fuelLogs.trigger("reset");
+			this.fuelLogsForVehicle[vehicleId].trigger("reset");
 		}
 
 

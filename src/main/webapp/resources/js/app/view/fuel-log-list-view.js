@@ -1,14 +1,20 @@
 
 solairis.ycl.view.FuelLogList = Backbone.View.extend({
 	events: {
-		"click .load-more": "loadPage"
+		"click .load-more": "loadNextPage"
 	},
 	initialize: function() {
 		this.collection.on("add", this.addOne, this);
-		this.collection.on("reset", this.addPage, this);
-		this.cidsLoaded = [];
+		this.collection.on("reset", this.render, this);
 	},
 	render: function() {
+		var ctx = this;
+
+		this.collection.each(function(model) {
+			ctx.addOne.call(ctx, model);
+		});
+
+		return this;
 	},
 	addOne: function(model) {
 		var logIndex = this.collection.indexOf(model);
@@ -18,21 +24,25 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 		} else {
 			this.$(".fuel-log:eq("+logIndex+")").before(view.render().el);
 		}
-		this.cidsLoaded.push(model.cid);
+
+		if (logIndex == this.collection.length - 1) {
+			new solairis.ycl.view.FuelLogEconomyCalculate({el: this.$("ul"), collection: this.collection});
+		}
 	},
-	addPage: function() {
-		var ctx = this;
-		var numResults = 0;
-		this.collection.filter(function(model, iterator) {
-			if (ctx.cidsLoaded.indexOf(model.cid) == -1 && numResults < 20) {
-				numResults++;
-				ctx.addOne.call(ctx, model);
+	loadNextPage: function(e) {
+		e.preventDefault();
+
+		this.collection.fetch({
+			add: true,
+			data: {
+				offset: this.collection.length + 1,
+				numResults: 10,
+				vehicleId: this.options.vehicleId
+			},
+			error: function(a, errorResponse) {
+				alert("Error fetching fuel logs");
 			}
 		});
-		return this;
-	},
-	loadPage: function(e) {
-		e.preventDefault();
-		this.addPage();
+
 	}
 });
