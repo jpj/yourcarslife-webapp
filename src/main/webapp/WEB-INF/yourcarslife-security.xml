@@ -28,9 +28,7 @@
 		</property>
 	</bean>
 
-	<security:global-method-security pre-post-annotations="enabled">
-<!--		<security:expression-handler ref="yclExpressionHandler"/>-->
-	</security:global-method-security>
+<!--	<security:global-method-security pre-post-annotations="enabled"/>-->
 
 <!--	<bean id="yclExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
 		<property name="permissionEvaluator">

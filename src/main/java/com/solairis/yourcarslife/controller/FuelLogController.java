@@ -10,6 +10,7 @@ import com.solairis.yourcarslife.service.VehicleService;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
@@ -45,6 +46,7 @@ public class FuelLogController {
 	@RequestMapping(method = RequestMethod.GET)
 	@Transactional
 	@ResponseBody
+	@PreAuthorize("@decider.canAccessVehicle(#vehicleId, principal)")
 	public List<FuelLog> list(@RequestParam("vehicleId") long vehicleId, @RequestParam(value = "offset", defaultValue = "0") int offset, @RequestParam(value = "numResults") int numResults) {
 		return this.logService.getFuelLogsForVehicle(vehicleId, offset, numResults);
 	}
@@ -52,6 +54,7 @@ public class FuelLogController {
 	@RequestMapping(value = "/{logId}", method = RequestMethod.GET)
 	@Transactional
 	@ResponseBody
+	@PreAuthorize("@decider.canAccessLog(#logId, principal)")
 	public FuelLog get(@PathVariable("logId") long logId) {
 		return this.logService.getFuelLog(logId);
 	}
@@ -59,6 +62,7 @@ public class FuelLogController {
 	@RequestMapping(method = RequestMethod.POST)
 	@Transactional
 	@ResponseBody
+	@PreAuthorize("@decider.canAccessVehicle(#inFuelLog.vehicle.vehicleId, principal)")
 	public FuelLog save(@Valid @RequestBody FuelLog inFuelLog) {
 		FuelLog fuelLog = new FuelLog();
 		fuelLog.setActive(true);
@@ -76,7 +80,8 @@ public class FuelLogController {
 	@RequestMapping(value = "/{logId}", method = RequestMethod.PUT)
 	@Transactional
 	@ResponseBody
-	public void put(@PathVariable("logId") Long logId, @Valid @RequestBody FuelLog inFuelLog) {
+	@PreAuthorize("@decider.canAccessVehicle(#inFuelLog.vehicle.vehicleId, principal)")
+	public FuelLog put(@PathVariable("logId") Long logId, @Valid @RequestBody FuelLog inFuelLog) {
 		if (logId != inFuelLog.getLogId()) {
 			throw new IllegalArgumentException("Log ID of " + logId + " passed on URL does not match the id " + inFuelLog.getLogId() + "passed in the body");
 		}
@@ -90,6 +95,8 @@ public class FuelLogController {
 		fuelLog.setOctane(inFuelLog.getOctane());
 		fuelLog.setOdometer(inFuelLog.getOdometer());
 
-//		this.logService.save(fuelLog);
+		this.logService.save(fuelLog);
+
+		return fuelLog;
 	}
 }
