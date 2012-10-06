@@ -276,5 +276,9 @@
 			</a>
 		</script>
 
+		<script type="text/template" id="vehicle-edit-template">
+			<jsp:include page="../template/vehicle-edit.jsp"/>
+		</script>
+
 	</body>
 </html>

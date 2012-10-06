@@ -18,7 +18,15 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	getVehicle: function(vehicleId) {
-		alert("Get vehicle not implemented yet");
+		var vehicle = new solairis.ycl.model.Vehicle({vehicleId: vehicleId});
+
+		new solairis.ycl.view.VehiclePage({el: $("#page-content > .content"), model: vehicle});
+
+		vehicle.fetch({
+			error: function(a, errorResponse) {
+				alert("Error selecting vehicle");
+			}
+		});
 	},
 
 	getFuelLog: function(vehicleId) {

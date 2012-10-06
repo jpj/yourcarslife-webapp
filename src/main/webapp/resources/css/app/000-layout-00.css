@@ -25,9 +25,16 @@ form {
 .error {
 	color: red;
 }
+input.error, textarea.error {
+	background-color: red;
+	color: black;
+}
 
 .success {
 	color: green;
+}
+.success.message {
+	display: none;
 }
 
 .button {
