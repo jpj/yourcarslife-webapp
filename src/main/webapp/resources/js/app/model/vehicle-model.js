@@ -9,6 +9,6 @@ solairis.ycl.model.Vehicle = Backbone.Model.extend({
 });
 
 solairis.ycl.collection.VehicleList = Backbone.Collection.extend({
-	model: solairis.ycl.model.FuelLog,
+	model: solairis.ycl.model.Vehicle,
 	url: solairis.ycl.constant.BASE_URL + '/api/vehicle'
 });
