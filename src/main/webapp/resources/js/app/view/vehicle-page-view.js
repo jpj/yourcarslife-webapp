@@ -31,6 +31,7 @@ solairis.ycl.view.VehiclePage = Backbone.View.extend({
 		this.model.set("notes",this.$("textarea[name=notes]").val());
 
 		this.model.save(null, {
+			wait: true,
 			success: function(vehicle) {
 				ctx.$(".success").show();
 				setTimeout(function($sucess) {
