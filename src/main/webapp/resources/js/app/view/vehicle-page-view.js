@@ -26,11 +26,12 @@ solairis.ycl.view.VehiclePage = Backbone.View.extend({
 		this.$("input.error, textarea.error").removeClass("error");
 		this.$(".error").text('');
 
-		this.model.set("name", this.$("input[name=name]").val());
-		this.model.set("description", this.$("input[name=description]").val());
-		this.model.set("notes",this.$("textarea[name=notes]").val());
-
-		this.model.save(null, {
+		this.model.save(
+		{
+			name: this.$("input[name=name]").val(),
+			description: this.$("input[name=description]").val(),
+			notes: this.$("textarea[name=notes]").val()
+		}, {
 			wait: true,
 			success: function(vehicle) {
 				ctx.$(".success").show();
