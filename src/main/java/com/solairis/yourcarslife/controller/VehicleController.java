@@ -68,7 +68,6 @@ public class VehicleController {
 	@RequestMapping(value="/api/vehicle", method= RequestMethod.POST)
 	@Transactional
 	@ResponseBody
-	@PreAuthorize("@decider.canAccessVehicle(#inVehicle.vehicleId, principal)")
 	public Vehicle save(@Valid @RequestBody Vehicle inVehicle) {
 		Vehicle vehicle = new Vehicle();
 		vehicle.setUser(userService.getUser(Long.parseLong( ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())));
