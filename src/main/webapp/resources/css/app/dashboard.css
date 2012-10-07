@@ -16,13 +16,14 @@
 	padding: 0;
 }
 
-#vehicles .vehicle.deleting:hover, #vehicles .vehicle.deleting {
-	background-color: red;
-}
-
 #vehicles .vehicle {
 	border-radius: 5px;
 	margin-top: 7px;
+	position: relative;
+}
+
+#vehicles .vehicle.deleting:hover, #vehicles .vehicle.deleting {
+	background-color: red;
 }
 
 #vehicles .vehicle:nth-child(odd) {
@@ -47,4 +48,11 @@
 
 #vehicles .vehicle .edit {
 	display: none;
+}
+
+#vehicles .vehicle .delete {
+	display: block;
+	position: absolute;
+	right: 10px;
+	top: 5px;
 }
