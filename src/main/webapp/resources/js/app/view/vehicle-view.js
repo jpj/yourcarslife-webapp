@@ -29,7 +29,7 @@ solairis.ycl.view.Vehicle = Backbone.View.extend({
 				success: function() {
 					ctx.$el.remove();
 				}, error: function() {
-					alert("Error deleting vehicle");
+					alert("Error deleting vehicle. This shouldn't happen");
 				}
 			});
 		} else {
