@@ -33,6 +33,7 @@ solairis.ycl.view.VehiclePage = Backbone.View.extend({
 			notes: this.$("textarea[name=notes]").val()
 		}, {
 			wait: true,
+			silent: true,
 			success: function(vehicle) {
 				ctx.$(".success").show();
 				setTimeout(function($sucess) {

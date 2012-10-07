@@ -1,5 +1,6 @@
 solairis.ycl.router.App = Backbone.Router.extend({
 
+	vehicles: new solairis.ycl.collection.VehicleList(),
 	fuelLogsForVehicle: {},
 
 	routes: {
@@ -11,22 +12,36 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	dashboard: function() {
-		var vehicleList = new solairis.ycl.collection.VehicleList();
-		new solairis.ycl.view.Dashboard({el: $("#page-content > .content"), collection: vehicleList});
+		new solairis.ycl.view.Dashboard({el: $("#page-content > .content"), collection: this.vehicles});
 
-		vehicleList.fetch();
+		if(this.vehicles.length == 0) {
+			this.vehicles.fetch({
+				error: function() {
+					alert("Error getting list of vehicles. This should not happen");
+				}
+			});
+		} else {
+			this.vehicles.trigger("reset");
+		}
 	},
 
 	getVehicle: function(vehicleId) {
-		var vehicle = new solairis.ycl.model.Vehicle({vehicleId: vehicleId});
+		var ctx = this;
 
-		new solairis.ycl.view.VehiclePage({el: $("#page-content > .content"), model: vehicle});
+		if(this.vehicles.length == 0) {
+			this.vehicles.fetch({
+				success: function() {
+					new solairis.ycl.view.VehiclePage({el: $("#page-content > .content"), model: ctx.vehicles.get(vehicleId)}).render();
+				},
+				error: function() {
+					alert("Error getting list of vehicles. This should not happen");
+				}
+			});
+		} else {
+			new solairis.ycl.view.VehiclePage({el: $("#page-content > .content"), model: this.vehicles.get(vehicleId)}).render();
+		}
 
-		vehicle.fetch({
-			error: function(a, errorResponse) {
-				alert("Error selecting vehicle");
-			}
-		});
+
 	},
 
 	getFuelLog: function(vehicleId) {
