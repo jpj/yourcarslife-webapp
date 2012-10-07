@@ -10,7 +10,6 @@ import com.solairis.yourcarslife.service.VehicleService;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,11 +17,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Joshua Johnson
  */
 @Controller
+@RequestMapping(value="/api/vehicle")
 public class VehicleController {
 
 	@Resource
@@ -49,15 +46,15 @@ public class VehicleController {
 		return e.getBindingResult().getAllErrors();
 	}
 
-	// TODO - User Id should be passed in and authed
-	@RequestMapping(value="/api/vehicle", method= RequestMethod.GET)
+	// TODO - User Id should be passed in as request param and authed
+	@RequestMapping(method= RequestMethod.GET)
 	@Transactional
 	@ResponseBody
 	public List<Vehicle> list() {
 		return vehicleService.getVehiclesByUserId(Long.parseLong( ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()));
 	}
 
-	@RequestMapping(value="/api/vehicle/{vehicleId}", method= RequestMethod.GET)
+	@RequestMapping(value="/{vehicleId}", method= RequestMethod.GET)
 	@Transactional
 	@ResponseBody
 	@PreAuthorize("@decider.canAccessVehicle(#vehicleId, principal)")
@@ -65,7 +62,7 @@ public class VehicleController {
 		return vehicleService.getVehicle(vehicleId);
 	}
 
-	@RequestMapping(value="/api/vehicle", method= RequestMethod.POST)
+	@RequestMapping(method= RequestMethod.POST)
 	@Transactional
 	@ResponseBody
 	public Vehicle save(@Valid @RequestBody Vehicle inVehicle) {
@@ -77,7 +74,7 @@ public class VehicleController {
 		return vehicle;
 	}
 
-	@RequestMapping(value="/api/vehicle/{vehicleId}", method= RequestMethod.PUT)
+	@RequestMapping(value="/{vehicleId}", method= RequestMethod.PUT)
 	@Transactional
 	@ResponseBody
 	@PreAuthorize("@decider.canAccessVehicle(#vehicleId, principal)")
@@ -89,6 +86,15 @@ public class VehicleController {
 		this.updateVehicleFields(inVehicle, vehicle);
 		vehicleService.saveVehicle(vehicle);
 		return vehicle;
+	}
+
+	@RequestMapping(value="/{vehicleId}", method= RequestMethod.DELETE)
+	@Transactional
+	@ResponseBody
+	@PreAuthorize("@decider.canAccessVehicle(#vehicleId, principal)")
+	public void delete(@PathVariable("vehicleId") long vehicleId) {
+		Vehicle vehicle = this.vehicleService.getVehicle(vehicleId);
+		this.vehicleService.deleteVehicle(vehicle);
 	}
 
 	private void updateVehicleFields(Vehicle inVehicle, Vehicle vehicle) {

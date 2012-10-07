@@ -37,6 +37,10 @@ input.error, textarea.error {
 	display: none;
 }
 
+.deleting, .deleting:hover {
+	background-color: red;
+}
+
 .button {
 	background-color: #f5f5f5;
 	display: inline-block;

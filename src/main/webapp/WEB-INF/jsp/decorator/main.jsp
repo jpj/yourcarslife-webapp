@@ -218,6 +218,7 @@
 				</div>
 				<div>Notes: <span class="notes">{{notes}}</span></div>
 				<div>Description: <span class="description">{{description}}</span></div>
+				<a href="#" class="delete">Delete</a>
 			</div>
 		</script>
 
