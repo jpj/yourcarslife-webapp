@@ -5,6 +5,8 @@ solairis.ycl.router.App = Backbone.Router.extend({
 
 	dashboardView: null,
 	vehicleView: null,
+	fuelLogPageView: null,
+	serviceLogPageView: null,
 
 	routes: {
 		"": "dashboard",
@@ -63,7 +65,11 @@ solairis.ycl.router.App = Backbone.Router.extend({
 			this.fuelLogsForVehicle[vehicleId] = new solairis.ycl.collection.FuelLogList();
 		}
 
-		var fuelLogPageView = new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: this.fuelLogsForVehicle[vehicleId], vehicleId: vehicleId});
+		if (!this.fuelLogPageView) {
+			this.fuelLogPageView = new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: this.fuelLogsForVehicle[vehicleId], vehicleId: vehicleId});
+		} else {
+			this.fuelLogPageView.initialize();
+		}
 
 		if (this.fuelLogsForVehicle[vehicleId].length == 0) {
 			this.fuelLogsForVehicle[vehicleId].fetch({
@@ -89,7 +95,13 @@ solairis.ycl.router.App = Backbone.Router.extend({
 			return ServiceLog.get("odometer") * -1;
 		};
 
-		new solairis.ycl.view.ServiceLogPage({el: $("#page-content > .content"), collection: serviceLogs, vehicleId: vehicleId});
+		if (!this.serviceLogPageView) {
+			this.serviceLogPageView = new solairis.ycl.view.ServiceLogPage({el: $("#page-content > .content"), collection: serviceLogs, vehicleId: vehicleId});
+		} else {
+			this.serviceLogPageView.setElement($("#page-content > .content"));
+			this.serviceLogPageView.collection = serviceLogs;
+			this.serviceLogPageView.initialize();
+		}
 
 		serviceLogs.fetch({
 			data: {
