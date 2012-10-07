@@ -9,7 +9,9 @@ solairis.ycl.view.VehiclePage = Backbone.View.extend({
 	},
 	initialize: function() {
 		this.$el.html(solairis.ycl.template.text["vehicle-edit-template"]);
-		this.model.on("change", this.render, this);
+		if (this.model) {
+			this.model.on("change", this.render, this);
+		}
 		return this;
 	},
 	render: function() {
@@ -52,6 +54,6 @@ solairis.ycl.view.VehiclePage = Backbone.View.extend({
 					alert("Error saving vehicle");
 				}
 			}
-		})
+		});
 	}
 });

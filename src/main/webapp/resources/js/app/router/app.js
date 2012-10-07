@@ -3,6 +3,8 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	vehicles: new solairis.ycl.collection.VehicleList(),
 	fuelLogsForVehicle: {},
 
+	vehicleView: null,
+
 	routes: {
 		"": "dashboard",
 		"/": "dashboard",
@@ -28,17 +30,23 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	getVehicle: function(vehicleId) {
 		var ctx = this;
 
+		if (!this.vehicleView) {
+			this.vehicleView = new solairis.ycl.view.VehiclePage({el: $("#page-content > .content")});
+		}
+
 		if(this.vehicles.length == 0) {
 			this.vehicles.fetch({
 				success: function() {
-					new solairis.ycl.view.VehiclePage({el: $("#page-content > .content"), model: ctx.vehicles.get(vehicleId)}).render();
+					ctx.vehicleView.model = ctx.vehicles.get(vehicleId);
+					ctx.vehicleView.initialize().render();
 				},
 				error: function() {
 					alert("Error getting list of vehicles. This should not happen");
 				}
 			});
 		} else {
-			new solairis.ycl.view.VehiclePage({el: $("#page-content > .content"), model: this.vehicles.get(vehicleId)}).render();
+			ctx.vehicleView.model = ctx.vehicles.get(vehicleId);
+			ctx.vehicleView.initialize().render();
 		}
 
 
