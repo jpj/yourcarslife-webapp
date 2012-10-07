@@ -9,9 +9,10 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 
+<c:set var="appcache"><decorator:getProperty property="meta.appcache"/></c:set>
+
 <!doctype html>
-<!--<html manifest="<c:url value="/resources/ycl.appcache"/>">-->
-<html>
+<html<c:if test="${appcache eq 'on'}"> manifest="<c:url value="/resources/ycl.appcache"/>"</c:if>>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="HandheldFriendly" content="true"/>
@@ -34,6 +35,9 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.highlighter.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.cursor.min.js"/>"></script>
 
+<!--		<script type="text/javascript" src="<c:url value="/gzip_v1_0_3/resources/js/app/lib.js"/>"></script>
+		<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/gzip_v1_0_0/resources/css/app.css"/>"/>-->
+
 		<jwr:script src="/resources/js/app/lib.js"/>
 		<jwr:style src="/resources/css/app.css"/>
 		<decorator:head/>
@@ -41,6 +45,21 @@
 		<script type="text/javascript">
 			$(function() {
 				var app = new solairis.ycl.view.App();
+
+				$(window.applicationCache).bind("updateready", function(e) {
+					$(".appcache-status").text("Updating...");
+					window.applicationCache.swapCache();
+					$(".appcache-status").text("Update Ready");
+				});
+				$(window.applicationCache).bind("checking", function(e) {
+					$(".appcache-status").text("Checking For App Update...");
+				});
+				$(window.applicationCache).bind("noupdate", function(e) {
+					$(".appcache-status").text("App Current");
+				});
+				$(window.applicationCache).bind("cached", function(e) {
+					$(".appcache-status").text("App Cached");
+				});
 			});
 		</script>
 
@@ -80,6 +99,7 @@
 					</ul>
 
 					<div class="user-wrapper"></div>
+					<div class="appcache-status"></div>
 				</div>
 				<div id="page-content">
 					<div class="content">

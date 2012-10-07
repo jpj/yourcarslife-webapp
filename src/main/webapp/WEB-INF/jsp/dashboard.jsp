@@ -2,11 +2,13 @@
 	<head>
 		<title>Loading Application...</title>
 
+		<meta name="appcache" content="on"/>
+
 		<script type="text/javascript">
 			$(function() {
 				var app = new solairis.ycl.view.App();
 
-				// TODO - START ROUTING
+				// Start routing
 				new solairis.ycl.router.App();
 				Backbone.history.start();
 			});
