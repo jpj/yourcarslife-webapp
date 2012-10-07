@@ -9,11 +9,10 @@ solairis.ycl.view.Dashboard = Backbone.View.extend({
 	},
 	initialize: function() {
 		document.title = "Dashboard | "+solairis.ycl.constant.SITE_TITLE;
-		var addNewVehicleAnchor = document.createElement("a");
-		addNewVehicleAnchor.href = solairis.ycl.constant.BASE_URL + "/vehicle/0";
-		this.$(".add-new-vehicle").attr("href", addNewVehicleAnchor.href);
-
-		this.collection.on("all", this.render, this);
+		if (this.collection) {
+			this.collection.on("all", this.render, this);
+		}
+		return this;
 	},
 	render: function() {
 		this.$el.html(solairis.ycl.template.text.dashboard);

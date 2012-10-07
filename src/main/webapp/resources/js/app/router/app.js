@@ -3,6 +3,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	vehicles: new solairis.ycl.collection.VehicleList(),
 	fuelLogsForVehicle: {},
 
+	dashboardView: null,
 	vehicleView: null,
 
 	routes: {
@@ -14,7 +15,12 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	dashboard: function() {
-		new solairis.ycl.view.Dashboard({el: $("#page-content > .content"), collection: this.vehicles});
+		if (!this.dashboardView) {
+			this.dashboardView = new solairis.ycl.view.Dashboard();
+		}
+		this.dashboardView.setElement($("#page-content > .content"));
+		this.dashboardView.collection = this.vehicles;
+		this.dashboardView.initialize().render();
 
 		if(this.vehicles.length == 0) {
 			this.vehicles.fetch({
