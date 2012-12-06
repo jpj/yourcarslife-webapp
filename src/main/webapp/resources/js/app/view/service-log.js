@@ -97,6 +97,7 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 		if (this.model.get("logId")) {
 			// Existing Model
 			this.model.save(null, {
+				wait: true,
 				success: function() {
 					ctx.$el.removeClass("editing");
 				},
@@ -109,6 +110,7 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 			this.model.set("vehicle", {vehicleId: this.options.vehicleId});
 
 			this.collection.create(this.model.toJSON(), {
+				wait: true,
 				success: function() {
 					ctx.$el.remove();
 				},

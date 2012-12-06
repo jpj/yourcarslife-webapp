@@ -20,14 +20,11 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 		var logIndex = this.collection.indexOf(model);
 		var view = new solairis.ycl.view.FuelLog({model: model, collection: this.collection, vehicleId: this.options.vehicleId});
 		if (this.$(".fuel-log").length == 0 || this.$(".fuel-log:eq("+logIndex+")").length == 0) {
-			this.$("ul").append(view.render().el);
+			this.$("ul").append(view.el);
 		} else {
-			this.$(".fuel-log:eq("+logIndex+")").before(view.render().el);
+			this.$(".fuel-log:eq("+logIndex+")").before(view.el);
 		}
-
-		if (logIndex == this.collection.length - 1) {
-			new solairis.ycl.view.FuelLogEconomyCalculate({el: this.$("ul"), collection: this.collection});
-		}
+		view.render();
 	},
 	loadNextPage: function(e) {
 		e.preventDefault();

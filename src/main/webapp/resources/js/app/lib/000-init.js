@@ -4,9 +4,13 @@
  */
 
 window.solairis = window.solairis || {};
+
 solairis.ycl = {
 	collection: {},
 	constant: {},
+	error: {
+		properties: {}
+	},
 	model: {},
 	router: {},
 	template: {

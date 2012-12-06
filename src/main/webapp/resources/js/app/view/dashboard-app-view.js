@@ -5,14 +5,14 @@
 
 solairis.ycl.view.Dashboard = Backbone.View.extend({
 	events: {
+		"click .add-new-vehicle": "addVehicle"
 	},
 	initialize: function() {
 		document.title = "Dashboard | "+solairis.ycl.constant.SITE_TITLE;
-		var addNewVehicleAnchor = document.createElement("a");
-		addNewVehicleAnchor.href = solairis.ycl.constant.BASE_URL + "/vehicle/0";
-		this.$(".add-new-vehicle").attr("href", addNewVehicleAnchor.href);
-
-		this.collection.on("all", this.render, this);
+		if (this.collection) {
+			this.collection.on("all", this.render, this);
+		}
+		return this;
 	},
 	render: function() {
 		this.$el.html(solairis.ycl.template.text.dashboard);
@@ -24,5 +24,21 @@ solairis.ycl.view.Dashboard = Backbone.View.extend({
 			this.$(".user-has-no-vehicles").hide();
 		}
 		return this;
+	},
+
+	addVehicle: function(e) {
+		e.preventDefault();
+		var vehicleName = prompt("New Vehicle Name:");
+		if (vehicleName != null && vehicleName != "") {
+			this.collection.create({name: vehicleName}, {
+				wait: true,
+				success: function(collectionMaybe, vehicle) {
+					document.location.hash = "#/vehicle/"+vehicle.vehicleId;
+				},
+				error: function() {
+					alert("Error creating vehicle");
+				}
+			})
+		}
 	}
 });

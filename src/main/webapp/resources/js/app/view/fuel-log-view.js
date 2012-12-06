@@ -19,6 +19,8 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
 		this.$el.data("logDate", new Date(this.model.get("logDate")));
 
+		new solairis.ycl.view.FuelLogEconomyCalculate({el: this.$el.parents("#fuel-logs"), collection: this.collection});
+
 		return this;
 	},
 	serialize: function() {
@@ -56,6 +58,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		this.model.set(this.serialize.call(ctx));
 		if (this.model.get("logId")) {
 			this.model.save(null, {
+				wait: true,
 				success: function() {
 					ctx.$el.removeClass("editing");
 				},
@@ -64,7 +67,10 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 				}
 			});
 		} else {
+			// TODO - This should prob be moved out of here. The
+			// fuel log view shouldn't know of the whole collection.
 			this.collection.create(this.model.toJSON(), {
+				wait: true,
 				success: function() {
 					ctx.$el.remove();
 				},

@@ -1,8 +1,13 @@
 CACHE MANIFEST
-# Version 1.0.002
+# Version 1.1.20
 
 CACHE:
-#../vehicle/log/fuel/list
+../app
+#../gzip_v1_0_0/resources/js/app/lib.js
+#../gzip_v1_0_0/resources/css/app.css
 
 NETWORK:
+../
+../login
+../logout
 *

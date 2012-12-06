@@ -20,6 +20,7 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 			model: vehicleModel
 		});
 		vehicleModel.fetch();
+		return this;
 	},
 	render: function() {
 

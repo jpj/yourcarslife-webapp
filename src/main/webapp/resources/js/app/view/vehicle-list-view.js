@@ -5,7 +5,7 @@
 
 solairis.ycl.view.VehicleList = Backbone.View.extend({
 	initialize: function() {
-		this.collection.on("all", this.render, this);
+		this.collection.on("reset", this.render, this);
 	},
 	render: function() {
 		var viewCtx = this;
