@@ -37,12 +37,6 @@
 					</label>
 				</div>
 				<div class="input">
-					<label>
-						<input type="checkbox" name="_spring_security_remember_me"/> <span class="remember-me">Remember me</span>
-
-					</label>
-				</div>
-				<div class="input">
 					<input type="submit" value="Login"/>
 				</div>
 			</form>

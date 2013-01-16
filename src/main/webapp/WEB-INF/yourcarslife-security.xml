@@ -28,9 +28,7 @@
 		</property>
 	</bean>
 
-	<security:global-method-security pre-post-annotations="enabled">
-<!--		<security:expression-handler ref="yclExpressionHandler"/>-->
-	</security:global-method-security>
+<!--	<security:global-method-security pre-post-annotations="enabled"/>-->
 
 <!--	<bean id="yclExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
 		<property name="permissionEvaluator">
@@ -54,7 +52,7 @@
 		<security:intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
 		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
-		<security:form-login login-page="/login" default-target-url='/vehicle/list' authentication-failure-url="/login?login_error=true"/>
+		<security:form-login login-page="/login" default-target-url='/app' authentication-failure-url="/login?login_error=true"/>
 		<security:anonymous/>
 		<security:remember-me key="filmlib" user-service-ref="jdbcUserService"/>
 		<security:http-basic/>

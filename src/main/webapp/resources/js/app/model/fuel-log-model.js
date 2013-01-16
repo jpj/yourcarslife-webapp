@@ -22,11 +22,7 @@ solairis.ycl.model.FuelLog = Backbone.Model.extend({
 solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 	model: solairis.ycl.model.FuelLog,
 	url: function() {
-		return YCLConstants.BASE_URL + '/api/vehicle/'+this.vehicleId+'/log/fuel';
-	},
-	vehicleId: null,
-	setVehicleId: function(value) {
-		this.vehicleId = value;
+		return solairis.ycl.constant.BASE_URL + '/api/log/fuel';
 	},
 	comparator: function(fuelLog) {
 		return fuelLog.get("odometer") * -1;
@@ -89,7 +85,7 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 
 		return get();
 	},
-	
+
 	guessNextCost: function(fuel) {
 		var fuelLog = this.at(0);
 		if (fuelLog && fuelLog.get("cost") && fuelLog.get("fuel")) {
@@ -98,7 +94,7 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 			return 0;
 		}
 	},
-	
+
 	economyAverage: function() {
 		var ctx = this;
 		var avg = 0;
@@ -112,7 +108,7 @@ solairis.ycl.collection.FuelLogList = Backbone.Collection.extend({
 		});
 		return count == 0 ? (0).toFixed(2) : (avg/count).toFixed(2);
 	},
-	
+
 	recentEconomyAverage: function() {
 		var ctx = this;
 		var avg = 0;
