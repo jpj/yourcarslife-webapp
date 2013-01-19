@@ -28,13 +28,13 @@ public class Decider {
 	@Transactional
 	public boolean canAccessVehicle(long vehicleId, User principal) {
 		Vehicle vehicle = this.vehicleService.getVehicle(vehicleId);
-		return vehicle.getUser().getUserId() == Long.parseLong(principal.getUsername());
+		return vehicle.getUser().getLogin().equals(principal.getUsername());
 	}
 
 	@Transactional
 	public boolean canAccessLog(long logId, User principal) {
 		Log log = this.logService.getLog(logId);
-		return log.getVehicle().getUser().getUserId() == Long.parseLong(principal.getUsername());
+		return log.getVehicle().getUser().getLogin().equals(principal.getUsername());
 	}
 
 }

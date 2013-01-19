@@ -55,7 +55,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
 		} catch (ClassCastException e) {
 			// Don't care
 		}
-		User user = userPrincipal == null ? null : this.userService.getUser(( Long.parseLong(userPrincipal.getUsername())) );
+		User user = userPrincipal == null ? null : this.userService.getUser(userPrincipal.getUsername());
 		Map<String, String> uriVars = (HashMap<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		if (uriVars != null) {
 			String vehicleIdParam = uriVars.get("vehicleId");
