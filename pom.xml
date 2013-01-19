@@ -4,7 +4,7 @@
 	<groupId>com.solairis.yourcarslife</groupId>
 	<artifactId>yourcarslife-webapp</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 
 	<name>Your Car's Life Webapp</name>
 	<url>http://yourcarslife.com</url>
