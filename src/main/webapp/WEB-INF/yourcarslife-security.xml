@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-      xmlns:security="http://www.springframework.org/schema/security"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
               http://www.springframework.org/schema/security
               http://www.springframework.org/schema/security/spring-security-3.1.xsd">
@@ -28,15 +28,15 @@
 		</property>
 	</bean>
 
-<!--	<security:global-method-security pre-post-annotations="enabled"/>-->
+	<!--	<security:global-method-security pre-post-annotations="enabled"/>-->
 
-<!--	<bean id="yclExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+	<!--	<bean id="yclExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
 		<property name="permissionEvaluator">
 			<bean class="com.solairis.yourcarslife.authentication.YclPermissionEvaluator"/>
 		</property>
 	</bean>-->
 
-<!--	<security:http use-expressions="true" entry-point-ref="ep403">
+	<!--	<security:http use-expressions="true" entry-point-ref="ep403">
 		<security:intercept-url pattern="/api/**" access="hasAnyRole('ROLE_USER')"/>
 	</security:http>-->
 
@@ -54,23 +54,30 @@
 		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
 		<security:form-login login-page="/login" default-target-url='/app' authentication-failure-url="/login?login_error=true"/>
 		<security:anonymous/>
-		<security:remember-me key="filmlib" user-service-ref="jdbcUserService"/>
+		<security:remember-me key="yourCarsLifeRememberMeKey" services-ref="rememberMeServices"/>
 		<security:http-basic/>
 	</security:http>
 
-	<security:user-service id="namePassUserService">
-		<security:user name="admin" password="hoohoo" authorities="ROLE_USER, ROLE_ADMIN"/>
-	</security:user-service>
+	<!-- Set up our own User Service -->
 	<security:jdbc-user-service id="jdbcUserService" data-source-ref="dataSource"
-		users-by-username-query="SELECT userId,password,enabled FROM user WHERE login=?"
-		authorities-by-username-query="SELECT userId,roleKey FROM userRole WHERE userId=?"/>
+				    users-by-username-query="SELECT login,password,enabled FROM user WHERE login=?"
+				    authorities-by-username-query="SELECT ur.userId,ur.roleKey FROM userRole ur, user u WHERE u.login=? and ur.userId=u.userId"/>
+
+	<bean id="jdbcTokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+		<property name="createTableOnStartup" value="false"/>
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
+		<property name="tokenRepository" ref="jdbcTokenRepository"/>
+		<property name="userDetailsService" ref="jdbcUserService"/>
+		<property name="key" value="yourCarsLifeRememberMeKey"/>
+		<property name="alwaysRemember" value="true"/>
+	</bean>
 
 	<security:authentication-manager>
 		<security:authentication-provider user-service-ref="jdbcUserService">
 			<security:password-encoder hash="md5"/>
-		</security:authentication-provider>
-		<security:authentication-provider user-service-ref="namePassUserService">
-			<security:password-encoder hash="plaintext"/>
 		</security:authentication-provider>
 	</security:authentication-manager>
 
