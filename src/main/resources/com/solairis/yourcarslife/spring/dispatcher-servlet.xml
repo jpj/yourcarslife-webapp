@@ -60,7 +60,7 @@
 	</bean>
 
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/jdbc/autologger"/>
+		<property name="jndiName" value="${autologger.jndi.name}"/>
 	</bean>
 
 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
