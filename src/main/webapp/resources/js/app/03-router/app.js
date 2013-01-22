@@ -16,6 +16,10 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		"/log/service/:vehicleId": "getServiceLog"
 	},
 
+	initialize: function() {
+
+	},
+
 	dashboard: function() {
 		if (!this.dashboardView) {
 			this.dashboardView = new solairis.ycl.view.Dashboard();
