@@ -32,7 +32,7 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 		this.collection.fetch({
 			add: true,
 			data: {
-				offset: this.collection.length + 1,
+				offset: this.collection.length,
 				numResults: 10,
 				vehicleId: this.options.vehicleId
 			},
