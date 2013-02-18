@@ -25,6 +25,8 @@ solairis.ycl.view.VehiclePage = Backbone.View.extend({
 		var ctx = this;
 		e.preventDefault();
 
+		// TODO - disable submit button, in case it takes a while to reach the server.
+
 		this.$("input.error, textarea.error").removeClass("error");
 		this.$(".error").text('');
 
