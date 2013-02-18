@@ -1,13 +1,43 @@
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.solairis.yourcarslife</groupId>
 	<artifactId>yourcarslife-webapp</artifactId>
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
+
 	<name>Your Car's Life Webapp</name>
-	<url>http://maven.apache.org</url>
+	<url>http://yourcarslife.com</url>
+
+	<developers>
+		<developer>
+			<name>Joshua P Johnson</name>
+			<email>joshpauljohnson@gmail.com</email>
+			<organization>Solairis</organization>
+			<organizationUrl>http://solairis.com</organizationUrl>
+			<timezone>-5</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:ssh://git@github.com/jpj/${project.artifactId}.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/jpj/${project.artifactId}.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>solairis-local-releases</id>
+			<url>http://nexus.solairis.com/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>solairis-local-snapshots</id>
+			<name>Solairis Snapshots</name>
+			<url>http://nexus.solairis.com/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -226,9 +256,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
+			<groupId>com.solairis.yourcarslife</groupId>
 			<artifactId>yourcarslife-api</artifactId>
-			<version>${project.version}</version>
+			<version>1.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -318,7 +348,7 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>tomcat-maven-plugin</artifactId>
 						<configuration>
-<!--							<server>tomcat-local</server>
+							<!--							<server>tomcat-local</server>
 							<url>http://localhost:8080/manager</url>-->
 							<path>/yourcarslife</path>
 							<port>8081</port>
@@ -327,7 +357,7 @@
 				</plugins>
 			</build>
 			<dependencies>
-<!--				<dependency>
+				<!--				<dependency>
 					<groupId>org.springframework</groupId>
 					<artifactId>spring-context</artifactId>
 					<version>3.1.1.RELEASE</version>

@@ -4,6 +4,7 @@
  */
 package com.solairis.yourcarslife.controller;
 
+import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.data.domain.Vehicle;
 import com.solairis.yourcarslife.service.UserService;
 import com.solairis.yourcarslife.service.VehicleService;
@@ -13,7 +14,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.ObjectError;
@@ -51,7 +52,8 @@ public class VehicleController {
 	@Transactional
 	@ResponseBody
 	public List<Vehicle> list() {
-		return vehicleService.getVehiclesByUserId(Long.parseLong( ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()));
+		User user = this.userService.getUser(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+		return vehicleService.getVehiclesByUserId(user.getUserId());
 	}
 
 	@RequestMapping(value="/{vehicleId}", method= RequestMethod.GET)
@@ -67,7 +69,7 @@ public class VehicleController {
 	@ResponseBody
 	public Vehicle save(@Valid @RequestBody Vehicle inVehicle) {
 		Vehicle vehicle = new Vehicle();
-		vehicle.setUser(userService.getUser(Long.parseLong( ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())));
+		vehicle.setUser(userService.getUser(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()));
 		this.updateVehicleFields(inVehicle, vehicle);
 
 		vehicleService.saveVehicle(vehicle);
