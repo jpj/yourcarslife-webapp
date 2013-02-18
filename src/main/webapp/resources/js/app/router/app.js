@@ -66,9 +66,9 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		}
 
 		if (!this.fuelLogPageView) {
-			this.fuelLogPageView = new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: this.fuelLogsForVehicle[vehicleId]});
+			this.fuelLogPageView = new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: this.fuelLogsForVehicle[vehicleId], vehicleId: vehicleId});
 		} else {
-			this.fuelLogPageView.options.vehicle = this.vehicles.get(vehicleId);
+			this.fuelLogPageView.options.vehicleId = vehicleId;
 			this.fuelLogPageView.initialize();
 		}
 
