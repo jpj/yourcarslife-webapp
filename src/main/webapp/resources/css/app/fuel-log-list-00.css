@@ -21,11 +21,13 @@
 .options > .add {
 	background-color: #E9FFE6;
 	border-left: 13px solid #1FD700;
-	cursor: pointer;
+	color: #000000;
+	display: block;
 	font-size: 23pt;
 	left: 0;
 	padding: 1px 10px 1px 34px;
 	position: absolute;
+	text-decoration: none;
 	top: 0;
 }
 
