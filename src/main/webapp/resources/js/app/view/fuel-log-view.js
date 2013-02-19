@@ -94,7 +94,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		$(this.el).addClass("is-new fuel-log editing");
 	},
 	closeNew: function() {
-		this.$el.removeClass("is-new fuel-log").removeData("logDate").empty();
+		this.$el.removeClass("is-new fuel-log").removeData("logDate").remove();
 	},
 	addCalendar: function(e) {
 		var viewCtx = this;
