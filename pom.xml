@@ -3,7 +3,7 @@
 	<groupId>com.solairis.yourcarslife</groupId>
 	<artifactId>yourcarslife-webapp</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.5-SNAPSHOT</version>
 
 	<name>Your Car's Life Webapp</name>
 	<url>http://yourcarslife.com</url>
