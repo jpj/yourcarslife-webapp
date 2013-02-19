@@ -5,5 +5,5 @@
 
 solairis.ycl.model.User = Backbone.Model.extend({
 	idAttribute: "userId",
-	urlRoot: YCLConstants.BASE_URL + '/api/user'
+	urlRoot: solairis.ycl.constant.BASE_URL + '/api/user'
 });

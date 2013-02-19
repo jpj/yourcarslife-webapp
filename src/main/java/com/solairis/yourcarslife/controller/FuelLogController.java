@@ -10,6 +10,7 @@ import com.solairis.yourcarslife.service.VehicleService;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author josh
  */
 @Controller
+@RequestMapping(value = "/api/log/fuel")
 public class FuelLogController {
 
 	@Resource
@@ -36,40 +38,52 @@ public class FuelLogController {
 	@Resource
 	private Validator fuelLogValidator;
 
-	@InitBinder(value={"fuelLog"})
+	@InitBinder(value = {"fuelLog"})
 	protected void initBinder(WebDataBinder binder) {
 		binder.setValidator(this.fuelLogValidator);
 	}
 
-	@RequestMapping(value= "/api/vehicle/{vehicleId}/log/fuel", method= RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	@Transactional
 	@ResponseBody
-	public List<FuelLog> list(@PathVariable("vehicleId") long vehicleId, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="numResults") int numResults) {
-		return this.logService.getFuelLogsForVehicle(vehicleId, page, numResults > 1000 ? 1000 : numResults);
+	@PreAuthorize("@decider.canAccessVehicle(#vehicleId, principal)")
+	public List<FuelLog> list(@RequestParam("vehicleId") long vehicleId, @RequestParam(value = "offset", defaultValue = "0") int offset, @RequestParam(value = "numResults") int numResults) {
+		return this.logService.getFuelLogsForVehicle(vehicleId, offset, numResults);
 	}
 
-	@RequestMapping(value="/api/vehicle/{vehicleId}/log/fuel/{logId}", method= RequestMethod.GET)
+	@RequestMapping(value = "/{logId}", method = RequestMethod.GET)
 	@Transactional
 	@ResponseBody
-	public FuelLog get(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") long logId) {
+	@PreAuthorize("@decider.canAccessLog(#logId, principal)")
+	public FuelLog get(@PathVariable("logId") long logId) {
 		return this.logService.getFuelLog(logId);
 	}
 
-	@RequestMapping(value="/api/vehicle/{vehicleId}/log/fuel", method= RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	@Transactional
 	@ResponseBody
-	public FuelLog save(@PathVariable("vehicleId") long vehicleId, @Valid @RequestBody FuelLog fuelLog) {
-		fuelLog.setVehicle(this.vehicleService.getVehicle(vehicleId));
+	@PreAuthorize("@decider.canAccessVehicle(#inFuelLog.vehicle.vehicleId, principal)")
+	public FuelLog save(@Valid @RequestBody FuelLog inFuelLog) {
+		FuelLog fuelLog = new FuelLog();
+		fuelLog.setActive(true);
+		fuelLog.setCost(inFuelLog.getCost());
+		fuelLog.setFuel(inFuelLog.getFuel());
+		fuelLog.setLogDate(inFuelLog.getLogDate());
+		fuelLog.setMissedFillup(inFuelLog.isMissedFillup());
+		fuelLog.setOctane(inFuelLog.getOctane());
+		fuelLog.setOdometer(inFuelLog.getOdometer());
+		fuelLog.setVehicle(this.vehicleService.getVehicle(inFuelLog.getVehicle().getVehicleId()));
 		this.logService.save(fuelLog);
 		return fuelLog;
 	}
 
-	@RequestMapping(value = "/api/vehicle/{vehicleId}/log/fuel/{logId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{logId}", method = RequestMethod.PUT)
 	@Transactional
 	@ResponseBody
-	public void put(@PathVariable("vehicleId") long vehicleId, @PathVariable("logId") Long logId, @Valid @RequestBody FuelLog inFuelLog) {
+	@PreAuthorize("@decider.canAccessVehicle(#inFuelLog.vehicle.vehicleId, principal)")
+	public FuelLog put(@PathVariable("logId") Long logId, @Valid @RequestBody FuelLog inFuelLog) {
 		if (logId != inFuelLog.getLogId()) {
-			throw new IllegalArgumentException("Log ID of "+logId+" passed on URL does not match the id "+inFuelLog.getLogId()+ "passed in the body");
+			throw new IllegalArgumentException("Log ID of " + logId + " passed on URL does not match the id " + inFuelLog.getLogId() + "passed in the body");
 		}
 
 		FuelLog fuelLog = this.logService.getFuelLog(logId);
@@ -81,6 +95,8 @@ public class FuelLogController {
 		fuelLog.setOctane(inFuelLog.getOctane());
 		fuelLog.setOdometer(inFuelLog.getOdometer());
 
-//		this.logService.save(fuelLog);
+		this.logService.save(fuelLog);
+
+		return fuelLog;
 	}
 }

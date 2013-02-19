@@ -40,23 +40,24 @@ solairis.ycl.template.view.fuelLog = function(fuelLog) {
 
 solairis.ycl.template.view.vehicle = function(vehicle) {
 	return {
+		vehicleId: vehicle.vehicleId,
 		name: vehicle.name,
 		notes: vehicle.notes,
 		description: vehicle.description,
 		editVehicleUrl: function() {
 			var editVehicleUrl = document.createElement("a");
-			editVehicleUrl.href = YCLConstants.BASE_URL + "/vehicle/" + vehicle.vehicleId;
+			editVehicleUrl.href = solairis.ycl.constant.BASE_URL + "/vehicle/" + vehicle.vehicleId;
 			return editVehicleUrl.href;
 		},
 		fuelLogsUrl: function() {
 			var fuelLogListUrl = document.createElement("a");
-			fuelLogListUrl.href = YCLConstants.BASE_URL + "/vehicle/log/fuel/list";
+			fuelLogListUrl.href = solairis.ycl.constant.BASE_URL + "/vehicle/log/fuel/list";
 			fuelLogListUrl.hash = JSON.stringify({vehicleId: vehicle.vehicleId});
 			return fuelLogListUrl.href;
 		},
 		serviceLogsUrl: function() {
 			var serviceLogListUrl = document.createElement("a");
-			serviceLogListUrl.href = YCLConstants.BASE_URL + "/vehicle/log/service/list";
+			serviceLogListUrl.href = solairis.ycl.constant.BASE_URL + "/vehicle/log/service/list";
 			serviceLogListUrl.hash = JSON.stringify({vehicleId: vehicle.vehicleId});
 			return serviceLogListUrl.href;
 		}
@@ -73,9 +74,35 @@ solairis.ycl.template.view.user = function(user) {
 $(function() {
 	var tmpl = solairis.ycl.template.text;
 
+	tmpl.dashboard = $("#dashboard-template").html();
 	tmpl.fuelLog = $("#fuel-log-template").html();
+	tmpl.fuelLogPage = $("#fuel-log-page-template").html();
 	tmpl.vehicle = $("#vehicle-template").html();
 	tmpl.headerVehicle = $("#header-vehicle-template").html();
 	tmpl.headerUser = $("#header-user-template").html();
 	tmpl.fuelLogStats = $("#fuel-log-stats-template").html();
+	tmpl.serviceLogPage = $("#service-log-page-template").html();
+
+	$("script[id$=-template]").each(function() {
+		tmpl[$(this).attr("id")] = $(this).html();
+	});
 });
+
+/*
+ * Error Handling
+ */
+
+solairis.ycl.error.properties = {
+	"Size.vehicle.name": "Vehicle name must be at least 1 character and no more than 100 characters",
+	"required": "Field required"
+};
+
+solairis.ycl.error.resolve = function(error) {
+	for(var i = 0; i < error.codes.length; i++) {
+		var code = error.codes[i];
+		if (solairis.ycl.error.properties[code]) {
+			return solairis.ycl.error.properties[code];
+		}
+	}
+	return error.defaultMessage;
+}

@@ -15,19 +15,11 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	render: function() {
 		var tmpl = solairis.ycl.template;
 
-		var index = this.collection.indexOf(this.model);
-
-		var nextModel = this.collection.at(index+1);
-
 		this.$el.html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(this.model.toJSON())));
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
 		this.$el.data("logDate", new Date(this.model.get("logDate")));
 
-		if (nextModel && nextModel.get("odometer") && !this.model.get("missedFillup")) {
-			this.$(".economy .number").text( ((this.model.get("odometer")-nextModel.get("odometer")) / this.model.get("fuel")).toFixed(2) );
-		} else {
-			this.$(".economy .number").text("-");
-		}
+		new solairis.ycl.view.FuelLogEconomyCalculate({el: this.$el.parents("#fuel-logs"), collection: this.collection});
 
 		return this;
 	},
@@ -50,7 +42,10 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 			fuel: parseFloat( this.$(".fuel input.edit").val() ),
 			octane: parseInt( this.$(".octane input").val() ),
 			cost: cost,
-			missedFillup: this.$(".missedFillup input").get(0).checked
+			missedFillup: this.$(".missedFillup input").get(0).checked,
+			vehicle: {
+				vehicleId: this.options.vehicleId
+			}
 		};
 	},
 	editFuelLog: function(e) {
@@ -63,6 +58,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		this.model.set(this.serialize.call(ctx));
 		if (this.model.get("logId")) {
 			this.model.save(null, {
+				wait: true,
 				success: function() {
 					ctx.$el.removeClass("editing");
 				},
@@ -71,7 +67,10 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 				}
 			});
 		} else {
+			// TODO - This should prob be moved out of here. The
+			// fuel log view shouldn't know of the whole collection.
 			this.collection.create(this.model.toJSON(), {
+				wait: true,
 				success: function() {
 					ctx.$el.remove();
 				},

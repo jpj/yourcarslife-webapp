@@ -9,9 +9,10 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 
+<c:set var="appcache"><decorator:getProperty property="meta.appcache"/></c:set>
+
 <!doctype html>
-<!--<html manifest="<c:url value="/resources/ycl.appcache"/>">-->
-<html>
+<html<c:if test="${appcache eq 'on'}"> manifest="<c:url value="/resources/ycl.appcache"/>"</c:if>>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="HandheldFriendly" content="true"/>
@@ -34,6 +35,9 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.highlighter.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.cursor.min.js"/>"></script>
 
+<!--		<script type="text/javascript" src="<c:url value="/gzip_v1_0_3/resources/js/app/lib.js"/>"></script>
+		<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/gzip_v1_0_0/resources/css/app.css"/>"/>-->
+
 		<jwr:script src="/resources/js/app/lib.js"/>
 		<jwr:style src="/resources/css/app.css"/>
 		<decorator:head/>
@@ -41,6 +45,21 @@
 		<script type="text/javascript">
 			$(function() {
 				var app = new solairis.ycl.view.App();
+
+				$(window.applicationCache).bind("updateready", function(e) {
+					$(".appcache-status").text("Updating...");
+					window.applicationCache.swapCache();
+					$(".appcache-status").text("Update Ready");
+				});
+				$(window.applicationCache).bind("checking", function(e) {
+					$(".appcache-status").text("Checking For App Update...");
+				});
+				$(window.applicationCache).bind("noupdate", function(e) {
+					$(".appcache-status").text("App Current");
+				});
+				$(window.applicationCache).bind("cached", function(e) {
+					$(".appcache-status").text("App Cached");
+				});
 			});
 		</script>
 
@@ -70,7 +89,7 @@
 				<div id="navigation">
 					<ul>
 						<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<c:url value="/vehicle/list"/>">Dashboard</a></li>
+							<li><a href="<c:url value="/app"/>#/">Dashboard</a></li>
 							<li><a href="<c:url value="/logout"/>">Logout</a></li>
 						</security:authorize>
 
@@ -80,6 +99,7 @@
 					</ul>
 
 					<div class="user-wrapper"></div>
+					<div class="appcache-status"></div>
 				</div>
 				<div id="page-content">
 					<div class="content">
@@ -88,6 +108,67 @@
 				</div>
 			</div>
 		</div>
+
+		<script id="dashboard-template" type="text/template">
+			<h2>Your Vehicles</h2>
+
+			<p class="user-has-no-vehicles">
+				You have no vehicles. The first step is to
+				<a class="add-new-vehicle" href="#">add a vehicle</a>,
+				then you can add fuel and service logs
+				to it.
+			</p>
+
+			<p>
+				(<a class="add-new-vehicle" href="#">Add new vehicle</a>)
+			</p>
+
+			<ul id="vehicles">
+			</ul>
+		</script>
+
+		<script id="fuel-log-page-template" type="text/template">
+			<p class="vehicle-wrapper">
+			</p>
+
+			<div id="graph-holder">
+				<div class="stats"></div>
+				<div id="graph"></div>
+			</div>
+
+			<div class="options">
+				<div class="add"><div class="indicator">+</div> <span class="text">Add</span></div>
+			</div>
+			<div class="new-fuel-log"></div>
+
+			<div class="paging">
+				<a href="#prev">prev</a>
+				<a href="#next">next</a>
+				<span class="from"></span>
+				-
+				<span class="to"></span>
+				of
+				<span class="total"></span>
+			</div>
+
+			<div id="fuel-logs-wrapper">
+				<ul id="fuel-logs">
+				</ul>
+				<div>
+					<a class="button load-more" href="#">Load More</a>
+				</div>
+			</div>
+
+			<div class="paging">
+				<a href="#prev">prev</a>
+				<a href="#next">next</a>
+				<span class="from"></span>
+				-
+				<span class="to"></span>
+				of
+				<span class="total"></span>
+			</div>
+		</script>
 
 		<script id="fuel-log-template" type="text/template">
 			<form method="get" action="#">
@@ -149,14 +230,15 @@
 			</div>
 			<div class="container view">
 				<div class="name">
-					<a href="{{editVehicleUrl}}">{{name}}</a>
+					<a href="#/vehicle/{{vehicleId}}">{{name}}</a>
 				</div>
 				<div>
-					<a href="{{fuelLogsUrl}}">Fuel Logs</a> |
-					<a href="{{serviceLogsUrl}}">Service Logs</a>
+					<a href="#/log/fuel/{{vehicleId}}">Fuel Logs</a> |
+					<a href="#/log/service/{{vehicleId}}">Service Logs</a>
 				</div>
 				<div>Notes: <span class="notes">{{notes}}</span></div>
 				<div>Description: <span class="description">{{description}}</span></div>
+				<a href="#" class="delete">Delete</a>
 			</div>
 		</script>
 
@@ -176,6 +258,47 @@
 				<span class="group">Recent Eco: {{recentAverageEconomy}}mpg</span>
 				<span class="group">Total Fillups: {{totalFillups}}</span>
 			</div>
+		</script>
+
+		<script type="text/template" id="service-log-page-template">
+			<p class="vehicle">Vehicle: <span class="name"></span></p>
+
+			<p>
+				<a id="add-new-service-log" href="#">New</a>
+			</p>
+			<ul id="new-service-log"></ul>
+
+			<ul id="service-logs">
+			</ul>
+		</script>
+
+		<script type="text/template" id="service-log-template">
+			<div class="container edit">
+				<form method="get" action="#">
+					<div class="log-date"><input type="text" placeholder="Date"/></div>
+					<div class="cost"><span class="units">$</span><span class="number"><input type="number" placeholder="Cost" step=".01"/></span></div>
+					<div class="odometer"><span class="number"><input type="number" step=".1" value="<\%=odometer%>" placeholder="Odometer"/></span> <span class="units">mi</span></div>
+					<div class="summary"><input type="text" value="<\%=summary%>" placeholder="Summary"/></div>
+					<div class="description"><textarea placeholder="Description"><\%=description%></textarea></div>
+					<div class="tags"></div>
+					<div>
+						<input type="submit" value="Save"/>
+						<input type="button" value="Cancel" class="cancel"/>
+					</div>
+				</form>
+			</div>
+			<a class="container view edit-log" href="">
+				<div class="log-date"></div>
+				<div class="cost"><span class="units">$</span><span class="number"></span></div>
+				<div class="odometer"><span class="number"><\%=odometer%></span> <span class="units">mi</span></div>
+				<div class="summary"><\%=summary%></div>
+				<div class="description"><\%=description%></div>
+				<div class="tags"></div>
+			</a>
+		</script>
+
+		<script type="text/template" id="vehicle-edit-template">
+			<jsp:include page="../template/vehicle-edit.jsp"/>
 		</script>
 
 	</body>

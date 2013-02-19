@@ -6,12 +6,13 @@ package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.command.TagFormData;
 import com.solairis.yourcarslife.data.domain.Tag;
+import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.service.TagService;
 import com.solairis.yourcarslife.service.UserService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -60,7 +61,7 @@ public class UserTagController {
 				tag = tagService.getTag(tagId);
 			} else {
 				tag = new Tag();
-				tag.setUser(userService.getUser(Long.parseLong( ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())));
+				tag.setUser(userService.getUser(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()));
 			}
 			tag.setLabel(formData.getLabel());
 			tagService.save(tag);
@@ -71,8 +72,9 @@ public class UserTagController {
 	}
 
 	private void referenceData(Long tagId, Model model) {
+		User user = this.userService.getUser(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
 		model.addAttribute("tagId", tagId);
-		model.addAttribute("userTags", tagService.getTagsForUser( Long.parseLong( ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()) ) );
+		model.addAttribute("userTags", tagService.getTagsForUser( user.getUserId() ));
 	}
 
 }

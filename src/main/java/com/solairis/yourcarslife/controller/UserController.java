@@ -44,13 +44,7 @@ public class UserController {
 			authUser = (org.springframework.security.core.userdetails.User)auth.getPrincipal();
 		}
 
-		if (authUser != null) {
-			String userIdStr = authUser.getUsername();
-			long userId = Long.parseLong(userIdStr);
-			return this.userService.getUser(userId);
-		} else {
-			return null;
-		}
+		return authUser == null ? null : this.userService.getUser(authUser.getUsername());
 	}
 
 }

@@ -25,9 +25,20 @@ form {
 .error {
 	color: red;
 }
+input.error, textarea.error {
+	background-color: red;
+	color: black;
+}
 
 .success {
 	color: green;
+}
+.success.message {
+	display: none;
+}
+
+.deleting, .deleting:hover {
+	background-color: red;
 }
 
 .button {
@@ -127,4 +138,11 @@ Page
 
 #navigation .user {
 	background-color: green;
+}
+
+.appcache-status {
+	font-size: 8pt;
+	position: absolute;
+	right: 5px;
+	top: 8px;
 }
