@@ -137,7 +137,7 @@
 			</div>
 
 			<div class="options">
-				<div class="add"><div class="indicator">+</div> <span class="text">Add</span></div>
+				<a href="#" class="add">Add</a>
 			</div>
 			<div class="new-fuel-log"></div>
 

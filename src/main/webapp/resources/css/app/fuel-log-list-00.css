@@ -21,11 +21,13 @@
 .options > .add {
 	background-color: #E9FFE6;
 	border-left: 13px solid #1FD700;
-	cursor: pointer;
+	color: #000000;
+	display: block;
 	font-size: 23pt;
 	left: 0;
 	padding: 1px 10px 1px 34px;
 	position: absolute;
+	text-decoration: none;
 	top: 0;
 }
 
@@ -71,14 +73,6 @@
 	background-color: #ececec;
 }
 
-.fuel-log.is-new {
-	border: 1px dashed black;
-}
-
-.fuel-log.editing:hover {
-	background-color: #E9FFE6;
-}
-
 .fuel-log:nth-child(odd) {
 	background-color: #f8f8f8;
 }
@@ -101,12 +95,24 @@
 	display: none;
 }
 
-.fuel-log.editing {
+.fuel-log.editing, .fuel-log.editing:hover {
+	background-color: rgb(255, 237, 140);
+	border-left: 6px solid gold;
+}
+
+.fuel-log.is-new, .fuel-log.is-new:hover {
 	background-color: #E9FFE6;
-/*	border-bottom: 3px dotted black;*/
+	border: 1px dashed black;
 	border-left: 6px solid #1FD700;
-/*	border-right: 3px dotted black;
-	border-top: 3px dotted black;*/
+        margin-bottom: 15px;
+}
+
+.fuel-log.is-new input {
+    color: gray;
+}
+
+.fuel-log.is-new .cost-per-fuel {
+	display: none;
 }
 
 .fuel-log.fresh {
@@ -191,10 +197,6 @@
 .fuel-log .cost-per-fuel:first-letter {
 	font-size: 16pt;
 	vertical-align: top;
-}
-
-.fuel-log.is-new .cost-per-fuel {
-	display: none;
 }
 
 .fuel-log .odometer input {

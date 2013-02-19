@@ -27,7 +27,8 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 	render: function() {
 		return this;
 	},
-	addFuelLog: function() {
+	addFuelLog: function(e) {
+		e.preventDefault();
 		var tmpl = solairis.ycl.template;
 		var fuelLog = new solairis.ycl.model.FuelLog;
 		fuelLog.set("octane", this.collection.octaneMode());
