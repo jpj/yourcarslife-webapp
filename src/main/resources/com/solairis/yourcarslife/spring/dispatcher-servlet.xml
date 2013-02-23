@@ -29,13 +29,6 @@
 	<mvc:view-controller path="/vehicle/log/service/list" view-name="service-log-list"/>
 	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
 
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/api/**"/>
-			<bean class="com.solairis.yourcarslife.interceptor.SecurityInterceptor"/>
-		</mvc:interceptor>
-	</mvc:interceptors>
-
 	<bean id="jawrBase" abstract="true" class="net.jawr.web.servlet.JawrSpringController">
 		<property name="configLocation" value="/jawr.properties"/>
 	</bean>
