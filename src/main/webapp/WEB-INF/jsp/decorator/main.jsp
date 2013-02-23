@@ -35,14 +35,38 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.highlighter.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.cursor.min.js"/>"></script>
 
-<!--		<script type="text/javascript" src="<c:url value="/gzip_v1_0_3/resources/js/app/lib.js"/>"></script>
-		<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/gzip_v1_0_0/resources/css/app.css"/>"/>-->
+		<script type="text/javascript">
+			window.solairis = window.solairis || {};
+
+			solairis.ycl = {
+				collection: {},
+				constant: {
+					BASE_URL: (function() {
+						return '${pageContext.request.contextPath}' === '/' ? '' : '${pageContext.request.contextPath}';
+					})()
+				},
+				error: {
+					properties: {}
+				},
+				model: {},
+				router: {},
+				template: {
+					render: null,
+					text: {},
+					view: {}
+				},
+				util: {},
+				view: {}
+			};
+		</script>
 
 		<jwr:script src="/resources/js/app/lib.js"/>
 		<jwr:style src="/resources/css/app.css"/>
 		<decorator:head/>
 
 		<script type="text/javascript">
+			$.ajaxSetup({ cache: false });
+			
 			$(function() {
 				var app = new solairis.ycl.view.App();
 

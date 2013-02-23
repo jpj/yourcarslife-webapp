@@ -17,7 +17,7 @@
 					<key>
 						<bean class="com.solairis.yourcarslife.requestmatcher.ServicesRequestMatcher"/>
 					</key>
-					<bean id="ep403" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
+					<bean class="com.solairis.yourcarslife.security.Http401NotAuthorizedEntryPoint"/>
 				</entry>
 			</map>
 		</constructor-arg>
