@@ -25,11 +25,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		this.dashboardView.initialize().render();
 
 		if(this.vehicles.length == 0) {
-			this.vehicles.fetch({
-				error: function() {
-					alert("Error getting list of vehicles. This should not happen");
-				}
-			});
+			this.vehicles.fetch();
 		} else {
 			this.vehicles.trigger("reset");
 		}
@@ -47,9 +43,6 @@ solairis.ycl.router.App = Backbone.Router.extend({
 				success: function() {
 					ctx.vehicleView.model = ctx.vehicles.get(vehicleId);
 					ctx.vehicleView.initialize().render();
-				},
-				error: function() {
-					alert("Error getting list of vehicles. This should not happen");
 				}
 			});
 		} else {
@@ -78,9 +71,6 @@ solairis.ycl.router.App = Backbone.Router.extend({
 					offset: 0,
 					numResults: 10,
 					vehicleId: vehicleId
-				},
-				error: function(a, errorResponse) {
-					alert("Error fetching fuel logs");
 				}
 			});
 		} else {
@@ -107,9 +97,6 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		serviceLogs.fetch({
 			data: {
 				vehicleId: vehicleId
-			},
-			error: function(a, errorResponse) {
-				alert("Error fetching service log list");
 			}
 		});
 	}

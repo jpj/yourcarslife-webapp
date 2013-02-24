@@ -64,13 +64,6 @@ solairis.ycl.template.view.vehicle = function(vehicle) {
 	};
 };
 
-solairis.ycl.template.view.user = function(user) {
-	return {
-		userId: user.userId,
-		login: user.login
-	};
-};
-
 $(function() {
 	var tmpl = solairis.ycl.template.text;
 
@@ -79,7 +72,6 @@ $(function() {
 	tmpl.fuelLogPage = $("#fuel-log-page-template").html();
 	tmpl.vehicle = $("#vehicle-template").html();
 	tmpl.headerVehicle = $("#header-vehicle-template").html();
-	tmpl.headerUser = $("#header-user-template").html();
 	tmpl.fuelLogStats = $("#fuel-log-stats-template").html();
 	tmpl.serviceLogPage = $("#service-log-page-template").html();
 

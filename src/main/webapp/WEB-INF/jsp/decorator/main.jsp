@@ -35,16 +35,41 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.highlighter.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.cursor.min.js"/>"></script>
 
-<!--		<script type="text/javascript" src="<c:url value="/gzip_v1_0_3/resources/js/app/lib.js"/>"></script>
-		<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/gzip_v1_0_0/resources/css/app.css"/>"/>-->
+		<script type="text/javascript">
+			window.solairis = window.solairis || {};
+
+			solairis.ycl = {
+				collection: {},
+				constant: {
+					BASE_URL: (function() {
+						return '${pageContext.request.contextPath}' === '/' ? '' : '${pageContext.request.contextPath}';
+					})()
+				},
+				error: {
+					properties: {}
+				},
+				model: {},
+				router: {},
+				template: {
+					render: null,
+					text: {},
+					view: {}
+				},
+				util: {},
+				view: {}
+			};
+		</script>
 
 		<jwr:script src="/resources/js/app/lib.js"/>
 		<jwr:style src="/resources/css/app.css"/>
 		<decorator:head/>
 
 		<script type="text/javascript">
+			$.ajaxSetup({ cache: false });
+			
 			$(function() {
-				var app = new solairis.ycl.view.App();
+				var app = new solairis.ycl.view.App({el: $("#navigation"), model: new solairis.ycl.model.CurrentUser()});
+				app.model.fetch();
 
 				$(window.applicationCache).bind("updateready", function(e) {
 					$(".appcache-status").text("Updating...");
@@ -86,21 +111,13 @@
 
 		<div id="page">
 			<div class="container">
-				<div id="navigation">
-					<ul>
-						<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<c:url value="/app"/>#/">Dashboard</a></li>
-							<li><a href="<c:url value="/logout"/>">Logout</a></li>
-						</security:authorize>
-
-						<security:authorize ifNotGranted="ROLE_USER">
-							<li><a href="<c:url value="/login"/>">Login</a></li>
-						</security:authorize>
+				<nav id="navigation">
+					<ul class="navigation-wrapper">
 					</ul>
 
 					<div class="user-wrapper"></div>
 					<div class="appcache-status"></div>
-				</div>
+				</nav>
 				<div id="page-content">
 					<div class="content">
 						<decorator:body/>
@@ -246,10 +263,16 @@
 			<div>Vehicle: <span class="name">{{name}}</span></div>
 		</script>
 
+		<script id="header-anonymous-navigation-template" type="text/template">
+			<li><a href="<c:url value="/login"/>">Login</a></li>
+		</script>
+
+		<script id="header-navigation-template" type="text/template">
+			<li><a href="<c:url value="/app"/>#/">Dashboard</a></li>
+		</script>
+
 		<script id="header-user-template" type="text/template">
-			<div>
-				<span class="login">{{login}}</span>
-			</div>
+			{{user.login}} / <a href="<c:url value="/logout"/>">Logout</a>
 		</script>
 
 		<script id="fuel-log-stats-template" type="text/template">
