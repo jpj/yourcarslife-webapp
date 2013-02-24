@@ -110,21 +110,13 @@
 
 		<div id="page">
 			<div class="container">
-				<div id="navigation">
-					<ul>
-						<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<c:url value="/app"/>#/">Dashboard</a></li>
-							<li><a href="<c:url value="/logout"/>">Logout</a></li>
-						</security:authorize>
-
-						<security:authorize ifNotGranted="ROLE_USER">
-							<li><a href="<c:url value="/login"/>">Login</a></li>
-						</security:authorize>
+				<nav id="navigation">
+					<ul class="navigation-wrapper">
 					</ul>
 
 					<div class="user-wrapper"></div>
 					<div class="appcache-status"></div>
-				</div>
+				</nav>
 				<div id="page-content">
 					<div class="content">
 						<decorator:body/>
@@ -270,10 +262,13 @@
 			<div>Vehicle: <span class="name">{{name}}</span></div>
 		</script>
 
+		<script id="header-anonymous-user-template" type="text/template">
+			<li><a href="<c:url value="/login"/>">Login</a></li>
+		</script>
+
 		<script id="header-user-template" type="text/template">
-			<div>
-				<span class="login">{{login}}</span>
-			</div>
+			<li><a href="<c:url value="/app"/>#/">Dashboard</a></li>
+			<li><a href="<c:url value="/logout"/>">Logout</a></li>
 		</script>
 
 		<script id="fuel-log-stats-template" type="text/template">
