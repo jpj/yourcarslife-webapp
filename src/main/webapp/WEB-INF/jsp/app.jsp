@@ -6,8 +6,6 @@
 
 		<script type="text/javascript">
 			$(function() {
-				var app = new solairis.ycl.view.App();
-
 				// Start routing
 				new solairis.ycl.router.App();
 				Backbone.history.start();

@@ -64,13 +64,6 @@ solairis.ycl.template.view.vehicle = function(vehicle) {
 	};
 };
 
-solairis.ycl.template.view.user = function(user) {
-	return {
-		userId: user.userId,
-		login: user.login
-	};
-};
-
 $(function() {
 	var tmpl = solairis.ycl.template.text;
 

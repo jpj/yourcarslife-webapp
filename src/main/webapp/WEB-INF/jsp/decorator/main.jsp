@@ -68,7 +68,8 @@
 			$.ajaxSetup({ cache: false });
 			
 			$(function() {
-				var app = new solairis.ycl.view.App();
+				var app = new solairis.ycl.view.App({el: $("#navigation"), model: new solairis.ycl.model.CurrentUser()});
+				app.model.fetch();
 
 				$(window.applicationCache).bind("updateready", function(e) {
 					$(".appcache-status").text("Updating...");
@@ -262,13 +263,16 @@
 			<div>Vehicle: <span class="name">{{name}}</span></div>
 		</script>
 
-		<script id="header-anonymous-user-template" type="text/template">
+		<script id="header-anonymous-navigation-template" type="text/template">
 			<li><a href="<c:url value="/login"/>">Login</a></li>
 		</script>
 
-		<script id="header-user-template" type="text/template">
+		<script id="header-navigation-template" type="text/template">
 			<li><a href="<c:url value="/app"/>#/">Dashboard</a></li>
-			<li><a href="<c:url value="/logout"/>">Logout</a></li>
+		</script>
+
+		<script id="header-user-template" type="text/template">
+			{{user.login}} / <a href="<c:url value="/logout"/>">Logout</a>
 		</script>
 
 		<script id="fuel-log-stats-template" type="text/template">
