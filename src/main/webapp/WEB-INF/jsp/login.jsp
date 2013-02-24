@@ -10,7 +10,7 @@
 	<head>
 		<title>Login</title>
 		<security:authorize ifAnyGranted="ROLE_USER">
-			<meta http-equiv="refresh" content="0; <c:url value="/dashboard"/>"/>
+			<meta http-equiv="refresh" content="0; <c:url value="/app"/>"/>
 		</security:authorize>
 	</head>
 	<body>
@@ -36,6 +36,9 @@
 						<input type="password" name="j_password" placeholder="Password"/>
 					</label>
 				</div>
+					<div>
+						<input type="hidden" name="redirect" value="${param.redirect}"/>
+					</div>
 				<div class="input">
 					<input type="submit" value="Login"/>
 				</div>
