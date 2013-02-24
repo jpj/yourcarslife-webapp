@@ -86,6 +86,20 @@
 					$(".appcache-status").text("App Cached");
 				});
 			});
+		
+			solairis.ycl.handlingUnauthorizedError = false;
+		
+			$(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+				// Handle Ajax Errors Globally
+				if (jqXHR.status === 401 && !solairis.ycl.handlingUnauthorizedError) {
+					solairis.ycl.handlingUnauthorizedError = true;
+					var url = document.createElement('a');
+					url.href = document.location.href;
+					url.pathname = solairis.ycl.constant.BASE_URL + '/login';
+					url.search = 'redirect='+encodeURIComponent(document.location.href);
+					document.location.href = url.href;
+				}
+			});
 		</script>
 
 		<script type="text/javascript">
@@ -247,11 +261,11 @@
 			</div>
 			<div class="container view">
 				<div class="name">
-					<a href="#/vehicle/{{vehicleId}}">{{name}}</a>
+					<a href="<c:url value="/vehicle"/>/{{vehicleId}}">{{name}}</a>
 				</div>
 				<div>
-					<a href="#/log/fuel/{{vehicleId}}">Fuel Logs</a> |
-					<a href="#/log/service/{{vehicleId}}">Service Logs</a>
+					<a href="<c:url value="/log/fuel"/>/{{vehicleId}}">Fuel Logs</a> |
+					<a href="<c:url value="/log/service"/>/{{vehicleId}}">Service Logs</a>
 				</div>
 				<div>Notes: <span class="notes">{{notes}}</span></div>
 				<div>Description: <span class="description">{{description}}</span></div>
@@ -268,7 +282,7 @@
 		</script>
 
 		<script id="header-navigation-template" type="text/template">
-			<li><a href="<c:url value="/app"/>#/">Dashboard</a></li>
+			<li><a class="dash" href="<c:url value="/dash"/>">Dashboard</a></li>
 		</script>
 
 		<script id="header-user-template" type="text/template">
@@ -321,7 +335,11 @@
 		</script>
 
 		<script type="text/template" id="vehicle-edit-template">
-			<jsp:include page="../template/vehicle-edit.jsp"/>
+			<%@include file="../template/vehicle-edit.jspf" %>
+		</script>
+		
+		<script type="text/template" id="home-template">
+			<%@include file="../template/home.jspf" %>
 		</script>
 
 	</body>

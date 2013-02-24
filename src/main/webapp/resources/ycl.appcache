@@ -1,8 +1,8 @@
 CACHE MANIFEST
-# Version 1.1.49
+# Version 1.1.63
 
 CACHE:
-../app
+../dash
 #../gzip_v1_0_0/resources/js/app/lib.js
 #../gzip_v1_0_0/resources/css/app.css
 
