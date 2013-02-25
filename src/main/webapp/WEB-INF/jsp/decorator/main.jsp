@@ -98,6 +98,8 @@
 					url.pathname = solairis.ycl.constant.BASE_URL + '/login';
 					url.search = 'redirect='+encodeURIComponent(document.location.href);
 					document.location.href = url.href;
+				} else {
+					$(".application-error").text('Erro: '+jqXHR.statusText);
 				}
 			});
 		</script>
@@ -132,6 +134,7 @@
 					<div class="user-wrapper"></div>
 					<div class="appcache-status"></div>
 				</nav>
+				<div class="application-error"></div>
 				<div id="page-content">
 					<div class="content">
 						<decorator:body/>
