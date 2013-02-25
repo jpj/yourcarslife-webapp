@@ -18,7 +18,7 @@ solairis.ycl.view.Dashboard = Backbone.View.extend({
 		this.$el.html(solairis.ycl.template.text.dashboard);
 		var vehicleListView = new solairis.ycl.view.VehicleList({el: this.$("#vehicles"), collection: this.collection});
 		vehicleListView.render();
-		if (this.collection.length == 0) {
+		if (this.collection.length === 0) {
 			this.$(".user-has-no-vehicles").show();
 		} else {
 			this.$(".user-has-no-vehicles").hide();
@@ -29,7 +29,7 @@ solairis.ycl.view.Dashboard = Backbone.View.extend({
 	addVehicle: function(e) {
 		e.preventDefault();
 		var vehicleName = prompt("New Vehicle Name:");
-		if (vehicleName != null && vehicleName != "") {
+		if (vehicleName !== null && vehicleName !== "") {
 			this.collection.create({name: vehicleName}, {
 				wait: true,
 				success: function(collectionMaybe, vehicle) {
@@ -38,7 +38,7 @@ solairis.ycl.view.Dashboard = Backbone.View.extend({
 				error: function() {
 					alert("Error creating vehicle");
 				}
-			})
+			});
 		}
 	}
 });
