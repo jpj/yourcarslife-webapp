@@ -85,6 +85,9 @@
 				$(window.applicationCache).bind("cached", function(e) {
 					$(".appcache-status").text("App Cached");
 				});
+				$(window.applicationCache).bind("error", function(e) {
+					$(".appcache-status").text("Error");
+				});
 			});
 		
 			solairis.ycl.handlingUnauthorizedError = false;
@@ -113,7 +116,7 @@
 
 			(function() {
 				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 			})();
 
@@ -319,9 +322,9 @@
 				<form method="get" action="#">
 					<div class="log-date"><input type="text" placeholder="Date"/></div>
 					<div class="cost"><span class="units">$</span><span class="number"><input type="number" placeholder="Cost" step=".01"/></span></div>
-					<div class="odometer"><span class="number"><input type="number" step=".1" value="<\%=odometer%>" placeholder="Odometer"/></span> <span class="units">mi</span></div>
-					<div class="summary"><input type="text" value="<\%=summary%>" placeholder="Summary"/></div>
-					<div class="description"><textarea placeholder="Description"><\%=description%></textarea></div>
+					<div class="odometer"><span class="number"><input type="number" step=".1" value="{{odometer}}" placeholder="Odometer"/></span> <span class="units">mi</span></div>
+					<div class="summary"><input type="text" value="{{summary}}" placeholder="Summary"/></div>
+					<div class="description"><textarea placeholder="Description">{{description}}</textarea></div>
 					<div class="tags"></div>
 					<div>
 						<input type="submit" value="Save"/>
@@ -332,9 +335,9 @@
 			<a class="container view edit-log" href="">
 				<div class="log-date"></div>
 				<div class="cost"><span class="units">$</span><span class="number"></span></div>
-				<div class="odometer"><span class="number"><\%=odometer%></span> <span class="units">mi</span></div>
-				<div class="summary"><\%=summary%></div>
-				<div class="description"><\%=description%></div>
+				<div class="odometer"><span class="number">{{odometer}}</span> <span class="units">mi</span></div>
+				<div class="summary">{{summary}}</div>
+				<div class="description">{{description}}</div>
 				<div class="tags"></div>
 			</a>
 		</script>

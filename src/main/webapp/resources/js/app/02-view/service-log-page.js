@@ -14,7 +14,7 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 
 		var vehicleModel = new solairis.ycl.model.Vehicle({
 			vehicleId: vehicleId
-		})
+		});
 		var vehicleView = new solairis.ycl.view.VehicleHeader({
 			el: $(".vehicle"),
 			model: vehicleModel
@@ -30,10 +30,9 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 		var view = new solairis.ycl.view.ServiceLog({
 			collection: this.collection,
 			model: serviceLog,
-			template: _.template($("#service-log-template").html()),
 			vehicleId: this.options.vehicleId
 		});
-		if ($("#service-logs .service-log").length == 0 || $("#service-logs .service-log:eq("+logIndex+")").length == 0) {
+		if ($("#service-logs .service-log").length === 0 || $("#service-logs .service-log:eq("+logIndex+")").length === 0) {
 			$("#service-logs").append(view.render().el);
 		} else {
 			$("#service-logs .service-log:eq("+logIndex+")").before(view.render().el);
@@ -46,7 +45,7 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 	addAll: function() {
 		var ctx = this;
 		this.collection.each(function(serviceLog) {
-			ctx.addOne.call(ctx, serviceLog)
+			ctx.addOne.call(ctx, serviceLog);
 		});
 	},
 
