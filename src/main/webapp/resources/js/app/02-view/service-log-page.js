@@ -54,7 +54,6 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 		var view = new solairis.ycl.view.ServiceLog({
 			collection: this.collection,
 			model: new solairis.ycl.model.ServiceLog,
-			template: _.template($("#service-log-template").html()),
 			vehicleId: this.options.vehicleId
 		});
 		view.enableEditMode();
