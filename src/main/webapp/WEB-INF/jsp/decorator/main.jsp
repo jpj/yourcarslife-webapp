@@ -74,7 +74,7 @@
 				$(window.applicationCache).bind("updateready", function(e) {
 					$(".appcache-status").text("Updating...");
 					window.applicationCache.swapCache();
-					$(".appcache-status").text("Update Ready");
+					$(".appcache-status").text("Update Ready").addClass("update-ready").click(function() {document.location.reload()});
 				});
 				$(window.applicationCache).bind("checking", function(e) {
 					$(".appcache-status").text("Checking For App Update...");

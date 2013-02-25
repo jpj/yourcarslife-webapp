@@ -152,3 +152,7 @@ Page
 	right: 8px;
 	top: 6px;
 }
+
+.appcache-status.update-ready {
+	cursor: pointer;
+}
