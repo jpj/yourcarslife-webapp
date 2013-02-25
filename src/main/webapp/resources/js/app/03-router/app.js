@@ -63,7 +63,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 			ctx.vehicleView.initialize().render();
 		}
 
-
+		return this;
 	},
 
 	getFuelLog: function(vehicleId) {

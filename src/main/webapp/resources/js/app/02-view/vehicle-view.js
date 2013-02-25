@@ -8,6 +8,7 @@ solairis.ycl.view.Vehicle = Backbone.View.extend({
 	className: "vehicle",
 	events: {
 		"click .delete": "deleteVehicle",
+		"click .name a": "goToVehicle",
 		"click .fuel-logs": "goToFuelLogs",
 		"click .service-logs": "goToServiceLogs"
 	},
@@ -37,6 +38,10 @@ solairis.ycl.view.Vehicle = Backbone.View.extend({
 		}
 
 
+	},
+	goToVehicle: function(e) {
+		e.preventDefault();
+		window.app.getVehicle(this.model.get("vehicleId")).navigate('/vehicle/'+this.model.get("vehicleId"));
 	},
 	goToFuelLogs: function(e) {
 		e.preventDefault();
