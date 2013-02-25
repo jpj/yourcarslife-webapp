@@ -4,10 +4,11 @@
  */
 
 solairis.ycl.view.App = Backbone.View.extend({
+	events: {
+		"click .dash": "goDashboard"
+	},
 	initialize: function() {
 		this.model.on("change", this.render, this);
-		var user = new solairis.ycl.model.CurrentUser();
-		var userHeaderView = new solairis.ycl.view.UserHeader({el: $(".navigation-wrapper"), model: user});
 	},
 	render: function() {
 		if (this.model.get("isAnonymous") && this.model.get("isAnonymous") === true) {
@@ -17,5 +18,10 @@ solairis.ycl.view.App = Backbone.View.extend({
 			this.$(".user-wrapper").html(solairis.ycl.template.render(solairis.ycl.template.text["header-user-template"], {user: this.model.toJSON()}));
 		}
 		return this;
+	},
+	goDashboard: function(e) {
+		e.preventDefault();
+		window.app.navigate('/dash');
+		window.app.dashboard();
 	}
 });

@@ -7,13 +7,26 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	vehicleView: null,
 	fuelLogPageView: null,
 	serviceLogPageView: null,
+	
+	initialize: function() {
+		$("#page-content > .content").html('<h1>Loading Application...</h1>');
+	},
 
 	routes: {
-		"": "dashboard",
-		"/": "dashboard",
-		"/vehicle/:vehicleId": "getVehicle",
-		"/log/fuel/:vehicleId": "getFuelLog",
-		"/log/service/:vehicleId": "getServiceLog"
+		"": "home",
+		"dash": "dashboard",
+		"vehicle/:vehicleId": "getVehicle",
+		"log/fuel/:vehicleId": "getFuelLog",
+		"log/service/:vehicleId": "getServiceLog",
+		"*actions": "defaultAction"
+	},
+	
+	defaultAction: function(action) {
+		// 404
+	},
+	
+	home: function() {
+		$("#page-content > .content").html( solairis.ycl.template.text["home-template"] );
 	},
 
 	dashboard: function() {
@@ -50,7 +63,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 			ctx.vehicleView.initialize().render();
 		}
 
-
+		return this;
 	},
 
 	getFuelLog: function(vehicleId) {
@@ -77,7 +90,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 			this.fuelLogsForVehicle[vehicleId].trigger("reset");
 		}
 
-
+		return this;
 	},
 
 	getServiceLog: function(vehicleId) {
@@ -99,5 +112,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 				vehicleId: vehicleId
 			}
 		});
+	
+		return this;
 	}
 });

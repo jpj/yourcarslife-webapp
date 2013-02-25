@@ -47,6 +47,13 @@ public class ServiceLogController {
 	public List<ServiceLog> list(@RequestParam("vehicleId") long vehicleId) {
 		return logService.getServiceLogsForVehicle(vehicleId, 1, 100);
 	}
+	
+	@RequestMapping(value = "/{logId}", method = RequestMethod.GET)
+	@Transactional
+	@ResponseBody
+	public ServiceLog get(@PathVariable("logId") long logId) {
+		return this.logService.getServiceLog(logId);
+	}
 
 	@RequestMapping(value = "/{logId}", method = RequestMethod.PUT)
 	@Transactional

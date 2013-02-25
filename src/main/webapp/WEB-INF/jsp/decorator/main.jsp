@@ -74,7 +74,7 @@
 				$(window.applicationCache).bind("updateready", function(e) {
 					$(".appcache-status").text("Updating...");
 					window.applicationCache.swapCache();
-					$(".appcache-status").text("Update Ready");
+					$(".appcache-status").text("Update Ready").addClass("update-ready").click(function() {document.location.reload()});
 				});
 				$(window.applicationCache).bind("checking", function(e) {
 					$(".appcache-status").text("Checking For App Update...");
@@ -85,6 +85,24 @@
 				$(window.applicationCache).bind("cached", function(e) {
 					$(".appcache-status").text("App Cached");
 				});
+			});
+		
+			solairis.ycl.handlingUnauthorizedError = false;
+		
+			$(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+				// Handle Ajax Errors Globally
+				if (jqXHR.status === 401) {
+					if (!solairis.ycl.handlingUnauthorizedError) {
+						solairis.ycl.handlingUnauthorizedError = true;
+						var url = document.createElement('a');
+						url.href = document.location.href;
+						url.pathname = solairis.ycl.constant.BASE_URL + '/login';
+						url.search = 'redirect='+encodeURIComponent(document.location.href);
+						document.location.href = url.href;
+					}
+				} else {
+					$(".application-error").text('Erro: '+jqXHR.statusText);
+				}
 			});
 		</script>
 
@@ -118,6 +136,7 @@
 					<div class="user-wrapper"></div>
 					<div class="appcache-status"></div>
 				</nav>
+				<div class="application-error"></div>
 				<div id="page-content">
 					<div class="content">
 						<decorator:body/>
@@ -247,11 +266,11 @@
 			</div>
 			<div class="container view">
 				<div class="name">
-					<a href="#/vehicle/{{vehicleId}}">{{name}}</a>
+					<a href="<c:url value="/vehicle"/>/{{vehicleId}}">{{name}}</a>
 				</div>
 				<div>
-					<a href="#/log/fuel/{{vehicleId}}">Fuel Logs</a> |
-					<a href="#/log/service/{{vehicleId}}">Service Logs</a>
+					<a class="fuel-logs" href="<c:url value="/log/fuel"/>/{{vehicleId}}">Fuel Logs</a> |
+					<a class="service-logs" href="<c:url value="/log/service"/>/{{vehicleId}}">Service Logs</a>
 				</div>
 				<div>Notes: <span class="notes">{{notes}}</span></div>
 				<div>Description: <span class="description">{{description}}</span></div>
@@ -268,7 +287,7 @@
 		</script>
 
 		<script id="header-navigation-template" type="text/template">
-			<li><a href="<c:url value="/app"/>#/">Dashboard</a></li>
+			<li><a class="dash" href="<c:url value="/dash"/>">Dashboard</a></li>
 		</script>
 
 		<script id="header-user-template" type="text/template">
@@ -321,7 +340,11 @@
 		</script>
 
 		<script type="text/template" id="vehicle-edit-template">
-			<jsp:include page="../template/vehicle-edit.jsp"/>
+			<%@include file="../template/vehicle-edit.jspf" %>
+		</script>
+		
+		<script type="text/template" id="home-template">
+			<%@include file="../template/home.jspf" %>
 		</script>
 
 	</body>
