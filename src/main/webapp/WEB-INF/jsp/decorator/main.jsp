@@ -264,8 +264,8 @@
 					<a href="<c:url value="/vehicle"/>/{{vehicleId}}">{{name}}</a>
 				</div>
 				<div>
-					<a href="<c:url value="/log/fuel"/>/{{vehicleId}}">Fuel Logs</a> |
-					<a href="<c:url value="/log/service"/>/{{vehicleId}}">Service Logs</a>
+					<a class="fuel-logs" href="<c:url value="/log/fuel"/>/{{vehicleId}}">Fuel Logs</a> |
+					<a class="service-logs" href="<c:url value="/log/service"/>/{{vehicleId}}">Service Logs</a>
 				</div>
 				<div>Notes: <span class="notes">{{notes}}</span></div>
 				<div>Description: <span class="description">{{description}}</span></div>

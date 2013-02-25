@@ -90,7 +90,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 			this.fuelLogsForVehicle[vehicleId].trigger("reset");
 		}
 
-
+		return this;
 	},
 
 	getServiceLog: function(vehicleId) {
@@ -112,5 +112,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 				vehicleId: vehicleId
 			}
 		});
+	
+		return this;
 	}
 });

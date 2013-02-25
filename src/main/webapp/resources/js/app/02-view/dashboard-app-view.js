@@ -34,9 +34,6 @@ solairis.ycl.view.Dashboard = Backbone.View.extend({
 				wait: true,
 				success: function(collectionMaybe, vehicle) {
 					document.location.hash = "#/vehicle/"+vehicle.vehicleId;
-				},
-				error: function() {
-					alert("Error creating vehicle");
 				}
 			});
 		}
