@@ -7,13 +7,26 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	vehicleView: null,
 	fuelLogPageView: null,
 	serviceLogPageView: null,
+	
+	initialize: function() {
+		$("#page-content > .content").html('<h1>Loading Application...</h1>');
+	},
 
 	routes: {
-		"": "dashboard",
-		"/": "dashboard",
-		"/vehicle/:vehicleId": "getVehicle",
-		"/log/fuel/:vehicleId": "getFuelLog",
-		"/log/service/:vehicleId": "getServiceLog"
+		"": "home",
+		"dash": "dashboard",
+		"vehicle/:vehicleId": "getVehicle",
+		"log/fuel/:vehicleId": "getFuelLog",
+		"log/service/:vehicleId": "getServiceLog",
+		"*actions": "defaultAction"
+	},
+	
+	defaultAction: function(action) {
+		// 404
+	},
+	
+	home: function() {
+		$("#page-content > .content").html( solairis.ycl.template.text["home-template"] );
 	},
 
 	dashboard: function() {
@@ -25,11 +38,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		this.dashboardView.initialize().render();
 
 		if(this.vehicles.length == 0) {
-			this.vehicles.fetch({
-				error: function() {
-					alert("Error getting list of vehicles. This should not happen");
-				}
-			});
+			this.vehicles.fetch();
 		} else {
 			this.vehicles.trigger("reset");
 		}
@@ -47,9 +56,6 @@ solairis.ycl.router.App = Backbone.Router.extend({
 				success: function() {
 					ctx.vehicleView.model = ctx.vehicles.get(vehicleId);
 					ctx.vehicleView.initialize().render();
-				},
-				error: function() {
-					alert("Error getting list of vehicles. This should not happen");
 				}
 			});
 		} else {
@@ -57,7 +63,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 			ctx.vehicleView.initialize().render();
 		}
 
-
+		return this;
 	},
 
 	getFuelLog: function(vehicleId) {
@@ -78,16 +84,13 @@ solairis.ycl.router.App = Backbone.Router.extend({
 					offset: 0,
 					numResults: 10,
 					vehicleId: vehicleId
-				},
-				error: function(a, errorResponse) {
-					alert("Error fetching fuel logs");
 				}
 			});
 		} else {
 			this.fuelLogsForVehicle[vehicleId].trigger("reset");
 		}
 
-
+		return this;
 	},
 
 	getServiceLog: function(vehicleId) {
@@ -107,10 +110,9 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		serviceLogs.fetch({
 			data: {
 				vehicleId: vehicleId
-			},
-			error: function(a, errorResponse) {
-				alert("Error fetching service log list");
 			}
 		});
+	
+		return this;
 	}
 });

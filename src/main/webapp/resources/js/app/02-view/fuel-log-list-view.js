@@ -35,9 +35,6 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 				offset: this.collection.length,
 				numResults: 10,
 				vehicleId: this.options.vehicleId
-			},
-			error: function(a, errorResponse) {
-				alert("Error fetching fuel logs");
 			}
 		});
 

@@ -7,9 +7,6 @@
               http://www.springframework.org/schema/security
               http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-
-
-
 	<bean id="entryPoint" class="org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint">
 		<constructor-arg>
 			<map>
@@ -17,7 +14,7 @@
 					<key>
 						<bean class="com.solairis.yourcarslife.requestmatcher.ServicesRequestMatcher"/>
 					</key>
-					<bean id="ep403" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
+					<bean class="com.solairis.yourcarslife.security.Http401NotAuthorizedEntryPoint"/>
 				</entry>
 			</map>
 		</constructor-arg>
@@ -28,17 +25,11 @@
 		</property>
 	</bean>
 
-	<!--	<security:global-method-security pre-post-annotations="enabled"/>-->
-
-	<!--	<bean id="yclExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
-		<property name="permissionEvaluator">
-			<bean class="com.solairis.yourcarslife.authentication.YclPermissionEvaluator"/>
-		</property>
-	</bean>-->
-
-	<!--	<security:http use-expressions="true" entry-point-ref="ep403">
-		<security:intercept-url pattern="/api/**" access="hasAnyRole('ROLE_USER')"/>
-	</security:http>-->
+	<bean id="simpleUrlAuthenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+		<property name="defaultTargetUrl" value="/dash"/>
+		<property name="useReferer" value="true"/>
+		<property name="targetUrlParameter" value="redirect"/>
+	</bean>
 
 	<security:http pattern="/create-account" security="none"/>
 	<security:http pattern="/favicon.ico" security="none"/>
@@ -47,12 +38,14 @@
 
 	<security:http use-expressions="true" auto-config="true" entry-point-ref="entryPoint">
 		<security:intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
+		<security:intercept-url pattern="/home" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
+		<security:intercept-url pattern="/dash" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/api/currentuser" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
 		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
-		<security:form-login login-page="/login" default-target-url='/app' authentication-failure-url="/login?login_error=true"/>
+		<security:form-login login-page="/login" authentication-failure-url="/login?login_error=true" authentication-success-handler-ref="simpleUrlAuthenticationSuccessHandler"/>
 		<security:anonymous/>
 		<security:remember-me key="yourCarsLifeRememberMeKey" services-ref="rememberMeServices"/>
 		<security:http-basic/>

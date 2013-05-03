@@ -35,21 +35,46 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.highlighter.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jqplot/plugins/jqplot.cursor.min.js"/>"></script>
 
-<!--		<script type="text/javascript" src="<c:url value="/gzip_v1_0_3/resources/js/app/lib.js"/>"></script>
-		<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/gzip_v1_0_0/resources/css/app.css"/>"/>-->
+		<script type="text/javascript">
+			window.solairis = window.solairis || {};
+
+			solairis.ycl = {
+				collection: {},
+				constant: {
+					BASE_URL: (function() {
+						return '${pageContext.request.contextPath}' === '/' ? '' : '${pageContext.request.contextPath}';
+					})()
+				},
+				error: {
+					properties: {}
+				},
+				model: {},
+				router: {},
+				template: {
+					render: null,
+					text: {},
+					view: {}
+				},
+				util: {},
+				view: {}
+			};
+		</script>
 
 		<jwr:script src="/resources/js/app/lib.js"/>
 		<jwr:style src="/resources/css/app.css"/>
 		<decorator:head/>
 
 		<script type="text/javascript">
+			$.ajaxSetup({ cache: false });
+			
 			$(function() {
-				var app = new solairis.ycl.view.App();
+				var app = new solairis.ycl.view.App({el: $("#navigation"), model: new solairis.ycl.model.CurrentUser()});
+				app.model.fetch();
 
 				$(window.applicationCache).bind("updateready", function(e) {
 					$(".appcache-status").text("Updating...");
 					window.applicationCache.swapCache();
-					$(".appcache-status").text("Update Ready");
+					$(".appcache-status").text("Update Ready").addClass("update-ready").click(function() {document.location.reload()});
 				});
 				$(window.applicationCache).bind("checking", function(e) {
 					$(".appcache-status").text("Checking For App Update...");
@@ -60,6 +85,27 @@
 				$(window.applicationCache).bind("cached", function(e) {
 					$(".appcache-status").text("App Cached");
 				});
+				$(window.applicationCache).bind("error", function(e) {
+					$(".appcache-status").text("Error");
+				});
+			});
+		
+			solairis.ycl.handlingUnauthorizedError = false;
+		
+			$(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+				// Handle Ajax Errors Globally
+				if (jqXHR.status === 401) {
+					if (!solairis.ycl.handlingUnauthorizedError) {
+						solairis.ycl.handlingUnauthorizedError = true;
+						var url = document.createElement('a');
+						url.href = document.location.href;
+						url.pathname = solairis.ycl.constant.BASE_URL + '/login';
+						url.search = 'redirect='+encodeURIComponent(document.location.href);
+						document.location.href = url.href;
+					}
+				} else {
+					$(".application-error").text('Erro: '+jqXHR.statusText);
+				}
 			});
 		</script>
 
@@ -70,7 +116,7 @@
 
 			(function() {
 				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 			})();
 
@@ -86,21 +132,14 @@
 
 		<div id="page">
 			<div class="container">
-				<div id="navigation">
-					<ul>
-						<security:authorize ifAnyGranted="ROLE_USER">
-							<li><a href="<c:url value="/app"/>#/">Dashboard</a></li>
-							<li><a href="<c:url value="/logout"/>">Logout</a></li>
-						</security:authorize>
-
-						<security:authorize ifNotGranted="ROLE_USER">
-							<li><a href="<c:url value="/login"/>">Login</a></li>
-						</security:authorize>
+				<nav id="navigation">
+					<ul class="navigation-wrapper">
 					</ul>
 
 					<div class="user-wrapper"></div>
 					<div class="appcache-status"></div>
-				</div>
+				</nav>
+				<div class="application-error"></div>
 				<div id="page-content">
 					<div class="content">
 						<decorator:body/>
@@ -230,11 +269,11 @@
 			</div>
 			<div class="container view">
 				<div class="name">
-					<a href="#/vehicle/{{vehicleId}}">{{name}}</a>
+					<a href="<c:url value="/vehicle"/>/{{vehicleId}}">{{name}}</a>
 				</div>
 				<div>
-					<a href="#/log/fuel/{{vehicleId}}">Fuel Logs</a> |
-					<a href="#/log/service/{{vehicleId}}">Service Logs</a>
+					<a class="fuel-logs" href="<c:url value="/log/fuel"/>/{{vehicleId}}">Fuel Logs</a> |
+					<a class="service-logs" href="<c:url value="/log/service"/>/{{vehicleId}}">Service Logs</a>
 				</div>
 				<div>Notes: <span class="notes">{{notes}}</span></div>
 				<div>Description: <span class="description">{{description}}</span></div>
@@ -246,10 +285,16 @@
 			<div>Vehicle: <span class="name">{{name}}</span></div>
 		</script>
 
+		<script id="header-anonymous-navigation-template" type="text/template">
+			<li><a href="<c:url value="/login"/>">Login</a></li>
+		</script>
+
+		<script id="header-navigation-template" type="text/template">
+			<li><a class="dash" href="<c:url value="/dash"/>">Dashboard</a></li>
+		</script>
+
 		<script id="header-user-template" type="text/template">
-			<div>
-				<span class="login">{{login}}</span>
-			</div>
+			{{user.login}} / <a href="<c:url value="/logout"/>">Logout</a>
 		</script>
 
 		<script id="fuel-log-stats-template" type="text/template">
@@ -277,9 +322,9 @@
 				<form method="get" action="#">
 					<div class="log-date"><input type="text" placeholder="Date"/></div>
 					<div class="cost"><span class="units">$</span><span class="number"><input type="number" placeholder="Cost" step=".01"/></span></div>
-					<div class="odometer"><span class="number"><input type="number" step=".1" value="<\%=odometer%>" placeholder="Odometer"/></span> <span class="units">mi</span></div>
-					<div class="summary"><input type="text" value="<\%=summary%>" placeholder="Summary"/></div>
-					<div class="description"><textarea placeholder="Description"><\%=description%></textarea></div>
+					<div class="odometer"><span class="number"><input type="number" step=".1" value="{{odometer}}" placeholder="Odometer"/></span> <span class="units">mi</span></div>
+					<div class="summary"><input type="text" value="{{summary}}" placeholder="Summary"/></div>
+					<div class="description"><textarea placeholder="Description">{{description}}</textarea></div>
 					<div class="tags"></div>
 					<div>
 						<input type="submit" value="Save"/>
@@ -290,15 +335,19 @@
 			<a class="container view edit-log" href="">
 				<div class="log-date"></div>
 				<div class="cost"><span class="units">$</span><span class="number"></span></div>
-				<div class="odometer"><span class="number"><\%=odometer%></span> <span class="units">mi</span></div>
-				<div class="summary"><\%=summary%></div>
-				<div class="description"><\%=description%></div>
+				<div class="odometer"><span class="number">{{odometer}}</span> <span class="units">mi</span></div>
+				<div class="summary">{{summary}}</div>
+				<div class="description">{{description}}</div>
 				<div class="tags"></div>
 			</a>
 		</script>
 
 		<script type="text/template" id="vehicle-edit-template">
-			<jsp:include page="../template/vehicle-edit.jsp"/>
+			<%@include file="../template/vehicle-edit.jspf" %>
+		</script>
+		
+		<script type="text/template" id="home-template">
+			<%@include file="../template/home.jspf" %>
 		</script>
 
 	</body>

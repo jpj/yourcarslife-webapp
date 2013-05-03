@@ -5,7 +5,7 @@
 
 solairis.ycl.view.VehiclePage = Backbone.View.extend({
 	events: {
-		"submit form": "save"
+		"submit form#edit-vehicle-form": "save"
 	},
 	initialize: function() {
 		this.$el.html(solairis.ycl.template.text["vehicle-edit-template"]);

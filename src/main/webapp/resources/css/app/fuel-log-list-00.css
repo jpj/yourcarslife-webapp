@@ -96,7 +96,7 @@
 }
 
 .fuel-log.editing, .fuel-log.editing:hover {
-	background-color: yellow; /* Switch to gold and find a lighter version */
+	background-color: rgb(255, 237, 140);
 	border-left: 6px solid gold;
 }
 
@@ -104,6 +104,15 @@
 	background-color: #E9FFE6;
 	border: 1px dashed black;
 	border-left: 6px solid #1FD700;
+        margin-bottom: 15px;
+}
+
+.fuel-log.is-new input {
+    color: gray;
+}
+
+.fuel-log.is-new .cost-per-fuel {
+	display: none;
 }
 
 .fuel-log.fresh {
@@ -188,10 +197,6 @@
 .fuel-log .cost-per-fuel:first-letter {
 	font-size: 16pt;
 	vertical-align: top;
-}
-
-.fuel-log.is-new .cost-per-fuel {
-	display: none;
 }
 
 .fuel-log .odometer input {
