@@ -365,12 +365,5 @@
 				</filters>
 			</build>
 		</profile>
-		<profile>
-			<id>log4j-quiet</id>
-			<properties>
-				<log4j.consoleAppenderClass>org.apache.log4j.varia.NullAppender</log4j.consoleAppenderClass>
-				<log4j.priority>info</log4j.priority>
-			</properties>
-		</profile>
 	</profiles>
 </project>
