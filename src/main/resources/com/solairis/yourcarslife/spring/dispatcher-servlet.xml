@@ -19,7 +19,7 @@
 
 	<mvc:annotation-driven/>
 	<context:component-scan base-package="com.solairis.yourcarslife"/>
-	<!--<context:property-placeholder location=""/>-->
+	<context:property-placeholder location="file://${solairis.app.config.dir}/yourcarslife.properties"/>
 	<security:global-method-security pre-post-annotations="enabled"/>
 
 	<mvc:view-controller path="/" view-name="home"/>
@@ -72,7 +72,7 @@
 	</bean>
 
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="${autologger.jndi.name}"/>
+		<property name="jndiName" value="${jndi.prefix}jdbc/autologger"/>
 	</bean>
 
 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">

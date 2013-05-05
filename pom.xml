@@ -335,13 +335,5 @@
 				</filters>
 			</build>
 		</profile>
-		<profile>
-			<id>staging</id>
-			<build>
-				<filters>
-					<filter>src/main/filters/staging.properties</filter>
-				</filters>
-			</build>
-		</profile>
 	</profiles>
 </project>
