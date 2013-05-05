@@ -19,6 +19,7 @@
 
 	<mvc:annotation-driven/>
 	<context:component-scan base-package="com.solairis.yourcarslife"/>
+	<context:property-placeholder location="file://${solairis.app.config.dir}/yourcarslife.properties"/>
 	<security:global-method-security pre-post-annotations="enabled"/>
 
 	<mvc:view-controller path="/" view-name="home"/>
@@ -33,7 +34,22 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
 
 	<bean id="jawrBase" abstract="true" class="net.jawr.web.servlet.JawrSpringController">
-		<property name="configLocation" value="/jawr.properties"/>
+		<property name="configuration">
+			<props>
+				<prop key="jawr.debug.on">${jawr.debug.on}</prop>
+				<prop key="jawr.config.reload.interval">${jawr.config.reload.interval}</prop>
+				<prop key="jawr.gzip.on">true</prop>
+				<prop key="jawr.gzip.ie6.on">false</prop>
+				<prop key="jawr.charset.name">UTF-8</prop>
+				<prop key="jawr.js.bundle.basedir">/resources/js</prop>
+				<prop key="jawr.js.bundle.lib.id">/resources/js/app/lib.js</prop>
+				<prop key="jawr.js.bundle.lib.mappings">/resources/js/app/**</prop>
+				<prop key="jawr.js.bundle.lib.global">true</prop>
+				<prop key="jawr.css.bundle.app.mappings">/resources/css/app/**</prop>
+				<prop key="jawr.css.bundle.app.id">/resources/css/app.css</prop>
+				<prop key="jawr.css.bundle.factory.bundlepostprocessors">license,YUI</prop>
+			</props>
+		</property>
 	</bean>
 
 	<bean id="jawrJsController" parent="jawrBase"/>
@@ -56,7 +72,7 @@
 	</bean>
 
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="${autologger.jndi.name}"/>
+		<property name="jndiName" value="${jndi.prefix}jdbc/autologger"/>
 	</bean>
 
 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
