@@ -140,9 +140,19 @@ Page
 	background-color: green;
 }
 
+.user-wrapper {
+	position: absolute;
+	right: 85px;
+	top: 3px;
+}
+
 .appcache-status {
 	font-size: 8pt;
 	position: absolute;
-	right: 5px;
-	top: 8px;
+	right: 8px;
+	top: 6px;
+}
+
+.appcache-status.update-ready {
+	cursor: pointer;
 }

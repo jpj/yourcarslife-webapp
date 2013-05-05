@@ -12,8 +12,6 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<import resource="classpath:com/solairis/yourcarslife/spring/constant-beans.xml"/>
-	<import resource="classpath:com/solairis/yourcarslife/spring/service-beans.xml"/>
-	<import resource="classpath:com/solairis/yourcarslife/spring/validator-beans.xml"/>
 
 	<context:component-scan base-package="com.solairis.yourcarslife.controller"/>
 
@@ -51,49 +49,6 @@
 	</bean>
 	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
 		<constructor-arg ref="messageSource"/>
-	</bean>
-
-<!--	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/jdbc/autologger"/>
-	</bean>-->
-
-	<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://localhost:3306/autologger"/>
-		<property name="username" value="autologger"/>
-		<property name="password" value="testpass"/>
-	</bean>
-
-	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="mappingLocations">
-			<list>
-				<value>com/solairis/yourcarslife/data/domain/mapping/*.hbm.xml</value>
-			</list>
-		</property>
-		<property name="hibernateProperties" value="hibernate.dialect=org.hibernate.dialect.MySQL5Dialect"/>
-	</bean>
-
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="mySessionFactory"/>
-	</bean>
-
-	<tx:annotation-driven/>
-
-	<bean id="logDao" class="com.solairis.yourcarslife.data.dao.impl.LogDaoHibernate">
-		<property name="sessionFactory" ref="mySessionFactory"/>
-	</bean>
-
-	<bean id="userDao" class="com.solairis.yourcarslife.data.dao.impl.UserDaoHibernate">
-		<property name="sessionFactory" ref="mySessionFactory"/>
-	</bean>
-
-	<bean id="tagDao" class="com.solairis.yourcarslife.data.dao.impl.TagDaoHibernate">
-		<property name="sessionFactory" ref="mySessionFactory"/>
-	</bean>
-
-	<bean id="vehicleDao" class="com.solairis.yourcarslife.data.dao.impl.VehicleDaoHibernate">
-		<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
 
 	<!-- Property Editors -->
