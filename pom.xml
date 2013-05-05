@@ -320,14 +320,6 @@
 			</build>
 		</profile>
 		<profile>
-			<id>test</id>
-			<build>
-				<filters>
-					<filter>src/main/filters/test.properties</filter>
-				</filters>
-			</build>
-		</profile>
-		<profile>
 			<id>prod</id>
 			<build>
 				<filters>
