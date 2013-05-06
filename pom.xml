@@ -305,16 +305,6 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>tomcat-maven-plugin</artifactId>
-				<version>1.1</version>
-				<configuration>
-					<mode>both</mode>
-					<update>true</update>
-					<path>/yourcarslife</path>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 	<profiles>
@@ -327,26 +317,6 @@
 				<filters>
 					<filter>src/main/filters/local.properties</filter>
 				</filters>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>tomcat-maven-plugin</artifactId>
-						<configuration>
-							<!--							<server>tomcat-local</server>
-							<url>http://localhost:8080/manager</url>-->
-							<path>/yourcarslife</path>
-							<port>8081</port>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>test</id>
-			<build>
-				<filters>
-					<filter>src/main/filters/test.properties</filter>
-				</filters>
 			</build>
 		</profile>
 		<profile>
@@ -356,21 +326,6 @@
 					<filter>src/main/filters/prod.properties</filter>
 				</filters>
 			</build>
-		</profile>
-		<profile>
-			<id>staging</id>
-			<build>
-				<filters>
-					<filter>src/main/filters/staging.properties</filter>
-				</filters>
-			</build>
-		</profile>
-		<profile>
-			<id>log4j-quiet</id>
-			<properties>
-				<log4j.consoleAppenderClass>org.apache.log4j.varia.NullAppender</log4j.consoleAppenderClass>
-				<log4j.priority>info</log4j.priority>
-			</properties>
 		</profile>
 	</profiles>
 </project>
