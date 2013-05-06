@@ -2,3 +2,5 @@ target/*
 .*.swp
 yourcarslife.log
 nb-configuration.xml
+pom.xml.*
+release.properties
