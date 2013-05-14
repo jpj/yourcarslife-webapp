@@ -5,6 +5,12 @@
 
 	<distributable/>
 
+	<env-entry>
+		<env-entry-name>logback/context-name</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>yourcarslife</env-entry-value>
+	</env-entry>
+
 	<servlet>
 		<servlet-name>yourcarslife</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -21,6 +27,9 @@
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>ch.qos.logback.classic.selector.servlet.ContextDetachingSCL</listener-class>
 	</listener>
 
 	<context-param>
@@ -49,6 +58,10 @@
 		<filter-name>sitemeshDecorator</filter-name>
 		<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
 	</filter>
+	<filter>
+		<filter-name>LoggerContextFilter</filter-name>
+		<filter-class>ch.qos.logback.classic.selector.servlet.LoggerContextFilter</filter-class>
+	</filter>
 
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -56,6 +69,10 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>sitemeshDecorator</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>LoggerContextFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
