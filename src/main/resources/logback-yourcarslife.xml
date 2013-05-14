@@ -1,6 +1,8 @@
-<!--<configuration>
+<configuration>
 
 	<property file="${solairis.app.config.dir}/yourcarslife-logger.properties"/>
+
+	<appender name="nopAppender" class="ch.qos.logback.core.helpers.NOPAppender"/>
 
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
@@ -12,7 +14,7 @@
 		<file>${logger.dir}/yourcarslife-webapp.log</file>
 
 		<encoder>
-			<pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+			<pattern>%date %level [%thread] %logger{10} [%class:%line] %msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -20,34 +22,4 @@
 		<appender-ref ref="${logger.console.appender}"/>
 		<appender-ref ref="fileAppender"/>
 	</root>
-</configuration>-->
-
-<configuration>
-
-	<!--<property file="${solairis.app.config.dir}/yourcarslife-logger.properties"/>-->
-
-	<appender name="nopAppender" class="ch.qos.logback.core.helpers.NOPAppender"/>
-	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>LOGBACK %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-		</encoder>
-	</appender>
-
-	<appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
-		<file>/home/josh/solairis-app-logs/yourcarslife-webapp.log</file>
-
-		<encoder>
-			<pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
-		</encoder>
-	</appender>
-
-	<root level="info">
-		<appender-ref ref="nopAppender"/>
-		<appender-ref ref="fileAppender"/>
-	</root>
 </configuration>
-
-<!-- TODO
-Figure out why this isn't logging properly. Acts like its not picking upt his file.
-Create a nopAppender
--->
