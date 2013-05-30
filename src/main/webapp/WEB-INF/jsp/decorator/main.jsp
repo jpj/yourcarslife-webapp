@@ -66,7 +66,7 @@
 
 		<script type="text/javascript">
 			$.ajaxSetup({ cache: false });
-			
+
 			$(function() {
 				var app = new solairis.ycl.view.App({el: $("#navigation"), model: new solairis.ycl.model.CurrentUser()});
 				app.model.fetch();
@@ -89,9 +89,9 @@
 					$(".appcache-status").text("Error");
 				});
 			});
-		
+
 			solairis.ycl.handlingUnauthorizedError = false;
-		
+
 			$(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
 				// Handle Ajax Errors Globally
 				if (jqXHR.status === 401) {
@@ -104,7 +104,7 @@
 						document.location.href = url.href;
 					}
 				} else {
-					$(".application-error").text('Erro: '+jqXHR.statusText);
+					$(".application-error").text('Error: '+jqXHR.statusText);
 				}
 			});
 		</script>
@@ -345,7 +345,7 @@
 		<script type="text/template" id="vehicle-edit-template">
 			<%@include file="../template/vehicle-edit.jspf" %>
 		</script>
-		
+
 		<script type="text/template" id="home-template">
 			<%@include file="../template/home.jspf" %>
 		</script>
