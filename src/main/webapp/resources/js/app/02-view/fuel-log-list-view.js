@@ -8,17 +8,17 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 		this.collection.on("reset", this.render, this);
 	},
 	render: function() {
-		var ctx = this;
 
 		this.collection.each(function(model) {
-			ctx.addOne.call(ctx, model);
-		});
+			this.addOne.call(this, model);
+		}, this);
 
 		return this;
 	},
 	addOne: function(model) {
 		var logIndex = this.collection.indexOf(model);
 		var view = new solairis.ycl.view.FuelLog({model: model, collection: this.collection, vehicleId: this.options.vehicleId});
+//		console.debug("length of collection: "+this.collection.length);
 		if (this.$(".fuel-log").length === 0 || this.$(".fuel-log:eq("+logIndex+")").length === 0) {
 			this.$("ul").append(view.el);
 		} else {
