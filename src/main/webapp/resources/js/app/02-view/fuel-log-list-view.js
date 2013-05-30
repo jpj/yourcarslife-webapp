@@ -19,7 +19,6 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 	addOne: function(model) {
 		var logIndex = this.collection.indexOf(model);
 		var view = new solairis.ycl.view.FuelLog({model: model, collection: this.collection, vehicleId: this.options.vehicleId});
-//		console.debug("length of collection: "+this.collection.length);
 		if (this.$(".fuel-log").length === 0 || this.$(".fuel-log:eq("+logIndex+")").length === 0) {
 			this.$("ul").append(view.el);
 		} else {
@@ -31,7 +30,7 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 		e.preventDefault();
 
 		this.collection.fetch({
-			add: true,
+			remove: false,
 			data: {
 				offset: this.collection.length,
 				numResults: 10,
