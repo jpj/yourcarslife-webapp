@@ -8,6 +8,7 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 		this.collection.on("reset", this.render, this);
 	},
 	render: function() {
+		this.$(".fuel-logs ul").empty();
 
 		this.collection.each(function(model) {
 			this.addOne.call(this, model);
