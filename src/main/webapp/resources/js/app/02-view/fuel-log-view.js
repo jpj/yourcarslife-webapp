@@ -28,10 +28,10 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	serialize: function() {
 		var cost = null;
 		var costStr = this.$(".cost input").val();
-		if (costStr != null) {
-			if (costStr.indexOf(".") != -1) {
+		if (costStr !== null) {
+			if (costStr.indexOf(".") !== -1) {
 				var costStrParts = costStr.split(".");
-				if (costStrParts.length == 2 && costStrParts[1].length == 2) {
+				if (costStrParts.length === 2 && costStrParts[1].length === 2) {
 					cost = parseInt(costStrParts[0]+costStrParts[1]);
 				}
 			} else {
