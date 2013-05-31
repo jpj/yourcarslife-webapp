@@ -196,6 +196,9 @@
 				<div>
 					<a class="button load-more" href="#">Load More</a>
 				</div>
+				<div>
+					<a class="button load-all" href="#">Load All</a>
+				</div>
 			</div>
 
 			<div class="paging">
