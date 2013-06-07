@@ -298,6 +298,7 @@
 							<directory>src/main/webapp</directory>
 							<includes>
 								<include>resources/ycl.appcache</include>
+								<include>WEB-INF/jsp/template/version.jspf</include>
 							</includes>
 							<filtering>true</filtering>
 						</resource>
