@@ -21,23 +21,6 @@
 		</developer>
 	</developers>
 
-	<scm>
-		<connection>scm:git:ssh://git@github.com/jpj/${project.artifactId}.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/jpj/${project.artifactId}.git</developerConnection>
-	</scm>
-
-	<distributionManagement>
-		<repository>
-			<id>solairis-local-releases</id>
-			<url>http://nexus.solairis.com/content/repositories/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>solairis-local-snapshots</id>
-			<name>Solairis Snapshots</name>
-			<url>http://nexus.solairis.com/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
