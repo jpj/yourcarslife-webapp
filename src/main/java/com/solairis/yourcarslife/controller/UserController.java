@@ -6,10 +6,10 @@ package com.solairis.yourcarslife.controller;
 
 import com.solairis.yourcarslife.data.domain.User;
 import com.solairis.yourcarslife.service.UserService;
-import com.sun.security.auth.UserPrincipal;
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,14 +37,10 @@ public class UserController {
 	@RequestMapping(value="/api/currentuser", method= RequestMethod.GET)
 	@Transactional
 	@ResponseBody
-	public User getCurrentUser() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		org.springframework.security.core.userdetails.User authUser = null;
-		if (auth instanceof org.springframework.security.core.userdetails.User) {
-			authUser = (org.springframework.security.core.userdetails.User)auth.getPrincipal();
-		}
+	public Object getCurrentUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();	
 
-		return authUser == null ? null : this.userService.getUser(authUser.getUsername());
+		return principal instanceof org.springframework.security.core.userdetails.UserDetails ? this.userService.getUser(((UserDetails)principal).getUsername()) : new HashMap<String, Boolean>() {{put("isAnonymous", true);}};
 	}
 
 }

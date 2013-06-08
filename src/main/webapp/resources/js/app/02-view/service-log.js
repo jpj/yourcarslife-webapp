@@ -2,7 +2,6 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 	// TODO - Inject Showdown
 	tagName: "li",
 	className: "service-log",
-//	template: _.template($("#service-log-template").html()),
 
 	events: {
 		"click .view": "edit",
@@ -12,14 +11,13 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 
 	initialize: function() {
 		this.model.bind('change', this.render, this);
-		this.template = this.options.template;
 	},
 	render: function() {
 
 		var converter = new Showdown.converter();
 
 		var $el = $(this.el);
-		$(this.el).html(this.template(this.model.toJSON()));
+		$(this.el).html(solairis.ycl.template.render(solairis.ycl.template.text["service-log-template"], this.model.toJSON()));
 		var logDate = new Date(this.model.get("logDate"));
 		$(this.el).data("logDate", logDate);
 		this.$(".edit-log").attr("href", solairis.ycl.constant.BASE_URL+"/vehicle/"+this.vehicleId+"/log/service/"+this.model.get("logId"));

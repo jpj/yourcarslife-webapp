@@ -5,7 +5,7 @@
 
 solairis.ycl.view.VehiclePage = Backbone.View.extend({
 	events: {
-		"submit form": "save"
+		"submit form#edit-vehicle-form": "save"
 	},
 	initialize: function() {
 		this.$el.html(solairis.ycl.template.text["vehicle-edit-template"]);
@@ -24,6 +24,8 @@ solairis.ycl.view.VehiclePage = Backbone.View.extend({
 	save: function(e) {
 		var ctx = this;
 		e.preventDefault();
+
+		// TODO - disable submit button, in case it takes a while to reach the server.
 
 		this.$("input.error, textarea.error").removeClass("error");
 		this.$(".error").text('');

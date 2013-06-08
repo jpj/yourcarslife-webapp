@@ -19,6 +19,8 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
 		this.$el.data("logDate", new Date(this.model.get("logDate")));
 
+		// TODO - Calculate economy in a better way. This is way too inefficient.
+		// Maybe listen for change events in the list-view.
 		new solairis.ycl.view.FuelLogEconomyCalculate({el: this.$el.parents("#fuel-logs"), collection: this.collection});
 
 		return this;
@@ -26,10 +28,10 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	serialize: function() {
 		var cost = null;
 		var costStr = this.$(".cost input").val();
-		if (costStr != null) {
-			if (costStr.indexOf(".") != -1) {
+		if (costStr !== null) {
+			if (costStr.indexOf(".") !== -1) {
 				var costStrParts = costStr.split(".");
-				if (costStrParts.length == 2 && costStrParts[1].length == 2) {
+				if (costStrParts.length === 2 && costStrParts[1].length === 2) {
 					cost = parseInt(costStrParts[0]+costStrParts[1]);
 				}
 			} else {
@@ -73,7 +75,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 				wait: true,
 				success: function() {
 					ctx.$el.remove();
-				},
+	},
 				error: function() {
 					alert("error adding new fuel log");
 				}
@@ -94,7 +96,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		$(this.el).addClass("is-new fuel-log editing");
 	},
 	closeNew: function() {
-		this.$el.removeClass("is-new fuel-log").removeData("logDate").empty();
+		this.$el.removeClass("is-new fuel-log").removeData("logDate").remove();
 	},
 	addCalendar: function(e) {
 		var viewCtx = this;

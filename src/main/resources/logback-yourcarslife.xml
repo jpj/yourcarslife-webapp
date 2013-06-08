@@ -1,0 +1,25 @@
+<configuration>
+
+	<property file="${solairis.app.config.dir}/yourcarslife-logger.properties"/>
+
+	<appender name="nopAppender" class="ch.qos.logback.core.helpers.NOPAppender"/>
+
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
+		<file>${logger.dir}/yourcarslife-webapp.log</file>
+
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%class:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="${logger.root.priority}">
+		<appender-ref ref="${logger.console.appender}"/>
+		<appender-ref ref="fileAppender"/>
+	</root>
+</configuration>
