@@ -18,10 +18,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		this.$el.html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(this.model.toJSON())));
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
 		this.$el.data("logDate", new Date(this.model.get("logDate")));
-
-		// TODO - Calculate economy in a better way. This is way too inefficient.
-		// Maybe listen for change events in the list-view.
-		new solairis.ycl.view.FuelLogEconomyCalculate({el: this.$el.parents("#fuel-logs"), collection: this.collection});
+		this.$(".economy .number").text(this.options.economy);
 
 		return this;
 	},
