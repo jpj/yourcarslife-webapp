@@ -21,7 +21,7 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 		var logIndex = this.collection.indexOf(model);
 		var nextModel = this.collection.at(logIndex + 1);
 		var economy = "-";
-		if (nextModel !== null) {
+		if (nextModel !== undefined) {
 			economy = ((model.get("odometer")-nextModel.get("odometer")) / model.get("fuel")).toFixed(2);
 		}
 
