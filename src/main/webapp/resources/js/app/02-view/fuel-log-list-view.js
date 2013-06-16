@@ -50,7 +50,6 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 		e.preventDefault();
 
 		this.collection.fetch({
-			reset: true,
 			data: {
 				offset: 0,
 				numResults: 1000,
