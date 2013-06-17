@@ -124,7 +124,7 @@
 }
 
 .fuel-log .display {
-	height: 80px;
+	height: 110px;
 	position: relative;
 }
 
@@ -132,7 +132,7 @@
 .fuel-log .odometer {
 	left: 9px;
 	position: absolute;
-	top: 33px;
+	top: 63px;
 }
 
 .fuel-log .odometer > .number {
@@ -148,7 +148,7 @@
 .fuel-log .fuel {
 	left: 175px;
 	position: absolute;
-	top: 33px;
+	top: 63px;
 }
 
 .fuel-log .fuel > .number {
@@ -170,14 +170,15 @@
 .fuel-log .date input {
 	color: #c7c7c7;
 	font-size: 12pt;
-	width: 147px;
+	height: 26px;
+	width: 250px;
 }
 
 .fuel-log .cost {
 	color: #c7c7c7;
 	left: 162px;
 	position: absolute;
-	top: 2px;
+	top: 33px;
 }
 
 .fuel-log .cost input {
@@ -191,7 +192,7 @@
 	color: #c7c7c7;
 	left: 290px;
 	position: absolute;
-	top: 3px;
+	top: 34px;
 }
 
 .fuel-log .cost-per-fuel:first-letter {
