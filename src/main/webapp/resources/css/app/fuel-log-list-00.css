@@ -170,7 +170,7 @@
 .fuel-log .date input {
 	color: #c7c7c7;
 	font-size: 12pt;
-	height: 26px;
+	height: 26px; /* TODO - Remove when edit/view in own template */
 	width: 250px;
 }
 
