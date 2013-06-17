@@ -19,7 +19,7 @@ solairis.ycl.template.view.fuelLog = function(fuelLog) {
 	var costFmt = c == null ? null : c.substr(0, c.length - 2) + "." + c.substr(c.length -2);
 	return {
 		logDate: function() {
-			return logDate.toString("yyyy-MM-ddThh:mm");
+			return logDate.toString("yyyy-MM-ddTHH:mm");
 		},
 		odometer: function() {
 			return fuelLog.odometer ? fuelLog.odometer.toFixed(1) : fuelLog.odometer;
