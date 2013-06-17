@@ -2,7 +2,7 @@
 	<div class="display">
 		<div class="date">
 			<span class="view">{{logDate}}</span>
-			<input type="text" class="edit" name="logDate" value="{{logDate}}"/>
+			<input type="datetime-local" class="edit" name="logDate" value="{{logDate}}"/>
 		</div>
 		<div class="cost">
 			$

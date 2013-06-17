@@ -5,8 +5,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	events: {
 		"click .display": "editFuelLog",
 		"submit form": "saveFuelLog",
-		"click input[name=cancel]": "cancelFuelLog",
-		"focus .date input": "addCalendar"
+		"click input[name=cancel]": "cancelFuelLog"
 	},
 	initialize: function() {
 		this.model.on("change", this.render, this);
@@ -17,7 +16,6 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 
 		this.$el.html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(this.model.toJSON())));
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
-		this.$el.data("logDate", new Date(this.model.get("logDate")));
 		this.$(".economy .number").text(this.options.economy);
 
 		return this;
@@ -37,7 +35,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		}
 		return {
 			odometer: parseFloat( this.$(".odometer input.edit").val() ),
-			logDate: $(this.el).data("logDate"),
+			logDate: Date.parse(this.$(".date .edit").val().replace("T", " ")),
 			fuel: parseFloat( this.$(".fuel input.edit").val() ),
 			octane: parseInt( this.$(".octane input").val() ),
 			cost: cost,
@@ -94,16 +92,5 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	},
 	closeNew: function() {
 		this.$el.removeClass("is-new fuel-log").removeData("logDate").remove();
-	},
-	addCalendar: function(e) {
-		var viewCtx = this;
-		$(e.currentTarget).datepick({dateFormat: 'yyyy M dd', defaultDate: new Date(this.model.get('logDate')), onSelect: function(dates) {
-			if (dates.length === 1) {
-				var selectedDate = dates[0];
-				viewCtx.$el.data("logDate", selectedDate);
-			} else {
-				alert("Error getting date");
-			}
-		}});
 	}
 });
