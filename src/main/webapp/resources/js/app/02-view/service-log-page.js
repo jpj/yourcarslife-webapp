@@ -8,7 +8,7 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 		this.collection.bind('all', this.render, this);
 		this.collection.bind('reset', this.addAll, this);
 
-		this.$el.html( solairis.ycl.template.text.serviceLogPage );
+		this.$el.html( solairis.ycl.template.text["service-log-page-template"] );
 
 		var vehicleId = this.options.vehicleId;
 

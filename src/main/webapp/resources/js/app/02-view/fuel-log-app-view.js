@@ -5,7 +5,7 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 	initialize: function() {
 		document.title = "Fuel Logs | "+solairis.ycl.constant.SITE_TITLE;
 		var ctx = this;
-		this.$el.html( solairis.ycl.template.text.fuelLogPage );
+		this.$el.html( solairis.ycl.template.text["fuel-log-page-template"] );
 
 		// Load Fuel Log list
 		new solairis.ycl.view.FuelLogList({collection: this.collection, el: $("#fuel-logs-wrapper"), vehicleId: this.options.vehicleId});

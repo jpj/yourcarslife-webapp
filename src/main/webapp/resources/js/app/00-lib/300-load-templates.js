@@ -32,7 +32,7 @@ solairis.ycl.template.view.fuelLog = function(fuelLog) {
 			return costFmt;
 		},
 		costPerFuel: function() {
-			return fuelLog.cost ? parseFloat((costFmt)/fuelLog.fuel).toFixed(3) : "-"
+			return fuelLog.cost ? parseFloat((costFmt)/fuelLog.fuel).toFixed(3) : "-";
 		},
 		missedFillup: fuelLog.missedFillup
 	};
@@ -64,19 +64,14 @@ solairis.ycl.template.view.vehicle = function(vehicle) {
 	};
 };
 
+/**
+ * Load Templates
+ *
+ * Load templates stored in <script> tags which have `id`s that end in "-template"
+ */
 $(function() {
-	var tmpl = solairis.ycl.template.text;
-
-	tmpl.dashboard = $("#dashboard-template").html();
-	tmpl.fuelLog = $("#fuel-log-template").html();
-	tmpl.fuelLogPage = $("#fuel-log-page-template").html();
-	tmpl.vehicle = $("#vehicle-template").html();
-	tmpl.headerVehicle = $("#header-vehicle-template").html();
-	tmpl.fuelLogStats = $("#fuel-log-stats-template").html();
-	tmpl.serviceLogPage = $("#service-log-page-template").html();
-
 	$("script[id$=-template]").each(function() {
-		tmpl[$(this).attr("id")] = $(this).html();
+		solairis.ycl.template.text[$(this).attr("id")] = $(this).html();
 	});
 });
 

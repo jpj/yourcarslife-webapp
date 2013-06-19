@@ -14,7 +14,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	render: function() {
 		var tmpl = solairis.ycl.template;
 
-		this.$el.html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(this.model.toJSON())));
+		this.$el.html(tmpl.render(tmpl.text["fuel-log-template"], tmpl.view.fuelLog(this.model.toJSON())));
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
 		this.$(".economy .number").text(this.options.economy);
 
