@@ -3,7 +3,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	tagName: "li",
 	className: "fuel-log",
 	events: {
-		"click .display": "editFuelLog",
+		"click .view": "editFuelLog",
 		"submit form": "saveFuelLog",
 		"click input[name=cancel]": "cancelFuelLog"
 	},
@@ -34,9 +34,9 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 			}
 		}
 		return {
-			odometer: parseFloat( this.$(".odometer input.edit").val() ),
-			logDate: Date.parse(this.$(".date .edit").val().replace("T", " ")),
-			fuel: parseFloat( this.$(".fuel input.edit").val() ),
+			odometer: parseFloat( this.$(".odometer input").val() ),
+			logDate: Date.parse(this.$(".date input").val().replace("T", " ")),
+			fuel: parseFloat( this.$(".fuel input").val() ),
 			octane: parseInt( this.$(".octane input").val() ),
 			cost: cost,
 			missedFillup: this.$(".missedFillup input").get(0).checked,

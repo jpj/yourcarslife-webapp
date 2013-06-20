@@ -45,6 +45,31 @@
 	width: 25px;
 }
 
+/** Testing */
+
+.fuel-log {
+	position: relative;
+}
+
+.fuel-log .container.view {
+	height: 110px;
+}
+
+.fuel-log .container.edit {
+	display: none;
+	height: 180px;
+}
+
+.fuel-log.editing .container.edit {
+	display: block;
+}
+
+.fuel-log.editing .container.view {
+	display: none;
+}
+
+/** /Testing */
+
 #fuel-logs {
 	list-style: none;
 	margin: 0;
@@ -90,11 +115,6 @@
 	display: none;
 }
 
-
-.fuel-log.available.unused {
-	display: none;
-}
-
 .fuel-log.editing, .fuel-log.editing:hover {
 	background-color: rgb(255, 237, 140);
 	border-left: 6px solid gold;
@@ -123,11 +143,6 @@
 	border-left: 3px solid #1FD700;
 }
 
-.fuel-log .display {
-	height: 110px;
-	position: relative;
-}
-
 /* Odometer */
 .fuel-log .odometer {
 	left: 9px;
@@ -141,7 +156,6 @@
 
 .fuel-log .odometer > .units {
 	color: #d1d1d1;
-/*	font-size: 12pt;*/
 }
 
 /* Fuel */
@@ -170,7 +184,6 @@
 .fuel-log .date input {
 	color: #c7c7c7;
 	font-size: 12pt;
-	height: 26px; /* TODO - Remove when edit/view in own template */
 	width: 250px;
 }
 
@@ -229,48 +242,31 @@
 	font-size: 30pt;
 }
 
-/* Viewing */
-.fuel-log .edit {
-	display: none;
-}
-
-/* Editing */
-.fuel-log.editing .edit {
-	display: inline;
-}
-.fuel-log.editing .view {
-	display: none;
-}
-
-/* Edit Section */
-.fuel-log .edit-section {
-	display: none;
-}
-
-.fuel-log.editing .edit-section {
-	display: block;
-}
-
-.fuel-log.new .edit-section {
-	display: block;
-}
-
-.fuel-log .edit-section > .separator {
+.fuel-log .separator {
 	background-color: #d1d1d1;
 	height: 1px;
 	margin: 0 23px;
+	position: relative;
+	top: 106px;
 }
 
-.fuel-log .edit-section > .holder {
-	padding: 5px;
-	position: relative;
+.fuel-log .missedFillup {
+	bottom: 46px;
+	left: 9px;
+	position: absolute;
+}
+
+.fuel-log .octane {
+	bottom: 5px;
+	left: 9px;
+	position: absolute;
 }
 
 .fuel-log .octane input {
 	width: 60px;
 }
 
-.fuel-log .edit-section > .holder > .submit {
+.fuel-log .submit {
 	bottom: 5px;
 	position: absolute;
 	right: 5px;

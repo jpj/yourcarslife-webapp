@@ -17,10 +17,6 @@
 		font-size: 20pt;
 	}
 
-	.fuel-log .date input {
-		width: 100px;
-	}
-
 	.fuel-log .cost {
 		left: 123px;
 	}
@@ -58,11 +54,19 @@
 
 @media screen and (max-width: 400px) {
 
-	.fuel-log .display {
-		height: 105px;
+	.fuel-log .container.view {
+		height: 130px;
+	}
+
+	.fuel-log .container.edit {
+		height: 200px;
+	}
+
+	.fuel-log .separator {
+		top: 125px;
 	}
 
 	.fuel-log .economy {
-		top: 70px;
+		top: 95px;
 	}
 }

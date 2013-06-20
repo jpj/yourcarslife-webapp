@@ -217,10 +217,6 @@
 			<%@include file="../template/fuel-log.jspf" %>
 		</script>
 
-		<script id="fuel-log-edit-template" type="text/template">
-			<%@include file="../template/fuel-log-edit.jspf" %>
-		</script>
-
 		<script id="vehicle-template" type="text/template">
 			<div class="container edit">
 
