@@ -97,9 +97,6 @@ solairis.ycl.router.App = Backbone.Router.extend({
 			reset: true,
 			data: {
 				vehicleId: vehicleId
-			},
-			success: function(coll) {
-				alert("fetched " + coll.length);
 			}
 		});
 
