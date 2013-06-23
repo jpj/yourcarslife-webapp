@@ -13,8 +13,19 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	},
 	render: function() {
 		var tmpl = solairis.ycl.template;
+		var logDate = new Date(this.model.get("logDate"));
+		var c = !this.model.get("cost") ? null : this.model.get("cost").toString();
+		var costFmt = c === null ? null : c.substr(0, c.length - 2) + "." + c.substr(c.length -2);
 
-		this.$el.html(tmpl.render(tmpl.text["fuel-log-template"], tmpl.view.fuelLog(this.model.toJSON())));
+		this.$el.html(tmpl.render(solairis.ycl.template.text["fuel-log-template"], {
+			fuelLog: this.model.toJSON(),
+			logDateFormattedForHumans: logDate.toString("MMM d, yyyy"),
+			logDateFormattedForDateTimeLocal: logDate.toString("yyyy-MM-ddTHH:mm"),
+			odometer: this.model.get("odometer") ? this.model.get("odometer").toFixed(1) : this.model.get("odometer"),
+			fuel: this.model.get("fuel") ? this.model.get("fuel").toFixed(3) : this.model.get("fuel"),
+			cost: costFmt,
+			costPerFuel: this.model.get("cost") ? parseFloat((costFmt)/this.model.get("fuel")).toFixed(3) : "-"
+		}));
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
 		this.$(".economy .number").text(this.options.economy);
 

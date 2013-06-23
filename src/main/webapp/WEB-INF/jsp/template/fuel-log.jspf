@@ -1,6 +1,6 @@
 <div class="container view">
 	<div class="date">
-		{{logDate}}
+		{{logDateFormattedForHumans}}
 	</div>
 	<div class="cost">
 		$ {{cost}}
@@ -24,7 +24,7 @@
 <div class="container edit">
 	<form method="get" action="#">
 		<div class="date">
-			<input type="datetime-local" name="logDate" value="{{logDate}}"/>
+			<input type="datetime-local" name="logDate" value="{{logDateFormattedForDateTimeLocal}}"/>
 		</div>
 		<div class="cost">
 			$
@@ -54,7 +54,7 @@
 		</div>
 		<div class="octane">
 			<label>
-				<input type="number" step="1" name="octane" value="{{octane}}"/>
+				<input type="number" step="1" name="octane" value="{{fuelLog.octane}}"/>
 				Oct
 			</label>
 		</div>
