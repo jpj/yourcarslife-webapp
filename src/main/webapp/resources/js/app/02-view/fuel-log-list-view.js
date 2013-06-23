@@ -10,7 +10,7 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 		this.collection.on("sync", this.calculateFuelEconomy, this);
 	},
 	render: function() {
-		this.$(".fuel-logs ul").empty();
+		this.$("#fuel-logs").empty();
 
 		this.collection.each(function(model) {
 			this.addOne.call(this, model);
@@ -24,7 +24,7 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 
 		var view = new solairis.ycl.view.FuelLog({model: model, nextModel: nextModel, collection: this.collection, vehicleId: this.options.vehicleId});
 		if (this.$(".fuel-log").length === 0 || this.$(".fuel-log:eq("+logIndex+")").length === 0) {
-			this.$("ul").append(view.el);
+			this.$("#fuel-logs").append(view.el);
 		} else {
 			this.$(".fuel-log:eq("+logIndex+")").before(view.el);
 		}

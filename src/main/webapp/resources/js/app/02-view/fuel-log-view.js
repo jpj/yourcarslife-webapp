@@ -1,6 +1,6 @@
 
 solairis.ycl.view.FuelLog = Backbone.View.extend({
-	tagName: "li",
+	tagName: "article",
 	className: "fuel-log",
 	events: {
 		"click .view": "editFuelLog",

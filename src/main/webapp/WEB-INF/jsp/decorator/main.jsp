@@ -188,8 +188,8 @@
 			</div>
 
 			<div id="fuel-logs-wrapper">
-				<ul id="fuel-logs">
-				</ul>
+				<section id="fuel-logs">
+				</section>
 				<div>
 					<a class="button load-more" href="#">Load More</a>
 				</div>
