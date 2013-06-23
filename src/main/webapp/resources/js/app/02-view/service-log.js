@@ -76,6 +76,7 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 			this.$(".container.edit .description textarea").height( descViewHeight );
 		}
 		this.$el.addClass("editing");
+		this.$(".log-date input").focus();
 		return false;
 	},
 	save: function(e) {
