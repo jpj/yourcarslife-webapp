@@ -20,12 +20,8 @@
 		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"/>
 		<title><decorator:title default="Welcome!"/> | Your Car's Life</title>
 
-		<!-- Frameworks: Jquery, Underscore, Backbone -->
+		<!-- Frameworks: Jquery -->
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-1.7.1.min.js"/>"></script>
-
-		<!-- Jquery Datepicker -->
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.css"/>"/>
-		<script type="text/javascript" src="<c:url value="/resources/js/jquery/jq.datepicker/jquery.datepick.js"/>"></script>
 
 		<!-- Jquery JQPlot -->
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.css"/>"/>
@@ -274,11 +270,11 @@
 		<script type="text/template" id="service-log-template">
 			<div class="container edit">
 				<form method="get" action="#">
-					<div class="log-date"><input type="text" placeholder="Date"/></div>
-					<div class="cost"><span class="units">$</span><span class="number"><input type="number" placeholder="Cost" step=".01"/></span></div>
-					<div class="odometer"><span class="number"><input type="number" step=".1" value="{{odometer}}" placeholder="Odometer"/></span> <span class="units">mi</span></div>
-					<div class="summary"><input type="text" value="{{summary}}" placeholder="Summary"/></div>
-					<div class="description"><textarea placeholder="Description">{{description}}</textarea></div>
+					<div class="log-date"><input type="datetime-local" value="{{logDateFormattedForDateTimeLocal}}"/></div>
+					<div class="cost"><span class="units">$</span><span class="number"><input type="number" placeholder="Cost" step=".01" value="{{costFmt}}"/></span></div>
+					<div class="odometer"><span class="number"><input type="number" step=".1" value="{{serviceLog.odometer}}" placeholder="Odometer"/></span> <span class="units">mi</span></div>
+					<div class="summary"><input type="text" value="{{serviceLog.summary}}" placeholder="Summary"/></div>
+					<div class="description"><textarea placeholder="Description">{{serviceLog.description}}</textarea></div>
 					<div class="tags"></div>
 					<div>
 						<input type="submit" value="Save"/>
@@ -287,11 +283,11 @@
 				</form>
 			</div>
 			<a class="container view edit-log" href="">
-				<div class="log-date"></div>
-				<div class="cost"><span class="units">$</span><span class="number"></span></div>
-				<div class="odometer"><span class="number">{{odometer}}</span> <span class="units">mi</span></div>
-				<div class="summary">{{summary}}</div>
-				<div class="description">{{description}}</div>
+				<div class="log-date">{{logDateFormattedForHumans}}</div>
+				<div class="cost"><span class="units">$</span><span class="number">{{costFmt}}</span></div>
+				<div class="odometer"><span class="number">{{serviceLog.odometer}}</span> <span class="units">mi</span></div>
+				<div class="summary">{{serviceLog.summary}}</div>
+				<div class="description"></div>
 				<div class="tags"></div>
 			</a>
 		</script>

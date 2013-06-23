@@ -70,7 +70,7 @@ ul#service-logs, ul#new-service-log {
 	color: #d1d1d1;
 }
 
-.service-log .log-date, .service-log .odometer, .service-log .summary, .service-log .cost {
+.service-log .log-date, .service-log .odometer, .service-log .cost {
 	left: 0;
 	position: absolute;
 	top: 11px;
@@ -82,7 +82,7 @@ ul#service-logs, ul#new-service-log {
 }
 
 .service-log .cost input {
-	width: 78px;
+	width: 183px;
 }
 
 .service-log .cost .units {
@@ -102,36 +102,42 @@ ul#service-logs, ul#new-service-log {
 }
 
 .service-log .log-date input {
-	width: 78px;
+	width: 183px;
 }
 
 .service-log .odometer {
-	left: 125px;
+	left: 227px;
 }
 
 .service-log .odometer input {
+	padding-right: 7px;
 	text-align: right;
-	width: 110px;
+	width: 120px;
 }
 
 .service-log .odometer .number, .service-log .odometer .number input {
 	font-size: 17pt;
 }
 
-.service-log .summary {
-	left: 267px;
-}
+/*.service-log .summary {
+	left: 32px;
+	top: 69px;
+}*/
 
 .service-log .summary, .service-log .summary input {
 	font-size: 17pt;
 }
 
+.service-log .summary {
+	margin: 61px 0 0 25px;
+}
+
 .service-log .summary input {
-	width: 623px;
+	width: 98%;
 }
 
 .service-log .description {
-	margin: 61px 0 14px 25px;
+	margin: 4px 0 14px 25px;
 }
 
 .service-log .description textarea {

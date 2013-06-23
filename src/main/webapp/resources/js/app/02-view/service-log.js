@@ -15,30 +15,20 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 	render: function() {
 
 		var converter = new Showdown.converter();
+		var logDate = new Date(this.model.get("logDate"));
+
+		var c = !this.model.get("cost") ? null : this.model.get("cost").toString();
+		var costFmt = c === null ? null : c.substr(0, c.length - 2) + "." + c.substr(c.length -2);
 
 		var $el = $(this.el);
-		$(this.el).html(solairis.ycl.template.render(solairis.ycl.template.text["service-log-template"], this.model.toJSON()));
-		var logDate = new Date(this.model.get("logDate"));
-		$(this.el).data("logDate", logDate);
+		this.$el.html(solairis.ycl.template.render(solairis.ycl.template.text["service-log-template"], {
+			serviceLog: this.model.toJSON(),
+			logDateFormattedForHumans: logDate.toString("MMM d, yyyy"),
+			logDateFormattedForDateTimeLocal: logDate.toString("yyyy-MM-ddTHH:mm"),
+			costFmt: costFmt
+		}));
+
 		this.$(".edit-log").attr("href", solairis.ycl.constant.BASE_URL+"/vehicle/"+this.vehicleId+"/log/service/"+this.model.get("logId"));
-		this.$(".view .log-date").text( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() );
-
-		this.$(".edit .log-date input").val( logDate.getFullYear()+" "+logDate.getMonthShortName()+" "+logDate.getDate() ).datepick({
-			dateFormat: 'yyyy M dd',
-			defaultDate: logDate,
-			onSelect: function(dates) {
-				if (dates.length === 1) {
-					$el.data("logDate", dates[0]);
-				} else {
-					alert("Error getting date");
-				}
-			}
-		});
-
-		var c = this.model.get("cost") == null || this.model.get("cost") === 0 ? null : this.model.get("cost").toString();
-		var costFmt = c == null ? null : c.substr(0, c.length - 2) + "." + c.substr(c.length -2);
-		this.$(".view .cost .number").text(costFmt);
-		this.$(".edit .cost .number input").val(costFmt);
 
 		var odometer = this.model.get("odometer") == null ? null : this.model.get("odometer").toFixed(1);
 		this.$(".view .odometer .number").text(odometer);
@@ -74,7 +64,7 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 			odometer: parseFloat( this.$(".edit .odometer input").val() ),
 			summary: this.$(".edit .summary input").val(),
 			description: this.$(".edit .description textarea").val(),
-			logDate: $(this.el).data("logDate")
+			logDate: Date.parse(this.$(".log-date input").val().replace("T", " "))
 		};
 	},
 
@@ -121,8 +111,10 @@ solairis.ycl.view.ServiceLog = Backbone.View.extend({
 	cancel: function(e) {
 		e.preventDefault();
 		$(this.el).removeClass("editing");
-		this.model.fetch();
-		this.render();
+
+		if (this.model.isNew()) {
+			this.$el.remove();
+		}
 	},
 
 	enableEditMode: function() {
