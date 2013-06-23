@@ -4,26 +4,28 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 	},
 
 	initialize: function() {
-		this.collection.bind('add', this.addOne, this);
-		this.collection.bind('all', this.render, this);
-		this.collection.bind('reset', this.addAll, this);
-
-		this.$el.html( solairis.ycl.template.text["service-log-page-template"] );
-
-		var vehicleId = this.options.vehicleId;
-
-		var vehicleModel = new solairis.ycl.model.Vehicle({
-			vehicleId: vehicleId
-		});
-		var vehicleView = new solairis.ycl.view.VehicleHeader({
-			el: $(".vehicle"),
-			model: vehicleModel
-		});
-		vehicleModel.fetch();
+		this.collection.on('add', this.addOne, this);
+		this.collection.on("reset", this.render, this);
 		return this;
 	},
 	render: function() {
+		document.title = "Service Logs | "+solairis.ycl.constant.SITE_TITLE;
+		this.$el.html( solairis.ycl.template.text["service-log-page-template"] );
 
+		var vehicle = new solairis.ycl.model.Vehicle({
+			vehicleId: this.options.vehicleId
+		});
+		new solairis.ycl.view.VehicleHeader({
+			el: $(".vehicle"),
+			model: vehicle
+		});
+		vehicle.fetch();
+
+		this.collection.each(function(serviceLog) {
+			this.addOne.call(this, serviceLog);
+		}, this);
+
+		return this;
 	},
 	addOne: function(serviceLog) {
 		var logIndex = this.collection.indexOf(serviceLog);
@@ -41,12 +43,6 @@ solairis.ycl.view.ServiceLogPage = Backbone.View.extend({
 		setTimeout(function() {
 			view.disableNew();
 		}, 2000);
-	},
-	addAll: function() {
-		var ctx = this;
-		this.collection.each(function(serviceLog) {
-			ctx.addOne.call(ctx, serviceLog);
-		});
 	},
 
 	addNew: function(e) {
