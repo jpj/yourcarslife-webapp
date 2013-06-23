@@ -9,7 +9,9 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	},
 	initialize: function() {
 		this.model.on("change", this.render, this);
-		this.options.nextModel.on("change", this.render, this);
+		if (this.options.nextModel) {
+			this.options.nextModel.on("change", this.render, this);
+		}
 		this.model.on("all", this.render, this);
 	},
 	render: function() {
@@ -71,7 +73,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		var ctx = this;
 		e.preventDefault();
 		this.model.set(this.serialize.call(ctx));
-		if (this.model.get("logId")) {
+		if (!this.model.isNew()) {
 			this.model.save(null, {
 				wait: true,
 				success: function() {
