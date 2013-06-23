@@ -7,6 +7,7 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 	initialize: function() {
 		this.collection.on("add", this.addOne, this);
 		this.collection.on("reset", this.render, this);
+		this.collection.on("sync", this.calculateFuelEconomy, this);
 	},
 	render: function() {
 		this.$(".fuel-logs ul").empty();
@@ -20,12 +21,8 @@ solairis.ycl.view.FuelLogList = Backbone.View.extend({
 	addOne: function(model) {
 		var logIndex = this.collection.indexOf(model);
 		var nextModel = this.collection.at(logIndex + 1);
-		var economy = "-";
-		if (nextModel !== undefined && !model.get("missedFillup")) {
-			economy = ((model.get("odometer")-nextModel.get("odometer")) / model.get("fuel")).toFixed(2);
-		}
 
-		var view = new solairis.ycl.view.FuelLog({model: model, collection: this.collection, vehicleId: this.options.vehicleId, economy: economy});
+		var view = new solairis.ycl.view.FuelLog({model: model, nextModel: nextModel, collection: this.collection, vehicleId: this.options.vehicleId});
 		if (this.$(".fuel-log").length === 0 || this.$(".fuel-log:eq("+logIndex+")").length === 0) {
 			this.$("ul").append(view.el);
 		} else {

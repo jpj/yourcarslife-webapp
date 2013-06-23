@@ -9,6 +9,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	},
 	initialize: function() {
 		this.model.on("change", this.render, this);
+		this.options.nextModel.on("change", this.render, this);
 		this.model.on("all", this.render, this);
 	},
 	render: function() {
@@ -16,6 +17,11 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		var logDate = new Date(this.model.get("logDate"));
 		var c = !this.model.get("cost") ? null : this.model.get("cost").toString();
 		var costFmt = c === null ? null : c.substr(0, c.length - 2) + "." + c.substr(c.length -2);
+		var economy = "-";
+		var nextModel = this.options.nextModel;
+		if (nextModel !== undefined && !this.model.get("missedFillup")) {
+			economy = ((this.model.get("odometer")-nextModel.get("odometer")) / this.model.get("fuel")).toFixed(2);
+		}
 
 		this.$el.html(tmpl.render(solairis.ycl.template.text["fuel-log-template"], {
 			fuelLog: this.model.toJSON(),
@@ -27,7 +33,8 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 			costPerFuel: this.model.get("cost") ? parseFloat((costFmt)/this.model.get("fuel")).toFixed(3) : "-"
 		}));
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
-		this.$(".economy .number").text(this.options.economy);
+		this.$(".economy .number").text(economy);
+		this.$el.addClass("fuel-log-"+this.model.get("logId"));
 
 		return this;
 	},
@@ -90,11 +97,8 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	},
 	cancelFuelLog: function(e) {
 		e.preventDefault();
-		$(this.el).removeClass("editing");
-		if (this.model.get("logId")) {
-			this.model.fetch();
-			this.render();
-		} else {
+		this.$el.removeClass("editing");
+		if (this.model.isNew()) {
 			this.closeNew();
 		}
 	},
