@@ -1,13 +1,12 @@
 solairis.ycl.router.App = Backbone.Router.extend({
 
 	vehicles: new solairis.ycl.collection.VehicleList(),
-	fuelLogsForVehicle: {},
 
 	dashboardView: null,
 	vehicleView: null,
 	fuelLogPageView: null,
 	serviceLogPageView: null,
-	
+
 	initialize: function() {
 		$("#page-content > .content").html('<h1>Loading Application...</h1>');
 	},
@@ -20,11 +19,11 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		"log/service/:vehicleId": "getServiceLog",
 		"*actions": "defaultAction"
 	},
-	
+
 	defaultAction: function(action) {
 		// 404
 	},
-	
+
 	home: function() {
 		$("#page-content > .content").html( solairis.ycl.template.text["home-template"] );
 	},
@@ -67,28 +66,20 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	getFuelLog: function(vehicleId) {
-		if (this.fuelLogsForVehicle[vehicleId] == null) {
-			this.fuelLogsForVehicle[vehicleId] = new solairis.ycl.collection.FuelLogList();
-		}
-
 		if (!this.fuelLogPageView) {
-			this.fuelLogPageView = new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: this.fuelLogsForVehicle[vehicleId], vehicleId: vehicleId});
+			this.fuelLogPageView = new solairis.ycl.view.FuelLogApp({el: $("#page-content > .content"), collection: new solairis.ycl.collection.FuelLogList(), vehicleId: vehicleId});
 		} else {
 			this.fuelLogPageView.options.vehicleId = vehicleId;
 			this.fuelLogPageView.initialize();
 		}
 
-		if (this.fuelLogsForVehicle[vehicleId].length == 0) {
-			this.fuelLogsForVehicle[vehicleId].fetch({
-				data: {
-					offset: 0,
-					numResults: 10,
-					vehicleId: vehicleId
-				}
-			});
-		} else {
-			this.fuelLogsForVehicle[vehicleId].trigger("reset");
-		}
+		this.fuelLogPageView.collection.fetch({
+			data: {
+				offset: 0,
+				numResults: 10,
+				vehicleId: vehicleId
+			}
+		});
 
 		return this;
 	},
@@ -112,7 +103,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 				vehicleId: vehicleId
 			}
 		});
-	
+
 		return this;
 	}
 });
