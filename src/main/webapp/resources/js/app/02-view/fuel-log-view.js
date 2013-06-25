@@ -1,27 +1,43 @@
 
 solairis.ycl.view.FuelLog = Backbone.View.extend({
-	tagName: "li",
+	tagName: "article",
 	className: "fuel-log",
 	events: {
-		"click .display": "editFuelLog",
+		"click .view": "editFuelLog",
 		"submit form": "saveFuelLog",
-		"click input[name=cancel]": "cancelFuelLog",
-		"focus .date input": "addCalendar"
+		"click input[name=cancel]": "cancelFuelLog"
 	},
 	initialize: function() {
 		this.model.on("change", this.render, this);
+		if (this.options.nextModel) {
+			this.options.nextModel.on("change", this.render, this);
+		}
 		this.model.on("all", this.render, this);
 	},
 	render: function() {
 		var tmpl = solairis.ycl.template;
+		var logDate = new Date(this.model.get("logDate"));
+		var c = !this.model.get("cost") ? null : this.model.get("cost").toString();
+		var costFmt = c === null ? null : c.substr(0, c.length - 2) + "." + c.substr(c.length -2);
+		var economy = "-";
+		var nextModel = this.options.nextModel;
+		if (nextModel !== undefined && !this.model.get("missedFillup")) {
+			economy = ((this.model.get("odometer")-nextModel.get("odometer")) / this.model.get("fuel")).toFixed(2);
+		}
 
-		this.$el.html(tmpl.render(tmpl.text.fuelLog, tmpl.view.fuelLog(this.model.toJSON())));
+		this.$el.html(tmpl.render(solairis.ycl.template.text["fuel-log-template"], {
+			fuelLog: this.model.toJSON(),
+			logDateFormattedForHumans: logDate.toString("MMM d, yyyy"),
+			logDateFormattedForDateTimeLocal: logDate.toString("yyyy-MM-ddTHH:mm"),
+			odometer: this.model.get("odometer") ? this.model.get("odometer").toFixed(1) : this.model.get("odometer"),
+			fuel: this.model.get("fuel") ? this.model.get("fuel").toFixed(3) : this.model.get("fuel"),
+			cost: costFmt,
+			costPerFuel: this.model.get("cost") ? parseFloat((costFmt)/this.model.get("fuel")).toFixed(3) : "-"
+		}));
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
-		this.$el.data("logDate", new Date(this.model.get("logDate")));
-
-		// TODO - Calculate economy in a better way. This is way too inefficient.
-		// Maybe listen for change events in the list-view.
-		new solairis.ycl.view.FuelLogEconomyCalculate({el: this.$el.parents("#fuel-logs"), collection: this.collection});
+		this.$(".economy .number").text(economy);
+		this.$el.addClass("fuel-log-"+this.model.get("logId"));
+		this.$(".date input").focus();
 
 		return this;
 	},
@@ -39,9 +55,9 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 			}
 		}
 		return {
-			odometer: parseFloat( this.$(".odometer input.edit").val() ),
-			logDate: $(this.el).data("logDate"),
-			fuel: parseFloat( this.$(".fuel input.edit").val() ),
+			odometer: parseFloat( this.$(".odometer input").val() ),
+			logDate: Date.parse(this.$(".date input").val().replace("T", " ")),
+			fuel: parseFloat( this.$(".fuel input").val() ),
 			octane: parseInt( this.$(".octane input").val() ),
 			cost: cost,
 			missedFillup: this.$(".missedFillup input").get(0).checked,
@@ -58,7 +74,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		var ctx = this;
 		e.preventDefault();
 		this.model.set(this.serialize.call(ctx));
-		if (this.model.get("logId")) {
+		if (!this.model.isNew()) {
 			this.model.save(null, {
 				wait: true,
 				success: function() {
@@ -84,11 +100,8 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	},
 	cancelFuelLog: function(e) {
 		e.preventDefault();
-		$(this.el).removeClass("editing");
-		if (this.model.get("logId")) {
-			this.model.fetch();
-			this.render();
-		} else {
+		this.$el.removeClass("editing");
+		if (this.model.isNew()) {
 			this.closeNew();
 		}
 	},
@@ -97,16 +110,5 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 	},
 	closeNew: function() {
 		this.$el.removeClass("is-new fuel-log").removeData("logDate").remove();
-	},
-	addCalendar: function(e) {
-		var viewCtx = this;
-		$(e.currentTarget).datepick({dateFormat: 'yyyy M dd', defaultDate: new Date(this.model.get('logDate')), onSelect: function(dates) {
-			if (dates.length === 1) {
-				var selectedDate = dates[0];
-				viewCtx.$el.data("logDate", selectedDate);
-			} else {
-				alert("Error getting date");
-			}
-		}});
 	}
 });

@@ -15,7 +15,7 @@ solairis.ycl.view.Dashboard = Backbone.View.extend({
 		return this;
 	},
 	render: function() {
-		this.$el.html(solairis.ycl.template.text.dashboard);
+		this.$el.html(solairis.ycl.template.text["dashboard-template"]);
 		var vehicleListView = new solairis.ycl.view.VehicleList({el: this.$("#vehicles"), collection: this.collection});
 		vehicleListView.render();
 		if (this.collection.length === 0) {

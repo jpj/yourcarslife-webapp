@@ -45,7 +45,7 @@ solairis.ycl.view.VehiclePage = Backbone.View.extend({
 				}, 4000, ctx.$(".success"));
 			},
 			error: function(vehicle, errorResponse) {
-				if (errorResponse.status == 405) {
+				if (errorResponse.status === 405) {
 					var errors = JSON.parse(errorResponse.responseText);
 					for (var i = 0; i < errors.length; i++) {
 						var error = errors[i];

@@ -5,7 +5,7 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 	initialize: function() {
 		document.title = "Fuel Logs | "+solairis.ycl.constant.SITE_TITLE;
 		var ctx = this;
-		this.$el.html( solairis.ycl.template.text.fuelLogPage );
+		this.$el.html( solairis.ycl.template.text["fuel-log-page-template"] );
 
 		// Load Fuel Log list
 		new solairis.ycl.view.FuelLogList({collection: this.collection, el: $("#fuel-logs-wrapper"), vehicleId: this.options.vehicleId});
@@ -29,11 +29,8 @@ solairis.ycl.view.FuelLogApp = Backbone.View.extend({
 	},
 	addFuelLog: function(e) {
 		e.preventDefault();
-		var tmpl = solairis.ycl.template;
 		var fuelLog = new solairis.ycl.model.FuelLog;
 		fuelLog.set("octane", this.collection.octaneMode());
-		fuelLog.set("fuel", this.collection.fuelAverage());
-		fuelLog.set("odometer", this.collection.distanceAverage());
 		var view = new solairis.ycl.view.FuelLog({model: fuelLog, collection: this.collection, vehicleId: this.options.vehicleId});
 		this.$(".new-fuel-log").html(view.render().el);
 		view.enableNew();
