@@ -104,6 +104,7 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		if (this.model.isNew()) {
 			this.closeNew();
 		}
+		this.render();
 	},
 	enableNew: function() {
 		$(this.el).addClass("is-new fuel-log editing");

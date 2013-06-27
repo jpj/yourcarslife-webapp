@@ -221,9 +221,9 @@
 				<div class="name">
 					<a href="<c:url value="/vehicle"/>/{{vehicleId}}">{{name}}</a>
 				</div>
-				<div>
-					<a class="fuel-logs" href="<c:url value="/log/fuel"/>/{{vehicleId}}">Fuel Logs</a> |
-					<a class="service-logs" href="<c:url value="/log/service"/>/{{vehicleId}}">Service Logs</a>
+				<div class="actions">
+					<a class="fuel-logs" href="<c:url value="/log/fuel"/>/{{vehicleId}}">Fill Up</a>
+					<a class="service-logs" href="<c:url value="/log/service"/>/{{vehicleId}}">Service</a>
 				</div>
 				<div>Notes: <span class="notes">{{notes}}</span></div>
 				<div>Description: <span class="description">{{description}}</span></div>
