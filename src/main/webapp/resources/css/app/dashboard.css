@@ -42,12 +42,26 @@
 	padding: 7px;
 }
 
-#vehicles .vehicle a.container {
-	display: block;
-}
-
 #vehicles .vehicle .edit {
 	display: none;
+}
+
+#vehicles .vehicle .actions {
+	margin-bottom: 7px;
+	overflow: hidden;
+}
+
+#vehicles .vehicle .actions > a {
+	background-color: rgb(175, 207, 169);
+	border-radius: 5px 5px 5px 5px;
+	color: white;
+	display: block;
+	float: left;
+	font-size: 20px;
+	margin: 7px 0 0 7px;
+	padding: 30px 20px;
+	text-decoration: none;
+	white-space: nowrap;
 }
 
 #vehicles .vehicle .delete {
