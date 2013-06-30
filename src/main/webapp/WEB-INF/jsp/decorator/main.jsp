@@ -57,8 +57,13 @@
 			};
 		</script>
 
-		<jwr:script src="/resources/js/app/lib.js"/>
-		<jwr:style src="/resources/css/app.css"/>
+		<!--
+		<jwr:script src="/resources/js/app/lib.js" useRandomParam="whatever"/>
+		-->
+		<script type="text/javascript">
+			<c:import url="/1/resources/js/app/lib.js"/>
+		</script>
+		<jwr:style src="/resources/css/app.css" />
 		<decorator:head/>
 
 		<script type="text/javascript">
@@ -146,6 +151,9 @@
 		</div>
 
 		<script id="dashboard-template" type="text/template">
+					<form action="<c:url value="/connect/facebook" />" method="POST">
+			<p><input type="submit" value="Connect With Facebook"/></p>
+		</form>
 			<h2>Your Vehicles</h2>
 
 			<p class="user-has-no-vehicles">

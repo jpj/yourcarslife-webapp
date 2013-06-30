@@ -36,9 +36,9 @@
 	<bean id="jawrBase" abstract="true" class="net.jawr.web.servlet.JawrSpringController">
 		<property name="configuration">
 			<props>
-				<prop key="jawr.debug.on">${jawr.debug.on}</prop>
+				<prop key="jawr.debug.on">false</prop>
 				<prop key="jawr.config.reload.interval">${jawr.config.reload.interval}</prop>
-				<prop key="jawr.gzip.on">true</prop>
+				<prop key="jawr.gzip.on">false</prop>
 				<prop key="jawr.gzip.ie6.on">false</prop>
 				<prop key="jawr.charset.name">UTF-8</prop>
 				<prop key="jawr.js.bundle.basedir">/resources/js</prop>
@@ -125,5 +125,8 @@
 			</props>
 		</property>
 	</bean>
+
+	<bean class="org.springframework.social.connect.web.ConnectController"/>
+	<bean class="org.springframework.social.connect.web.ProviderSignInController"/>
 
 </beans>
