@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-              http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-              http://www.springframework.org/schema/security
-              http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:component-scan base-package="com.solairis.yourcarslife.connect"/>
 
 	<bean id="entryPoint" class="org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint">
 		<constructor-arg>
@@ -42,6 +47,7 @@
 		<security:intercept-url pattern="/dash" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/api/currentuser" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
+		<security:intercept-url pattern="/signin/**" access="hasAnyRole('ROLE_ANONYMOUS')"/>
 		<security:intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
 		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
@@ -73,5 +79,44 @@
 			<security:password-encoder hash="md5"/>
 		</security:authentication-provider>
 	</security:authentication-manager>
+
+	<bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+		<property name="connectionFactories">
+			<list>
+				<bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+					<constructor-arg value="${facebook.client.id}"/>
+					<constructor-arg value="${facebook.client.secret}"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText"/>
+
+	<!--	<bean id="connectionConverter" class="org.springframework.social.connect.mongo.ConnectionConverter">
+		<constructor-arg ref="connectionFactoryLocator"/>
+		<constructor-arg ref="textEncryptor"/>
+	</bean>-->
+
+	<!--	<bean id="connectionService" class="org.springframework.social.connect.jdbc.JdbcConnectionRepository">
+		<constructor-arg ref=""/>
+		<constructor-arg ref="connectionConverter"/>
+	</bean>-->
+
+	<bean id="usersConnectionRepository" class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
+		<constructor-arg ref="dataSource"/>
+		<constructor-arg ref="connectionFactoryLocator"/>
+		<constructor-arg ref="textEncryptor"/>
+		<property name="connectionSignUp" ref="userConnectionSignUp"/>
+	</bean>
+
+	<bean id="connectionRepository" factory-method="createConnectionRepository"
+	      factory-bean="usersConnectionRepository" scope="request">
+		<constructor-arg value="#{request.userPrincipal.name}" />
+		<aop:scoped-proxy proxy-target-class="false" />
+	</bean>
+
+	<bean id="userConnectionSignUp" class="com.solairis.yourcarslife.connect.UserConnectionSignUp"/>
+	<bean id="userSignInAdapter" class="com.solairis.yourcarslife.connect.UserSignInAdapter"/>
 
 </beans>

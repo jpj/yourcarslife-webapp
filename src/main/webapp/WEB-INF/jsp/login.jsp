@@ -14,21 +14,21 @@
 		</security:authorize>
 	</head>
 	<body>
-		<p>
+<!--		<p>
 			Login to acces your account or
 			<a href="<c:url value="/create-account"/>">create a new one</a>!
-		</p>
+		</p>-->
+		<p>Login to access your account</p>
 		<c:if test="${not empty param.login_error}">
 			<div class="error">
 				<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
 			</div>
 		</c:if>
 
-		<div>
-			<form action="<c:url value="/j_spring_security_check"/>" method="post" id="login">
-				<div class="input">
-					<label>Email
-						<input type="text" name="j_username" value="<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}" escapeXml="false"/></c:if>" placeholder="Email" autofocus="autofocus"/>
+		<form action="<c:url value="/j_spring_security_check"/>" method="post" id="login">
+			<div class="input">
+				<label>Email
+					<input type="text" name="j_username" value="<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}" escapeXml="false"/></c:if>" placeholder="Email" autofocus="autofocus"/>
 					</label>
 				</div>
 				<div class="input">
@@ -36,13 +36,20 @@
 						<input type="password" name="j_password" placeholder="Password"/>
 					</label>
 				</div>
-					<div>
-						<input type="hidden" name="redirect" value="${param.redirect}"/>
-					</div>
-				<div class="input">
-					<input type="submit" value="Login"/>
-				</div>
-			</form>
-		</div>
+				<div>
+					<input type="hidden" name="redirect" value="${param.redirect}"/>
+			</div>
+			<div class="input">
+				<input type="submit" value="Login"/>
+			</div>
+		</form>
+
+		<p>Or...</p>
+
+		<form action="<c:url value="/signin/facebook" />" method="POST">
+			<p><input type="submit" value="Log in With Facebook"/></p>
+		</form>
+
+		<p>(If you have an account, login first before associating it to your facebook account)</p>
 	</body>
 </html>
