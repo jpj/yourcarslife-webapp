@@ -21,6 +21,10 @@
 		</developer>
 	</developers>
 
+	<properties>
+		<default.dependency.scope>provided</default.dependency.scope>
+	</properties>
+
 	<dependencies>
 
 		<!-- Your Car's Life API -->
@@ -35,60 +39,54 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>3.1.1.RELEASE</version>
-			<scope>test</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-aop</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-asm</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-beans</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-context-support</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-core</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 			<exclusions>
 				<exclusion>
 					<artifactId>commons-logging</artifactId>
@@ -101,28 +99,28 @@
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-jdbc</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-tx</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-web</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
 			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 
 		<!-- Spring Security -->
@@ -131,32 +129,32 @@
 			<groupId>org.springframework.security</groupId>
 			<type>jar</type>
 			<version>3.1.0.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-security-core</artifactId>
 			<groupId>org.springframework.security</groupId>
 			<type>jar</type>
 			<version>3.1.0.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>3.1.0.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>3.1.0.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>3.1.0.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 
 		<!-- Spring Social -->
@@ -164,19 +162,19 @@
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-core</artifactId>
 			<version>1.0.2.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-facebook</artifactId>
 			<version>1.0.2.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-web</artifactId>
 			<version>1.0.2.RELEASE</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 
 		<!-- Test Deps -->
@@ -192,37 +190,43 @@
 			<version>1.4</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.1.1.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.5</version>
 			<type>jar</type>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>3.14.0-GA</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
 			<version>2.2.2</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>2.4.2</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -240,67 +244,67 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-lgpl</artifactId>
 			<version>1.6.3</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.0.2.GA</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>1.7.5</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>3.3.2.GA</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.jawr</groupId>
 			<artifactId>jawr</artifactId>
 			<version>3.3.3</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.yahoo.platform.yui</groupId>
 			<artifactId>yuicompressor</artifactId>
 			<version>2.4.6</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.13</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
 			<version>1.0.13</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>log4j-over-slf4j</artifactId>
 			<version>1.7.5</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>
 <!--		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.13</version>
-			<scope>provided</scope>
+			<scope>${default.dependency.scope}</scope>
 		</dependency>-->
 	</dependencies>
 
