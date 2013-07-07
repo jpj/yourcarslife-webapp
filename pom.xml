@@ -169,6 +169,16 @@
 			<artifactId>spring-social-facebook</artifactId>
 			<version>1.0.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
+		 <exclusions>
+		  <exclusion>
+		   <artifactId>jackson-core-asl</artifactId>
+		   <groupId>org.codehaus.jackson</groupId>
+		  </exclusion>
+		  <exclusion>
+		   <artifactId>jackson-mapper-asl</artifactId>
+		   <groupId>org.codehaus.jackson</groupId>
+		  </exclusion>
+		 </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
@@ -243,7 +253,7 @@
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-lgpl</artifactId>
-			<version>1.6.3</version>
+			<version>1.9.12</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
