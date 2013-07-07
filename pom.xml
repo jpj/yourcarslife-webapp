@@ -22,7 +22,7 @@
 	</developers>
 
 	<properties>
-		<default.dependency.scope>provided</default.dependency.scope>
+		<default.dependency.scope>compile</default.dependency.scope>
 	</properties>
 
 	<dependencies>
