@@ -9,10 +9,10 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 
-<c:set var="appcache" value="${pageContext.request.servletPath eq '/' or pageContext.request.servletPath eq '/dash'}"/>
+<c:set var="appcacheenabled" value="${param.login_error ne 'true'}"/>
 
 <!doctype html>
-<html<c:if test="${appcache}"> manifest="<c:url value="/resources/ycl.appcache"/>"</c:if>>
+<html<c:if test="${appcacheenabled}"> manifest="${pageContext.servletContext.contextPath}/resources/ycl.appcache"</c:if>>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="version" content="<%@include file="../template/version.jspf" %>"/>
@@ -51,9 +51,7 @@
 		<!--
 		<jwr:script src="/resources/js/app/lib.js"/>
 		-->
-		<script type="text/javascript">
-			<c:import url="/1/resources/js/app/lib.js"/>
-		</script>
+		<script type="text/javascript" src="<c:url value="/1/resources/js/app/lib.js"/>"></script>
 
 		<!--
 		<jwr:style src="/resources/css/app.css" />
