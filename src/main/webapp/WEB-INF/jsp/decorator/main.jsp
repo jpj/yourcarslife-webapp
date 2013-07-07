@@ -49,12 +49,18 @@
 		</script>
 
 		<!--
-		<jwr:script src="/resources/js/app/lib.js" useRandomParam="whatever"/>
+		<jwr:script src="/resources/js/app/lib.js"/>
 		-->
 		<script type="text/javascript">
 			<c:import url="/1/resources/js/app/lib.js"/>
 		</script>
+
+		<!--
 		<jwr:style src="/resources/css/app.css" />
+		-->
+
+		<link rel="stylesheet" type="text/css" href="<c:url value="/1/resources/css/app.css"/>" media="screen"/>
+
 		<decorator:head/>
 
 		<script type="text/javascript">
