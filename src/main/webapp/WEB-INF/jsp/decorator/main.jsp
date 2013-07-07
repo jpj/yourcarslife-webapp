@@ -9,10 +9,10 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 
-<c:set var="appcache"><decorator:getProperty property="meta.appcache"/></c:set>
+<c:set var="appcache" value="${pageContext.request.servletPath eq '/' or pageContext.request.servletPath eq '/dash'}"/>
 
 <!doctype html>
-<html<c:if test="${appcache eq 'on'}"> manifest="<c:url value="/resources/ycl.appcache"/>"</c:if>>
+<html<c:if test="${appcache}"> manifest="<c:url value="/resources/ycl.appcache"/>"</c:if>>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="version" content="<%@include file="../template/version.jspf" %>"/>

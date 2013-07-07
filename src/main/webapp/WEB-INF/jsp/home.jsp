@@ -7,8 +7,7 @@
 <html>
 	<head>
 		<title>Home</title>
-		<meta name="appcache" content="on"/>
-		
+
 		<script type="text/javascript">
 			$(function() {
 				// Start routing
