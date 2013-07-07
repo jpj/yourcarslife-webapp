@@ -38,54 +38,54 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-aop</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-asm</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-beans</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-context-support</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-core</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 			<exclusions>
 				<exclusion>
@@ -98,28 +98,28 @@
 			<artifactId>spring-expression</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-jdbc</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-tx</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<artifactId>spring-web</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 
@@ -203,7 +203,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>3.1.1.RELEASE</version>
+			<version>3.1.2.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -283,13 +283,13 @@
 		<dependency>
 			<groupId>net.jawr</groupId>
 			<artifactId>jawr</artifactId>
-			<version>3.3.3</version>
+			<version>3.5</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.yahoo.platform.yui</groupId>
 			<artifactId>yuicompressor</artifactId>
-			<version>2.4.6</version>
+			<version>2.4.7</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
