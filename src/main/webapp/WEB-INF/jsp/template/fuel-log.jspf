@@ -24,21 +24,21 @@
 <div class="container edit">
 	<form method="get" action="#">
 		<div class="date">
-			<input type="datetime-local" name="logDate" value="{{logDateFormattedForDateTimeLocal}}"/>
+			<input type="datetime-local" name="logDate" value="{{logDateFormattedForDateTimeLocal}}" placeholder="Date &amp; Time"/>
 		</div>
 		<div class="cost">
 			$
-			<input type="number" step=".01" name="cost" value="{{cost}}"/>
+			<input type="number" step=".01" name="cost" value="{{cost}}" placeholder="Cost"/>
 		</div>
 		<div class="cost-per-fuel">
 			{{costPerFuel}}/gal.
 		</div>
 		<div class="odometer">
-			<input type="number" step=".1" name="odometer" value="{{odometer}}"/>
+			<input type="number" step=".1" name="odometer" value="{{odometer}}" placeholder="Odometer"/>
 			<span class="units">od</span>
 		</div>
 		<div class="fuel">
-			<input type="number" step=".001" name="fuel" value="{{fuel}}"/>
+			<input type="number" step=".001" name="fuel" value="{{fuel}}" placeholder="Fuel"/>
 			<span class="units">gal</span>
 		</div>
 		<div class="economy">
@@ -54,7 +54,7 @@
 		</div>
 		<div class="octane">
 			<label>
-				<input type="number" step="1" name="octane" value="{{fuelLog.octane}}"/>
+				<input type="number" step="1" name="octane" value="{{fuelLog.octane}}" placeholder="Octane"/>
 				Oct
 			</label>
 		</div>

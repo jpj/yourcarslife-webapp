@@ -243,7 +243,7 @@
 		</script>
 
 		<script id="header-user-template" type="text/template">
-			<!--{{user.login}} / --><a href="<c:url value="/logout"/>">Logout</a>
+			<!--{{user.login}} --><a href="<c:url value="/logout"/>">Logout</a>
 		</script>
 
 		<script id="fuel-log-stats-template" type="text/template">
