@@ -29,9 +29,7 @@
 			solairis.ycl = {
 				collection: {},
 				constant: {
-					BASE_URL: (function() {
-						return '${pageContext.request.contextPath}' === '/' ? '' : '${pageContext.request.contextPath}';
-					})()
+					BASE_URL: '${pageContext.servletContext.contextPath}/'
 				},
 				error: {
 					properties: {}
