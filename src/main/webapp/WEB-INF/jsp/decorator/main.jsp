@@ -15,7 +15,7 @@
 <html<c:if test="${appcacheenabled}"> manifest="${pageContext.servletContext.contextPath}/resources/ycl.appcache"</c:if>>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="version" content="<%@include file="../template/version.jspf" %>"/>
+		<meta name="application-name" content="Your Car's Life Web Application v<%@include file="../template/version.jspf" %>"/>
 		<meta name="HandheldFriendly" content="true"/>
 		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"/>
 		<title><decorator:title default="Welcome!"/> | Your Car's Life</title>
