@@ -39,7 +39,7 @@
 	<security:http pattern="/create-account" security="none"/>
 	<security:http pattern="/favicon.ico" security="none"/>
 	<security:http pattern="/resources/**" security="none"/>
-	<security:http pattern="/*/resources/**" security="none"/>
+	<security:http pattern="/wro/**" security="none"/>
 
 	<security:http use-expressions="true" auto-config="true" entry-point-ref="entryPoint">
 		<security:intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>

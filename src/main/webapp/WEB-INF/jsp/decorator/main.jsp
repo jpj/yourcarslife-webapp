@@ -7,7 +7,6 @@
 <%@taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
 
 <c:set var="appcacheenabled" value="${param.login_error ne 'true'}"/>
 
@@ -46,11 +45,7 @@
 			};
 		</script>
 
-
-		<%--<jwr:script src="/resources/js/app/lib.js"/>--%>
 		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/wro/app.js"></script>
-
-		<%--<jwr:style src="/resources/css/app.css" />--%>
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/wro/app.css" media="screen"/>
 
 		<decorator:head/>

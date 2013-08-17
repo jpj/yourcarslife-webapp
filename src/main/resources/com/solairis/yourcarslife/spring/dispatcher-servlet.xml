@@ -33,30 +33,6 @@
 	<mvc:view-controller path="/vehicle/log/service/list" view-name="service-log-list"/>
 	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
 
-	<bean id="jawrBase" abstract="true" class="net.jawr.web.servlet.JawrSpringController">
-		<property name="configuration">
-			<props>
-				<prop key="jawr.debug.on">false</prop>
-				<prop key="jawr.config.reload.interval">${jawr.config.reload.interval}</prop>
-				<prop key="jawr.gzip.on">false</prop>
-				<prop key="jawr.gzip.ie6.on">false</prop>
-				<prop key="jawr.charset.name">UTF-8</prop>
-				<prop key="jawr.js.bundle.basedir">/resources/js</prop>
-				<prop key="jawr.js.bundle.lib.id">/resources/js/app/lib.js</prop>
-				<prop key="jawr.js.bundle.lib.mappings">/resources/js/app/**</prop>
-				<prop key="jawr.js.bundle.lib.global">true</prop>
-				<prop key="jawr.css.bundle.app.mappings">/resources/css/app/**</prop>
-				<prop key="jawr.css.bundle.app.id">/resources/css/app.css</prop>
-				<prop key="jawr.css.bundle.factory.bundlepostprocessors">license,YUI</prop>
-			</props>
-		</property>
-	</bean>
-
-	<bean id="jawrJsController" parent="jawrBase"/>
-	<bean id="jawrCssController" parent="jawrBase">
-		<property name="type" value="css"/>
-	</bean>
-
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 		<property name="prefix" value="/WEB-INF/jsp/"/>
@@ -115,15 +91,6 @@
 			</bean>
 		</constructor-arg>
 		<constructor-arg value="false"/>
-	</bean>
-
-	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<props>
-				<prop key="/**/*.js">jawrJsController</prop>
-				<prop key="/**/*.css">jawrCssController</prop>
-			</props>
-		</property>
 	</bean>
 
 	<bean class="org.springframework.social.connect.web.ConnectController"/>
