@@ -6,8 +6,8 @@ CACHE:
 ../dash
 ../login
 ../resources/js/jquery/jqplot/jquery.jqplot.css
-../1/resources/css/app.css
-../1/resources/js/app/lib.js
+../wro/app.css
+../wro/app.js
 
 NETWORK:
 ../

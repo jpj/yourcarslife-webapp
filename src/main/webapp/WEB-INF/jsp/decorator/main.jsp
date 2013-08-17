@@ -21,7 +21,7 @@
 		<title><decorator:title default="Welcome!"/> | Your Car's Life</title>
 
 		<!-- Jquery JQPlot -->
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery/jqplot/jquery.jqplot.css"/>"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/js/jquery/jqplot/jquery.jqplot.css"/>
 
 		<script type="text/javascript">
 			window.solairis = window.solairis || {};
@@ -46,16 +46,12 @@
 			};
 		</script>
 
-		<!--
-		<jwr:script src="/resources/js/app/lib.js"/>
-		-->
-		<script type="text/javascript" src="<c:url value="/1/resources/js/app/lib.js"/>"></script>
 
-		<!--
-		<jwr:style src="/resources/css/app.css" />
-		-->
+		<%--<jwr:script src="/resources/js/app/lib.js"/>--%>
+		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/wro/app.js"></script>
 
-		<link rel="stylesheet" type="text/css" href="<c:url value="/1/resources/css/app.css"/>" media="screen"/>
+		<%--<jwr:style src="/resources/css/app.css" />--%>
+		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/wro/app.css" media="screen"/>
 
 		<decorator:head/>
 

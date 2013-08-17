@@ -169,16 +169,16 @@
 			<artifactId>spring-social-facebook</artifactId>
 			<version>1.0.2.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
-		 <exclusions>
-		  <exclusion>
-		   <artifactId>jackson-core-asl</artifactId>
-		   <groupId>org.codehaus.jackson</groupId>
-		  </exclusion>
-		  <exclusion>
-		   <artifactId>jackson-mapper-asl</artifactId>
-		   <groupId>org.codehaus.jackson</groupId>
-		  </exclusion>
-		 </exclusions>
+			<exclusions>
+				<exclusion>
+					<artifactId>jackson-core-asl</artifactId>
+					<groupId>org.codehaus.jackson</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jackson-mapper-asl</artifactId>
+					<groupId>org.codehaus.jackson</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
@@ -310,12 +310,11 @@
 			<version>1.7.5</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
-<!--		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.13</version>
-			<scope>${default.dependency.scope}</scope>
-		</dependency>-->
+		<dependency>
+			<groupId>ro.isdc.wro4j</groupId>
+			<artifactId>wro4j-core</artifactId>
+			<version>1.7.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
