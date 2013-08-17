@@ -18,7 +18,13 @@
 			Login to acces your account or
 			<a href="<c:url value="/create-account"/>">create a new one</a>!
 		</p>-->
-		<p>Login to access your account</p>
+
+		<form action="<c:url value="/signin/facebook" />" method="POST">
+			<p><input type="submit" value="Log in With Facebook"/></p>
+		</form>
+
+		<p>(If you have an account, login first before associating it to your facebook account)</p>
+
 		<c:if test="${not empty param.login_error}">
 			<div class="error">
 				<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
@@ -43,13 +49,5 @@
 				<input type="submit" value="Login"/>
 			</div>
 		</form>
-
-		<p>Or...</p>
-
-		<form action="<c:url value="/signin/facebook" />" method="POST">
-			<p><input type="submit" value="Log in With Facebook"/></p>
-		</form>
-
-		<p>(If you have an account, login first before associating it to your facebook account)</p>
 	</body>
 </html>
