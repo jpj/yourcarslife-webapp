@@ -80,6 +80,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		}
 
 		this.fuelLogPageView.collection.fetch({
+			reset: true,
 			data: {
 				offset: 0,
 				numResults: 10,
