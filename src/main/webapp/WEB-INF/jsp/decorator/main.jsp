@@ -43,57 +43,24 @@
 				util: {},
 				view: {}
 			};
+
+			solairis.ycl.util.downloadJSAtOnload = function() {
+				var el = document.createElement("script");
+				el.src = '${pageContext.servletContext.contextPath}/wro/app.js';
+				document.body.appendChild(el);
+			}
+
+			if (window.addEventListener)
+				window.addEventListener("load", solairis.ycl.util.downloadJSAtOnload, false);
+			else if (window.attachEvent)
+				window.attachEvent("onload", solairis.ycl.util.downloadJSAtOnload);
+			else
+				window.onload = solairis.ycl.util.downloadJSAtOnload;
 		</script>
 
-		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/wro/app.js"></script>
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/wro/app.css" media="screen"/>
 
 		<decorator:head/>
-
-		<script type="text/javascript">
-			$.ajaxSetup({ cache: false });
-
-			$(function() {
-				var app = new solairis.ycl.view.App({el: $("#navigation"), model: new solairis.ycl.model.CurrentUser()});
-				app.model.fetch();
-
-				$(window.applicationCache).bind("updateready", function(e) {
-					$(".appcache-status").text("Updating...");
-					window.applicationCache.swapCache();
-					$(".appcache-status").text("Update Ready").addClass("update-ready").click(function() {document.location.reload()});
-				});
-				$(window.applicationCache).bind("checking", function(e) {
-					$(".appcache-status").text("Checking For App Update...");
-				});
-				$(window.applicationCache).bind("noupdate", function(e) {
-					$(".appcache-status").text("App Current");
-				});
-				$(window.applicationCache).bind("cached", function(e) {
-					$(".appcache-status").text("App Cached");
-				});
-				$(window.applicationCache).bind("error", function(e) {
-					$(".appcache-status").text("Error");
-				});
-			});
-
-			solairis.ycl.handlingUnauthorizedError = false;
-
-			$(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
-				// Handle Ajax Errors Globally
-				if (jqXHR.status === 401) {
-					if (!solairis.ycl.handlingUnauthorizedError) {
-						solairis.ycl.handlingUnauthorizedError = true;
-						var url = document.createElement('a');
-						url.href = document.location.href;
-						url.pathname = solairis.ycl.constant.BASE_URL + '/login';
-						url.search = 'redirect='+encodeURIComponent(document.location.href);
-						document.location.href = url.href;
-					}
-				} else {
-					$(".application-error").text('Error: '+jqXHR.statusText);
-				}
-			});
-		</script>
 
 		<script type="text/javascript">
 			var _gaq = _gaq || [];
@@ -105,7 +72,6 @@
 				ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 			})();
-
 		</script>
 	</head>
 	<body>

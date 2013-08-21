@@ -20,8 +20,12 @@ solairis.ycl.view.App = Backbone.View.extend({
 		return this;
 	},
 	goDashboard: function(e) {
-		e.preventDefault();
-		window.app.navigate('/dash');
-		window.app.dashboard();
+		// Not always guaranteed router.
+		// TODO: Fix this
+		if (window.app && window.app.navigate) {
+			e.preventDefault();
+			window.app.navigate('/dash');
+			window.app.dashboard();
+		}
 	}
 });
