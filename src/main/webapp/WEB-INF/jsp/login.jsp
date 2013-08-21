@@ -9,9 +9,6 @@
 <html>
 	<head>
 		<title>Login</title>
-		<security:authorize ifAnyGranted="ROLE_USER">
-			<meta http-equiv="refresh" content="0; <c:url value="/dash"/>"/>
-		</security:authorize>
 	</head>
 	<body>
 <!--		<p>
