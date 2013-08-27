@@ -37,7 +37,6 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
 		this.$(".economy .number").text(economy);
 		this.$el.addClass("fuel-log-"+this.model.get("logId"));
-		this.$(".date input").focus();
 
 		return this;
 	},
