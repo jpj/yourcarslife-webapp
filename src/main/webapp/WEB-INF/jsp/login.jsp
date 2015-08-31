@@ -20,7 +20,7 @@
 			<p><input type="submit" value="Log in With Facebook"/></p>
 		</form>
 
-		<p>(If you have an account, login first before associating it to your facebook account)</p>
+		<p>(If you have an account, log in first before associating it to your facebook account)</p>
 
 		<c:if test="${not empty param.login_error}">
 			<div class="error">
