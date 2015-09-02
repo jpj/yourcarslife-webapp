@@ -4,7 +4,6 @@ CACHE MANIFEST
 CACHE:
 ../
 ../dash
-../login
 ../resources/js/jquery/jqplot/jquery.jqplot.css
 ../wro/app.css
 ../wro/app.js
