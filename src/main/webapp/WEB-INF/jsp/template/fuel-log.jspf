@@ -28,17 +28,17 @@
 		</div>
 		<div class="cost">
 			$
-			<input type="number" step=".01" name="cost" value="{{cost}}" placeholder="Cost"/>
+			<input type="number" step=".01" name="cost" value="{{cost}}" placeholder="Cost" autocomplete="off"/>
 		</div>
 		<div class="cost-per-fuel">
 			{{costPerFuel}}/gal.
 		</div>
 		<div class="odometer">
-			<input type="number" step=".1" name="odometer" value="{{odometer}}" placeholder="Odometer"/>
+			<input type="number" step=".1" name="odometer" value="{{odometer}}" placeholder="Odometer" autocomplete="off"/>
 			<span class="units">od</span>
 		</div>
 		<div class="fuel">
-			<input type="number" step=".001" name="fuel" value="{{fuel}}" placeholder="Fuel"/>
+			<input type="number" step=".001" name="fuel" value="{{fuel}}" placeholder="Fuel" autocomplete="off"/>
 			<span class="units">gal</span>
 		</div>
 		<div class="economy">

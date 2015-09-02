@@ -229,9 +229,9 @@
 			<div class="container edit">
 				<form method="get" action="#">
 					<div class="log-date"><input type="datetime-local" value="{{logDateFormattedForDateTimeLocal}}"/></div>
-					<div class="cost"><span class="units">$</span><span class="number"><input type="number" placeholder="Cost" step=".01" value="{{costFmt}}"/></span></div>
-					<div class="odometer"><span class="number"><input type="number" step=".1" value="{{serviceLog.odometer}}" placeholder="Odometer"/></span> <span class="units">mi</span></div>
-					<div class="summary"><input type="text" value="{{serviceLog.summary}}" placeholder="Summary"/></div>
+					<div class="cost"><span class="units">$</span><span class="number"><input type="number" placeholder="Cost" step=".01" value="{{costFmt}}" autocomplete="off"/></span></div>
+					<div class="odometer"><span class="number"><input type="number" step=".1" value="{{serviceLog.odometer}}" placeholder="Odometer" autocomplete="off"/></span> <span class="units">mi</span></div>
+					<div class="summary"><input type="text" value="{{serviceLog.summary}}" placeholder="Summary" autocomplete="off"/></div>
 					<div class="description"><textarea placeholder="Description">{{serviceLog.description}}</textarea></div>
 					<div class="tags"></div>
 					<div>
