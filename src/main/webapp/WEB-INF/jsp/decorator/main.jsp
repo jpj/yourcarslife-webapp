@@ -43,22 +43,10 @@
 				util: {},
 				view: {}
 			};
-
-			solairis.ycl.util.downloadJSAtOnload = function() {
-				var el = document.createElement("script");
-				el.src = '${pageContext.servletContext.contextPath}/wro/app.js';
-				document.body.appendChild(el);
-			}
-
-			if (window.addEventListener)
-				window.addEventListener("load", solairis.ycl.util.downloadJSAtOnload, false);
-			else if (window.attachEvent)
-				window.attachEvent("onload", solairis.ycl.util.downloadJSAtOnload);
-			else
-				window.onload = solairis.ycl.util.downloadJSAtOnload;
 		</script>
 
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/wro/app.css" media="screen"/>
+		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/wro/app.js"></script>
 
 		<decorator:head/>
 
