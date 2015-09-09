@@ -49,6 +49,6 @@ $(function() {
 	if (path.indexOf(badPath, path.length - badPath.length) === -1) {
 		// Start routing
 		window.app = new solairis.ycl.router.App();
-		Backbone.history.start({pushState: true, root: solairis.ycl.constant.BASE_URL + '/'});
+		Backbone.history.start({pushState: false, root: solairis.ycl.constant.BASE_URL + '/'});
 	}
 });

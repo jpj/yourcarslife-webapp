@@ -17,7 +17,7 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	routes: {
-		"": "home",
+		"": "dashboard",
 		"dash": "dashboard",
 		"vehicle/:vehicleId": "getVehicle",
 		"log/fuel/:vehicleId": "getFuelLog",
@@ -31,7 +31,8 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	home: function() {
-		$("#page-content > .content").html( solairis.ycl.template.text["home-template"] );
+		this.navigate('/dash');
+		this.dashboard();
 	},
 
 	dashboard: function() {

@@ -242,9 +242,5 @@
 			<%@include file="../template/vehicle-edit.jspf" %>
 		</script>
 
-		<script type="text/template" id="home-template">
-			<%@include file="../template/home.jspf" %>
-		</script>
-
 	</body>
 </html>
