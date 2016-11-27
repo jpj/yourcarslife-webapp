@@ -24,9 +24,10 @@
 
 	<mvc:view-controller path="/" view-name="home"/>
 	<mvc:view-controller path="/app"/>
-	<mvc:view-controller path="/dash" view-name="app"/>
-	<mvc:view-controller path="/log/**" view-name="app"/>
-	<mvc:view-controller path="/vehicle/**" view-name="app"/>
+	<mvc:view-controller path="/dash"/>
+	<mvc:view-controller path="/log/fuel" view-name="app"/>
+	<mvc:view-controller path="/log/service" view-name="app"/>
+	<mvc:view-controller path="/vehicle" view-name="app"/>
 	<mvc:view-controller path="/login"/>
 	<mvc:view-controller path="/admin"/>
 	<mvc:view-controller path="/vehicle/log/fuel/list" view-name="fuel-log-list"/>

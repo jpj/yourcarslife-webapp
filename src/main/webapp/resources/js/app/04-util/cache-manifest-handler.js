@@ -48,7 +48,9 @@ $(function() {
 	var badPath = 'login';
 	if (path.indexOf(badPath, path.length - badPath.length) === -1) {
 		// Start routing
-		window.app = new solairis.ycl.router.App();
+		if (solairis.ycl.router.App) {
+			window.app = new solairis.ycl.router.App();
+		}
 		Backbone.history.start({pushState: false, root: solairis.ycl.constant.BASE_URL + '/'});
 	}
 });

@@ -1,8 +1,3 @@
-<%--
-    Document   : main
-    Created on : Nov 17, 2010, 6:36:40 AM
-    Author     : josh
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
@@ -11,7 +6,7 @@
 <c:set var="appcacheenabled" value="${param.login_error ne 'true'}"/>
 
 <!doctype html>
-<html<c:if test="${appcacheenabled}"> manifest="${pageContext.servletContext.contextPath}/resources/ycl.appcache"</c:if>>
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="application-name" content="Your Car's Life Web Application v<%@include file="../template/version.jspf" %>"/>
@@ -165,11 +160,11 @@
 			</div>
 			<div class="container view">
 				<div class="name">
-					<a href="<c:url value="/vehicle"/>/{{vehicleId}}">{{name}}</a>
+					<a href="<c:url value="/vehicle"/>#/vehicle/{{vehicleId}}">{{name}}</a>
 				</div>
 				<div class="actions">
-					<a class="fuel-logs" href="<c:url value="/log/fuel"/>/{{vehicleId}}">Fill Up</a>
-					<a class="service-logs" href="<c:url value="/log/service"/>/{{vehicleId}}">Service</a>
+					<a class="fuel-logs" href="<c:url value="/log/fuel"/>#/log/fuel/{{vehicleId}}">Fill Up</a>
+					<a class="service-logs" href="<c:url value="/log/service"/>#/log/service/{{vehicleId}}">Service</a>
 				</div>
 				<div>Notes: <span class="notes">{{notes}}</span></div>
 				<div>Description: <span class="description">{{description}}</span></div>

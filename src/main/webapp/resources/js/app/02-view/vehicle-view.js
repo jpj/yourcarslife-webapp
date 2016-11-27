@@ -38,17 +38,5 @@ solairis.ycl.view.Vehicle = Backbone.View.extend({
 		}
 
 
-	},
-	goToVehicle: function(e) {
-		e.preventDefault();
-		window.app.getVehicle(this.model.get("vehicleId")).navigate('/vehicle/'+this.model.get("vehicleId"));
-	},
-	goToFuelLogs: function(e) {
-		e.preventDefault();
-		window.app.getFuelLog(this.model.get("vehicleId")).navigate('/log/fuel/'+this.model.get("vehicleId"));
-	},
-	goToServiceLogs: function(e) {
-		e.preventDefault();
-		window.app.getServiceLog(this.model.get("vehicleId")).navigate('/log/service/'+this.model.get("vehicleId"));
 	}
 });

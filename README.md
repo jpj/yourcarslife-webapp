@@ -38,3 +38,33 @@ Jetty
         </New>
       </Arg>
     </New>
+
+Run With (New)
+===
+
+	JAVA_HOME=~/jdk1.7.0_79 mvn tomcat:run -Dlogback.ContextSelector=JNDI -Dsolairis.app.config.dir=/home/josh/solairis-app-config
+
+TODO
+====
+
+Short Term
+----------
+
+* Deploy!
+* Make `dataSource` configurable: pass in url, name, pass
+* Move new urls into app cache
+* Have a controller generate the app cache (for version)
+* Move js/css one-by-one out of WRO
+** Remove WRO
+
+Medium Term
+-----------
+
+* Remove Backbone
+* Remove Jquery
+* Remove underscore.js
+
+Long Term
+---------
+
+* Embed servlet container
