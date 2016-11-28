@@ -32,7 +32,7 @@
 	<mvc:view-controller path="/admin"/>
 	<mvc:view-controller path="/vehicle/log/fuel/list" view-name="fuel-log-list"/>
 	<mvc:view-controller path="/vehicle/log/service/list" view-name="service-log-list"/>
-	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
 
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -50,9 +50,9 @@
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/autologger" />
-		<property name="username" value="autologger" />
-		<property name="password" value="testpass" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
 	</bean>
 
 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">

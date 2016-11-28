@@ -1,9 +1,12 @@
 CACHE MANIFEST
-# Version ${project.version}.5
+# Version ${project.version}.11
 
 CACHE:
 ../
 ../dash
+../log/fuel
+../log/service
+../vehicle
 ../resources/js/jquery/jqplot/jquery.jqplot.css
 ../wro/app.css
 ../wro/app.js

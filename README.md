@@ -19,6 +19,8 @@ Configure application in `yourcarslife.properties`
     jndi.prefix=
     jawr.debug.on=false
     jawr.config.reload.interval=86400
+    db.username=autologger
+    db.password=testpass
 
 Expose a JNDI datasource named `jdbc/autologger`. For example
 
@@ -51,10 +53,10 @@ Short Term
 ----------
 
 * Deploy!
-* Make `dataSource` configurable: pass in url, name, pass
+* ~~Make `dataSource` configurable: pass in url, name, pass~~
 * Move new urls into app cache
 * Have a controller generate the app cache (for version)
-* Move js/css one-by-one out of WRO
+* Move js/css one-by-one out of WRO, into appcache
 ** Remove WRO
 
 Medium Term
