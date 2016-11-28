@@ -24,14 +24,15 @@
 
 	<mvc:view-controller path="/" view-name="home"/>
 	<mvc:view-controller path="/app"/>
-	<mvc:view-controller path="/dash" view-name="app"/>
-	<mvc:view-controller path="/log/**" view-name="app"/>
-	<mvc:view-controller path="/vehicle/**" view-name="app"/>
+	<mvc:view-controller path="/dash"/>
+	<mvc:view-controller path="/log/fuel" view-name="app"/>
+	<mvc:view-controller path="/log/service" view-name="app"/>
+	<mvc:view-controller path="/vehicle" view-name="app"/>
 	<mvc:view-controller path="/login"/>
 	<mvc:view-controller path="/admin"/>
 	<mvc:view-controller path="/vehicle/log/fuel/list" view-name="fuel-log-list"/>
 	<mvc:view-controller path="/vehicle/log/service/list" view-name="service-log-list"/>
-	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
 
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -47,8 +48,11 @@
 		<constructor-arg ref="messageSource"/>
 	</bean>
 
-	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="${jndi.prefix}jdbc/autologger"/>
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
 	</bean>
 
 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">

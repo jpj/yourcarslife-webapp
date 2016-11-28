@@ -3,10 +3,8 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<c:set var="appcacheenabled" value="${param.login_error ne 'true'}"/>
-
 <!doctype html>
-<html manifest="<c:url value="/resources/ycl.appcache"/>">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="application-name" content="Your Car's Life Web Application v<%@include file="../template/version.jspf" %>"/>
