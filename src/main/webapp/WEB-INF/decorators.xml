@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/WEB-INF/jsp/decorator">
 	<decorator name="main" page="main.jsp">
+		<pattern>/</pattern>
 		<pattern>/dash</pattern>
 		<pattern>/log/fuel</pattern>
 		<pattern>/log/service</pattern>
 		<pattern>/vehicle</pattern>
 	</decorator>
 	<decorator name="main-nocache" page="main-nocache.jsp">
-		<pattern>/</pattern>
 		<pattern>/login</pattern>
 		<pattern>/logout</pattern>
 	</decorator>

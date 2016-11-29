@@ -6,7 +6,7 @@
 <c:set var="appcacheenabled" value="${param.login_error ne 'true'}"/>
 
 <!doctype html>
-<html manifest="<c:url value="/resources/ycl.appcache"/>">
+<html manifest="${pageContext.request.contextPath}/resources/ycl.appcache">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="application-name" content="Your Car's Life Web Application v<%@include file="../template/version.jspf" %>"/>

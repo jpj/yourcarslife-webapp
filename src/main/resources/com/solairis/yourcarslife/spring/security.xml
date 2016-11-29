@@ -34,11 +34,13 @@
 	<security:http pattern="/favicon.ico" security="none"/>
 	<security:http pattern="/resources/**" security="none"/>
 	<security:http pattern="/wro/**" security="none"/>
+	<security:http pattern="/" security="none"/>
 	<security:http pattern="/dash" security="none"/>
+	<security:http pattern="/log/fuel" security="none"/>
+	<security:http pattern="/log/service" security="none"/>
+	<security:http pattern="/vehicle" security="none"/>
 
 	<security:http use-expressions="true" auto-config="true" entry-point-ref="entryPoint">
-		<security:intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
-		<security:intercept-url pattern="/home" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/api/currentuser" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/signin/**" access="hasAnyRole('ROLE_ANONYMOUS')"/>
