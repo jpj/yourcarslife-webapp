@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Version ${project.version}.1
+# Version ${project.version}
 
 CACHE:
 ../
@@ -12,7 +12,6 @@ CACHE:
 ../wro/app.js
 
 NETWORK:
-../
 ../login
 ../logout
 *
