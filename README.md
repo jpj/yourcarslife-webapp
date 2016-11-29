@@ -52,9 +52,9 @@ TODO
 Short Term
 ----------
 
-* Deploy!
+* ~~Deploy!~~
 * ~~Make `dataSource` configurable: pass in url, name, pass~~
-* Move new urls into app cache
+* ~~Move new urls into app cache~~
 * Have a controller generate the app cache (for version)
 * Move js/css one-by-one out of WRO, into appcache
 ** Remove WRO
