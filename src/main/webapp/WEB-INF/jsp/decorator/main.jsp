@@ -83,27 +83,6 @@
 			</div>
 		</div>
 
-		<script id="dashboard-template" type="text/template">
-					<form action="<c:url value="/connect/facebook" />" method="POST">
-			<p><input type="submit" value="Connect With Facebook"/></p>
-		</form>
-			<h2>Your Vehicles</h2>
-
-			<p class="user-has-no-vehicles">
-				You have no vehicles. The first step is to
-				<a class="add-new-vehicle" href="#">add a vehicle</a>,
-				then you can add fuel and service logs
-				to it.
-			</p>
-
-			<p>
-				(<a class="add-new-vehicle" href="#">Add new vehicle</a>)
-			</p>
-
-			<ul id="vehicles">
-			</ul>
-		</script>
-
 		<script id="fuel-log-page-template" type="text/template">
 			<p class="vehicle-wrapper">
 			</p>
@@ -152,24 +131,6 @@
 
 		<script id="fuel-log-template" type="text/template">
 			<%@include file="../template/fuel-log.jspf" %>
-		</script>
-
-		<script id="vehicle-template" type="text/template">
-			<div class="container edit">
-
-			</div>
-			<div class="container view">
-				<div class="name">
-					<a href="<c:url value="/vehicle"/>#/vehicle/{{vehicleId}}">{{name}}</a>
-				</div>
-				<div class="actions">
-					<a class="fuel-logs" href="<c:url value="/log/fuel"/>#/log/fuel/{{vehicleId}}">Fill Up</a>
-					<a class="service-logs" href="<c:url value="/log/service"/>#/log/service/{{vehicleId}}">Service</a>
-				</div>
-				<div>Notes: <span class="notes">{{notes}}</span></div>
-				<div>Description: <span class="description">{{description}}</span></div>
-				<a href="#" class="delete">Delete</a>
-			</div>
 		</script>
 
 		<script id="header-vehicle-template" type="text/template">
