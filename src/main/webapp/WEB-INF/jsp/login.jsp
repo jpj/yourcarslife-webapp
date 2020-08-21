@@ -11,10 +11,10 @@
 		<title>Login</title>
 	</head>
 	<body>
-<!--		<p>
+		<p>
 			Login to acces your account or
 			<a href="<c:url value="/create-account"/>">create a new one</a>!
-		</p>-->
+		</p>
 
 		<form action="<c:url value="/signin/facebook" />" method="POST">
 			<p><input type="submit" value="Log in With Facebook"/></p>
