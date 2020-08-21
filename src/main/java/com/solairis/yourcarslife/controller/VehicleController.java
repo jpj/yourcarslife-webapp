@@ -9,8 +9,9 @@ import com.solairis.yourcarslife.data.domain.Vehicle;
 import com.solairis.yourcarslife.service.UserService;
 import com.solairis.yourcarslife.service.VehicleService;
 import java.util.List;
-import javax.annotation.Resource;
 import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,9 +36,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping(value="/api/vehicle")
 public class VehicleController {
 
-	@Resource
+	@Autowired
 	private UserService userService;
-	@Resource
+	@Autowired
 	private VehicleService vehicleService;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

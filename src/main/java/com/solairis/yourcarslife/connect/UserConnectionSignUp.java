@@ -10,7 +10,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,9 +28,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class UserConnectionSignUp implements ConnectionSignUp {
 
-	@Resource
+	@Autowired
 	private UserService userService;
-	@Resource
+	@Autowired
 	private UsersConnectionRepository usersConnectionRepository;
 
 	@Override

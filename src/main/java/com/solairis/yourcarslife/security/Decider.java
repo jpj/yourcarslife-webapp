@@ -8,7 +8,8 @@ import com.solairis.yourcarslife.data.domain.Log;
 import com.solairis.yourcarslife.data.domain.Vehicle;
 import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.VehicleService;
-import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class Decider {
 
-	@Resource
+	@Autowired
 	private VehicleService vehicleService;
-	@Resource
+	@Autowired
 	private LogService logService;
 
 	@Transactional

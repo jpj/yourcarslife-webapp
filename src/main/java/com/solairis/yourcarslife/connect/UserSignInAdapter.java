@@ -5,9 +5,10 @@
 package com.solairis.yourcarslife.connect;
 
 import java.util.Collection;
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,9 +31,9 @@ import org.springframework.web.context.request.RequestAttributes;
 @Component
 public class UserSignInAdapter implements SignInAdapter {
 
-	@Resource
+	@Autowired
 	private UserDetailsService principalUserDetailsService;
-	@Resource
+	@Autowired
 	private PersistentTokenBasedRememberMeServices rememberMeServices;
 
 	@Override

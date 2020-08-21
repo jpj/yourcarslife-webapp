@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.solairis.yourcarslife.data.domain">
+	<class lazy="false" name="Tag" table="tag">
+		<id name="tagId">
+			<generator class="native"/>
+		</id>
+		<property name="label"/>
+		<property name="description"/>
+		<many-to-one column="userId" lazy="false" name="user"/>
+		<property name="created" update="false"/>
+		<property name="modified" update="false"/>
+	</class>
+</hibernate-mapping>

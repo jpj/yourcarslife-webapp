@@ -8,7 +8,7 @@ import com.solairis.yourcarslife.data.domain.FuelLog;
 import com.solairis.yourcarslife.service.LogService;
 import com.solairis.yourcarslife.service.VehicleService;
 import java.util.List;
-import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -31,11 +31,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/api/log/fuel")
 public class FuelLogController {
 
-	@Resource
+	@Inject
 	private LogService logService;
-	@Resource
+	@Inject
 	private VehicleService vehicleService;
-	@Resource
+	@Inject
 	private Validator fuelLogValidator;
 
 	@InitBinder(value = {"fuelLog"})

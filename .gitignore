@@ -4,5 +4,7 @@ yourcarslife.log
 nb-configuration.xml
 pom.xml.*
 release.properties
-/.idea/
-/yourcarslife-webapp.iml
+.idea/
+config/
+yourcarslife-webapp.iml
+logger.dir_IS_UNDEFINED/

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.solairis.yourcarslife.data.domain">
+	<class lazy="false" name="Log" table="log">
+		<id name="logId">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="vehicle" column="vehicleId" lazy="false"/>
+		<property name="odometer"/>
+		<property name="cost"/>
+		<property name="created" update="false"/>
+		<property name="modified" update="false"/>
+		<property name="logDate"/>
+		<property name="active"/>
+		<set name="tags" table="tagLog" lazy="false" cascade="all">
+			<key column="logId"/>
+			<many-to-many column="tagId" class="Tag"/>
+		</set>
+		<joined-subclass name="FuelLog" table="logFuel">
+			<key column="logId"/>
+			<property name="fuel"/>
+			<property name="octane"/>
+			<property name="missedFillup"/>
+		</joined-subclass>
+		<joined-subclass name="ServiceLog" table="logService">
+			<key column="logId"/>
+			<property name="summary"/>
+			<property name="description"/>
+		</joined-subclass>
+	</class>
+</hibernate-mapping>

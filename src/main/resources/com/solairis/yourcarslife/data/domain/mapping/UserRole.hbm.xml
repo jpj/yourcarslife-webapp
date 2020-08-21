@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.solairis.yourcarslife.data.domain">
+	<class name="UserRole" table="userRole" lazy="false">
+		<id name="userRoleId">
+			<generator class="native"/>
+		</id>
+		<property name="roleKey"/>
+<!--		<many-to-one name="user" column="userId" not-null="true"/>-->
+	</class>
+</hibernate-mapping>
