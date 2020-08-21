@@ -4,3 +4,5 @@ yourcarslife.log
 nb-configuration.xml
 pom.xml.*
 release.properties
+/.idea/
+/yourcarslife-webapp.iml
