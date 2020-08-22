@@ -25,7 +25,6 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		"connect/:providerId": "connectProvider",
 		"*actions": "defaultAction"
 	},
-
 	defaultAction: function(action) {
 		// 404
 	},
@@ -93,7 +92,6 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	getServiceLog: function(vehicleId) {
-
 		this.serviceLogPageView.options.vehicleId = vehicleId;
 
 		this.serviceLogPageView.collection.fetch({
@@ -104,11 +102,5 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		});
 
 		return this;
-	},
-
-	connectProvider: function(providerId) {
-		// Successfully connected to provider. Forward back to dashboard...
-		this.navigate('/dash');
-		this.dashboard();
 	}
 });

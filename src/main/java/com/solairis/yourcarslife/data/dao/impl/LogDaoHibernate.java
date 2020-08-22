@@ -9,6 +9,8 @@ import com.solairis.yourcarslife.data.exception.LogDaoException;
 import com.solairis.yourcarslife.data.domain.Log;
 import com.solairis.yourcarslife.data.domain.FuelLog;
 import com.solairis.yourcarslife.data.input.LogInputData;
+
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -76,6 +78,8 @@ public class LogDaoHibernate implements LogDao {
 	@Override
 	public void save(Log log) throws LogDaoException {
 		try {
+			log.setCreated(new Date());
+			log.setModified(new Date());
 			this.sessionFactory.getCurrentSession().saveOrUpdate(log);
 		} catch (HibernateException e) {
 			throw new LogDaoException(e);

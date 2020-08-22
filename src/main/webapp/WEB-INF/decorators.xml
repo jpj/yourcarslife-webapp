@@ -6,8 +6,6 @@
 		<pattern>/log/fuel</pattern>
 		<pattern>/log/service</pattern>
 		<pattern>/vehicle</pattern>
-	</decorator>
-	<decorator name="main-nocache" page="main-nocache.jsp">
 		<pattern>/login</pattern>
 		<pattern>/logout</pattern>
 	</decorator>

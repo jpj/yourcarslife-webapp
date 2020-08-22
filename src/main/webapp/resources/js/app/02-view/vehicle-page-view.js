@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 solairis.ycl.view.VehiclePage = Backbone.View.extend({
 	events: {
 		"submit form#edit-vehicle-form": "save"

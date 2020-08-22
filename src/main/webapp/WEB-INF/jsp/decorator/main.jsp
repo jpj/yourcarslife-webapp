@@ -6,7 +6,7 @@
 <c:set var="appcacheenabled" value="${param.login_error ne 'true'}"/>
 
 <!doctype html>
-<html manifest="${pageContext.request.contextPath}/resources/ycl.appcache">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="application-name" content="Your Car's Life Web Application v<%@include file="../template/version.jspf" %>"/>
@@ -76,7 +76,7 @@
 				</nav>
 				<div class="application-error"></div>
 				<div id="page-content">
-					<div class="content">
+					<div id="page-content-content" class="content">
 						<decorator:body/>
 					</div>
 				</div>

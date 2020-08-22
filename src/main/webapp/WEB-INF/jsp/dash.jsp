@@ -4,14 +4,22 @@
 		<title>Dashboard</title>
 
 		<script type="text/javascript">
-			document.addEventListener("DOMContentLoaded", function (event) {
-				var vehicleCollection = new solairis.ycl.collection.VehicleList();
-				var dashboardView = new solairis.ycl.view.Dashboard({
-					"el": $("#page-content > .content"),
-					"collection": vehicleCollection
-				});
+			document.addEventListener("DOMContentLoaded", function () {
+				const mainHolder = document.getElementById("vehicles");
+				const dashboardTemplate = document.getElementById("vehicle-template");
 
-				vehicleCollection.fetch();
+				fetch(solairis.ycl.constant.BASE_URL + '/api/vehicle')
+						.then(response => response.json())
+						.then(data => {
+
+							data.forEach(vehicle => {
+								let template = dashboardTemplate.innerHTML;
+								Object.keys(vehicle).forEach(key => {
+									template = template.replace(new RegExp("{{" + key + "}}", "g"), vehicle[key]);
+								});
+								mainHolder.insertAdjacentHTML("beforeend", template);
+							});
+						});
 			});
 		</script>
 	</head>
@@ -34,23 +42,26 @@
 
 		<ul id="vehicles">
 		</ul>
-		
-		<script id="vehicle-template" type="text/template">
-			<div class="container edit">
 
-			</div>
-			<div class="container view">
-				<div class="name">
-					<a href="<c:url value="/vehicle"/>#/vehicle/{{vehicleId}}">{{name}}</a>
+		<script id="vehicle-template" type="text/template">
+			<li class="vehicle">
+				<div class="container edit">
+
 				</div>
-				<div class="actions">
-					<a class="fuel-logs" href="<c:url value="/log/fuel"/>#/log/fuel/{{vehicleId}}">Fill Up</a>
-					<a class="service-logs" href="<c:url value="/log/service"/>#/log/service/{{vehicleId}}">Service</a>
+				<div class="container view">
+					<div class="name">
+						<a href="<c:url value="/vehicle"/>#/vehicle/{{vehicleId}}">{{name}}</a>
+					</div>
+					<div class="actions">
+						<a class="fuel-logs" href="<c:url value="/log/fuel"/>#/log/fuel/{{vehicleId}}">Fill Up</a>
+						<a class="service-logs"
+						   href="<c:url value="/log/service"/>#/log/service/{{vehicleId}}">Service</a>
+					</div>
+					<div>Notes: <span class="notes">{{notes}}</span></div>
+					<div>Description: <span class="description">{{description}}</span></div>
+					<a href="#" class="delete">Delete</a>
 				</div>
-				<div>Notes: <span class="notes">{{notes}}</span></div>
-				<div>Description: <span class="description">{{description}}</span></div>
-				<a href="#" class="delete">Delete</a>
-			</div>
+			</li>
 		</script>
 	</body>
 </html>
