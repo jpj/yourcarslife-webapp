@@ -194,9 +194,5 @@
 			</a>
 		</script>
 
-		<script type="text/template" id="vehicle-edit-template">
-			<%@include file="../template/vehicle-edit.jspf" %>
-		</script>
-
 	</body>
 </html>
