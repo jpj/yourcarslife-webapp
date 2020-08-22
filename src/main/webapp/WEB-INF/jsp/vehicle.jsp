@@ -10,7 +10,7 @@
             const form = document.getElementById("edit-vehicle-form");
             form.addEventListener("submit", e => {
                 e.preventDefault();
-                document.querySelector(".success").classList.add("message");
+                document.querySelector(".success").classList.remove("show");
 
                 fetch(
                     solairis.ycl.constant.BASE_URL + "/api/vehicle/" + vehicleId,
@@ -31,7 +31,7 @@
                     .then(response => response.json())
                     .then(vehicle => {
                         vehicleCallback(vehicle, form);
-                        document.querySelector(".success").classList.remove("message");
+                        document.querySelector(".success").classList.add("show");
                     });
             });
 

@@ -36,6 +36,9 @@ input.error, textarea.error {
 .success.message {
 	display: none;
 }
+.success.message.show {
+	display: block;
+}
 
 .deleting, .deleting:hover {
 	background-color: red;
