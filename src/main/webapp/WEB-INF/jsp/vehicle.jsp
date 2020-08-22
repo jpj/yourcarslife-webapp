@@ -29,7 +29,10 @@
                     }
                 )
                     .then(response => response.json())
-                    .then(vehicle => vehicleCallback(vehicle, form));
+                    .then(vehicle => {
+                        vehicleCallback(vehicle, form);
+                        document.querySelector(".success").classList.remove("message");
+                    });
             });
 
             fetch(solairis.ycl.constant.BASE_URL + "/api/vehicle/" + vehicleId)
@@ -43,7 +46,6 @@
             form.querySelector("input[name=name]").value = vehicle.name;
             form.querySelector("input[name=description]").value = vehicle.description;
             form.querySelector("textarea[name=notes]").value = vehicle.notes;
-            document.querySelector(".success").classList.remove("message");
         }
     </script>
 </head>
