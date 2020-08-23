@@ -1,7 +1,4 @@
 solairis.ycl.router.App = Backbone.Router.extend({
-
-	vehicles: new solairis.ycl.collection.VehicleList(),
-
 	dashboardView: null,
 	vehicleView: null,
 	fuelLogPageView: null,
@@ -17,35 +14,8 @@ solairis.ycl.router.App = Backbone.Router.extend({
 	},
 
 	routes: {
-		"": "dashboard",
-		"dash": "dashboard",
-		"vehicle/:vehicleId": "getVehicle",
 		"log/fuel/:vehicleId": "getFuelLog",
-		"log/service/:vehicleId": "getServiceLog",
-		"connect/:providerId": "connectProvider",
-		"*actions": "defaultAction"
-	},
-
-	getVehicle: function(vehicleId) {
-		var ctx = this;
-
-		if (!this.vehicleView) {
-			this.vehicleView = new solairis.ycl.view.VehiclePage({el: $("#page-content > .content")});
-		}
-
-		if(this.vehicles.length === 0) {
-			this.vehicles.fetch({
-				success: function() {
-					ctx.vehicleView.model = ctx.vehicles.get(vehicleId);
-					ctx.vehicleView.initialize().render();
-				}
-			});
-		} else {
-			ctx.vehicleView.model = ctx.vehicles.get(vehicleId);
-			ctx.vehicleView.initialize().render();
-		}
-
-		return this;
+		"log/service/:vehicleId": "getServiceLog"
 	},
 
 	getFuelLog: function(vehicleId) {
