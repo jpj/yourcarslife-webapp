@@ -87,6 +87,7 @@
 
 		<script id="fuel-log-page-template" type="text/template">
 			<p class="vehicle-wrapper">
+				Vehicle: <span class="vehicle-name"></span>
 			</p>
 
 			<div id="graph-holder">
@@ -264,6 +265,38 @@
 				<div class="description"></div>
 				<div class="tags"></div>
 			</a>
+		</script>
+
+		<script id="dashboard-template" type="text/template">
+			<h2>Your Vehicles</h2>
+
+			<p>
+				(<a id="add-new-vehicle" class="add-new-vehicle" href="#">Add new vehicle</a>)
+			</p>
+
+			<ul id="vehicles">
+			</ul>
+		</script>
+
+		<script id="vehicle-template" type="text/template">
+			<li class="vehicle">
+				<div class="container edit">
+
+				</div>
+				<div class="container view">
+					<div class="name">
+						<a href="<c:url value="/vehicle"/>#/vehicle/{{vehicleId}}">{{name}}</a>
+					</div>
+					<div class="actions">
+						<a class="fuel-logs" href="<c:url value="/log/fuel"/>#/log/fuel/{{vehicleId}}">Fill Up</a>
+						<a class="service-logs"
+						   href="<c:url value="/log/service"/>#/log/service/{{vehicleId}}">Service</a>
+					</div>
+					<div>Notes: <span class="notes">{{notes}}</span></div>
+					<div>Description: <span class="description">{{description}}</span></div>
+					<a href="#" class="delete" data-vehicleid="{{vehicleId}}">Delete</a>
+				</div>
+			</li>
 		</script>
 
 	</body>
