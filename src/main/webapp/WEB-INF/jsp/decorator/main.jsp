@@ -132,7 +132,77 @@
 		</script>
 
 		<script id="fuel-log-template" type="text/template">
-			<%@include file="../template/fuel-log.jspf" %>
+			<div class="container view">
+				<div class="date">
+					{{logDateFormattedForHumans}}
+				</div>
+				<div class="cost">
+					$ {{cost}}
+				</div>
+				<div class="cost-per-fuel">
+					{{costPerFuel}}/gal.
+				</div>
+				<div class="odometer">
+					{{odometer}}
+					<span class="units">od</span>
+				</div>
+				<div class="fuel">
+					{{fuel}}
+					<span class="units">gal</span>
+				</div>
+				<div class="economy">
+					<span class="number"></span>
+					<span class="units">mpg</span>
+				</div>
+			</div>
+			<div class="container edit">
+				<form method="get" action="#">
+					<div class="date">
+						<input type="datetime-local" name="logDate" value="{{logDateFormattedForDateTimeLocal}}"
+							   placeholder="Date &amp; Time"/>
+					</div>
+					<div class="cost">
+						$
+						<input type="number" step=".01" name="cost" value="{{cost}}" placeholder="Cost"
+							   autocomplete="off"/>
+					</div>
+					<div class="cost-per-fuel">
+						{{costPerFuel}}/gal.
+					</div>
+					<div class="odometer">
+						<input type="number" step=".1" name="odometer" value="{{odometer}}" placeholder="Odometer"
+							   autocomplete="off"/>
+						<span class="units">od</span>
+					</div>
+					<div class="fuel">
+						<input type="number" step=".001" name="fuel" value="{{fuel}}" placeholder="Fuel"
+							   autocomplete="off"/>
+						<span class="units">gal</span>
+					</div>
+					<div class="economy">
+						<span class="number"></span>
+						<span class="units">mpg</span>
+					</div>
+					<div class="separator"></div>
+					<div class="missedFillup">
+						<label>
+							<input type="checkbox" name="missedFillup"/>
+							Missed a Fill-Up
+						</label>
+					</div>
+					<div class="octane">
+						<label>
+							<input type="number" step="1" name="octane" value="{{fuelLog.octane}}"
+								   placeholder="Octane"/>
+							Oct
+						</label>
+					</div>
+					<div class="submit">
+						<input type="submit" name="save" value="Save"/>
+						<input type="submit" name="cancel" value="Cancel"/>
+					</div>
+				</form>
+			</div>
 		</script>
 
 		<script id="header-vehicle-template" type="text/template">
