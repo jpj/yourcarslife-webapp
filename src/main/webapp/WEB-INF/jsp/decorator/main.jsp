@@ -14,6 +14,8 @@
 		<meta name="viewport" content="width=device-width, height=device-height"/>
 		<title><decorator:title default="Welcome!"/> | Your Car's Life</title>
 
+		<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
 		<!-- Jquery JQPlot -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/js/jquery/jqplot/jquery.jqplot.css"/>
 
