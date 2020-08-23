@@ -25,29 +25,6 @@ solairis.ycl.router.App = Backbone.Router.extend({
 		"connect/:providerId": "connectProvider",
 		"*actions": "defaultAction"
 	},
-	defaultAction: function(action) {
-		// 404
-	},
-
-	home: function() {
-		this.navigate('/dash');
-		this.dashboard();
-	},
-
-	dashboard: function() {
-		if (!this.dashboardView) {
-			this.dashboardView = new solairis.ycl.view.Dashboard();
-		}
-		this.dashboardView.setElement($("#page-content > .content"));
-		this.dashboardView.collection = this.vehicles;
-		this.dashboardView.initialize().render();
-
-		if(this.vehicles.length == 0) {
-			this.vehicles.fetch();
-		} else {
-			this.vehicles.trigger("reset");
-		}
-	},
 
 	getVehicle: function(vehicleId) {
 		var ctx = this;
