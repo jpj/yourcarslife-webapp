@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 /**
  *
  * @author josh
@@ -17,6 +19,7 @@ public class User implements Serializable {
 
 	private long userId;
 	private String login;
+	@JsonIgnore
 	private String password;
 	private String email;
 	private String firstName;
