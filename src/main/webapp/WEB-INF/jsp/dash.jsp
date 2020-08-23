@@ -47,8 +47,8 @@
             // Do delete here. Prob addEventListener("click") on the `ul` then look for `delete` anchor
             // on the event.target() etc etc etc
             document.getElementById("vehicles").addEventListener("click", e => {
-                e.preventDefault();
                 if (e.target.classList.contains("delete")) {
+                    e.preventDefault();
                     const containerElement = e.target.parentElement.parentElement;
                     containerElement.classList.add("deleting");
                     if ( confirm("Are you sure you want to delete this vehicle? This action will delete all associated logs with this vehicle and cannot be undone!" ) ) {
