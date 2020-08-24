@@ -80,6 +80,10 @@
                                 template = template.replace(new RegExp("{{" + key + "}}", "g"), vehicle[key]);
                             });
                             mainHolder.insertAdjacentHTML("beforeend", template);
+
+                            fuelLogDb.forAllItems(fuelLogs => {
+                               mainHolder.querySelector(".vehicle-" + vehicle.vehicleId + " .total-log-count").innerHTML = fuelLogs.filter(fuelLog => fuelLog.vehicle.vehicleId = vehicle.vehicleId).length;
+                            });
                         });
                     });
 
