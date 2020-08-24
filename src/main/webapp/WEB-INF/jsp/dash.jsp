@@ -3,43 +3,39 @@
 <head>
     <title>Dashboard</title>
 
+    <script src="<c:url value="/resources/js/db-objects.js"/>"></script>
     <script type="text/javascript">
-        class VehicleDb {
-            constructor() {
-                this.init = false;
-                this.vehicles = [];
-                this.queue = [];
-            }
-
-            loadDb(vehicles) {
-                vehicles.forEach(vehicle => {
-                    this.vehicles.push(vehicle);
-                });
-                this.queue.forEach(item => {
-                   item();
-                });
-                this.init = true;
-            }
-
-            forAllVehicles(func) {
-                if (this.init) {
-                    func(this.vehicles);
-                } else {
-                    this.queue.push(() => func(this.vehicles));
-                }
-            }
-        }
 
         const vehicleDb = new VehicleDb();
+
+        const fuelLogDb = new VehicleDb();
 
         fetch(solairis.ycl.constant.BASE_URL + '/api/vehicle')
             .then(response => response.json())
             .then(vehicles => vehicleDb.loadDb(vehicles));
 
+        vehicleDb.forAllVehicles((vehicles) => {
+            vehicles.forEach(vehicle => {
+                fetch(
+                    solairis.ycl.constant.BASE_URL + '/api/log/fuel?' +
+                    new URLSearchParams({
+                        vehicleId: vehicle.vehicleId,
+                        offset: 0,
+                        numResults: 10000
+                    })
+                )
+                    .then(response => response.json())
+                    .then(logs => {
+                        fuelLogDb.loadDb(logs);
+                    });
+            });
+        });
+
         document.addEventListener("DOMContentLoaded", function () {
 
             const vehicleTemplate = document.getElementById("vehicle-template");
             const dashboardTemplate = document.getElementById("dashboard-template");
+            const fuelLogTemplate = document.getElementById("fuel-log-template");
 
             const pageContainer = document.getElementById("page-content-content");
 
@@ -56,6 +52,21 @@
                             pageContainer.querySelector(".vehicle-wrapper .vehicle-name").innerText = vehicles.filter(vehicle => vehicle.vehicleId === vehicleId)[0].name
                         }
                     );
+
+                    const mainHolder = pageContainer.querySelector("#fuel-logs");
+                    fuelLogDb.forAllVehicles(fuelLogs => {
+                        fuelLogs
+                            .filter(fuelLog => fuelLog.vehicle.vehicleId === vehicleId)
+                            .forEach(fuelLog => {
+                                let template = fuelLogTemplate.innerHTML;
+                                Object.keys(fuelLog).forEach(key => {
+                                    template = template.replace(new RegExp("{{" + key + "}}", "g"), fuelLog[key]);
+                                });
+                                mainHolder.insertAdjacentHTML(
+                                    "beforeend",
+                                    `<article class="fuel-log fuel-log-\${fuelLog.logId}">\${template}</article>`);
+                            });
+                    });
                 } else {
 
                     pageContainer.innerHTML = dashboardTemplate.innerHTML;
