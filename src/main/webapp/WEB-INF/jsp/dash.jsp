@@ -89,7 +89,6 @@
 
                     document.getElementById("add-new-vehicle").addEventListener("click", e => {
                         e.preventDefault();
-                        alert("add new vehicle  clicked");
                         const vehicleName = prompt("New Vehicle Name:");
                         if (vehicleName) {
                             fetch(
