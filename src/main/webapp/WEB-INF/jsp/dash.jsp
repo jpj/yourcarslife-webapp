@@ -6,15 +6,15 @@
     <script src="<c:url value="/resources/js/db-objects.js"/>"></script>
     <script type="text/javascript">
 
-        const vehicleDb = new VehicleDb();
+        const vehicleDb = new ListDb();
 
-        const fuelLogDb = new VehicleDb();
+        const fuelLogDb = new ListDb();
 
         fetch(solairis.ycl.constant.BASE_URL + '/api/vehicle')
             .then(response => response.json())
-            .then(vehicles => vehicleDb.loadDb(vehicles));
+            .then(vehicles => vehicleDb.load(vehicles));
 
-        vehicleDb.forAllVehicles((vehicles) => {
+        vehicleDb.forAllItems((vehicles) => {
             vehicles.forEach(vehicle => {
                 fetch(
                     solairis.ycl.constant.BASE_URL + '/api/log/fuel?' +
@@ -26,7 +26,7 @@
                 )
                     .then(response => response.json())
                     .then(logs => {
-                        fuelLogDb.loadDb(logs);
+                        fuelLogDb.load(logs);
                     });
             });
         });
@@ -47,14 +47,14 @@
 
                     pageContainer.innerHTML = document.getElementById("fuel-log-page-template").innerHTML;
 
-                    vehicleDb.forAllVehicles(
+                    vehicleDb.forAllItems(
                         (vehicles) => {
                             pageContainer.querySelector(".vehicle-wrapper .vehicle-name").innerText = vehicles.filter(vehicle => vehicle.vehicleId === vehicleId)[0].name
                         }
                     );
 
                     const mainHolder = pageContainer.querySelector("#fuel-logs");
-                    fuelLogDb.forAllVehicles(fuelLogs => {
+                    fuelLogDb.forAllItems(fuelLogs => {
                         fuelLogs
                             .filter(fuelLog => fuelLog.vehicle.vehicleId === vehicleId)
                             .forEach(fuelLog => {
@@ -73,7 +73,7 @@
 
                     const mainHolder = document.getElementById("vehicles");
 
-                    vehicleDb.forAllVehicles((vehicles) => {
+                    vehicleDb.forAllItems((vehicles) => {
                         vehicles.forEach(vehicle => {
                             let template = vehicleTemplate.innerHTML;
                             Object.keys(vehicle).forEach(key => {

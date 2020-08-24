@@ -1,5 +1,5 @@
 
-class VehicleDb {
+class ListDb {
     constructor(loader) {
         this.loader = loader;
         this.init = false;
@@ -7,17 +7,15 @@ class VehicleDb {
         this.queue = [];
     }
 
-    loadDb(items) {
-        items.forEach(item => {
-            this.db.push(item);
-        });
+    load(items) {
+        this.db.push(...items);
         this.queue.forEach(item => {
             item();
         });
         this.init = true;
     }
 
-    forAllVehicles(func) {
+    forAllItems(func) {
         if (this.init) {
             func(this.db);
         } else {
