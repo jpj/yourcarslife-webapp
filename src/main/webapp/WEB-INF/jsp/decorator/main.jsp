@@ -25,7 +25,8 @@
 			solairis.ycl = {
 				collection: {},
 				constant: {
-					BASE_URL: '${pageContext.servletContext.contextPath}'
+					BASE_URL: '${pageContext.servletContext.contextPath}',
+					SITE_TITLE: "Your Car's Life"
 				},
 				error: {
 					properties: {}
