@@ -194,7 +194,7 @@
 					</div>
 					<div class="octane">
 						<label>
-							<input type="number" step="1" name="octane" value="{{fuelLog.octane}}"
+							<input type="number" step="1" name="octane" value="{{octane}}"
 								   placeholder="Octane"/>
 							Oct
 						</label>

@@ -32,7 +32,8 @@ solairis.ycl.view.FuelLog = Backbone.View.extend({
 			odometer: this.model.get("odometer") ? this.model.get("odometer").toFixed(1) : this.model.get("odometer"),
 			fuel: this.model.get("fuel") ? this.model.get("fuel").toFixed(3) : this.model.get("fuel"),
 			cost: costFmt,
-			costPerFuel: this.model.get("cost") ? parseFloat((costFmt)/this.model.get("fuel")).toFixed(3) : "-"
+			costPerFuel: this.model.get("cost") ? parseFloat((costFmt)/this.model.get("fuel")).toFixed(3) : "-",
+			octane: this.model.get("octane")
 		}));
 		this.$(".missedFillup input").get(0).checked = this.model.get("missedFillup");
 		this.$(".economy .number").text(economy);
