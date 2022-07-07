@@ -91,7 +91,7 @@
 			<artifactId>spring-expression</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.2.RELEASE</version>
+			<version>5.2.21.RELEASE</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 		<dependency>
