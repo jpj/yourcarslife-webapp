@@ -112,7 +112,7 @@
 			<artifactId>spring-web</artifactId>
 			<groupId>org.springframework</groupId>
 			<type>jar</type>
-			<version>3.1.2.RELEASE</version>
+			<version>6.0.0</version>
 			<scope>${default.dependency.scope}</scope>
 		</dependency>
 
